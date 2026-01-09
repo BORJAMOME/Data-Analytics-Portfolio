@@ -1,0 +1,1825 @@
+Year,District,Neighborhood,Gender,Number
+2018,Centro,Centro,male,66320
+2018,Centro,Centro,female,66032
+2018,Centro,Palacio,male,10978
+2018,Centro,Palacio,female,11537
+2018,Centro,Embajadores,male,23031
+2018,Centro,Embajadores,female,21599
+2018,Centro,Cortes,male,5265
+2018,Centro,Cortes,female,5266
+2018,Centro,Justicia,male,8334
+2018,Centro,Justicia,female,8244
+2018,Centro,Universidad,male,15040
+2018,Centro,Universidad,female,15857
+2018,Centro,Sol,male,3672
+2018,Centro,Sol,female,3529
+2018,Arganzuela,Arganzuela,male,71039
+2018,Arganzuela,Arganzuela,female,81868
+2018,Arganzuela,Imperial,male,10531
+2018,Arganzuela,Imperial,female,12188
+2018,Arganzuela,Acacias,male,16926
+2018,Arganzuela,Acacias,female,19825
+2018,Arganzuela,Chopera,male,8919
+2018,Arganzuela,Chopera,female,10880
+2018,Arganzuela,Legazpi,male,9446
+2018,Arganzuela,Legazpi,female,9806
+2018,Arganzuela,Delicias,male,12736
+2018,Arganzuela,Delicias,female,14737
+2018,Arganzuela,PalosdeMoguer,male,11919
+2018,Arganzuela,PalosdeMoguer,female,13829
+2018,Arganzuela,Atocha,male,562
+2018,Arganzuela,Atocha,female,603
+2018,Retiro,Retiro,male,53863
+2018,Retiro,Retiro,female,65148
+2018,Retiro,Pacífico,male,15000
+2018,Retiro,Pacífico,female,18601
+2018,Retiro,Adelfas,male,8427
+2018,Retiro,Adelfas,female,9918
+2018,Retiro,Estrella,male,10796
+2018,Retiro,Estrella,female,12442
+2018,Retiro,Ibiza,male,9384
+2018,Retiro,Ibiza,female,12088
+2018,Retiro,LosJerónimos,male,3315
+2018,Retiro,LosJerónimos,female,3760
+2018,Retiro,NiñoJesús,male,6941
+2018,Retiro,NiñoJesús,female,8339
+2018,Salamanca,Salamanca,male,63940
+2018,Salamanca,Salamanca,female,81328
+2018,Salamanca,Recoletos,male,7091
+2018,Salamanca,Recoletos,female,8665
+2018,Salamanca,Goya,male,12812
+2018,Salamanca,Goya,female,16792
+2018,Salamanca,FuentedelBerro,male,9043
+2018,Salamanca,FuentedelBerro,female,11704
+2018,Salamanca,Guindalera,male,18570
+2018,Salamanca,Guindalera,female,22689
+2018,Salamanca,Lista,male,9023
+2018,Salamanca,Lista,female,11933
+2018,Salamanca,Castellana,male,7401
+2018,Salamanca,Castellana,female,9545
+2018,Chamartín,Chamartín,male,65144
+2018,Chamartín,Chamartín,female,79750
+2018,Chamartín,ElViso,male,7764
+2018,Chamartín,ElViso,female,9381
+2018,Chamartín,Prosperidad,male,16302
+2018,Chamartín,Prosperidad,female,20220
+2018,Chamartín,CiudadJardín,male,8146
+2018,Chamartín,CiudadJardín,female,10341
+2018,Chamartín,Hispanoamérica,male,14006
+2018,Chamartín,Hispanoamérica,female,17367
+2018,Chamartín,NuevaEspaña,male,11124
+2018,Chamartín,NuevaEspaña,female,13372
+2018,Chamartín,Castilla,male,7802
+2018,Chamartín,Castilla,female,9069
+2018,Tetuán,Tetuán,male,70725
+2018,Tetuán,Tetuán,female,85242
+2018,Tetuán,BellasVistas,male,13056
+2018,Tetuán,BellasVistas,female,15694
+2018,Tetuán,CuatroCaminos,male,15458
+2018,Tetuán,CuatroCaminos,female,18796
+2018,Tetuán,Castillejos,male,9209
+2018,Tetuán,Castillejos,female,11154
+2018,Tetuán,Almenara,male,10209
+2018,Tetuán,Almenara,female,12212
+2018,Tetuán,Valdeacederas,male,11835
+2018,Tetuán,Valdeacederas,female,13736
+2018,Tetuán,Berruguete,male,10958
+2018,Tetuán,Berruguete,female,13650
+2018,Chamberí,Chamberí,male,60825
+2018,Chamberí,Chamberí,female,77593
+2018,Chamberí,Gaztambide,male,9929
+2018,Chamberí,Gaztambide,female,12737
+2018,Chamberí,Arapiles,male,10792
+2018,Chamberí,Arapiles,female,13543
+2018,Chamberí,Trafalgar,male,10922
+2018,Chamberí,Trafalgar,female,13601
+2018,Chamberí,Almagro,male,8737
+2018,Chamberí,Almagro,female,11062
+2018,Chamberí,RíosRosas,male,11820
+2018,Chamberí,RíosRosas,female,15229
+2018,Chamberí,Vallehermoso,male,8625
+2018,Chamberí,Vallehermoso,female,11421
+2018,Fuencarral-El Pardo,Fuencarral-ElPardo,male,114433
+2018,Fuencarral-El Pardo,Fuencarral-ElPardo,female,128495
+2018,Fuencarral-El Pardo,ElPardo,male,1689
+2018,Fuencarral-El Pardo,ElPardo,female,1767
+2018,Fuencarral-El Pardo,Fuentelarreina,male,1437
+2018,Fuencarral-El Pardo,Fuentelarreina,female,1797
+2018,Fuencarral-El Pardo,Peñagrande,male,20719
+2018,Fuencarral-El Pardo,Peñagrande,female,23693
+2018,Fuencarral-El Pardo,Pilar,male,21107
+2018,Fuencarral-El Pardo,Pilar,female,24987
+2018,Fuencarral-El Pardo,LaPaz,male,15826
+2018,Fuencarral-El Pardo,LaPaz,female,17957
+2018,Fuencarral-El Pardo,Valverde,male,29476
+2018,Fuencarral-El Pardo,Valverde,female,32465
+2018,Fuencarral-El Pardo,Mirasierra,male,15329
+2018,Fuencarral-El Pardo,Mirasierra,female,16729
+2018,Fuencarral-El Pardo,ElGoloso,male,8850
+2018,Fuencarral-El Pardo,ElGoloso,female,9100
+2018,Moncloa-Aravaca,Moncloa-Aravaca,male,54243
+2018,Moncloa-Aravaca,Moncloa-Aravaca,female,63592
+2018,Moncloa-Aravaca,CasadeCampo,male,5935
+2018,Moncloa-Aravaca,CasadeCampo,female,6965
+2018,Moncloa-Aravaca,Argüelles,male,10890
+2018,Moncloa-Aravaca,Argüelles,female,13102
+2018,Moncloa-Aravaca,CiudadUniversitaria,male,7314
+2018,Moncloa-Aravaca,CiudadUniversitaria,female,8783
+2018,Moncloa-Aravaca,Valdezarza,male,13458
+2018,Moncloa-Aravaca,Valdezarza,female,15960
+2018,Moncloa-Aravaca,Valdemarín,male,3018
+2018,Moncloa-Aravaca,Valdemarín,female,3542
+2018,Moncloa-Aravaca,ElPlantío,male,1287
+2018,Moncloa-Aravaca,ElPlantío,female,1433
+2018,Moncloa-Aravaca,Aravaca,male,12341
+2018,Moncloa-Aravaca,Aravaca,female,13807
+2018,Latina,Latina,male,109392
+2018,Latina,Latina,female,126393
+2018,Latina,LosCármenes,male,8102
+2018,Latina,LosCármenes,female,9090
+2018,Latina,PuertadelÁngel,male,19061
+2018,Latina,PuertadelÁngel,female,22336
+2018,Latina,Lucero,male,16491
+2018,Latina,Lucero,female,18997
+2018,Latina,Aluche,male,30254
+2018,Latina,Aluche,female,35707
+2018,Latina,Campamento,male,8828
+2018,Latina,Campamento,female,10155
+2018,Latina,CuatroVientos,male,2870
+2018,Latina,CuatroVientos,female,2792
+2018,Latina,Águilas,male,23786
+2018,Latina,Águilas,female,27316
+2018,Carabanchel,Carabanchel,male,115525
+2018,Carabanchel,Carabanchel,female,132695
+2018,Carabanchel,Comillas,male,10164
+2018,Carabanchel,Comillas,female,12084
+2018,Carabanchel,Opañel,male,14796
+2018,Carabanchel,Opañel,female,17696
+2018,Carabanchel,SanIsidro,male,17967
+2018,Carabanchel,SanIsidro,female,20587
+2018,Carabanchel,VistaAlegre,male,20480
+2018,Carabanchel,VistaAlegre,female,24528
+2018,Carabanchel,PuertaBonita,male,15942
+2018,Carabanchel,PuertaBonita,female,17991
+2018,Carabanchel,Buenavista,male,22332
+2018,Carabanchel,Buenavista,female,23884
+2018,Carabanchel,Abrantes,male,13844
+2018,Carabanchel,Abrantes,female,15925
+2018,Usera,Usera,male,64582
+2018,Usera,Usera,female,72396
+2018,Usera,Orcasitas,male,10634
+2018,Usera,Orcasitas,female,11921
+2018,Usera,Orcasur,male,6576
+2018,Usera,Orcasur,female,6996
+2018,Usera,SanFermín,male,11111
+2018,Usera,SanFermín,female,12098
+2018,Usera,Almendrales,male,9824
+2018,Usera,Almendrales,female,11162
+2018,Usera,Moscardó,male,11971
+2018,Usera,Moscardó,female,13755
+2018,Usera,Zofío,male,6371
+2018,Usera,Zofío,female,7326
+2018,Usera,Pradolongo,male,8095
+2018,Usera,Pradolongo,female,9138
+2018,Puente de Vallecas,PuentedeVallecas,male,109044
+2018,Puente de Vallecas,PuentedeVallecas,female,121444
+2018,Puente de Vallecas,Entrevías,male,16314
+2018,Puente de Vallecas,Entrevías,female,17672
+2018,Puente de Vallecas,SanDiego,male,19037
+2018,Puente de Vallecas,SanDiego,female,21230
+2018,Puente de Vallecas,PalomerasBajas,male,18614
+2018,Puente de Vallecas,PalomerasBajas,female,21055
+2018,Puente de Vallecas,PalomerasSureste,male,20115
+2018,Puente de Vallecas,PalomerasSureste,female,22005
+2018,Puente de Vallecas,Portazgo,male,13033
+2018,Puente de Vallecas,Portazgo,female,14875
+2018,Puente de Vallecas,Numancia,male,21931
+2018,Puente de Vallecas,Numancia,female,24607
+2018,Moratalaz,Moratalaz,male,43203
+2018,Moratalaz,Moratalaz,female,51058
+2018,Moratalaz,Pavones,male,4174
+2018,Moratalaz,Pavones,female,4907
+2018,Moratalaz,Horcajo,male,3031
+2018,Moratalaz,Horcajo,female,3295
+2018,Moratalaz,Marroquina,male,12742
+2018,Moratalaz,Marroquina,female,14636
+2018,Moratalaz,MediaLegua,male,8090
+2018,Moratalaz,MediaLegua,female,9667
+2018,Moratalaz,Fontarrón,male,7730
+2018,Moratalaz,Fontarrón,female,9172
+2018,Moratalaz,Vinateros,male,7436
+2018,Moratalaz,Vinateros,female,9381
+2018,Ciudad Lineal,CiudadLineal,male,97301
+2018,Ciudad Lineal,CiudadLineal,female,117162
+2018,Ciudad Lineal,Ventas,male,21405
+2018,Ciudad Lineal,Ventas,female,26339
+2018,Ciudad Lineal,PuebloNuevo,male,28300
+2018,Ciudad Lineal,PuebloNuevo,female,32860
+2018,Ciudad Lineal,Quintana,male,10743
+2018,Ciudad Lineal,Quintana,female,13630
+2018,Ciudad Lineal,Concepción,male,9181
+2018,Ciudad Lineal,Concepción,female,11622
+2018,Ciudad Lineal,SanPascual,male,8100
+2018,Ciudad Lineal,SanPascual,female,9968
+2018,Ciudad Lineal,SanJuanBautista,male,5782
+2018,Ciudad Lineal,SanJuanBautista,female,6651
+2018,Ciudad Lineal,Colina,male,2835
+2018,Ciudad Lineal,Colina,female,3453
+2018,Ciudad Lineal,Atalaya,male,656
+2018,Ciudad Lineal,Atalaya,female,919
+2018,Ciudad Lineal,Costillares,male,10299
+2018,Ciudad Lineal,Costillares,female,11720
+2018,Hortaleza,Hortaleza,male,87338
+2018,Hortaleza,Hortaleza,female,96592
+2018,Hortaleza,Palomas,male,3292
+2018,Hortaleza,Palomas,female,3446
+2018,Hortaleza,Piovera,male,7042
+2018,Hortaleza,Piovera,female,7681
+2018,Hortaleza,Canillas,male,18933
+2018,Hortaleza,Canillas,female,21694
+2018,Hortaleza,PinardelRey,male,24119
+2018,Hortaleza,PinardelRey,female,28155
+2018,Hortaleza,ApóstolSantiago,male,7250
+2018,Hortaleza,ApóstolSantiago,female,8021
+2018,Hortaleza,Valdefuentes,male,26702
+2018,Hortaleza,Valdefuentes,female,27595
+2018,Villaverde,Villaverde,male,69552
+2018,Villaverde,Villaverde,female,75971
+2018,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,21139
+2018,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,23160
+2018,Villaverde,SanCristóbal,male,7527
+2018,Villaverde,SanCristóbal,female,7971
+2018,Villaverde,Butarque,male,8859
+2018,Villaverde,Butarque,female,9409
+2018,Villaverde,LosRosales,male,17874
+2018,Villaverde,LosRosales,female,19101
+2018,Villaverde,Ángeles,male,14153
+2018,Villaverde,Ángeles,female,16330
+2018,Villa de Vallecas,VilladeVallecas,male,52352
+2018,Villa de Vallecas,VilladeVallecas,female,55297
+2018,Villa de Vallecas,CascoHistóricodeVallecas,male,19128
+2018,Villa de Vallecas,CascoHistóricodeVallecas,female,20612
+2018,Villa de Vallecas,SantaEugenia,male,11672
+2018,Villa de Vallecas,SantaEugenia,female,12623
+2018,Villa de Vallecas,EnsanchedeVallecas,male,21552
+2018,Villa de Vallecas,EnsanchedeVallecas,female,22062
+2018,Vicálvaro,Vicálvaro,male,34461
+2018,Vicálvaro,Vicálvaro,female,36501
+2018,Vicálvaro,CascoHistóricodeVicálvaro,male,16585
+2018,Vicálvaro,CascoHistóricodeVicálvaro,female,17615
+2018,Vicálvaro,Valdebernardo,male,8434
+2018,Vicálvaro,Valdebernardo,female,9203
+2018,Vicálvaro,Valderrivas,male,8952
+2018,Vicálvaro,Valderrivas,female,9228
+2018,Vicálvaro,ElCañaveral,male,490
+2018,Vicálvaro,ElCañaveral,female,455
+2018,San Blas-Canillejas,SanBlas-Canillejas,male,73922
+2018,San Blas-Canillejas,SanBlas-Canillejas,female,82227
+2018,San Blas-Canillejas,Simancas,male,12851
+2018,San Blas-Canillejas,Simancas,female,14391
+2018,San Blas-Canillejas,Hellín,male,4093
+2018,San Blas-Canillejas,Hellín,female,4848
+2018,San Blas-Canillejas,Amposta,male,3851
+2018,San Blas-Canillejas,Amposta,female,4495
+2018,San Blas-Canillejas,Arcos,male,11203
+2018,San Blas-Canillejas,Arcos,female,12736
+2018,San Blas-Canillejas,Rosas,male,15197
+2018,San Blas-Canillejas,Rosas,female,16363
+2018,San Blas-Canillejas,Rejas,male,8008
+2018,San Blas-Canillejas,Rejas,female,8307
+2018,San Blas-Canillejas,Canillejas,male,13371
+2018,San Blas-Canillejas,Canillejas,female,15148
+2018,San Blas-Canillejas,ElSalvador,male,5348
+2018,San Blas-Canillejas,ElSalvador,female,5939
+2018,Barajas,Barajas,male,23136
+2018,Barajas,Barajas,female,24700
+2018,Barajas,AlamedadeOsuna,male,9356
+2018,Barajas,AlamedadeOsuna,female,10090
+2018,Barajas,Aeropuerto,male,922
+2018,Barajas,Aeropuerto,female,872
+2018,Barajas,CascoHistóricodeBarajas,male,3550
+2018,Barajas,CascoHistóricodeBarajas,female,3786
+2018,Barajas,Timón,male,5651
+2018,Barajas,Timón,female,6099
+2018,Barajas,Corralejos,male,3657
+2018,Barajas,Corralejos,female,3853
+2019,Centro,Centro,male,67829
+2019,Centro,Centro,female,67052
+2019,Centro,Palacio,male,11213
+2019,Centro,Palacio,female,11710
+2019,Centro,Embajadores,male,23390
+2019,Centro,Embajadores,female,21869
+2019,Centro,Cortes,male,5235
+2019,Centro,Cortes,female,5249
+2019,Centro,Justicia,male,8675
+2019,Centro,Justicia,female,8478
+2019,Centro,Universidad,male,15567
+2019,Centro,Universidad,female,16158
+2019,Centro,Sol,male,3749
+2019,Centro,Sol,female,3588
+2019,Arganzuela,Arganzuela,male,71631
+2019,Arganzuela,Arganzuela,female,82199
+2019,Arganzuela,Imperial,male,10543
+2019,Arganzuela,Imperial,female,12223
+2019,Arganzuela,Acacias,male,16943
+2019,Arganzuela,Acacias,female,19842
+2019,Arganzuela,Chopera,male,9064
+2019,Arganzuela,Chopera,female,10929
+2019,Arganzuela,Legazpi,male,9629
+2019,Arganzuela,Legazpi,female,10023
+2019,Arganzuela,Delicias,male,12880
+2019,Arganzuela,Delicias,female,14778
+2019,Arganzuela,PalosdeMoguer,male,11999
+2019,Arganzuela,PalosdeMoguer,female,13802
+2019,Arganzuela,Atocha,male,573
+2019,Arganzuela,Atocha,female,602
+2019,Retiro,Retiro,male,54098
+2019,Retiro,Retiro,female,65281
+2019,Retiro,Pacífico,male,14992
+2019,Retiro,Pacífico,female,18579
+2019,Retiro,Adelfas,male,8532
+2019,Retiro,Adelfas,female,9942
+2019,Retiro,Estrella,male,10798
+2019,Retiro,Estrella,female,12508
+2019,Retiro,Ibiza,male,9517
+2019,Retiro,Ibiza,female,12129
+2019,Retiro,LosJerónimos,male,3285
+2019,Retiro,LosJerónimos,female,3754
+2019,Retiro,NiñoJesús,male,6974
+2019,Retiro,NiñoJesús,female,8369
+2019,Salamanca,Salamanca,male,64395
+2019,Salamanca,Salamanca,female,81753
+2019,Salamanca,Recoletos,male,7074
+2019,Salamanca,Recoletos,female,8660
+2019,Salamanca,Goya,male,12836
+2019,Salamanca,Goya,female,16813
+2019,Salamanca,FuentedelBerro,male,9197
+2019,Salamanca,FuentedelBerro,female,11874
+2019,Salamanca,Guindalera,male,18809
+2019,Salamanca,Guindalera,female,22800
+2019,Salamanca,Lista,male,9040
+2019,Salamanca,Lista,female,11921
+2019,Salamanca,Castellana,male,7439
+2019,Salamanca,Castellana,female,9685
+2019,Chamartín,Chamartín,male,65565
+2019,Chamartín,Chamartín,female,80300
+2019,Chamartín,ElViso,male,7783
+2019,Chamartín,ElViso,female,9519
+2019,Chamartín,Prosperidad,male,16374
+2019,Chamartín,Prosperidad,female,20277
+2019,Chamartín,CiudadJardín,male,8233
+2019,Chamartín,CiudadJardín,female,10409
+2019,Chamartín,Hispanoamérica,male,14218
+2019,Chamartín,Hispanoamérica,female,17515
+2019,Chamartín,NuevaEspaña,male,11166
+2019,Chamartín,NuevaEspaña,female,13491
+2019,Chamartín,Castilla,male,7791
+2019,Chamartín,Castilla,female,9089
+2019,Tetuán,Tetuán,male,71632
+2019,Tetuán,Tetuán,female,86305
+2019,Tetuán,BellasVistas,male,13292
+2019,Tetuán,BellasVistas,female,15854
+2019,Tetuán,CuatroCaminos,male,15580
+2019,Tetuán,CuatroCaminos,female,19028
+2019,Tetuán,Castillejos,male,9201
+2019,Tetuán,Castillejos,female,11312
+2019,Tetuán,Almenara,male,10314
+2019,Tetuán,Almenara,female,12328
+2019,Tetuán,Valdeacederas,male,12082
+2019,Tetuán,Valdeacederas,female,13939
+2019,Tetuán,Berruguete,male,11163
+2019,Tetuán,Berruguete,female,13844
+2019,Chamberí,Chamberí,male,61308
+2019,Chamberí,Chamberí,female,78140
+2019,Chamberí,Gaztambide,male,10062
+2019,Chamberí,Gaztambide,female,12829
+2019,Chamberí,Arapiles,male,10888
+2019,Chamberí,Arapiles,female,13567
+2019,Chamberí,Trafalgar,male,10958
+2019,Chamberí,Trafalgar,female,13738
+2019,Chamberí,Almagro,male,8726
+2019,Chamberí,Almagro,female,11081
+2019,Chamberí,RíosRosas,male,11982
+2019,Chamberí,RíosRosas,female,15400
+2019,Chamberí,Vallehermoso,male,8692
+2019,Chamberí,Vallehermoso,female,11525
+2019,Fuencarral-El Pardo,Fuencarral-ElPardo,male,115797
+2019,Fuencarral-El Pardo,Fuencarral-ElPardo,female,130224
+2019,Fuencarral-El Pardo,ElPardo,male,1704
+2019,Fuencarral-El Pardo,ElPardo,female,1750
+2019,Fuencarral-El Pardo,Fuentelarreina,male,1481
+2019,Fuencarral-El Pardo,Fuentelarreina,female,1784
+2019,Fuencarral-El Pardo,Peñagrande,male,20743
+2019,Fuencarral-El Pardo,Peñagrande,female,23765
+2019,Fuencarral-El Pardo,Pilar,male,21206
+2019,Fuencarral-El Pardo,Pilar,female,25213
+2019,Fuencarral-El Pardo,LaPaz,male,15800
+2019,Fuencarral-El Pardo,LaPaz,female,17965
+2019,Fuencarral-El Pardo,Valverde,male,30031
+2019,Fuencarral-El Pardo,Valverde,female,33170
+2019,Fuencarral-El Pardo,Mirasierra,male,15704
+2019,Fuencarral-El Pardo,Mirasierra,female,17194
+2019,Fuencarral-El Pardo,ElGoloso,male,9128
+2019,Fuencarral-El Pardo,ElGoloso,female,9383
+2019,Moncloa-Aravaca,Moncloa-Aravaca,male,54934
+2019,Moncloa-Aravaca,Moncloa-Aravaca,female,64489
+2019,Moncloa-Aravaca,CasadeCampo,male,5963
+2019,Moncloa-Aravaca,CasadeCampo,female,7028
+2019,Moncloa-Aravaca,Argüelles,male,10907
+2019,Moncloa-Aravaca,Argüelles,female,13186
+2019,Moncloa-Aravaca,CiudadUniversitaria,male,7398
+2019,Moncloa-Aravaca,CiudadUniversitaria,female,8862
+2019,Moncloa-Aravaca,Valdezarza,male,13637
+2019,Moncloa-Aravaca,Valdezarza,female,16085
+2019,Moncloa-Aravaca,Valdemarín,male,3109
+2019,Moncloa-Aravaca,Valdemarín,female,3617
+2019,Moncloa-Aravaca,ElPlantío,male,1301
+2019,Moncloa-Aravaca,ElPlantío,female,1507
+2019,Moncloa-Aravaca,Aravaca,male,12619
+2019,Moncloa-Aravaca,Aravaca,female,14204
+2019,Latina,Latina,male,110401
+2019,Latina,Latina,female,127753
+2019,Latina,LosCármenes,male,8183
+2019,Latina,LosCármenes,female,9214
+2019,Latina,PuertadelÁngel,male,19189
+2019,Latina,PuertadelÁngel,female,22541
+2019,Latina,Lucero,male,16771
+2019,Latina,Lucero,female,19319
+2019,Latina,Aluche,male,30451
+2019,Latina,Aluche,female,35900
+2019,Latina,Campamento,male,8981
+2019,Latina,Campamento,female,10300
+2019,Latina,CuatroVientos,male,2909
+2019,Latina,CuatroVientos,female,2839
+2019,Latina,Águilas,male,23917
+2019,Latina,Águilas,female,27640
+2019,Carabanchel,Carabanchel,male,117802
+2019,Carabanchel,Carabanchel,female,135238
+2019,Carabanchel,Comillas,male,10230
+2019,Carabanchel,Comillas,female,12173
+2019,Carabanchel,Opañel,male,15125
+2019,Carabanchel,Opañel,female,17926
+2019,Carabanchel,SanIsidro,male,18196
+2019,Carabanchel,SanIsidro,female,20761
+2019,Carabanchel,VistaAlegre,male,20896
+2019,Carabanchel,VistaAlegre,female,25079
+2019,Carabanchel,PuertaBonita,male,16318
+2019,Carabanchel,PuertaBonita,female,18542
+2019,Carabanchel,Buenavista,male,22737
+2019,Carabanchel,Buenavista,female,24318
+2019,Carabanchel,Abrantes,male,14300
+2019,Carabanchel,Abrantes,female,16439
+2019,Usera,Usera,male,65781
+2019,Usera,Usera,female,73720
+2019,Usera,Orcasitas,male,10765
+2019,Usera,Orcasitas,female,12072
+2019,Usera,Orcasur,male,6697
+2019,Usera,Orcasur,female,7111
+2019,Usera,SanFermín,male,11310
+2019,Usera,SanFermín,female,12356
+2019,Usera,Almendrales,male,10043
+2019,Usera,Almendrales,female,11396
+2019,Usera,Moscardó,male,12300
+2019,Usera,Moscardó,female,14053
+2019,Usera,Zofío,male,6509
+2019,Usera,Zofío,female,7459
+2019,Usera,Pradolongo,male,8157
+2019,Usera,Pradolongo,female,9273
+2019,Puente de Vallecas,PuentedeVallecas,male,111183
+2019,Puente de Vallecas,PuentedeVallecas,female,123587
+2019,Puente de Vallecas,Entrevías,male,16677
+2019,Puente de Vallecas,Entrevías,female,18021
+2019,Puente de Vallecas,SanDiego,male,19833
+2019,Puente de Vallecas,SanDiego,female,21831
+2019,Puente de Vallecas,PalomerasBajas,male,18886
+2019,Puente de Vallecas,PalomerasBajas,female,21280
+2019,Puente de Vallecas,PalomerasSureste,male,20253
+2019,Puente de Vallecas,PalomerasSureste,female,22341
+2019,Puente de Vallecas,Portazgo,male,13234
+2019,Puente de Vallecas,Portazgo,female,15116
+2019,Puente de Vallecas,Numancia,male,22300
+2019,Puente de Vallecas,Numancia,female,24998
+2019,Moratalaz,Moratalaz,male,43209
+2019,Moratalaz,Moratalaz,female,51400
+2019,Moratalaz,Pavones,male,4185
+2019,Moratalaz,Pavones,female,4952
+2019,Moratalaz,Horcajo,male,3030
+2019,Moratalaz,Horcajo,female,3304
+2019,Moratalaz,Marroquina,male,12646
+2019,Moratalaz,Marroquina,female,14614
+2019,Moratalaz,MediaLegua,male,8166
+2019,Moratalaz,MediaLegua,female,9705
+2019,Moratalaz,Fontarrón,male,7779
+2019,Moratalaz,Fontarrón,female,9360
+2019,Moratalaz,Vinateros,male,7403
+2019,Moratalaz,Vinateros,female,9465
+2019,Ciudad Lineal,CiudadLineal,male,98370
+2019,Ciudad Lineal,CiudadLineal,female,117900
+2019,Ciudad Lineal,Ventas,male,21619
+2019,Ciudad Lineal,Ventas,female,26480
+2019,Ciudad Lineal,PuebloNuevo,male,28830
+2019,Ciudad Lineal,PuebloNuevo,female,33281
+2019,Ciudad Lineal,Quintana,male,10882
+2019,Ciudad Lineal,Quintana,female,13740
+2019,Ciudad Lineal,Concepción,male,9245
+2019,Ciudad Lineal,Concepción,female,11611
+2019,Ciudad Lineal,SanPascual,male,8154
+2019,Ciudad Lineal,SanPascual,female,9976
+2019,Ciudad Lineal,SanJuanBautista,male,5810
+2019,Ciudad Lineal,SanJuanBautista,female,6677
+2019,Ciudad Lineal,Colina,male,2864
+2019,Ciudad Lineal,Colina,female,3523
+2019,Ciudad Lineal,Atalaya,male,654
+2019,Ciudad Lineal,Atalaya,female,914
+2019,Ciudad Lineal,Costillares,male,10312
+2019,Ciudad Lineal,Costillares,female,11698
+2019,Hortaleza,Hortaleza,male,89307
+2019,Hortaleza,Hortaleza,female,98960
+2019,Hortaleza,Palomas,male,3318
+2019,Hortaleza,Palomas,female,3472
+2019,Hortaleza,Piovera,male,7155
+2019,Hortaleza,Piovera,female,7756
+2019,Hortaleza,Canillas,male,18919
+2019,Hortaleza,Canillas,female,21659
+2019,Hortaleza,PinardelRey,male,24277
+2019,Hortaleza,PinardelRey,female,28414
+2019,Hortaleza,ApóstolSantiago,male,7290
+2019,Hortaleza,ApóstolSantiago,female,8128
+2019,Hortaleza,Valdefuentes,male,28348
+2019,Hortaleza,Valdefuentes,female,29531
+2019,Villaverde,Villaverde,male,71017
+2019,Villaverde,Villaverde,female,77866
+2019,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,21488
+2019,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,23716
+2019,Villaverde,SanCristóbal,male,7834
+2019,Villaverde,SanCristóbal,female,8218
+2019,Villaverde,Butarque,male,9110
+2019,Villaverde,Butarque,female,9760
+2019,Villaverde,LosRosales,male,18071
+2019,Villaverde,LosRosales,female,19516
+2019,Villaverde,Ángeles,male,14514
+2019,Villaverde,Ángeles,female,16656
+2019,Villa de Vallecas,VilladeVallecas,male,53675
+2019,Villa de Vallecas,VilladeVallecas,female,56761
+2019,Villa de Vallecas,CascoHistóricodeVallecas,male,19417
+2019,Villa de Vallecas,CascoHistóricodeVallecas,female,20863
+2019,Villa de Vallecas,SantaEugenia,male,11692
+2019,Villa de Vallecas,SantaEugenia,female,12636
+2019,Villa de Vallecas,EnsanchedeVallecas,male,22566
+2019,Villa de Vallecas,EnsanchedeVallecas,female,23262
+2019,Vicálvaro,Vicálvaro,male,34848
+2019,Vicálvaro,Vicálvaro,female,37278
+2019,Vicálvaro,CascoHistóricodeVicálvaro,male,16781
+2019,Vicálvaro,CascoHistóricodeVicálvaro,female,18035
+2019,Vicálvaro,Valdebernardo,male,8388
+2019,Vicálvaro,Valdebernardo,female,9250
+2019,Vicálvaro,Valderrivas,male,8894
+2019,Vicálvaro,Valderrivas,female,9248
+2019,Vicálvaro,ElCañaveral,male,785
+2019,Vicálvaro,ElCañaveral,female,745
+2019,San Blas-Canillejas,SanBlas-Canillejas,male,74743
+2019,San Blas-Canillejas,SanBlas-Canillejas,female,83423
+2019,San Blas-Canillejas,Simancas,male,13142
+2019,San Blas-Canillejas,Simancas,female,14776
+2019,San Blas-Canillejas,Hellín,male,4181
+2019,San Blas-Canillejas,Hellín,female,4976
+2019,San Blas-Canillejas,Amposta,male,3968
+2019,San Blas-Canillejas,Amposta,female,4607
+2019,San Blas-Canillejas,Arcos,male,11327
+2019,San Blas-Canillejas,Arcos,female,12884
+2019,San Blas-Canillejas,Rosas,male,15213
+2019,San Blas-Canillejas,Rosas,female,16464
+2019,San Blas-Canillejas,Rejas,male,8142
+2019,San Blas-Canillejas,Rejas,female,8551
+2019,San Blas-Canillejas,Canillejas,male,13404
+2019,San Blas-Canillejas,Canillejas,female,15180
+2019,San Blas-Canillejas,ElSalvador,male,5366
+2019,San Blas-Canillejas,ElSalvador,female,5985
+2019,Barajas,Barajas,male,23653
+2019,Barajas,Barajas,female,25319
+2019,Barajas,AlamedadeOsuna,male,9391
+2019,Barajas,AlamedadeOsuna,female,10135
+2019,Barajas,Aeropuerto,male,952
+2019,Barajas,Aeropuerto,female,899
+2019,Barajas,CascoHistóricodeBarajas,male,3648
+2019,Barajas,CascoHistóricodeBarajas,female,3917
+2019,Barajas,Timón,male,5916
+2019,Barajas,Timón,female,6472
+2019,Barajas,Corralejos,male,3746
+2019,Barajas,Corralejos,female,3896
+2020,Centro,Centro,male,71127
+2020,Centro,Centro,female,69346
+2020,Centro,Palacio,male,11628
+2020,Centro,Palacio,female,11965
+2020,Centro,Embajadores,male,24497
+2020,Centro,Embajadores,female,22551
+2020,Centro,Cortes,male,5365
+2020,Centro,Cortes,female,5406
+2020,Centro,Justicia,male,9161
+2020,Centro,Justicia,female,8860
+2020,Centro,Universidad,male,16581
+2020,Centro,Universidad,female,16837
+2020,Centro,Sol,male,3895
+2020,Centro,Sol,female,3727
+2020,Arganzuela,Arganzuela,male,72600
+2020,Arganzuela,Arganzuela,female,83060
+2020,Arganzuela,Imperial,male,10593
+2020,Arganzuela,Imperial,female,12315
+2020,Arganzuela,Acacias,male,17045
+2020,Arganzuela,Acacias,female,19877
+2020,Arganzuela,Chopera,male,9199
+2020,Arganzuela,Chopera,female,11088
+2020,Arganzuela,Legazpi,male,9671
+2020,Arganzuela,Legazpi,female,10139
+2020,Arganzuela,Delicias,male,13216
+2020,Arganzuela,Delicias,female,15017
+2020,Arganzuela,PalosdeMoguer,male,12276
+2020,Arganzuela,PalosdeMoguer,female,14013
+2020,Arganzuela,Atocha,male,600
+2020,Arganzuela,Atocha,female,611
+2020,Retiro,Retiro,male,54517
+2020,Retiro,Retiro,female,65889
+2020,Retiro,Pacífico,male,15108
+2020,Retiro,Pacífico,female,18659
+2020,Retiro,Adelfas,male,8655
+2020,Retiro,Adelfas,female,10130
+2020,Retiro,Estrella,male,10765
+2020,Retiro,Estrella,female,12589
+2020,Retiro,Ibiza,male,9699
+2020,Retiro,Ibiza,female,12294
+2020,Retiro,LosJerónimos,male,3293
+2020,Retiro,LosJerónimos,female,3753
+2020,Retiro,NiñoJesús,male,6997
+2020,Retiro,NiñoJesús,female,8464
+2020,Salamanca,Salamanca,male,65220
+2020,Salamanca,Salamanca,female,82634
+2020,Salamanca,Recoletos,male,7132
+2020,Salamanca,Recoletos,female,8714
+2020,Salamanca,Goya,male,13012
+2020,Salamanca,Goya,female,16933
+2020,Salamanca,FuentedelBerro,male,9285
+2020,Salamanca,FuentedelBerro,female,11964
+2020,Salamanca,Guindalera,male,19146
+2020,Salamanca,Guindalera,female,23160
+2020,Salamanca,Lista,male,9111
+2020,Salamanca,Lista,female,12100
+2020,Salamanca,Castellana,male,7534
+2020,Salamanca,Castellana,female,9763
+2020,Chamartín,Chamartín,male,66424
+2020,Chamartín,Chamartín,female,81127
+2020,Chamartín,ElViso,male,7843
+2020,Chamartín,ElViso,female,9590
+2020,Chamartín,Prosperidad,male,16509
+2020,Chamartín,Prosperidad,female,20431
+2020,Chamartín,CiudadJardín,male,8415
+2020,Chamartín,CiudadJardín,female,10478
+2020,Chamartín,Hispanoamérica,male,14388
+2020,Chamartín,Hispanoamérica,female,17654
+2020,Chamartín,NuevaEspaña,male,11347
+2020,Chamartín,NuevaEspaña,female,13668
+2020,Chamartín,Castilla,male,7922
+2020,Chamartín,Castilla,female,9306
+2020,Tetuán,Tetuán,male,73358
+2020,Tetuán,Tetuán,female,87955
+2020,Tetuán,BellasVistas,male,13646
+2020,Tetuán,BellasVistas,female,16249
+2020,Tetuán,CuatroCaminos,male,15832
+2020,Tetuán,CuatroCaminos,female,19360
+2020,Tetuán,Castillejos,male,9391
+2020,Tetuán,Castillejos,female,11444
+2020,Tetuán,Almenara,male,10551
+2020,Tetuán,Almenara,female,12452
+2020,Tetuán,Valdeacederas,male,12346
+2020,Tetuán,Valdeacederas,female,14199
+2020,Tetuán,Berruguete,male,11592
+2020,Tetuán,Berruguete,female,14251
+2020,Chamberí,Chamberí,male,62136
+2020,Chamberí,Chamberí,female,78730
+2020,Chamberí,Gaztambide,male,10235
+2020,Chamberí,Gaztambide,female,13094
+2020,Chamberí,Arapiles,male,11025
+2020,Chamberí,Arapiles,female,13679
+2020,Chamberí,Trafalgar,male,11161
+2020,Chamberí,Trafalgar,female,13862
+2020,Chamberí,Almagro,male,8795
+2020,Chamberí,Almagro,female,11043
+2020,Chamberí,RíosRosas,male,12132
+2020,Chamberí,RíosRosas,female,15437
+2020,Chamberí,Vallehermoso,male,8788
+2020,Chamberí,Vallehermoso,female,11615
+2020,Fuencarral-El Pardo,Fuencarral-ElPardo,male,117640
+2020,Fuencarral-El Pardo,Fuencarral-ElPardo,female,132333
+2020,Fuencarral-El Pardo,ElPardo,male,1724
+2020,Fuencarral-El Pardo,ElPardo,female,1748
+2020,Fuencarral-El Pardo,Fuentelarreina,male,1500
+2020,Fuencarral-El Pardo,Fuentelarreina,female,1808
+2020,Fuencarral-El Pardo,Peñagrande,male,20899
+2020,Fuencarral-El Pardo,Peñagrande,female,24039
+2020,Fuencarral-El Pardo,Pilar,male,21379
+2020,Fuencarral-El Pardo,Pilar,female,25476
+2020,Fuencarral-El Pardo,LaPaz,male,15754
+2020,Fuencarral-El Pardo,LaPaz,female,17890
+2020,Fuencarral-El Pardo,Valverde,male,30772
+2020,Fuencarral-El Pardo,Valverde,female,33896
+2020,Fuencarral-El Pardo,Mirasierra,male,16222
+2020,Fuencarral-El Pardo,Mirasierra,female,17824
+2020,Fuencarral-El Pardo,ElGoloso,male,9390
+2020,Fuencarral-El Pardo,ElGoloso,female,9652
+2020,Moncloa-Aravaca,Moncloa-Aravaca,male,55975
+2020,Moncloa-Aravaca,Moncloa-Aravaca,female,65708
+2020,Moncloa-Aravaca,CasadeCampo,male,6114
+2020,Moncloa-Aravaca,CasadeCampo,female,7087
+2020,Moncloa-Aravaca,Argüelles,male,11074
+2020,Moncloa-Aravaca,Argüelles,female,13349
+2020,Moncloa-Aravaca,CiudadUniversitaria,male,7483
+2020,Moncloa-Aravaca,CiudadUniversitaria,female,8912
+2020,Moncloa-Aravaca,Valdezarza,male,13918
+2020,Moncloa-Aravaca,Valdezarza,female,16487
+2020,Moncloa-Aravaca,Valdemarín,male,3197
+2020,Moncloa-Aravaca,Valdemarín,female,3760
+2020,Moncloa-Aravaca,ElPlantío,male,1290
+2020,Moncloa-Aravaca,ElPlantío,female,1509
+2020,Moncloa-Aravaca,Aravaca,male,12899
+2020,Moncloa-Aravaca,Aravaca,female,14604
+2020,Latina,Latina,male,112282
+2020,Latina,Latina,female,129857
+2020,Latina,LosCármenes,male,8390
+2020,Latina,LosCármenes,female,9346
+2020,Latina,PuertadelÁngel,male,19529
+2020,Latina,PuertadelÁngel,female,22833
+2020,Latina,Lucero,male,17091
+2020,Latina,Lucero,female,19692
+2020,Latina,Aluche,male,30925
+2020,Latina,Aluche,female,36493
+2020,Latina,Campamento,male,9216
+2020,Latina,Campamento,female,10632
+2020,Latina,CuatroVientos,male,2958
+2020,Latina,CuatroVientos,female,2923
+2020,Latina,Águilas,male,24173
+2020,Latina,Águilas,female,27938
+2020,Carabanchel,Carabanchel,male,121317
+2020,Carabanchel,Carabanchel,female,138879
+2020,Carabanchel,Comillas,male,10566
+2020,Carabanchel,Comillas,female,12435
+2020,Carabanchel,Opañel,male,15389
+2020,Carabanchel,Opañel,female,18292
+2020,Carabanchel,SanIsidro,male,18710
+2020,Carabanchel,SanIsidro,female,21313
+2020,Carabanchel,VistaAlegre,male,21731
+2020,Carabanchel,VistaAlegre,female,25871
+2020,Carabanchel,PuertaBonita,male,16822
+2020,Carabanchel,PuertaBonita,female,19110
+2020,Carabanchel,Buenavista,male,23198
+2020,Carabanchel,Buenavista,female,24812
+2020,Carabanchel,Abrantes,male,14901
+2020,Carabanchel,Abrantes,female,17046
+2020,Usera,Usera,male,67346
+2020,Usera,Usera,female,75548
+2020,Usera,Orcasitas,male,10898
+2020,Usera,Orcasitas,female,12275
+2020,Usera,Orcasur,male,6846
+2020,Usera,Orcasur,female,7308
+2020,Usera,SanFermín,male,11441
+2020,Usera,SanFermín,female,12560
+2020,Usera,Almendrales,male,10362
+2020,Usera,Almendrales,female,11817
+2020,Usera,Moscardó,male,12673
+2020,Usera,Moscardó,female,14455
+2020,Usera,Zofío,male,6773
+2020,Usera,Zofío,female,7639
+2020,Usera,Pradolongo,male,8353
+2020,Usera,Pradolongo,female,9494
+2020,Puente de Vallecas,PuentedeVallecas,male,114235
+2020,Puente de Vallecas,PuentedeVallecas,female,126632
+2020,Puente de Vallecas,Entrevías,male,17076
+2020,Puente de Vallecas,Entrevías,female,18440
+2020,Puente de Vallecas,SanDiego,male,20957
+2020,Puente de Vallecas,SanDiego,female,22942
+2020,Puente de Vallecas,PalomerasBajas,male,19205
+2020,Puente de Vallecas,PalomerasBajas,female,21705
+2020,Puente de Vallecas,PalomerasSureste,male,20610
+2020,Puente de Vallecas,PalomerasSureste,female,22554
+2020,Puente de Vallecas,Portazgo,male,13560
+2020,Puente de Vallecas,Portazgo,female,15408
+2020,Puente de Vallecas,Numancia,male,22827
+2020,Puente de Vallecas,Numancia,female,25583
+2020,Moratalaz,Moratalaz,male,43585
+2020,Moratalaz,Moratalaz,female,52029
+2020,Moratalaz,Pavones,male,4274
+2020,Moratalaz,Pavones,female,5081
+2020,Moratalaz,Horcajo,male,3074
+2020,Moratalaz,Horcajo,female,3361
+2020,Moratalaz,Marroquina,male,12595
+2020,Moratalaz,Marroquina,female,14637
+2020,Moratalaz,MediaLegua,male,8185
+2020,Moratalaz,MediaLegua,female,9766
+2020,Moratalaz,Fontarrón,male,7935
+2020,Moratalaz,Fontarrón,female,9584
+2020,Moratalaz,Vinateros,male,7522
+2020,Moratalaz,Vinateros,female,9600
+2020,Ciudad Lineal,CiudadLineal,male,99966
+2020,Ciudad Lineal,CiudadLineal,female,119901
+2020,Ciudad Lineal,Ventas,male,21942
+2020,Ciudad Lineal,Ventas,female,26949
+2020,Ciudad Lineal,PuebloNuevo,male,29399
+2020,Ciudad Lineal,PuebloNuevo,female,34122
+2020,Ciudad Lineal,Quintana,male,11120
+2020,Ciudad Lineal,Quintana,female,14031
+2020,Ciudad Lineal,Concepción,male,9374
+2020,Ciudad Lineal,Concepción,female,11779
+2020,Ciudad Lineal,SanPascual,male,8152
+2020,Ciudad Lineal,SanPascual,female,9955
+2020,Ciudad Lineal,SanJuanBautista,male,5923
+2020,Ciudad Lineal,SanJuanBautista,female,6802
+2020,Ciudad Lineal,Colina,male,2938
+2020,Ciudad Lineal,Colina,female,3581
+2020,Ciudad Lineal,Atalaya,male,667
+2020,Ciudad Lineal,Atalaya,female,888
+2020,Ciudad Lineal,Costillares,male,10451
+2020,Ciudad Lineal,Costillares,female,11794
+2020,Hortaleza,Hortaleza,male,91659
+2020,Hortaleza,Hortaleza,female,101605
+2020,Hortaleza,Palomas,male,3318
+2020,Hortaleza,Palomas,female,3521
+2020,Hortaleza,Piovera,male,7119
+2020,Hortaleza,Piovera,female,7820
+2020,Hortaleza,Canillas,male,19028
+2020,Hortaleza,Canillas,female,21810
+2020,Hortaleza,PinardelRey,male,24529
+2020,Hortaleza,PinardelRey,female,28633
+2020,Hortaleza,ApóstolSantiago,male,7365
+2020,Hortaleza,ApóstolSantiago,female,8190
+2020,Hortaleza,Valdefuentes,male,30300
+2020,Hortaleza,Valdefuentes,female,31631
+2020,Villaverde,Villaverde,male,73639
+2020,Villaverde,Villaverde,female,80679
+2020,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,22228
+2020,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,24521
+2020,Villaverde,SanCristóbal,male,8222
+2020,Villaverde,SanCristóbal,female,8676
+2020,Villaverde,Butarque,male,9704
+2020,Villaverde,Butarque,female,10322
+2020,Villaverde,LosRosales,male,18336
+2020,Villaverde,LosRosales,female,19771
+2020,Villaverde,Ángeles,male,15149
+2020,Villaverde,Ángeles,female,17389
+2020,Villa de Vallecas,VilladeVallecas,male,55510
+2020,Villa de Vallecas,VilladeVallecas,female,59002
+2020,Villa de Vallecas,CascoHistóricodeVallecas,male,19656
+2020,Villa de Vallecas,CascoHistóricodeVallecas,female,21300
+2020,Villa de Vallecas,SantaEugenia,male,11833
+2020,Villa de Vallecas,SantaEugenia,female,12851
+2020,Villa de Vallecas,EnsanchedeVallecas,male,24021
+2020,Villa de Vallecas,EnsanchedeVallecas,female,24851
+2020,Vicálvaro,Vicálvaro,male,35795
+2020,Vicálvaro,Vicálvaro,female,38253
+2020,Vicálvaro,CascoHistóricodeVicálvaro,male,17220
+2020,Vicálvaro,CascoHistóricodeVicálvaro,female,18446
+2020,Vicálvaro,Valdebernardo,male,8478
+2020,Vicálvaro,Valdebernardo,female,9356
+2020,Vicálvaro,Valderrivas,male,8867
+2020,Vicálvaro,Valderrivas,female,9283
+2020,Vicálvaro,ElCañaveral,male,1230
+2020,Vicálvaro,ElCañaveral,female,1168
+2020,San Blas-Canillejas,SanBlas-Canillejas,male,76252
+2020,San Blas-Canillejas,SanBlas-Canillejas,female,84970
+2020,San Blas-Canillejas,Simancas,male,13574
+2020,San Blas-Canillejas,Simancas,female,15124
+2020,San Blas-Canillejas,Hellín,male,4260
+2020,San Blas-Canillejas,Hellín,female,5082
+2020,San Blas-Canillejas,Amposta,male,4108
+2020,San Blas-Canillejas,Amposta,female,4766
+2020,San Blas-Canillejas,Arcos,male,11612
+2020,San Blas-Canillejas,Arcos,female,13080
+2020,San Blas-Canillejas,Rosas,male,15253
+2020,San Blas-Canillejas,Rosas,female,16541
+2020,San Blas-Canillejas,Rejas,male,8395
+2020,San Blas-Canillejas,Rejas,female,8904
+2020,San Blas-Canillejas,Canillejas,male,13607
+2020,San Blas-Canillejas,Canillejas,female,15440
+2020,San Blas-Canillejas,ElSalvador,male,5443
+2020,San Blas-Canillejas,ElSalvador,female,6033
+2020,Barajas,Barajas,male,24149
+2020,Barajas,Barajas,female,25861
+2020,Barajas,AlamedadeOsuna,male,9533
+2020,Barajas,AlamedadeOsuna,female,10287
+2020,Barajas,Aeropuerto,male,975
+2020,Barajas,Aeropuerto,female,925
+2020,Barajas,CascoHistóricodeBarajas,male,3688
+2020,Barajas,CascoHistóricodeBarajas,female,3995
+2020,Barajas,Timón,male,6151
+2020,Barajas,Timón,female,6702
+2020,Barajas,Corralejos,male,3802
+2020,Barajas,Corralejos,female,3952
+2021,Centro,Centro,male,71881
+2021,Centro,Centro,female,69355
+2021,Centro,Palacio,male,11632
+2021,Centro,Palacio,female,11952
+2021,Centro,Embajadores,male,24767
+2021,Centro,Embajadores,female,22471
+2021,Centro,Cortes,male,5379
+2021,Centro,Cortes,female,5408
+2021,Centro,Justicia,male,9291
+2021,Centro,Justicia,female,8917
+2021,Centro,Universidad,male,16692
+2021,Centro,Universidad,female,16734
+2021,Centro,Sol,male,4120
+2021,Centro,Sol,female,3873
+2021,Arganzuela,Arganzuela,male,72000
+2021,Arganzuela,Arganzuela,female,82243
+2021,Arganzuela,Imperial,male,10446
+2021,Arganzuela,Imperial,female,12150
+2021,Arganzuela,Acacias,male,16741
+2021,Arganzuela,Acacias,female,19654
+2021,Arganzuela,Chopera,male,9118
+2021,Arganzuela,Chopera,female,10959
+2021,Arganzuela,Legazpi,male,9574
+2021,Arganzuela,Legazpi,female,9998
+2021,Arganzuela,Delicias,male,13352
+2021,Arganzuela,Delicias,female,15022
+2021,Arganzuela,PalosdeMoguer,male,12059
+2021,Arganzuela,PalosdeMoguer,female,13726
+2021,Arganzuela,Atocha,male,710
+2021,Arganzuela,Atocha,female,734
+2021,Retiro,Retiro,male,53800
+2021,Retiro,Retiro,female,64757
+2021,Retiro,Pacífico,male,14808
+2021,Retiro,Pacífico,female,18259
+2021,Retiro,Adelfas,male,8610
+2021,Retiro,Adelfas,female,10043
+2021,Retiro,Estrella,male,10636
+2021,Retiro,Estrella,female,12415
+2021,Retiro,Ibiza,male,9549
+2021,Retiro,Ibiza,female,12009
+2021,Retiro,LosJerónimos,male,3232
+2021,Retiro,LosJerónimos,female,3696
+2021,Retiro,NiñoJesús,male,6965
+2021,Retiro,NiñoJesús,female,8335
+2021,Salamanca,Salamanca,male,64540
+2021,Salamanca,Salamanca,female,81476
+2021,Salamanca,Recoletos,male,7048
+2021,Salamanca,Recoletos,female,8581
+2021,Salamanca,Goya,male,12820
+2021,Salamanca,Goya,female,16659
+2021,Salamanca,FuentedelBerro,male,9155
+2021,Salamanca,FuentedelBerro,female,11808
+2021,Salamanca,Guindalera,male,18991
+2021,Salamanca,Guindalera,female,22948
+2021,Salamanca,Lista,male,9029
+2021,Salamanca,Lista,female,11835
+2021,Salamanca,Castellana,male,7497
+2021,Salamanca,Castellana,female,9645
+2021,Chamartín,Chamartín,male,65599
+2021,Chamartín,Chamartín,female,80101
+2021,Chamartín,ElViso,male,7811
+2021,Chamartín,ElViso,female,9538
+2021,Chamartín,Prosperidad,male,16219
+2021,Chamartín,Prosperidad,female,20084
+2021,Chamartín,CiudadJardín,male,8306
+2021,Chamartín,CiudadJardín,female,10312
+2021,Chamartín,Hispanoamérica,male,14214
+2021,Chamartín,Hispanoamérica,female,17428
+2021,Chamartín,NuevaEspaña,male,11150
+2021,Chamartín,NuevaEspaña,female,13547
+2021,Chamartín,Castilla,male,7899
+2021,Chamartín,Castilla,female,9192
+2021,Tetuán,Tetuán,male,72752
+2021,Tetuán,Tetuán,female,87097
+2021,Tetuán,BellasVistas,male,13461
+2021,Tetuán,BellasVistas,female,16004
+2021,Tetuán,CuatroCaminos,male,15717
+2021,Tetuán,CuatroCaminos,female,19100
+2021,Tetuán,Castillejos,male,9217
+2021,Tetuán,Castillejos,female,11324
+2021,Tetuán,Almenara,male,10470
+2021,Tetuán,Almenara,female,12268
+2021,Tetuán,Valdeacederas,male,12414
+2021,Tetuán,Valdeacederas,female,14211
+2021,Tetuán,Berruguete,male,11473
+2021,Tetuán,Berruguete,female,14190
+2021,Chamberí,Chamberí,male,61313
+2021,Chamberí,Chamberí,female,77354
+2021,Chamberí,Gaztambide,male,10106
+2021,Chamberí,Gaztambide,female,12842
+2021,Chamberí,Arapiles,male,10884
+2021,Chamberí,Arapiles,female,13376
+2021,Chamberí,Trafalgar,male,11029
+2021,Chamberí,Trafalgar,female,13599
+2021,Chamberí,Almagro,male,8667
+2021,Chamberí,Almagro,female,10879
+2021,Chamberí,RíosRosas,male,11977
+2021,Chamberí,RíosRosas,female,15239
+2021,Chamberí,Vallehermoso,male,8650
+2021,Chamberí,Vallehermoso,female,11419
+2021,Fuencarral-El Pardo,Fuencarral-ElPardo,male,116520
+2021,Fuencarral-El Pardo,Fuencarral-ElPardo,female,131172
+2021,Fuencarral-El Pardo,ElPardo,male,1723
+2021,Fuencarral-El Pardo,ElPardo,female,1720
+2021,Fuencarral-El Pardo,Fuentelarreina,male,1511
+2021,Fuencarral-El Pardo,Fuentelarreina,female,1845
+2021,Fuencarral-El Pardo,Peñagrande,male,20584
+2021,Fuencarral-El Pardo,Peñagrande,female,23799
+2021,Fuencarral-El Pardo,Pilar,male,20963
+2021,Fuencarral-El Pardo,Pilar,female,25007
+2021,Fuencarral-El Pardo,LaPaz,male,15368
+2021,Fuencarral-El Pardo,LaPaz,female,17637
+2021,Fuencarral-El Pardo,Valverde,male,30504
+2021,Fuencarral-El Pardo,Valverde,female,33538
+2021,Fuencarral-El Pardo,Mirasierra,male,16520
+2021,Fuencarral-El Pardo,Mirasierra,female,18045
+2021,Fuencarral-El Pardo,ElGoloso,male,9347
+2021,Fuencarral-El Pardo,ElGoloso,female,9581
+2021,Moncloa-Aravaca,Moncloa-Aravaca,male,55588
+2021,Moncloa-Aravaca,Moncloa-Aravaca,female,65246
+2021,Moncloa-Aravaca,CasadeCampo,male,6058
+2021,Moncloa-Aravaca,CasadeCampo,female,7008
+2021,Moncloa-Aravaca,Argüelles,male,10974
+2021,Moncloa-Aravaca,Argüelles,female,13188
+2021,Moncloa-Aravaca,CiudadUniversitaria,male,7417
+2021,Moncloa-Aravaca,CiudadUniversitaria,female,8758
+2021,Moncloa-Aravaca,Valdezarza,male,13744
+2021,Moncloa-Aravaca,Valdezarza,female,16347
+2021,Moncloa-Aravaca,Valdemarín,male,3163
+2021,Moncloa-Aravaca,Valdemarín,female,3693
+2021,Moncloa-Aravaca,ElPlantío,male,1336
+2021,Moncloa-Aravaca,ElPlantío,female,1580
+2021,Moncloa-Aravaca,Aravaca,male,12896
+2021,Moncloa-Aravaca,Aravaca,female,14672
+2021,Latina,Latina,male,111209
+2021,Latina,Latina,female,128946
+2021,Latina,LosCármenes,male,8338
+2021,Latina,LosCármenes,female,9239
+2021,Latina,PuertadelÁngel,male,19344
+2021,Latina,PuertadelÁngel,female,22638
+2021,Latina,Lucero,male,17056
+2021,Latina,Lucero,female,19520
+2021,Latina,Aluche,male,30626
+2021,Latina,Aluche,female,36342
+2021,Latina,Campamento,male,9029
+2021,Latina,Campamento,female,10550
+2021,Latina,CuatroVientos,male,2926
+2021,Latina,CuatroVientos,female,2948
+2021,Latina,Águilas,male,23890
+2021,Latina,Águilas,female,27709
+2021,Carabanchel,Carabanchel,male,120600
+2021,Carabanchel,Carabanchel,female,138033
+2021,Carabanchel,Comillas,male,10471
+2021,Carabanchel,Comillas,female,12224
+2021,Carabanchel,Opañel,male,15385
+2021,Carabanchel,Opañel,female,18271
+2021,Carabanchel,SanIsidro,male,18584
+2021,Carabanchel,SanIsidro,female,21144
+2021,Carabanchel,VistaAlegre,male,21440
+2021,Carabanchel,VistaAlegre,female,25642
+2021,Carabanchel,PuertaBonita,male,16868
+2021,Carabanchel,PuertaBonita,female,19079
+2021,Carabanchel,Buenavista,male,23176
+2021,Carabanchel,Buenavista,female,24832
+2021,Carabanchel,Abrantes,male,14676
+2021,Carabanchel,Abrantes,female,16841
+2021,Usera,Usera,male,67230
+2021,Usera,Usera,female,75224
+2021,Usera,Orcasitas,male,10880
+2021,Usera,Orcasitas,female,12215
+2021,Usera,Orcasur,male,6842
+2021,Usera,Orcasur,female,7299
+2021,Usera,SanFermín,male,11382
+2021,Usera,SanFermín,female,12456
+2021,Usera,Almendrales,male,10543
+2021,Usera,Almendrales,female,11973
+2021,Usera,Moscardó,male,12435
+2021,Usera,Moscardó,female,14188
+2021,Usera,Zofío,male,6733
+2021,Usera,Zofío,female,7603
+2021,Usera,Pradolongo,male,8415
+2021,Usera,Pradolongo,female,9490
+2021,Puente de Vallecas,PuentedeVallecas,male,113355
+2021,Puente de Vallecas,PuentedeVallecas,female,125702
+2021,Puente de Vallecas,Entrevías,male,16925
+2021,Puente de Vallecas,Entrevías,female,18314
+2021,Puente de Vallecas,SanDiego,male,20793
+2021,Puente de Vallecas,SanDiego,female,22781
+2021,Puente de Vallecas,PalomerasBajas,male,18959
+2021,Puente de Vallecas,PalomerasBajas,female,21509
+2021,Puente de Vallecas,PalomerasSureste,male,20429
+2021,Puente de Vallecas,PalomerasSureste,female,22495
+2021,Puente de Vallecas,Portazgo,male,13508
+2021,Puente de Vallecas,Portazgo,female,15228
+2021,Puente de Vallecas,Numancia,male,22741
+2021,Puente de Vallecas,Numancia,female,25375
+2021,Moratalaz,Moratalaz,male,42662
+2021,Moratalaz,Moratalaz,female,51148
+2021,Moratalaz,Pavones,male,4081
+2021,Moratalaz,Pavones,female,4891
+2021,Moratalaz,Horcajo,male,3045
+2021,Moratalaz,Horcajo,female,3326
+2021,Moratalaz,Marroquina,male,12289
+2021,Moratalaz,Marroquina,female,14369
+2021,Moratalaz,MediaLegua,male,7992
+2021,Moratalaz,MediaLegua,female,9668
+2021,Moratalaz,Fontarrón,male,7841
+2021,Moratalaz,Fontarrón,female,9449
+2021,Moratalaz,Vinateros,male,7414
+2021,Moratalaz,Vinateros,female,9445
+2021,Ciudad Lineal,CiudadLineal,male,98514
+2021,Ciudad Lineal,CiudadLineal,female,118304
+2021,Ciudad Lineal,Ventas,male,21721
+2021,Ciudad Lineal,Ventas,female,26690
+2021,Ciudad Lineal,PuebloNuevo,male,28931
+2021,Ciudad Lineal,PuebloNuevo,female,33800
+2021,Ciudad Lineal,Quintana,male,10931
+2021,Ciudad Lineal,Quintana,female,13690
+2021,Ciudad Lineal,Concepción,male,9205
+2021,Ciudad Lineal,Concepción,female,11522
+2021,Ciudad Lineal,SanPascual,male,8017
+2021,Ciudad Lineal,SanPascual,female,9806
+2021,Ciudad Lineal,SanJuanBautista,male,5828
+2021,Ciudad Lineal,SanJuanBautista,female,6656
+2021,Ciudad Lineal,Colina,male,2857
+2021,Ciudad Lineal,Colina,female,3510
+2021,Ciudad Lineal,Atalaya,male,687
+2021,Ciudad Lineal,Atalaya,female,893
+2021,Ciudad Lineal,Costillares,male,10337
+2021,Ciudad Lineal,Costillares,female,11737
+2021,Hortaleza,Hortaleza,male,91585
+2021,Hortaleza,Hortaleza,female,101643
+2021,Hortaleza,Palomas,male,3360
+2021,Hortaleza,Palomas,female,3531
+2021,Hortaleza,Piovera,male,7049
+2021,Hortaleza,Piovera,female,7786
+2021,Hortaleza,Canillas,male,18757
+2021,Hortaleza,Canillas,female,21524
+2021,Hortaleza,PinardelRey,male,24116
+2021,Hortaleza,PinardelRey,female,28378
+2021,Hortaleza,ApóstolSantiago,male,7338
+2021,Hortaleza,ApóstolSantiago,female,8135
+2021,Hortaleza,Valdefuentes,male,30965
+2021,Hortaleza,Valdefuentes,female,32289
+2021,Villaverde,Villaverde,male,73947
+2021,Villaverde,Villaverde,female,80861
+2021,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,22180
+2021,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,24457
+2021,Villaverde,SanCristóbal,male,8345
+2021,Villaverde,SanCristóbal,female,8641
+2021,Villaverde,Butarque,male,10048
+2021,Villaverde,Butarque,female,10674
+2021,Villaverde,LosRosales,male,18145
+2021,Villaverde,LosRosales,female,19645
+2021,Villaverde,Ángeles,male,15229
+2021,Villaverde,Ángeles,female,17444
+2021,Villa de Vallecas,VilladeVallecas,male,55606
+2021,Villa de Vallecas,VilladeVallecas,female,59127
+2021,Villa de Vallecas,CascoHistóricodeVallecas,male,19284
+2021,Villa de Vallecas,CascoHistóricodeVallecas,female,20957
+2021,Villa de Vallecas,SantaEugenia,male,11635
+2021,Villa de Vallecas,SantaEugenia,female,12653
+2021,Villa de Vallecas,EnsanchedeVallecas,male,24687
+2021,Villa de Vallecas,EnsanchedeVallecas,female,25517
+2021,Vicálvaro,Vicálvaro,male,36497
+2021,Vicálvaro,Vicálvaro,female,38988
+2021,Vicálvaro,CascoHistóricodeVicálvaro,male,17141
+2021,Vicálvaro,CascoHistóricodeVicálvaro,female,18407
+2021,Vicálvaro,Valdebernardo,male,8350
+2021,Vicálvaro,Valdebernardo,female,9196
+2021,Vicálvaro,Valderrivas,male,8752
+2021,Vicálvaro,Valderrivas,female,9209
+2021,Vicálvaro,ElCañaveral,male,2254
+2021,Vicálvaro,ElCañaveral,female,2176
+2021,San Blas-Canillejas,SanBlas-Canillejas,male,75788
+2021,San Blas-Canillejas,SanBlas-Canillejas,female,84470
+2021,San Blas-Canillejas,Simancas,male,13460
+2021,San Blas-Canillejas,Simancas,female,14991
+2021,San Blas-Canillejas,Hellín,male,4300
+2021,San Blas-Canillejas,Hellín,female,5059
+2021,San Blas-Canillejas,Amposta,male,4091
+2021,San Blas-Canillejas,Amposta,female,4794
+2021,San Blas-Canillejas,Arcos,male,11610
+2021,San Blas-Canillejas,Arcos,female,13032
+2021,San Blas-Canillejas,Rosas,male,15121
+2021,San Blas-Canillejas,Rosas,female,16413
+2021,San Blas-Canillejas,Rejas,male,8284
+2021,San Blas-Canillejas,Rejas,female,8814
+2021,San Blas-Canillejas,Canillejas,male,13556
+2021,San Blas-Canillejas,Canillejas,female,15369
+2021,San Blas-Canillejas,ElSalvador,male,5366
+2021,San Blas-Canillejas,ElSalvador,female,5998
+2021,Barajas,Barajas,male,24171
+2021,Barajas,Barajas,female,25906
+2021,Barajas,AlamedadeOsuna,male,9430
+2021,Barajas,AlamedadeOsuna,female,10227
+2021,Barajas,Aeropuerto,male,988
+2021,Barajas,Aeropuerto,female,930
+2021,Barajas,CascoHistóricodeBarajas,male,3593
+2021,Barajas,CascoHistóricodeBarajas,female,3911
+2021,Barajas,Timón,male,6379
+2021,Barajas,Timón,female,6955
+2021,Barajas,Corralejos,male,3781
+2021,Barajas,Corralejos,female,3883
+2022,Centro,Centro,male,70986
+2022,Centro,Centro,female,68696
+2022,Centro,Palacio,male,11568
+2022,Centro,Palacio,female,11849
+2022,Centro,Embajadores,male,24271
+2022,Centro,Embajadores,female,22173
+2022,Centro,Cortes,male,5345
+2022,Centro,Cortes,female,5483
+2022,Centro,Justicia,male,9221
+2022,Centro,Justicia,female,8794
+2022,Centro,Universidad,male,16349
+2022,Centro,Universidad,female,16512
+2022,Centro,Sol,male,4232
+2022,Centro,Sol,female,3885
+2022,Arganzuela,Arganzuela,male,71466
+2022,Arganzuela,Arganzuela,female,81172
+2022,Arganzuela,Imperial,male,10436
+2022,Arganzuela,Imperial,female,12020
+2022,Arganzuela,Acacias,male,16635
+2022,Arganzuela,Acacias,female,19403
+2022,Arganzuela,Chopera,male,8994
+2022,Arganzuela,Chopera,female,10740
+2022,Arganzuela,Legazpi,male,9543
+2022,Arganzuela,Legazpi,female,9926
+2022,Arganzuela,Delicias,male,13296
+2022,Arganzuela,Delicias,female,14947
+2022,Arganzuela,PalosdeMoguer,male,11766
+2022,Arganzuela,PalosdeMoguer,female,13312
+2022,Arganzuela,Atocha,male,796
+2022,Arganzuela,Atocha,female,824
+2022,Retiro,Retiro,male,53445
+2022,Retiro,Retiro,female,64227
+2022,Retiro,Pacífico,male,14613
+2022,Retiro,Pacífico,female,18132
+2022,Retiro,Adelfas,male,8675
+2022,Retiro,Adelfas,female,10040
+2022,Retiro,Estrella,male,10514
+2022,Retiro,Estrella,female,12266
+2022,Retiro,Ibiza,male,9541
+2022,Retiro,Ibiza,female,11836
+2022,Retiro,LosJerónimos,male,3237
+2022,Retiro,LosJerónimos,female,3689
+2022,Retiro,NiñoJesús,male,6865
+2022,Retiro,NiñoJesús,female,8264
+2022,Salamanca,Salamanca,male,64343
+2022,Salamanca,Salamanca,female,81114
+2022,Salamanca,Recoletos,male,7044
+2022,Salamanca,Recoletos,female,8603
+2022,Salamanca,Goya,male,12840
+2022,Salamanca,Goya,female,16601
+2022,Salamanca,FuentedelBerro,male,9087
+2022,Salamanca,FuentedelBerro,female,11761
+2022,Salamanca,Guindalera,male,18925
+2022,Salamanca,Guindalera,female,22796
+2022,Salamanca,Lista,male,8997
+2022,Salamanca,Lista,female,11788
+2022,Salamanca,Castellana,male,7450
+2022,Salamanca,Castellana,female,9565
+2022,Chamartín,Chamartín,male,65080
+2022,Chamartín,Chamartín,female,79291
+2022,Chamartín,ElViso,male,7767
+2022,Chamartín,ElViso,female,9414
+2022,Chamartín,Prosperidad,male,16070
+2022,Chamartín,Prosperidad,female,19893
+2022,Chamartín,CiudadJardín,male,8181
+2022,Chamartín,CiudadJardín,female,10229
+2022,Chamartín,Hispanoamérica,male,14188
+2022,Chamartín,Hispanoamérica,female,17275
+2022,Chamartín,NuevaEspaña,male,11015
+2022,Chamartín,NuevaEspaña,female,13351
+2022,Chamartín,Castilla,male,7859
+2022,Chamartín,Castilla,female,9129
+2022,Tetuán,Tetuán,male,71636
+2022,Tetuán,Tetuán,female,85797
+2022,Tetuán,BellasVistas,male,13231
+2022,Tetuán,BellasVistas,female,15764
+2022,Tetuán,CuatroCaminos,male,15436
+2022,Tetuán,CuatroCaminos,female,19035
+2022,Tetuán,Castillejos,male,9097
+2022,Tetuán,Castillejos,female,11185
+2022,Tetuán,Almenara,male,10391
+2022,Tetuán,Almenara,female,12203
+2022,Tetuán,Valdeacederas,male,12277
+2022,Tetuán,Valdeacederas,female,13863
+2022,Tetuán,Berruguete,male,11204
+2022,Tetuán,Berruguete,female,13747
+2022,Chamberí,Chamberí,male,60867
+2022,Chamberí,Chamberí,female,76420
+2022,Chamberí,Gaztambide,male,10058
+2022,Chamberí,Gaztambide,female,12601
+2022,Chamberí,Arapiles,male,10770
+2022,Chamberí,Arapiles,female,13202
+2022,Chamberí,Trafalgar,male,11063
+2022,Chamberí,Trafalgar,female,13432
+2022,Chamberí,Almagro,male,8557
+2022,Chamberí,Almagro,female,10801
+2022,Chamberí,RíosRosas,male,11798
+2022,Chamberí,RíosRosas,female,15103
+2022,Chamberí,Vallehermoso,male,8621
+2022,Chamberí,Vallehermoso,female,11281
+2022,Fuencarral-El Pardo,Fuencarral-El Pardo,male,115955
+2022,Fuencarral-El Pardo,Fuencarral-El Pardo,female,130326
+2022,Fuencarral-El Pardo,ElPardo,male,1683
+2022,Fuencarral-El Pardo,ElPardo,female,1699
+2022,Fuencarral-El Pardo,Fuentelarreina,male,1513
+2022,Fuencarral-El Pardo,Fuentelarreina,female,1833
+2022,Fuencarral-El Pardo,Peñagrande,male,20379
+2022,Fuencarral-El Pardo,Peñagrande,female,23508
+2022,Fuencarral-El Pardo,Pilar,male,20645
+2022,Fuencarral-El Pardo,Pilar,female,24709
+2022,Fuencarral-El Pardo,LaPaz,male,15059
+2022,Fuencarral-El Pardo,LaPaz,female,17287
+2022,Fuencarral-El Pardo,Valverde,male,30328
+2022,Fuencarral-El Pardo,Valverde,female,33323
+2022,Fuencarral-El Pardo,Mirasierra,male,16920
+2022,Fuencarral-El Pardo,Mirasierra,female,18320
+2022,Fuencarral-El Pardo,ElGoloso,male,9428
+2022,Fuencarral-El Pardo,ElGoloso,female,9647
+2022,Moncloa-Aravaca,Moncloa-Aravaca,male,55501
+2022,Moncloa-Aravaca,Moncloa-Aravaca,female,64859
+2022,Moncloa-Aravaca,CasadeCampo,male,5929
+2022,Moncloa-Aravaca,CasadeCampo,female,6875
+2022,Moncloa-Aravaca,Argüelles,male,11035
+2022,Moncloa-Aravaca,Argüelles,female,13130
+2022,Moncloa-Aravaca,CiudadUniversitaria,male,7489
+2022,Moncloa-Aravaca,CiudadUniversitaria,female,8731
+2022,Moncloa-Aravaca,Valdezarza,male,13602
+2022,Moncloa-Aravaca,Valdezarza,female,16200
+2022,Moncloa-Aravaca,Valdemarín,male,3283
+2022,Moncloa-Aravaca,Valdemarín,female,3765
+2022,Moncloa-Aravaca,ElPlantío,male,1384
+2022,Moncloa-Aravaca,ElPlantío,female,1614
+2022,Moncloa-Aravaca,Aravaca,male,12779
+2022,Moncloa-Aravaca,Aravaca,female,14544
+2022,Latina,Latina,male,109928
+2022,Latina,Latina,female,127120
+2022,Latina,LosCármenes,male,8302
+2022,Latina,LosCármenes,female,9241
+2022,Latina,PuertadelÁngel,male,19113
+2022,Latina,PuertadelÁngel,female,22288
+2022,Latina,Lucero,male,16887
+2022,Latina,Lucero,female,19175
+2022,Latina,Aluche,male,30086
+2022,Latina,Aluche,female,35747
+2022,Latina,Campamento,male,8970
+2022,Latina,Campamento,female,10367
+2022,Latina,CuatroVientos,male,2996
+2022,Latina,CuatroVientos,female,2970
+2022,Latina,Águilas,male,23574
+2022,Latina,Águilas,female,27332
+2022,Carabanchel,Carabanchel,male,119381
+2022,Carabanchel,Carabanchel,female,136133
+2022,Carabanchel,Comillas,male,10230
+2022,Carabanchel,Comillas,female,11984
+2022,Carabanchel,Opañel,male,15283
+2022,Carabanchel,Opañel,female,18017
+2022,Carabanchel,SanIsidro,male,18500
+2022,Carabanchel,SanIsidro,female,20891
+2022,Carabanchel,VistaAlegre,male,21208
+2022,Carabanchel,VistaAlegre,female,25266
+2022,Carabanchel,PuertaBonita,male,16647
+2022,Carabanchel,PuertaBonita,female,18748
+2022,Carabanchel,Buenavista,male,23152
+2022,Carabanchel,Buenavista,female,24663
+2022,Carabanchel,Abrantes,male,14361
+2022,Carabanchel,Abrantes,female,16564
+2022,Usera,Usera,male,66532
+2022,Usera,Usera,female,74276
+2022,Usera,Orcasitas,male,10827
+2022,Usera,Orcasitas,female,12169
+2022,Usera,Orcasur,male,6915
+2022,Usera,Orcasur,female,7335
+2022,Usera,SanFermín,male,11185
+2022,Usera,SanFermín,female,12275
+2022,Usera,Almendrales,male,10522
+2022,Usera,Almendrales,female,11977
+2022,Usera,Moscardó,male,12293
+2022,Usera,Moscardó,female,13846
+2022,Usera,Zofío,male,6571
+2022,Usera,Zofío,female,7451
+2022,Usera,Pradolongo,male,8219
+2022,Usera,Pradolongo,female,9223
+2022,Puente de Vallecas,Puente de Vallecas,male,111748
+2022,Puente de Vallecas,Puente de Vallecas,female,123890
+2022,Puente de Vallecas,Entrevías,male,16591
+2022,Puente de Vallecas,Entrevías,female,18099
+2022,Puente de Vallecas,SanDiego,male,20534
+2022,Puente de Vallecas,SanDiego,female,22376
+2022,Puente de Vallecas,PalomerasBajas,male,18722
+2022,Puente de Vallecas,PalomerasBajas,female,21213
+2022,Puente de Vallecas,PalomerasSureste,male,20218
+2022,Puente de Vallecas,PalomerasSureste,female,22322
+2022,Puente de Vallecas,Portazgo,male,13310
+2022,Puente de Vallecas,Portazgo,female,14939
+2022,Puente de Vallecas,Numancia,male,22373
+2022,Puente de Vallecas,Numancia,female,24941
+2022,Moratalaz,Moratalaz,male,42095
+2022,Moratalaz,Moratalaz,female,50295
+2022,Moratalaz,Pavones,male,3968
+2022,Moratalaz,Pavones,female,4751
+2022,Moratalaz,Horcajo,male,3057
+2022,Moratalaz,Horcajo,female,3297
+2022,Moratalaz,Marroquina,male,12113
+2022,Moratalaz,Marroquina,female,14184
+2022,Moratalaz,MediaLegua,male,7845
+2022,Moratalaz,MediaLegua,female,9532
+2022,Moratalaz,Fontarrón,male,7746
+2022,Moratalaz,Fontarrón,female,9298
+2022,Moratalaz,Vinateros,male,7366
+2022,Moratalaz,Vinateros,female,9233
+2022,Ciudad Lineal,Ciudad Lineal,male,97357
+2022,Ciudad Lineal,Ciudad Lineal,female,116548
+2022,Ciudad Lineal,Ventas,male,21500
+2022,Ciudad Lineal,Ventas,female,26301
+2022,Ciudad Lineal,PuebloNuevo,male,28582
+2022,Ciudad Lineal,PuebloNuevo,female,33353
+2022,Ciudad Lineal,Quintana,male,10748
+2022,Ciudad Lineal,Quintana,female,13435
+2022,Ciudad Lineal,Concepción,male,9122
+2022,Ciudad Lineal,Concepción,female,11318
+2022,Ciudad Lineal,SanPascual,male,7914
+2022,Ciudad Lineal,SanPascual,female,9632
+2022,Ciudad Lineal,SanJuanBautista,male,5731
+2022,Ciudad Lineal,SanJuanBautista,female,6556
+2022,Ciudad Lineal,Colina,male,2865
+2022,Ciudad Lineal,Colina,female,3473
+2022,Ciudad Lineal,Atalaya,male,696
+2022,Ciudad Lineal,Atalaya,female,911
+2022,Ciudad Lineal,Costillares,male,10199
+2022,Ciudad Lineal,Costillares,female,11569
+2022,Hortaleza,Hortaleza,male,92532
+2022,Hortaleza,Hortaleza,female,102485
+2022,Hortaleza,Palomas,male,3387
+2022,Hortaleza,Palomas,female,3546
+2022,Hortaleza,Piovera,male,7160
+2022,Hortaleza,Piovera,female,7788
+2022,Hortaleza,Canillas,male,18425
+2022,Hortaleza,Canillas,female,21283
+2022,Hortaleza,PinardelRey,male,23784
+2022,Hortaleza,PinardelRey,female,28060
+2022,Hortaleza,ApóstolSantiago,male,7343
+2022,Hortaleza,ApóstolSantiago,female,8031
+2022,Hortaleza,Valdefuentes,male,32433
+2022,Hortaleza,Valdefuentes,female,33777
+2022,Villaverde,Villaverde,male,73598
+2022,Villaverde,Villaverde,female,80231
+2022,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,22013
+2022,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,24143
+2022,Villaverde,SanCristóbal,male,8223
+2022,Villaverde,SanCristóbal,female,8417
+2022,Villaverde,Butarque,male,10087
+2022,Villaverde,Butarque,female,10726
+2022,Villaverde,LosRosales,male,17918
+2022,Villaverde,LosRosales,female,19401
+2022,Villaverde,Ángeles,male,15357
+2022,Villaverde,Ángeles,female,17544
+2022,Villa de Vallecas,Villa de Vallecas,male,55580
+2022,Villa de Vallecas,Villa de Vallecas,female,59237
+2022,Villa de Vallecas,CascoHistóricodeVallecas,male,18971
+2022,Villa de Vallecas,CascoHistóricodeVallecas,female,20607
+2022,Villa de Vallecas,SantaEugenia,male,11515
+2022,Villa de Vallecas,SantaEugenia,female,12595
+2022,Villa de Vallecas,EnsanchedeVallecas,male,25094
+2022,Villa de Vallecas,EnsanchedeVallecas,female,26035
+2022,Vicálvaro,Vicálvaro,male,38437
+2022,Vicálvaro,Vicálvaro,female,40891
+2022,Vicálvaro,CascoHistóricodeVicálvaro,male,16925
+2022,Vicálvaro,CascoHistóricodeVicálvaro,female,18161
+2022,Vicálvaro,Valdebernardo,male,8321
+2022,Vicálvaro,Valdebernardo,female,9110
+2022,Vicálvaro,Valderrivas,male,8666
+2022,Vicálvaro,Valderrivas,female,9201
+2022,Vicálvaro,ElCañaveral,male,4525
+2022,Vicálvaro,ElCañaveral,female,4419
+2022,San Blas-Canillejas,San Blas-Canillejas,male,75082
+2022,San Blas-Canillejas,San Blas-Canillejas,female,83701
+2022,San Blas-Canillejas,Simancas,male,13290
+2022,San Blas-Canillejas,Simancas,female,14881
+2022,San Blas-Canillejas,Hellín,male,4271
+2022,San Blas-Canillejas,Hellín,female,5003
+2022,San Blas-Canillejas,Amposta,male,4062
+2022,San Blas-Canillejas,Amposta,female,4648
+2022,San Blas-Canillejas,Arcos,male,11724
+2022,San Blas-Canillejas,Arcos,female,13236
+2022,San Blas-Canillejas,Rosas,male,14840
+2022,San Blas-Canillejas,Rosas,female,16047
+2022,San Blas-Canillejas,Rejas,male,8270
+2022,San Blas-Canillejas,Rejas,female,8701
+2022,San Blas-Canillejas,Canillejas,male,13318
+2022,San Blas-Canillejas,Canillejas,female,15223
+2022,San Blas-Canillejas,ElSalvador,male,5307
+2022,San Blas-Canillejas,ElSalvador,female,5962
+2022,Barajas,Barajas,male,23275
+2022,Barajas,Barajas,female,25129
+2022,Barajas,AlamedadeOsuna,male,9412
+2022,Barajas,AlamedadeOsuna,female,10250
+2022,Barajas,Aeropuerto,male,967
+2022,Barajas,Aeropuerto,female,928
+2022,Barajas,CascoHistóricodeBarajas,male,3531
+2022,Barajas,CascoHistóricodeBarajas,female,3820
+2022,Barajas,Timón,male,5622
+2022,Barajas,Timón,female,6273
+2022,Barajas,Corralejos,male,3743
+2022,Barajas,Corralejos,female,3858
+2023,Centro,Centro,male,70770
+2023,Centro,Centro,female,68917
+2023,Centro,Palacio,male,11557
+2023,Centro,Palacio,female,11944
+2023,Centro,Embajadores,male,24094
+2023,Centro,Embajadores,female,22110
+2023,Centro,Cortes,male,5350
+2023,Centro,Cortes,female,5466
+2023,Centro,Justicia,male,9261
+2023,Centro,Justicia,female,8958
+2023,Centro,Universidad,male,16269
+2023,Centro,Universidad,female,16514
+2023,Centro,Sol,male,4239
+2023,Centro,Sol,female,3925
+2023,Arganzuela,Arganzuela,male,71754
+2023,Arganzuela,Arganzuela,female,81550
+2023,Arganzuela,Imperial,male,10421
+2023,Arganzuela,Imperial,female,11964
+2023,Arganzuela,Acacias,male,16616
+2023,Arganzuela,Acacias,female,19453
+2023,Arganzuela,Chopera,male,8992
+2023,Arganzuela,Chopera,female,10769
+2023,Arganzuela,Legazpi,male,9508
+2023,Arganzuela,Legazpi,female,9960
+2023,Arganzuela,Delicias,male,13463
+2023,Arganzuela,Delicias,female,15112
+2023,Arganzuela,PalosdeMoguer,male,11797
+2023,Arganzuela,PalosdeMoguer,female,13300
+2023,Arganzuela,Atocha,male,957
+2023,Arganzuela,Atocha,female,992
+2023,Retiro,Retiro,male,53458
+2023,Retiro,Retiro,female,64460
+2023,Retiro,Pacífico,male,14809
+2023,Retiro,Pacífico,female,18218
+2023,Retiro,Adelfas,male,8699
+2023,Retiro,Adelfas,female,10133
+2023,Retiro,Estrella,male,10393
+2023,Retiro,Estrella,female,12256
+2023,Retiro,Ibiza,male,9568
+2023,Retiro,Ibiza,female,11924
+2023,Retiro,LosJerónimos,male,3177
+2023,Retiro,LosJerónimos,female,3648
+2023,Retiro,NiñoJesús,male,6812
+2023,Retiro,NiñoJesús,female,8281
+2023,Salamanca,Salamanca,male,64452
+2023,Salamanca,Salamanca,female,81250
+2023,Salamanca,Recoletos,male,6966
+2023,Salamanca,Recoletos,female,8478
+2023,Salamanca,Goya,male,12872
+2023,Salamanca,Goya,female,16605
+2023,Salamanca,FuentedelBerro,male,9129
+2023,Salamanca,FuentedelBerro,female,11800
+2023,Salamanca,Guindalera,male,19006
+2023,Salamanca,Guindalera,female,22958
+2023,Salamanca,Lista,male,9056
+2023,Salamanca,Lista,female,11913
+2023,Salamanca,Castellana,male,7423
+2023,Salamanca,Castellana,female,9496
+2023,Chamartín,Chamartín,male,65245
+2023,Chamartín,Chamartín,female,79551
+2023,Chamartín,ElViso,male,7810
+2023,Chamartín,ElViso,female,9464
+2023,Chamartín,Prosperidad,male,16072
+2023,Chamartín,Prosperidad,female,19955
+2023,Chamartín,CiudadJardín,male,8234
+2023,Chamartín,CiudadJardín,female,10279
+2023,Chamartín,Hispanoamérica,male,14159
+2023,Chamartín,Hispanoamérica,female,17311
+2023,Chamartín,NuevaEspaña,male,11050
+2023,Chamartín,NuevaEspaña,female,13416
+2023,Chamartín,Castilla,male,7920
+2023,Chamartín,Castilla,female,9126
+2023,Tetuán,Tetuán,male,72938
+2023,Tetuán,Tetuán,female,87064
+2023,Tetuán,BellasVistas,male,13428
+2023,Tetuán,BellasVistas,female,15927
+2023,Tetuán,CuatroCaminos,male,15537
+2023,Tetuán,CuatroCaminos,female,19216
+2023,Tetuán,Castillejos,male,9239
+2023,Tetuán,Castillejos,female,11331
+2023,Tetuán,Almenara,male,10688
+2023,Tetuán,Almenara,female,12369
+2023,Tetuán,Valdeacederas,male,12442
+2023,Tetuán,Valdeacederas,female,14131
+2023,Tetuán,Berruguete,male,11604
+2023,Tetuán,Berruguete,female,14090
+2023,Chamberí,Chamberí,male,61149
+2023,Chamberí,Chamberí,female,77055
+2023,Chamberí,Gaztambide,male,10157
+2023,Chamberí,Gaztambide,female,12802
+2023,Chamberí,Arapiles,male,10831
+2023,Chamberí,Arapiles,female,13359
+2023,Chamberí,Trafalgar,male,11147
+2023,Chamberí,Trafalgar,female,13474
+2023,Chamberí,Almagro,male,8567
+2023,Chamberí,Almagro,female,10851
+2023,Chamberí,RíosRosas,male,11828
+2023,Chamberí,RíosRosas,female,15335
+2023,Chamberí,Vallehermoso,male,8619
+2023,Chamberí,Vallehermoso,female,11234
+2023,Fuencarral-El Pardo,Fuencarral-El Pardo,male,116944
+2023,Fuencarral-El Pardo,Fuencarral-El Pardo,female,131499
+2023,Fuencarral-El Pardo,ElPardo,male,1716
+2023,Fuencarral-El Pardo,ElPardo,female,1705
+2023,Fuencarral-El Pardo,Fuentelarreina,male,1559
+2023,Fuencarral-El Pardo,Fuentelarreina,female,1851
+2023,Fuencarral-El Pardo,Peñagrande,male,20597
+2023,Fuencarral-El Pardo,Peñagrande,female,23744
+2023,Fuencarral-El Pardo,Pilar,male,20720
+2023,Fuencarral-El Pardo,Pilar,female,24890
+2023,Fuencarral-El Pardo,LaPaz,male,14964
+2023,Fuencarral-El Pardo,LaPaz,female,17228
+2023,Fuencarral-El Pardo,Valverde,male,30851
+2023,Fuencarral-El Pardo,Valverde,female,33906
+2023,Fuencarral-El Pardo,Mirasierra,male,17160
+2023,Fuencarral-El Pardo,Mirasierra,female,18516
+2023,Fuencarral-El Pardo,ElGoloso,male,9377
+2023,Fuencarral-El Pardo,ElGoloso,female,9659
+2023,Moncloa-Aravaca,Moncloa-Aravaca,male,56357
+2023,Moncloa-Aravaca,Moncloa-Aravaca,female,65400
+2023,Moncloa-Aravaca,CasadeCampo,male,5958
+2023,Moncloa-Aravaca,CasadeCampo,female,6809
+2023,Moncloa-Aravaca,Argüelles,male,11207
+2023,Moncloa-Aravaca,Argüelles,female,13290
+2023,Moncloa-Aravaca,CiudadUniversitaria,male,7603
+2023,Moncloa-Aravaca,CiudadUniversitaria,female,8761
+2023,Moncloa-Aravaca,Valdezarza,male,14001
+2023,Moncloa-Aravaca,Valdezarza,female,16483
+2023,Moncloa-Aravaca,Valdemarín,male,3339
+2023,Moncloa-Aravaca,Valdemarín,female,3817
+2023,Moncloa-Aravaca,ElPlantío,male,1413
+2023,Moncloa-Aravaca,ElPlantío,female,1631
+2023,Moncloa-Aravaca,Aravaca,male,12836
+2023,Moncloa-Aravaca,Aravaca,female,14609
+2023,Latina,Latina,male,112093
+2023,Latina,Latina,female,129579
+2023,Latina,LosCármenes,male,8484
+2023,Latina,LosCármenes,female,9419
+2023,Latina,PuertadelÁngel,male,20165
+2023,Latina,PuertadelÁngel,female,23127
+2023,Latina,Lucero,male,17156
+2023,Latina,Lucero,female,19593
+2023,Latina,Aluche,male,30384
+2023,Latina,Aluche,female,36204
+2023,Latina,Campamento,male,9111
+2023,Latina,Campamento,female,10639
+2023,Latina,CuatroVientos,male,3068
+2023,Latina,CuatroVientos,female,3054
+2023,Latina,Águilas,male,23725
+2023,Latina,Águilas,female,27543
+2023,Carabanchel,Carabanchel,male,122632
+2023,Carabanchel,Carabanchel,female,139707
+2023,Carabanchel,Comillas,male,10491
+2023,Carabanchel,Comillas,female,12230
+2023,Carabanchel,Opañel,male,15556
+2023,Carabanchel,Opañel,female,18327
+2023,Carabanchel,SanIsidro,male,18969
+2023,Carabanchel,SanIsidro,female,21399
+2023,Carabanchel,VistaAlegre,male,21823
+2023,Carabanchel,VistaAlegre,female,25904
+2023,Carabanchel,PuertaBonita,male,17349
+2023,Carabanchel,PuertaBonita,female,19449
+2023,Carabanchel,Buenavista,male,23733
+2023,Carabanchel,Buenavista,female,25418
+2023,Carabanchel,Abrantes,male,14711
+2023,Carabanchel,Abrantes,female,16980
+2023,Usera,Usera,male,67538
+2023,Usera,Usera,female,75208
+2023,Usera,Orcasitas,male,10900
+2023,Usera,Orcasitas,female,12185
+2023,Usera,Orcasur,male,6987
+2023,Usera,Orcasur,female,7403
+2023,Usera,SanFermín,male,11246
+2023,Usera,SanFermín,female,12352
+2023,Usera,Almendrales,male,10755
+2023,Usera,Almendrales,female,12079
+2023,Usera,Moscardó,male,12531
+2023,Usera,Moscardó,female,14048
+2023,Usera,Zofío,male,6681
+2023,Usera,Zofío,female,7701
+2023,Usera,Pradolongo,male,8438
+2023,Usera,Pradolongo,female,9440
+2023,Puente de Vallecas,Puente de Vallecas,male,114542
+2023,Puente de Vallecas,Puente de Vallecas,female,127061
+2023,Puente de Vallecas,Entrevías,male,16976
+2023,Puente de Vallecas,Entrevías,female,18423
+2023,Puente de Vallecas,SanDiego,male,21593
+2023,Puente de Vallecas,SanDiego,female,23511
+2023,Puente de Vallecas,PalomerasBajas,male,18947
+2023,Puente de Vallecas,PalomerasBajas,female,21530
+2023,Puente de Vallecas,PalomerasSureste,male,20491
+2023,Puente de Vallecas,PalomerasSureste,female,22671
+2023,Puente de Vallecas,Portazgo,male,13471
+2023,Puente de Vallecas,Portazgo,female,15270
+2023,Puente de Vallecas,Numancia,male,23064
+2023,Puente de Vallecas,Numancia,female,25656
+2023,Moratalaz,Moratalaz,male,42212
+2023,Moratalaz,Moratalaz,female,50602
+2023,Moratalaz,Pavones,male,4035
+2023,Moratalaz,Pavones,female,4779
+2023,Moratalaz,Horcajo,male,3029
+2023,Moratalaz,Horcajo,female,3310
+2023,Moratalaz,Marroquina,male,11962
+2023,Moratalaz,Marroquina,female,14158
+2023,Moratalaz,MediaLegua,male,7828
+2023,Moratalaz,MediaLegua,female,9495
+2023,Moratalaz,Fontarrón,male,7876
+2023,Moratalaz,Fontarrón,female,9457
+2023,Moratalaz,Vinateros,male,7482
+2023,Moratalaz,Vinateros,female,9403
+2023,Ciudad Lineal,Ciudad Lineal,male,100759
+2023,Ciudad Lineal,Ciudad Lineal,female,119586
+2023,Ciudad Lineal,Ventas,male,22868
+2023,Ciudad Lineal,Ventas,female,27350
+2023,Ciudad Lineal,PuebloNuevo,male,28982
+2023,Ciudad Lineal,PuebloNuevo,female,33858
+2023,Ciudad Lineal,Quintana,male,11449
+2023,Ciudad Lineal,Quintana,female,14020
+2023,Ciudad Lineal,Concepción,male,9402
+2023,Ciudad Lineal,Concepción,female,11539
+2023,Ciudad Lineal,SanPascual,male,8349
+2023,Ciudad Lineal,SanPascual,female,9978
+2023,Ciudad Lineal,SanJuanBautista,male,5813
+2023,Ciudad Lineal,SanJuanBautista,female,6632
+2023,Ciudad Lineal,Colina,male,2973
+2023,Ciudad Lineal,Colina,female,3596
+2023,Ciudad Lineal,Atalaya,male,691
+2023,Ciudad Lineal,Atalaya,female,931
+2023,Ciudad Lineal,Costillares,male,10232
+2023,Ciudad Lineal,Costillares,female,11682
+2023,Hortaleza,Hortaleza,male,94100
+2023,Hortaleza,Hortaleza,female,104291
+2023,Hortaleza,Palomas,male,3404
+2023,Hortaleza,Palomas,female,3518
+2023,Hortaleza,Piovera,male,7211
+2023,Hortaleza,Piovera,female,7830
+2023,Hortaleza,Canillas,male,18485
+2023,Hortaleza,Canillas,female,21301
+2023,Hortaleza,PinardelRey,male,23825
+2023,Hortaleza,PinardelRey,female,28206
+2023,Hortaleza,ApóstolSantiago,male,7344
+2023,Hortaleza,ApóstolSantiago,female,8091
+2023,Hortaleza,Valdefuentes,male,33831
+2023,Hortaleza,Valdefuentes,female,35345
+2023,Villaverde,Villaverde,male,76131
+2023,Villaverde,Villaverde,female,82907
+2023,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",male,22826
+2023,Villaverde,"VillaverdeAlto,CascoHistóricodeVillaverde",female,24991
+2023,Villaverde,SanCristóbal,male,8586
+2023,Villaverde,SanCristóbal,female,8684
+2023,Villaverde,Butarque,male,10306
+2023,Villaverde,Butarque,female,11010
+2023,Villaverde,LosRosales,male,18121
+2023,Villaverde,LosRosales,female,19687
+2023,Villaverde,Ángeles,male,16292
+2023,Villaverde,Ángeles,female,18535
+2023,Villa de Vallecas,Villa de Vallecas,male,56726
+2023,Villa de Vallecas,Villa de Vallecas,female,60775
+2023,Villa de Vallecas,CascoHistóricodeVallecas,male,19413
+2023,Villa de Vallecas,CascoHistóricodeVallecas,female,21004
+2023,Villa de Vallecas,SantaEugenia,male,11381
+2023,Villa de Vallecas,SantaEugenia,female,12495
+2023,Villa de Vallecas,EnsanchedeVallecas,male,25932
+2023,Villa de Vallecas,EnsanchedeVallecas,female,27276
+2023,Vicálvaro,Vicálvaro,male,40580
+2023,Vicálvaro,Vicálvaro,female,43224
+2023,Vicálvaro,CascoHistóricodeVicálvaro,male,17009
+2023,Vicálvaro,CascoHistóricodeVicálvaro,female,18510
+2023,Vicálvaro,Valdebernardo,male,8330
+2023,Vicálvaro,Valdebernardo,female,9141
+2023,Vicálvaro,Valderrivas,male,8589
+2023,Vicálvaro,Valderrivas,female,9171
+2023,Vicálvaro,ElCañaveral,male,6652
+2023,Vicálvaro,ElCañaveral,female,6402
+2023,San Blas-Canillejas,San Blas-Canillejas,male,76154
+2023,San Blas-Canillejas,San Blas-Canillejas,female,85065
+2023,San Blas-Canillejas,Simancas,male,13560
+2023,San Blas-Canillejas,Simancas,female,15205
+2023,San Blas-Canillejas,Hellín,male,4375
+2023,San Blas-Canillejas,Hellín,female,5180
+2023,San Blas-Canillejas,Amposta,male,4258
+2023,San Blas-Canillejas,Amposta,female,4868
+2023,San Blas-Canillejas,Arcos,male,11932
+2023,San Blas-Canillejas,Arcos,female,13422
+2023,San Blas-Canillejas,Rosas,male,14727
+2023,San Blas-Canillejas,Rosas,female,16024
+2023,San Blas-Canillejas,Rejas,male,8495
+2023,San Blas-Canillejas,Rejas,female,8904
+2023,San Blas-Canillejas,Canillejas,male,13528
+2023,San Blas-Canillejas,Canillejas,female,15539
+2023,San Blas-Canillejas,ElSalvador,male,5279
+2023,San Blas-Canillejas,ElSalvador,female,5923
+2023,Barajas,Barajas,male,23332
+2023,Barajas,Barajas,female,25314
+2023,Barajas,AlamedadeOsuna,male,9397
+2023,Barajas,AlamedadeOsuna,female,10288
+2023,Barajas,Aeropuerto,male,965
+2023,Barajas,Aeropuerto,female,937
+2023,Barajas,CascoHistóricodeBarajas,male,3519
+2023,Barajas,CascoHistóricodeBarajas,female,3865
+2023,Barajas,Timón,male,5702
+2023,Barajas,Timón,female,6347
+2023,Barajas,Corralejos,male,3749
+2023,Barajas,Corralejos,female,3877
