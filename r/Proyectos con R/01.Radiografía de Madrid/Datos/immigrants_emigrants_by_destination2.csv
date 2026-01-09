@@ -1,0 +1,799 @@
+from,to,weight
+Centro,Andalusia,741
+Arganzuela,Andalusia,505
+Retiro,Andalusia,377
+Salamanca,Andalusia,557
+Chamartín,Andalusia,492
+Tetuán,Andalusia,611
+Chamberí,Andalusia,758
+Fuencarral-El Pardo,Andalusia,521
+Moncloa-Aravaca,Andalusia,334
+Latina,Andalusia,398
+Carabanchel,Andalusia,518
+Usera,Andalusia,230
+Puente de Vallecas,Andalusia,453
+Moratalaz,Andalusia,104
+Ciudad Lineal,Andalusia,548
+Hortaleza,Andalusia,419
+Villaverde,Andalusia,261
+Villa de Vallecas,Andalusia,243
+Vicálvaro,Andalusia,123
+San Blas-Canillejas,Andalusia,236
+Barajas,Andalusia,80
+Centro,Aragon,104
+Arganzuela,Aragon,105
+Retiro,Aragon,58
+Salamanca,Aragon,88
+Chamartín,Aragon,103
+Tetuán,Aragon,86
+Chamberí,Aragon,84
+Fuencarral-El Pardo,Aragon,98
+Moncloa-Aravaca,Aragon,47
+Latina,Aragon,63
+Carabanchel,Aragon,66
+Usera,Aragon,48
+Puente de Vallecas,Aragon,67
+Moratalaz,Aragon,27
+Ciudad Lineal,Aragon,102
+Hortaleza,Aragon,80
+Villaverde,Aragon,45
+Villa de Vallecas,Aragon,41
+Vicálvaro,Aragon,20
+San Blas-Canillejas,Aragon,35
+Barajas,Aragon,8
+Centro,Asturias,161
+Arganzuela,Asturias,86
+Retiro,Asturias,61
+Salamanca,Asturias,108
+Chamartín,Asturias,94
+Tetuán,Asturias,102
+Chamberí,Asturias,146
+Fuencarral-El Pardo,Asturias,85
+Moncloa-Aravaca,Asturias,60
+Latina,Asturias,57
+Carabanchel,Asturias,51
+Usera,Asturias,49
+Puente de Vallecas,Asturias,41
+Moratalaz,Asturias,19
+Ciudad Lineal,Asturias,77
+Hortaleza,Asturias,73
+Villaverde,Asturias,18
+Villa de Vallecas,Asturias,24
+Vicálvaro,Asturias,15
+San Blas-Canillejas,Asturias,40
+Barajas,Asturias,16
+Centro,Balearic Islands,176
+Arganzuela,Balearic Islands,52
+Retiro,Balearic Islands,57
+Salamanca,Balearic Islands,108
+Chamartín,Balearic Islands,90
+Tetuán,Balearic Islands,91
+Chamberí,Balearic Islands,98
+Fuencarral-El Pardo,Balearic Islands,104
+Moncloa-Aravaca,Balearic Islands,93
+Latina,Balearic Islands,95
+Carabanchel,Balearic Islands,105
+Usera,Balearic Islands,45
+Puente de Vallecas,Balearic Islands,74
+Moratalaz,Balearic Islands,30
+Ciudad Lineal,Balearic Islands,102
+Hortaleza,Balearic Islands,95
+Villaverde,Balearic Islands,29
+Villa de Vallecas,Balearic Islands,31
+Vicálvaro,Balearic Islands,17
+San Blas-Canillejas,Balearic Islands,64
+Barajas,Balearic Islands,17
+Centro,Canary Islands,210
+Arganzuela,Canary Islands,117
+Retiro,Canary Islands,103
+Salamanca,Canary Islands,113
+Chamartín,Canary Islands,137
+Tetuán,Canary Islands,138
+Chamberí,Canary Islands,138
+Fuencarral-El Pardo,Canary Islands,126
+Moncloa-Aravaca,Canary Islands,110
+Latina,Canary Islands,156
+Carabanchel,Canary Islands,239
+Usera,Canary Islands,93
+Puente de Vallecas,Canary Islands,180
+Moratalaz,Canary Islands,65
+Ciudad Lineal,Canary Islands,211
+Hortaleza,Canary Islands,177
+Villaverde,Canary Islands,94
+Villa de Vallecas,Canary Islands,87
+Vicálvaro,Canary Islands,51
+San Blas-Canillejas,Canary Islands,134
+Barajas,Canary Islands,46
+Centro,Cantabria,90
+Arganzuela,Cantabria,46
+Retiro,Cantabria,49
+Salamanca,Cantabria,69
+Chamartín,Cantabria,52
+Tetuán,Cantabria,69
+Chamberí,Cantabria,86
+Fuencarral-El Pardo,Cantabria,62
+Moncloa-Aravaca,Cantabria,60
+Latina,Cantabria,39
+Carabanchel,Cantabria,36
+Usera,Cantabria,20
+Puente de Vallecas,Cantabria,33
+Moratalaz,Cantabria,16
+Ciudad Lineal,Cantabria,48
+Hortaleza,Cantabria,57
+Villaverde,Cantabria,9
+Villa de Vallecas,Cantabria,18
+Vicálvaro,Cantabria,11
+San Blas-Canillejas,Cantabria,24
+Barajas,Cantabria,10
+Centro,Castilla y Leon,475
+Arganzuela,Castilla y Leon,424
+Retiro,Castilla y Leon,229
+Salamanca,Castilla y Leon,423
+Chamartín,Castilla y Leon,338
+Tetuán,Castilla y Leon,548
+Chamberí,Castilla y Leon,481
+Fuencarral-El Pardo,Castilla y Leon,466
+Moncloa-Aravaca,Castilla y Leon,289
+Latina,Castilla y Leon,394
+Carabanchel,Castilla y Leon,465
+Usera,Castilla y Leon,220
+Puente de Vallecas,Castilla y Leon,357
+Moratalaz,Castilla y Leon,139
+Ciudad Lineal,Castilla y Leon,409
+Hortaleza,Castilla y Leon,325
+Villaverde,Castilla y Leon,189
+Villa de Vallecas,Castilla y Leon,147
+Vicálvaro,Castilla y Leon,125
+San Blas-Canillejas,Castilla y Leon,247
+Barajas,Castilla y Leon,56
+Centro,Castilla - La Mancha,438
+Arganzuela,Castilla - La Mancha,508
+Retiro,Castilla - La Mancha,286
+Salamanca,Castilla - La Mancha,417
+Chamartín,Castilla - La Mancha,306
+Tetuán,Castilla - La Mancha,511
+Chamberí,Castilla - La Mancha,429
+Fuencarral-El Pardo,Castilla - La Mancha,459
+Moncloa-Aravaca,Castilla - La Mancha,308
+Latina,Castilla - La Mancha,749
+Carabanchel,Castilla - La Mancha,941
+Usera,Castilla - La Mancha,635
+Puente de Vallecas,Castilla - La Mancha,809
+Moratalaz,Castilla - La Mancha,196
+Ciudad Lineal,Castilla - La Mancha,546
+Hortaleza,Castilla - La Mancha,368
+Villaverde,Castilla - La Mancha,548
+Villa de Vallecas,Castilla - La Mancha,327
+Vicálvaro,Castilla - La Mancha,286
+San Blas-Canillejas,Castilla - La Mancha,401
+Barajas,Castilla - La Mancha,109
+Centro,Catalonia,632
+Arganzuela,Catalonia,245
+Retiro,Catalonia,205
+Salamanca,Catalonia,466
+Chamartín,Catalonia,235
+Tetuán,Catalonia,330
+Chamberí,Catalonia,323
+Fuencarral-El Pardo,Catalonia,275
+Moncloa-Aravaca,Catalonia,225
+Latina,Catalonia,308
+Carabanchel,Catalonia,308
+Usera,Catalonia,223
+Puente de Vallecas,Catalonia,275
+Moratalaz,Catalonia,70
+Ciudad Lineal,Catalonia,308
+Hortaleza,Catalonia,266
+Villaverde,Catalonia,214
+Villa de Vallecas,Catalonia,123
+Vicálvaro,Catalonia,56
+San Blas-Canillejas,Catalonia,154
+Barajas,Catalonia,52
+Centro,Valencian Community,455
+Arganzuela,Valencian Community,262
+Retiro,Valencian Community,151
+Salamanca,Valencian Community,329
+Chamartín,Valencian Community,212
+Tetuán,Valencian Community,327
+Chamberí,Valencian Community,300
+Fuencarral-El Pardo,Valencian Community,251
+Moncloa-Aravaca,Valencian Community,163
+Latina,Valencian Community,261
+Carabanchel,Valencian Community,357
+Usera,Valencian Community,199
+Puente de Vallecas,Valencian Community,295
+Moratalaz,Valencian Community,84
+Ciudad Lineal,Valencian Community,266
+Hortaleza,Valencian Community,254
+Villaverde,Valencian Community,190
+Villa de Vallecas,Valencian Community,153
+Vicálvaro,Valencian Community,79
+San Blas-Canillejas,Valencian Community,171
+Barajas,Valencian Community,46
+Centro,Extremadura,130
+Arganzuela,Extremadura,119
+Retiro,Extremadura,76
+Salamanca,Extremadura,99
+Chamartín,Extremadura,77
+Tetuán,Extremadura,148
+Chamberí,Extremadura,169
+Fuencarral-El Pardo,Extremadura,116
+Moncloa-Aravaca,Extremadura,79
+Latina,Extremadura,146
+Carabanchel,Extremadura,151
+Usera,Extremadura,49
+Puente de Vallecas,Extremadura,81
+Moratalaz,Extremadura,46
+Ciudad Lineal,Extremadura,109
+Hortaleza,Extremadura,59
+Villaverde,Extremadura,49
+Villa de Vallecas,Extremadura,74
+Vicálvaro,Extremadura,27
+San Blas-Canillejas,Extremadura,68
+Barajas,Extremadura,14
+Centro,Galicia,271
+Arganzuela,Galicia,150
+Retiro,Galicia,117
+Salamanca,Galicia,178
+Chamartín,Galicia,158
+Tetuán,Galicia,201
+Chamberí,Galicia,241
+Fuencarral-El Pardo,Galicia,189
+Moncloa-Aravaca,Galicia,120
+Latina,Galicia,125
+Carabanchel,Galicia,143
+Usera,Galicia,74
+Puente de Vallecas,Galicia,125
+Moratalaz,Galicia,39
+Ciudad Lineal,Galicia,193
+Hortaleza,Galicia,196
+Villaverde,Galicia,72
+Villa de Vallecas,Galicia,54
+Vicálvaro,Galicia,34
+San Blas-Canillejas,Galicia,116
+Barajas,Galicia,37
+Centro,Comunidad de Madrid,1730
+Arganzuela,Comunidad de Madrid,1288
+Retiro,Comunidad de Madrid,973
+Salamanca,Comunidad de Madrid,1229
+Chamartín,Comunidad de Madrid,1240
+Tetuán,Comunidad de Madrid,1670
+Chamberí,Comunidad de Madrid,1328
+Fuencarral-El Pardo,Comunidad de Madrid,2044
+Moncloa-Aravaca,Comunidad de Madrid,1440
+Latina,Comunidad de Madrid,2407
+Carabanchel,Comunidad de Madrid,3011
+Usera,Comunidad de Madrid,1619
+Puente de Vallecas,Comunidad de Madrid,2615
+Moratalaz,Comunidad de Madrid,649
+Ciudad Lineal,Comunidad de Madrid,1887
+Hortaleza,Comunidad de Madrid,1770
+Villaverde,Comunidad de Madrid,2031
+Villa de Vallecas,Comunidad de Madrid,1211
+Vicálvaro,Comunidad de Madrid,1887
+San Blas-Canillejas,Comunidad de Madrid,1474
+Barajas,Comunidad de Madrid,465
+Centro,Region of Murcia,101
+Arganzuela,Region of Murcia,70
+Retiro,Region of Murcia,52
+Salamanca,Region of Murcia,95
+Chamartín,Region of Murcia,55
+Tetuán,Region of Murcia,100
+Chamberí,Region of Murcia,87
+Fuencarral-El Pardo,Region of Murcia,83
+Moncloa-Aravaca,Region of Murcia,38
+Latina,Region of Murcia,104
+Carabanchel,Region of Murcia,117
+Usera,Region of Murcia,69
+Puente de Vallecas,Region of Murcia,105
+Moratalaz,Region of Murcia,20
+Ciudad Lineal,Region of Murcia,123
+Hortaleza,Region of Murcia,81
+Villaverde,Region of Murcia,84
+Villa de Vallecas,Region of Murcia,35
+Vicálvaro,Region of Murcia,17
+San Blas-Canillejas,Region of Murcia,50
+Barajas,Region of Murcia,12
+Centro,Navarra,72
+Arganzuela,Navarra,42
+Retiro,Navarra,30
+Salamanca,Navarra,115
+Chamartín,Navarra,53
+Tetuán,Navarra,52
+Chamberí,Navarra,72
+Fuencarral-El Pardo,Navarra,36
+Moncloa-Aravaca,Navarra,42
+Latina,Navarra,27
+Carabanchel,Navarra,40
+Usera,Navarra,16
+Puente de Vallecas,Navarra,40
+Moratalaz,Navarra,5
+Ciudad Lineal,Navarra,39
+Hortaleza,Navarra,24
+Villaverde,Navarra,12
+Villa de Vallecas,Navarra,9
+Vicálvaro,Navarra,6
+San Blas-Canillejas,Navarra,17
+Barajas,Navarra,6
+Centro,Basque Country,198
+Arganzuela,Basque Country,99
+Retiro,Basque Country,59
+Salamanca,Basque Country,150
+Chamartín,Basque Country,133
+Tetuán,Basque Country,119
+Chamberí,Basque Country,172
+Fuencarral-El Pardo,Basque Country,98
+Moncloa-Aravaca,Basque Country,83
+Latina,Basque Country,81
+Carabanchel,Basque Country,97
+Usera,Basque Country,67
+Puente de Vallecas,Basque Country,85
+Moratalaz,Basque Country,33
+Ciudad Lineal,Basque Country,117
+Hortaleza,Basque Country,109
+Villaverde,Basque Country,54
+Villa de Vallecas,Basque Country,30
+Vicálvaro,Basque Country,26
+San Blas-Canillejas,Basque Country,57
+Barajas,Basque Country,18
+Centro,La Rioja,32
+Arganzuela,La Rioja,25
+Retiro,La Rioja,16
+Salamanca,La Rioja,25
+Chamartín,La Rioja,28
+Tetuán,La Rioja,29
+Chamberí,La Rioja,29
+Fuencarral-El Pardo,La Rioja,17
+Moncloa-Aravaca,La Rioja,21
+Latina,La Rioja,25
+Carabanchel,La Rioja,31
+Usera,La Rioja,5
+Puente de Vallecas,La Rioja,18
+Moratalaz,La Rioja,4
+Ciudad Lineal,La Rioja,24
+Hortaleza,La Rioja,29
+Villaverde,La Rioja,14
+Villa de Vallecas,La Rioja,7
+Vicálvaro,La Rioja,7
+San Blas-Canillejas,La Rioja,8
+Barajas,La Rioja,2
+Centro,Ceuta y Melilla,18
+Arganzuela,Ceuta y Melilla,21
+Retiro,Ceuta y Melilla,7
+Salamanca,Ceuta y Melilla,11
+Chamartín,Ceuta y Melilla,22
+Tetuán,Ceuta y Melilla,22
+Chamberí,Ceuta y Melilla,11
+Fuencarral-El Pardo,Ceuta y Melilla,44
+Moncloa-Aravaca,Ceuta y Melilla,17
+Latina,Ceuta y Melilla,17
+Carabanchel,Ceuta y Melilla,29
+Usera,Ceuta y Melilla,8
+Puente de Vallecas,Ceuta y Melilla,18
+Moratalaz,Ceuta y Melilla,7
+Ciudad Lineal,Ceuta y Melilla,29
+Hortaleza,Ceuta y Melilla,15
+Villaverde,Ceuta y Melilla,19
+Villa de Vallecas,Ceuta y Melilla,12
+Vicálvaro,Ceuta y Melilla,6
+San Blas-Canillejas,Ceuta y Melilla,13
+Barajas,Ceuta y Melilla,3
+Centro,Abroad,704
+Arganzuela,Abroad,439
+Retiro,Abroad,381
+Salamanca,Abroad,755
+Chamartín,Abroad,647
+Tetuán,Abroad,644
+Chamberí,Abroad,620
+Fuencarral-El Pardo,Abroad,681
+Moncloa-Aravaca,Abroad,422
+Latina,Abroad,518
+Carabanchel,Abroad,588
+Usera,Abroad,355
+Puente de Vallecas,Abroad,564
+Moratalaz,Abroad,246
+Ciudad Lineal,Abroad,648
+Hortaleza,Abroad,617
+Villaverde,Abroad,389
+Villa de Vallecas,Abroad,224
+Vicálvaro,Abroad,127
+San Blas-Canillejas,Abroad,393
+Barajas,Abroad,102
+Andalusia,Centro,741
+Aragon,Centro,104
+Asturias,Centro,161
+Balearic Islands,Centro,176
+Canary Islands,Centro,210
+Cantabria,Centro,90
+Castilla y Leon,Centro,475
+Castilla - La Mancha,Centro,438
+Catalonia,Centro,632
+Valencian Community,Centro,455
+Extremadura,Centro,130
+Galicia,Centro,271
+Comunidad de Madrid,Centro,1730
+Region of Murcia,Centro,101
+Navarra,Centro,72
+Basque Country,Centro,198
+La Rioja,Centro,32
+Ceuta y Melilla,Centro,18
+Abroad,Centro,7617
+Andalusia,Arganzuela,505
+Aragon,Arganzuela,105
+Asturias,Arganzuela,86
+Balearic Islands,Arganzuela,52
+Canary Islands,Arganzuela,117
+Cantabria,Arganzuela,46
+Castilla y Leon,Arganzuela,424
+Castilla - La Mancha,Arganzuela,508
+Catalonia,Arganzuela,245
+Valencian Community,Arganzuela,262
+Extremadura,Arganzuela,119
+Galicia,Arganzuela,150
+Comunidad de Madrid,Arganzuela,1288
+Region of Murcia,Arganzuela,70
+Navarra,Arganzuela,42
+Basque Country,Arganzuela,99
+La Rioja,Arganzuela,25
+Ceuta y Melilla,Arganzuela,21
+Abroad,Arganzuela,2488
+Andalusia,Retiro,377
+Aragon,Retiro,58
+Asturias,Retiro,61
+Balearic Islands,Retiro,57
+Canary Islands,Retiro,103
+Cantabria,Retiro,49
+Castilla y Leon,Retiro,229
+Castilla - La Mancha,Retiro,286
+Catalonia,Retiro,205
+Valencian Community,Retiro,151
+Extremadura,Retiro,76
+Galicia,Retiro,117
+Comunidad de Madrid,Retiro,973
+Region of Murcia,Retiro,52
+Navarra,Retiro,30
+Basque Country,Retiro,59
+La Rioja,Retiro,16
+Ceuta y Melilla,Retiro,7
+Abroad,Retiro,2136
+Andalusia,Salamanca,557
+Aragon,Salamanca,88
+Asturias,Salamanca,108
+Balearic Islands,Salamanca,108
+Canary Islands,Salamanca,113
+Cantabria,Salamanca,69
+Castilla y Leon,Salamanca,423
+Castilla - La Mancha,Salamanca,417
+Catalonia,Salamanca,466
+Valencian Community,Salamanca,329
+Extremadura,Salamanca,99
+Galicia,Salamanca,178
+Comunidad de Madrid,Salamanca,1229
+Region of Murcia,Salamanca,95
+Navarra,Salamanca,115
+Basque Country,Salamanca,150
+La Rioja,Salamanca,25
+Ceuta y Melilla,Salamanca,11
+Abroad,Salamanca,6211
+Andalusia,Chamartín,492
+Aragon,Chamartín,103
+Asturias,Chamartín,94
+Balearic Islands,Chamartín,90
+Canary Islands,Chamartín,137
+Cantabria,Chamartín,52
+Castilla y Leon,Chamartín,338
+Castilla - La Mancha,Chamartín,306
+Catalonia,Chamartín,235
+Valencian Community,Chamartín,212
+Extremadura,Chamartín,77
+Galicia,Chamartín,158
+Comunidad de Madrid,Chamartín,1240
+Region of Murcia,Chamartín,55
+Navarra,Chamartín,53
+Basque Country,Chamartín,133
+La Rioja,Chamartín,28
+Ceuta y Melilla,Chamartín,22
+Abroad,Chamartín,3003
+Andalusia,Tetuán,611
+Aragon,Tetuán,86
+Asturias,Tetuán,102
+Balearic Islands,Tetuán,91
+Canary Islands,Tetuán,138
+Cantabria,Tetuán,69
+Castilla y Leon,Tetuán,548
+Castilla - La Mancha,Tetuán,511
+Catalonia,Tetuán,330
+Valencian Community,Tetuán,327
+Extremadura,Tetuán,148
+Galicia,Tetuán,201
+Comunidad de Madrid,Tetuán,1670
+Region of Murcia,Tetuán,100
+Navarra,Tetuán,52
+Basque Country,Tetuán,119
+La Rioja,Tetuán,29
+Ceuta y Melilla,Tetuán,22
+Abroad,Tetuán,4192
+Andalusia,Chamberí,758
+Aragon,Chamberí,84
+Asturias,Chamberí,146
+Balearic Islands,Chamberí,98
+Canary Islands,Chamberí,138
+Cantabria,Chamberí,86
+Castilla y Leon,Chamberí,481
+Castilla - La Mancha,Chamberí,429
+Catalonia,Chamberí,323
+Valencian Community,Chamberí,300
+Extremadura,Chamberí,169
+Galicia,Chamberí,241
+Comunidad de Madrid,Chamberí,1328
+Region of Murcia,Chamberí,87
+Navarra,Chamberí,72
+Basque Country,Chamberí,172
+La Rioja,Chamberí,29
+Ceuta y Melilla,Chamberí,11
+Abroad,Chamberí,3954
+Andalusia,Fuencarral-El Pardo,521
+Aragon,Fuencarral-El Pardo,98
+Asturias,Fuencarral-El Pardo,85
+Balearic Islands,Fuencarral-El Pardo,104
+Canary Islands,Fuencarral-El Pardo,126
+Cantabria,Fuencarral-El Pardo,62
+Castilla y Leon,Fuencarral-El Pardo,466
+Castilla - La Mancha,Fuencarral-El Pardo,459
+Catalonia,Fuencarral-El Pardo,275
+Valencian Community,Fuencarral-El Pardo,251
+Extremadura,Fuencarral-El Pardo,116
+Galicia,Fuencarral-El Pardo,189
+Comunidad de Madrid,Fuencarral-El Pardo,2044
+Region of Murcia,Fuencarral-El Pardo,83
+Navarra,Fuencarral-El Pardo,36
+Basque Country,Fuencarral-El Pardo,98
+La Rioja,Fuencarral-El Pardo,17
+Ceuta y Melilla,Fuencarral-El Pardo,44
+Abroad,Fuencarral-El Pardo,3404
+Andalusia,Moncloa-Aravaca,334
+Aragon,Moncloa-Aravaca,47
+Asturias,Moncloa-Aravaca,60
+Balearic Islands,Moncloa-Aravaca,93
+Canary Islands,Moncloa-Aravaca,110
+Cantabria,Moncloa-Aravaca,60
+Castilla y Leon,Moncloa-Aravaca,289
+Castilla - La Mancha,Moncloa-Aravaca,308
+Catalonia,Moncloa-Aravaca,225
+Valencian Community,Moncloa-Aravaca,163
+Extremadura,Moncloa-Aravaca,79
+Galicia,Moncloa-Aravaca,120
+Comunidad de Madrid,Moncloa-Aravaca,1440
+Region of Murcia,Moncloa-Aravaca,38
+Navarra,Moncloa-Aravaca,42
+Basque Country,Moncloa-Aravaca,83
+La Rioja,Moncloa-Aravaca,21
+Ceuta y Melilla,Moncloa-Aravaca,17
+Abroad,Moncloa-Aravaca,2495
+Andalusia,Latina,398
+Aragon,Latina,63
+Asturias,Latina,57
+Balearic Islands,Latina,95
+Canary Islands,Latina,156
+Cantabria,Latina,39
+Castilla y Leon,Latina,394
+Castilla - La Mancha,Latina,749
+Catalonia,Latina,308
+Valencian Community,Latina,261
+Extremadura,Latina,146
+Galicia,Latina,125
+Comunidad de Madrid,Latina,2407
+Region of Murcia,Latina,104
+Navarra,Latina,27
+Basque Country,Latina,81
+La Rioja,Latina,25
+Ceuta y Melilla,Latina,17
+Abroad,Latina,4654
+Andalusia,Carabanchel,518
+Aragon,Carabanchel,66
+Asturias,Carabanchel,51
+Balearic Islands,Carabanchel,105
+Canary Islands,Carabanchel,239
+Cantabria,Carabanchel,36
+Castilla y Leon,Carabanchel,465
+Castilla - La Mancha,Carabanchel,941
+Catalonia,Carabanchel,308
+Valencian Community,Carabanchel,357
+Extremadura,Carabanchel,151
+Galicia,Carabanchel,143
+Comunidad de Madrid,Carabanchel,3011
+Region of Murcia,Carabanchel,117
+Navarra,Carabanchel,40
+Basque Country,Carabanchel,97
+La Rioja,Carabanchel,31
+Ceuta y Melilla,Carabanchel,29
+Abroad,Carabanchel,5926
+Andalusia,Usera,230
+Aragon,Usera,48
+Asturias,Usera,49
+Balearic Islands,Usera,45
+Canary Islands,Usera,93
+Cantabria,Usera,20
+Castilla y Leon,Usera,220
+Castilla - La Mancha,Usera,635
+Catalonia,Usera,223
+Valencian Community,Usera,199
+Extremadura,Usera,49
+Galicia,Usera,74
+Comunidad de Madrid,Usera,1619
+Region of Murcia,Usera,69
+Navarra,Usera,16
+Basque Country,Usera,67
+La Rioja,Usera,5
+Ceuta y Melilla,Usera,8
+Abroad,Usera,3125
+Andalusia,Puente de Vallecas,453
+Aragon,Puente de Vallecas,67
+Asturias,Puente de Vallecas,41
+Balearic Islands,Puente de Vallecas,74
+Canary Islands,Puente de Vallecas,180
+Cantabria,Puente de Vallecas,33
+Castilla y Leon,Puente de Vallecas,357
+Castilla - La Mancha,Puente de Vallecas,809
+Catalonia,Puente de Vallecas,275
+Valencian Community,Puente de Vallecas,295
+Extremadura,Puente de Vallecas,81
+Galicia,Puente de Vallecas,125
+Comunidad de Madrid,Puente de Vallecas,2615
+Region of Murcia,Puente de Vallecas,105
+Navarra,Puente de Vallecas,40
+Basque Country,Puente de Vallecas,85
+La Rioja,Puente de Vallecas,18
+Ceuta y Melilla,Puente de Vallecas,18
+Abroad,Puente de Vallecas,5202
+Andalusia,Moratalaz,104
+Aragon,Moratalaz,27
+Asturias,Moratalaz,19
+Balearic Islands,Moratalaz,30
+Canary Islands,Moratalaz,65
+Cantabria,Moratalaz,16
+Castilla y Leon,Moratalaz,139
+Castilla - La Mancha,Moratalaz,196
+Catalonia,Moratalaz,70
+Valencian Community,Moratalaz,84
+Extremadura,Moratalaz,46
+Galicia,Moratalaz,39
+Comunidad de Madrid,Moratalaz,649
+Region of Murcia,Moratalaz,20
+Navarra,Moratalaz,5
+Basque Country,Moratalaz,33
+La Rioja,Moratalaz,4
+Ceuta y Melilla,Moratalaz,7
+Abroad,Moratalaz,1301
+Andalusia,Ciudad Lineal,548
+Aragon,Ciudad Lineal,102
+Asturias,Ciudad Lineal,77
+Balearic Islands,Ciudad Lineal,102
+Canary Islands,Ciudad Lineal,211
+Cantabria,Ciudad Lineal,48
+Castilla y Leon,Ciudad Lineal,409
+Castilla - La Mancha,Ciudad Lineal,546
+Catalonia,Ciudad Lineal,308
+Valencian Community,Ciudad Lineal,266
+Extremadura,Ciudad Lineal,109
+Galicia,Ciudad Lineal,193
+Comunidad de Madrid,Ciudad Lineal,1887
+Region of Murcia,Ciudad Lineal,123
+Navarra,Ciudad Lineal,39
+Basque Country,Ciudad Lineal,117
+La Rioja,Ciudad Lineal,24
+Ceuta y Melilla,Ciudad Lineal,29
+Abroad,Ciudad Lineal,4531
+Andalusia,Hortaleza,419
+Aragon,Hortaleza,80
+Asturias,Hortaleza,73
+Balearic Islands,Hortaleza,95
+Canary Islands,Hortaleza,177
+Cantabria,Hortaleza,57
+Castilla y Leon,Hortaleza,325
+Castilla - La Mancha,Hortaleza,368
+Catalonia,Hortaleza,266
+Valencian Community,Hortaleza,254
+Extremadura,Hortaleza,59
+Galicia,Hortaleza,196
+Comunidad de Madrid,Hortaleza,1770
+Region of Murcia,Hortaleza,81
+Navarra,Hortaleza,24
+Basque Country,Hortaleza,109
+La Rioja,Hortaleza,29
+Ceuta y Melilla,Hortaleza,15
+Abroad,Hortaleza,3504
+Andalusia,Villaverde,261
+Aragon,Villaverde,45
+Asturias,Villaverde,18
+Balearic Islands,Villaverde,29
+Canary Islands,Villaverde,94
+Cantabria,Villaverde,9
+Castilla y Leon,Villaverde,189
+Castilla - La Mancha,Villaverde,548
+Catalonia,Villaverde,214
+Valencian Community,Villaverde,190
+Extremadura,Villaverde,49
+Galicia,Villaverde,72
+Comunidad de Madrid,Villaverde,2031
+Region of Murcia,Villaverde,84
+Navarra,Villaverde,12
+Basque Country,Villaverde,54
+La Rioja,Villaverde,14
+Ceuta y Melilla,Villaverde,19
+Abroad,Villaverde,3189
+Andalusia,Villa de Vallecas,243
+Aragon,Villa de Vallecas,41
+Asturias,Villa de Vallecas,24
+Balearic Islands,Villa de Vallecas,31
+Canary Islands,Villa de Vallecas,87
+Cantabria,Villa de Vallecas,18
+Castilla y Leon,Villa de Vallecas,147
+Castilla - La Mancha,Villa de Vallecas,327
+Catalonia,Villa de Vallecas,123
+Valencian Community,Villa de Vallecas,153
+Extremadura,Villa de Vallecas,74
+Galicia,Villa de Vallecas,54
+Comunidad de Madrid,Villa de Vallecas,1211
+Region of Murcia,Villa de Vallecas,35
+Navarra,Villa de Vallecas,9
+Basque Country,Villa de Vallecas,30
+La Rioja,Villa de Vallecas,7
+Ceuta y Melilla,Villa de Vallecas,12
+Abroad,Villa de Vallecas,1779
+Andalusia,Vicálvaro,123
+Aragon,Vicálvaro,20
+Asturias,Vicálvaro,15
+Balearic Islands,Vicálvaro,17
+Canary Islands,Vicálvaro,51
+Cantabria,Vicálvaro,11
+Castilla y Leon,Vicálvaro,125
+Castilla - La Mancha,Vicálvaro,286
+Catalonia,Vicálvaro,56
+Valencian Community,Vicálvaro,79
+Extremadura,Vicálvaro,27
+Galicia,Vicálvaro,34
+Comunidad de Madrid,Vicálvaro,1887
+Region of Murcia,Vicálvaro,17
+Navarra,Vicálvaro,6
+Basque Country,Vicálvaro,26
+La Rioja,Vicálvaro,7
+Ceuta y Melilla,Vicálvaro,6
+Abroad,Vicálvaro,1139
+Andalusia,San Blas-Canillejas,236
+Aragon,San Blas-Canillejas,35
+Asturias,San Blas-Canillejas,40
+Balearic Islands,San Blas-Canillejas,64
+Canary Islands,San Blas-Canillejas,134
+Cantabria,San Blas-Canillejas,24
+Castilla y Leon,San Blas-Canillejas,247
+Castilla - La Mancha,San Blas-Canillejas,401
+Catalonia,San Blas-Canillejas,154
+Valencian Community,San Blas-Canillejas,171
+Extremadura,San Blas-Canillejas,68
+Galicia,San Blas-Canillejas,116
+Comunidad de Madrid,San Blas-Canillejas,1474
+Region of Murcia,San Blas-Canillejas,50
+Navarra,San Blas-Canillejas,17
+Basque Country,San Blas-Canillejas,57
+La Rioja,San Blas-Canillejas,8
+Ceuta y Melilla,San Blas-Canillejas,13
+Abroad,San Blas-Canillejas,2896
+Andalusia,Barajas,80
+Aragon,Barajas,8
+Asturias,Barajas,16
+Balearic Islands,Barajas,17
+Canary Islands,Barajas,46
+Cantabria,Barajas,10
+Castilla y Leon,Barajas,56
+Castilla - La Mancha,Barajas,109
+Catalonia,Barajas,52
+Valencian Community,Barajas,46
+Extremadura,Barajas,14
+Galicia,Barajas,37
+Comunidad de Madrid,Barajas,465
+Region of Murcia,Barajas,12
+Navarra,Barajas,6
+Basque Country,Barajas,18
+La Rioja,Barajas,2
+Ceuta y Melilla,Barajas,3
+Abroad,Barajas,676
