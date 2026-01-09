@@ -1,0 +1,305 @@
+Year,District,Neighborhood,Gender,Number
+2019,Centro,Centro,male,368
+2019,Centro,Palacio,male,55
+2019,Centro,Embajadores,male,137
+2019,Centro,Cortes,male,35
+2019,Centro,Justicia,male,47
+2019,Centro,Universidad,male,78
+2019,Centro,Sol,male,16
+2019,Arganzuela,Arganzuela,male,438
+2019,Arganzuela,Imperial,male,71
+2019,Arganzuela,Acacias,male,120
+2019,Arganzuela,Chopera,male,67
+2019,Arganzuela,Legazpi,male,21
+2019,Arganzuela,Delicias,male,73
+2019,Arganzuela,Palos de la Frontera,male,83
+2019,Arganzuela,Atocha,male,3
+2019,Retiro,Retiro,male,425
+2019,Retiro,Pacífico,male,111
+2019,Retiro,Adelfas,male,45
+2019,Retiro,Estrella,male,108
+2019,Retiro,Ibiza,male,83
+2019,Retiro,Los Jerónimos,male,32
+2019,Retiro,Niño Jesús,male,46
+2019,Salamanca,Salamanca,male,517
+2019,Salamanca,Recoletos,male,48
+2019,Salamanca,Goya,male,99
+2019,Salamanca,Fuente del Berro,male,74
+2019,Salamanca,Guindalera,male,180
+2019,Salamanca,Lista,male,69
+2019,Salamanca,Castellana,male,47
+2019,Chamartín,Chamartín,male,509
+2019,Chamartín,El Viso,male,66
+2019,Chamartín,Prosperidad,male,149
+2019,Chamartín,Ciudad Jardín,male,63
+2019,Chamartín,Hispanoamérica,male,109
+2019,Chamartín,Nueva España,male,75
+2019,Chamartín,Castilla,male,47
+2019,Tetuán,Tetuán,male,483
+2019,Tetuán,Bellas Vistas,male,85
+2019,Tetuán,Cuatro Caminos,male,122
+2019,Tetuán,Castillejos,male,74
+2019,Tetuán,Almenara,male,70
+2019,Tetuán,Valdeacederas,male,62
+2019,Tetuán,Berruguete,male,70
+2019,Chamberí,Chamberí,male,514
+2019,Chamberí,Gaztambide,male,105
+2019,Chamberí,Arapiles,male,89
+2019,Chamberí,Trafalgar,male,85
+2019,Chamberí,Almagro,male,68
+2019,Chamberí,Ríos Rosas,male,80
+2019,Chamberí,Vallehermoso,male,87
+2019,Fuencarral-ElPardo,Fuencarral-ElPardo,male,748
+2019,Fuencarral-ElPardo,El Pardo,male,13
+2019,Fuencarral-ElPardo,Fuentelarreina,male,13
+2019,Fuencarral-ElPardo,Peñagrande,male,162
+2019,Fuencarral-ElPardo,Pilar,male,201
+2019,Fuencarral-ElPardo,La Paz,male,117
+2019,Fuencarral-ElPardo,Valverde,male,135
+2019,Fuencarral-ElPardo,Mirasierra,male,78
+2019,Fuencarral-ElPardo,El Goloso,male,29
+2019,Moncloa-Aravaca,Moncloa-Aravaca,male,412
+2019,Moncloa-Aravaca,Casa de Campo,male,51
+2019,Moncloa-Aravaca,Argüelles,male,98
+2019,Moncloa-Aravaca,Ciudad Universitaria,male,77
+2019,Moncloa-Aravaca,Valdezarza,male,106
+2019,Moncloa-Aravaca,Valdemarín,male,11
+2019,Moncloa-Aravaca,El Plantío,male,16
+2019,Moncloa-Aravaca,Aravaca,male,53
+2019,Latina,Latina,male,901
+2019,Latina,Los Cármenes,male,58
+2019,Latina,Puerta del Ángel,male,136
+2019,Latina,Lucero,male,149
+2019,Latina,Aluche,male,283
+2019,Latina,Campamento,male,53
+2019,Latina,CuatroVientos,male,8
+2019,Latina,Águilas,male,214
+2019,Carabanchel,Carabanchel,male,813
+2019,Carabanchel,Comillas,male,102
+2019,Carabanchel,Opañel,male,112
+2019,Carabanchel,San Isidro,male,133
+2019,Carabanchel,Vista Alegre,male,138
+2019,Carabanchel,Puerta Bonita,male,123
+2019,Carabanchel,Buenavista,male,112
+2019,Carabanchel,Abrantes,male,93
+2019,Usera,Usera,male,452
+2019,Usera,Orcasitas,male,78
+2019,Usera,Orcasur,male,41
+2019,Usera,San Fermín,male,72
+2019,Usera,Almendrales,male,61
+2019,Usera,Moscardó,male,89
+2019,Usera,Zofío,male,49
+2019,Usera,Pradolongo,male,62
+2019,Puente de Vallecas,Puente de Vallecas,male,866
+2019,Puente de Vallecas,Entrevías,male,164
+2019,Puente de Vallecas,San Diego,male,136
+2019,Puente de Vallecas,Palomeras Bajas,male,115
+2019,Puente de Vallecas,Palomeras Sureste,male,156
+2019,Puente de Vallecas,Portazgo,male,131
+2019,Puente de Vallecas,Numancia,male,164
+2019,Moratalaz,Moratalaz,male,416
+2019,Moratalaz,Pavones,male,41
+2019,Moratalaz,Horcajo,male,9
+2019,Moratalaz,Marroquina,male,124
+2019,Moratalaz,Media Legua,male,83
+2019,Moratalaz,Fontarrón,male,75
+2019,Moratalaz,Vinateros,male,84
+2019,Ciudad Lineal,Ciudad Lineal,male,760
+2019,Ciudad Lineal,Ventas,male,195
+2019,Ciudad Lineal,Pueblo Nuevo,male,209
+2019,Ciudad Lineal,Quintana,male,96
+2019,Ciudad Lineal,Concepción,male,62
+2019,Ciudad Lineal,San Pascual,male,68
+2019,Ciudad Lineal,San Juan Bautista,male,39
+2019,Ciudad Lineal,Colina,male,22
+2019,Ciudad Lineal,Atalaya,male,4
+2019,Ciudad Lineal,Costillares,male,65
+2019,Hortaleza,Hortaleza,male,557
+2019,Hortaleza,Palomas,male,15
+2019,Hortaleza,Piovera,male,36
+2019,Hortaleza,Canillas,male,142
+2019,Hortaleza,Pinar del Rey,male,238
+2019,Hortaleza,Apóstol Santiago,male,54
+2019,Hortaleza,Valdefuentes,male,72
+2019,Villaverde,Villaverde,male,460
+2019,Villaverde,Villaverde Alto,male,160
+2019,Villaverde,San Cristóbal,male,48
+2019,Villaverde,Butarque,male,26
+2019,Villaverde,Los Rosales,male,94
+2019,Villaverde,Ángeles,male,132
+2019,Villa de Vallecas,Villa de Vallecas,male,274
+2019,Villa de Vallecas,Casco Histórico de Vallecas,male,130
+2019,Villa de Vallecas,Santa Eugenia,male,90
+2019,Villa de Vallecas,Ensanche de Vallecas,male,54
+2019,Vicálvaro,Vicálvaro,male,201
+2019,Vicálvaro,Casco Histórico de Vicálvaro,male,139
+2019,Vicálvaro,Valdebernardo,male,44
+2019,Vicálvaro,Valderrivas,male,17
+2019,Vicálvaro,El Cañaveral,male,1
+2019,San Blas-Canillejas,San Blas-Canillejas,male,529
+2019,San Blas-Canillejas,Simancas,male,94
+2019,San Blas-Canillejas,Hellín,male,49
+2019,San Blas-Canillejas,Amposta,male,39
+2019,San Blas-Canillejas,Arcos,male,84
+2019,San Blas-Canillejas,Rosas,male,64
+2019,San Blas-Canillejas,Rejas,male,39
+2019,San Blas-Canillejas,Canillejas,male,127
+2019,San Blas-Canillejas,El Salvador,male,33
+2019,Barajas,Barajas,male,129
+2019,Barajas,Alameda de Osuna,male,58
+2019,Barajas,Aeropuerto,male,8
+2019,Barajas,Casco Histórico de Barajas,male,21
+2019,Barajas,Timón,male,22
+2019,Barajas,Corralejos,male,20
+2019,Centro,Centro,female,455
+2019,Centro,Palacio,female,83
+2019,Centro,Embajadores,female,116
+2019,Centro,Cortes,female,36
+2019,Centro,Justicia,female,57
+2019,Centro,Universidad,female,138
+2019,Centro,Sol,female,25
+2019,Arganzuela,Arganzuela,female,553
+2019,Arganzuela,Imperial,female,102
+2019,Arganzuela,Acacias,female,137
+2019,Arganzuela,Chopera,female,83
+2019,Arganzuela,Legazpi,female,28
+2019,Arganzuela,Delicias,female,107
+2019,Arganzuela,Palos de la Frontera,female,94
+2019,Arganzuela,Atocha,female,2
+2019,Retiro,Retiro,female,560
+2019,Retiro,Pacífico,female,148
+2019,Retiro,Adelfas,female,88
+2019,Retiro,Estrella,female,107
+2019,Retiro,Ibiza,female,123
+2019,Retiro,Los Jerónimos,female,33
+2019,Retiro,Niño Jesús,female,61
+2019,Salamanca,Salamanca,female,706
+2019,Salamanca,Recoletos,female,69
+2019,Salamanca,Goya,female,130
+2019,Salamanca,Fuente del Berro,female,102
+2019,Salamanca,Guindalera,female,222
+2019,Salamanca,Lista,female,118
+2019,Salamanca,Castellana,female,65
+2019,Chamartín,Chamartín,female,639
+2019,Chamartín,El Viso,female,80
+2019,Chamartín,Prosperidad,female,159
+2019,Chamartín,Ciudad Jardín,female,69
+2019,Chamartín,Hispanoamérica,female,168
+2019,Chamartín,Nueva España,female,96
+2019,Chamartín,Castilla,female,67
+2019,Tetuán,Tetuán,female,610
+2019,Tetuán,Bellas Vistas,female,114
+2019,Tetuán,Cuatro Caminos,female,140
+2019,Tetuán,Castillejos,female,75
+2019,Tetuán,Almenara,female,119
+2019,Tetuán,Valdeacederas,female,77
+2019,Tetuán,Berruguete,female,85
+2019,Chamberí,Chamberí,female,687
+2019,Chamberí,Gaztambide,female,132
+2019,Chamberí,Arapiles,female,101
+2019,Chamberí,Trafalgar,female,112
+2019,Chamberí,Almagro,female,119
+2019,Chamberí,Ríos Rosas,female,110
+2019,Chamberí,Vallehermoso,female,113
+2019,Fuencarral-ElPardo,Fuencarral-ElPardo,female,744
+2019,Fuencarral-ElPardo,El Pardo,female,14
+2019,Fuencarral-ElPardo,Fuentelarreina,female,6
+2019,Fuencarral-ElPardo,Peñagrande,female,164
+2019,Fuencarral-ElPardo,Pilar,female,198
+2019,Fuencarral-ElPardo,La Paz,female,95
+2019,Fuencarral-ElPardo,Valverde,female,146
+2019,Fuencarral-ElPardo,Mirasierra,female,76
+2019,Fuencarral-ElPardo,El Goloso,female,45
+2019,Moncloa-Aravaca,Moncloa-Aravaca,female,560
+2019,Moncloa-Aravaca,Casa de Campo,female,81
+2019,Moncloa-Aravaca,Argüelles,female,140
+2019,Moncloa-Aravaca,Ciudad Universitaria,female,107
+2019,Moncloa-Aravaca,Valdezarza,female,110
+2019,Moncloa-Aravaca,Valdemarín,female,43
+2019,Moncloa-Aravaca,El Plantío,female,10
+2019,Moncloa-Aravaca,Aravaca,female,69
+2019,Latina,Latina,female,828
+2019,Latina,Los Cármenes,female,66
+2019,Latina,Puerta del Ángel,female,158
+2019,Latina,Lucero,female,112
+2019,Latina,Aluche,female,244
+2019,Latina,Campamento,female,47
+2019,Latina,CuatroVientos,female,6
+2019,Latina,Águilas,female,195
+2019,Carabanchel,Carabanchel,female,886
+2019,Carabanchel,Comillas,female,101
+2019,Carabanchel,Opañel,female,124
+2019,Carabanchel,San Isidro,female,143
+2019,Carabanchel,Vista Alegre,female,191
+2019,Carabanchel,Puerta Bonita,female,134
+2019,Carabanchel,Buenavista,female,105
+2019,Carabanchel,Abrantes,female,88
+2019,Usera,Usera,female,481
+2019,Usera,Orcasitas,female,91
+2019,Usera,Orcasur,female,42
+2019,Usera,San Fermín,female,63
+2019,Usera,Almendrales,female,74
+2019,Usera,Moscardó,female,98
+2019,Usera,Zofío,female,50
+2019,Usera,Pradolongo,female,63
+2019,Puente de Vallecas,Puente de Vallecas,female,832
+2019,Puente de Vallecas,Entrevías,female,151
+2019,Puente de Vallecas,San Diego,female,126
+2019,Puente de Vallecas,Palomeras Bajas,female,133
+2019,Puente de Vallecas,Palomeras Sureste,female,144
+2019,Puente de Vallecas,Portazgo,female,110
+2019,Puente de Vallecas,Numancia,female,168
+2019,Moratalaz,Moratalaz,female,413
+2019,Moratalaz,Pavones,female,49
+2019,Moratalaz,Horcajo,female,10
+2019,Moratalaz,Marroquina,female,88
+2019,Moratalaz,Media Legua,female,80
+2019,Moratalaz,Fontarrón,female,89
+2019,Moratalaz,Vinateros,female,97
+2019,Ciudad Lineal,Ciudad Lineal,female,848
+2019,Ciudad Lineal,Ventas,female,220
+2019,Ciudad Lineal,Pueblo Nuevo,female,234
+2019,Ciudad Lineal,Quintana,female,101
+2019,Ciudad Lineal,Concepción,female,82
+2019,Ciudad Lineal,San Pascual,female,83
+2019,Ciudad Lineal,San Juan Bautista,female,39
+2019,Ciudad Lineal,Colina,female,18
+2019,Ciudad Lineal,Atalaya,female,6
+2019,Ciudad Lineal,Costillares,female,65
+2019,Hortaleza,Hortaleza,female,538
+2019,Hortaleza,Palomas,female,14
+2019,Hortaleza,Piovera,female,33
+2019,Hortaleza,Canillas,female,145
+2019,Hortaleza,Pinar del Rey,female,237
+2019,Hortaleza,Apóstol Santiago,female,48
+2019,Hortaleza,Valdefuentes,female,61
+2019,Villaverde,Villaverde,female,439
+2019,Villaverde,Villaverde Alto,female,159
+2019,Villaverde,San Cristóbal,female,37
+2019,Villaverde,Butarque,female,29
+2019,Villaverde,Los Rosales,female,99
+2019,Villaverde,Ángeles,female,115
+2019,Villa de Vallecas,Villa de Vallecas,female,252
+2019,Villa de Vallecas,Casco Histórico de Vallecas,female,119
+2019,Villa de Vallecas,Santa Eugenia,female,74
+2019,Villa de Vallecas,Ensanche de Vallecas,female,59
+2019,Vicálvaro,Vicálvaro,female,173
+2019,Vicálvaro,Casco Histórico de Vicálvaro,female,121
+2019,Vicálvaro,Valdebernardo,female,39
+2019,Vicálvaro,Valderrivas,female,12
+2019,Vicálvaro,El Cañaveral,female,1
+2019,San Blas-Canillejas,San Blas-Canillejas,female,510
+2019,San Blas-Canillejas,Simancas,female,88
+2019,San Blas-Canillejas,Hellín,female,49
+2019,San Blas-Canillejas,Amposta,female,32
+2019,San Blas-Canillejas,Arcos,female,102
+2019,San Blas-Canillejas,Rosas,female,73
+2019,San Blas-Canillejas,Rejas,female,16
+2019,San Blas-Canillejas,Canillejas,female,110
+2019,San Blas-Canillejas,El Salvador,female,40
+2019,Barajas,Barajas,female,121
+2019,Barajas,Alameda de Osuna,female,52
+2019,Barajas,Aeropuerto,female,2
+2019,Barajas,Casco Histórico de Barajas,female,29
+2019,Barajas,Timón,female,19
+2019,Barajas,Corralejos,female,19
