@@ -2,7 +2,8 @@
 
 Bienvenido a mi repositorio personal de **Análisis de Datos**.
 
-Este espacio es parte activa de mi proceso de crecimiento como **Data Analyst**: un laboratorio donde experimento, practico y consolido conocimientos trabajando con datos reales y problemas cercanos al mundo profesional.
+Este espacio forma parte activa de mi proceso de crecimiento como **Data Analyst**. Es un laboratorio donde experimento, practico y consolido conocimientos trabajando con datos reales y problemas cercanos al mundo profesional.
+
 
 Aquí encontrarás proyectos desarrollados en **SQL, Python y R**, con un enfoque claro en:
 - Análisis exploratorio y estadístico  
@@ -10,9 +11,8 @@ Aquí encontrarás proyectos desarrollados en **SQL, Python y R**, con un enfoqu
 - Extracción de insights accionables  
 - Visualización y storytelling con datos  
 
-No es solo un repositorio de resultados, sino un **diario técnico de aprendizaje**, donde cada proyecto refleja una pregunta concreta, una metodología y una intención analítica clara.
+Los proyectos que ves a continuación constituyen la base técnica de mi portfolio web: análisis reales, decisiones justificadas y foco en entender los datos antes de visualizarlos.
 
----
 
 
 ## Proyectos
@@ -33,8 +33,6 @@ No es solo un repositorio de resultados, sino un **diario técnico de aprendizaj
 | Visualizando Supermercados con R | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/05.Visualizando%20Supermercados%20con%20R) |
 
 
-
----
 
 
 Este repositorio crece conmigo.  
