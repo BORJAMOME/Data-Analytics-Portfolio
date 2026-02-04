@@ -14,68 +14,24 @@ No es solo un repositorio de resultados, sino un **diario técnico de aprendizaj
 
 ---
 
-## Lenguajes usados
 
-- **SQL** → Análisis relacional, consultas avanzadas, lógica de negocio  
-- **Python** → Análisis estadístico, modelado y preparación de datos complejos  
-- **R** → Visualización, análisis exploratorio y estadística aplicada  
+## Proyectos
 
-Cada proyecto está documentado con el objetivo de que se entienda **qué problema se aborda, cómo se resuelve y qué conclusiones se extraen**.
+| Proyecto | Lenguaje | Enlace |
+|--------|----------|--------|
+| Accidentes ciudad de Madrid | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/01.Accidentes%20ciudad%20de%20Madrid) |
+| Proyecto gestión de Librería | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/02.Proyecto%20gesti%C3%B3n%20Libreria) |
+| Análisis Metro – Viajes | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/03.An%C3%A1lisis%20Metro%20viajes) |
+| Estudio Airbnb Menorca | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/04.Estudio%20Airbnb%20Menorca) |
+| Estudio Nombres de Bebés Madrid | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/05.Estudio%20Nombres%20Bebes%20Madrid) |
+| Estudio Censo de Animales Madrid | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/06.Estudio%20Censo%20Animales%20Madrid) |
+| Análisis de Supervivencia | Python | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/Python) |
+| Radiografía de Madrid | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/01.Radiograf%C3%ADa%20de%20Madrid) |
+| Top goleadores UEFA | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/02.Top%20goleadores%20UEFA) |
+| Renta Media España | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/03.Renta%20Media%20Espa%C3%B1a) |
+| Estudio Cólera Londres | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/04.Estudio%20C%C3%B3lera%20Londres) |
+| Visualizando Supermercados con R | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/05.Visualizando%20Supermercados%20con%20R) |
 
----
-
-### Proyectos con SQL
-
-Análisis basados en bases de datos reales, con foco en consultas eficientes y detección de patrones:
-
-- **Accidentes ciudad de Madrid**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/01.Accidentes%20ciudad%20de%20Madrid)
-
-- **Proyecto gestión de Librería**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/02.Proyecto%20gesti%C3%B3n%20Libreria)
-
-- **Análisis Metro – Viajes**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/03.An%C3%A1lisis%20Metro%20viajes)
-
-- **Estudio Airbnb en Menorca**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/04.Estudio%20Airbnb%20Menorca)
-
-- **Estudio de Nombres de Bebés en Madrid**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/05.Estudio%20Nombres%20Bebes%20Madrid)
-
-- **Estudio del Censo de Animales en Madrid**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/06.Estudio%20Censo%20Animales%20Madrid)
-
-
----
-
-### Proyecto con Python
-
-- **Análisis de Supervivencia**  
-  Modelado estadístico y limpieza de datos complejos para la identificación de patrones críticos.  
-  Un proyecto enfocado en el rigor analítico y la interpretación correcta de resultados.
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/python/Proyectos/01.Proyecto%20Titanic)
-
----
-
-### Proyectos con R
-
-Proyectos centrados en análisis exploratorio, estadística y visualización avanzada:
-
-- **Radiografía de Madrid**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/01.Radiograf%C3%ADa%20de%20Madrid)
-
-- **Top goleadores UEFA**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/02.Top%20goleadores%20UEFA)
-
-- **Renta Media en España**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/03.Renta%20Media%20Espa%C3%B1a)
-
-- **Estudio del Cólera en Londres**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/04.Estudio%20C%C3%B3lera%20Londres)
-
-- **Visualizando Supermercados con R**  
-  👉 [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/05.Visualizando%20Supermercados%20con%20R)
 
 
 ---
