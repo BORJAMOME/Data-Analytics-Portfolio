@@ -25,7 +25,7 @@ No es solo un repositorio de resultados, sino un **diario técnico de aprendizaj
 | Estudio Airbnb Menorca | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/04.Estudio%20Airbnb%20Menorca) |
 | Estudio Nombres de Bebés Madrid | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/05.Estudio%20Nombres%20Bebes%20Madrid) |
 | Estudio Censo de Animales Madrid | SQL | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/SQL/Proyectos%20SQL/06.Estudio%20Censo%20Animales%20Madrid) |
-| Análisis de Supervivencia | Python | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/Python) |
+| Análisis de Supervivencia | Python | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/python/Proyectos/01.Proyecto%20Titanic) |
 | Radiografía de Madrid | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/01.Radiograf%C3%ADa%20de%20Madrid) |
 | Top goleadores UEFA | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/02.Top%20goleadores%20UEFA) |
 | Renta Media España | R | [Ver proyecto](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/r/Proyectos%20con%20R/03.Renta%20Media%20Espa%C3%B1a) |
