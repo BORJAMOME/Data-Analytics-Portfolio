@@ -1,4 +1,5 @@
-# Análisis de Supervivientes del Titanic con Python
+# Análisis de Supervivencia: Modelado estadístico y limpieza de datos complejos para identificación de patrones críticos 
+
 <img src="https://img.shields.io/badge/Language-Python-yellow" alt="Language">
 <img src="https://img.shields.io/badge/Notebook-Jupyter-orange" alt="Jupyter Notebook">
 <img src="https://img.shields.io/badge/Data-Kaggle-blue" alt="Kaggle Data">
