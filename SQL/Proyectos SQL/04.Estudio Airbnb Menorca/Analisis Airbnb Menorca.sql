@@ -1,99 +1,122 @@
--- Create database 
-create database Airbnb_Menorca;
-use Airbnb_Menorca;
+/* =========================================================
+   PROYECTO: Análisis Airbnb Menorca 2022
+   AUTOR: Borja
+   STACK: MySQL 8.0+
+   ========================================================= */
 
--- Grouping by average price and neighbourhood in descending order
-SELECT DISTINCT neighbourhood, CONCAT(ROUND(AVG(price), 2),'€') AS avg_price 
-FROM airbnb_menorca  
-GROUP BY neighbourhood 
-ORDER BY avg_price DESC;
+-- =========================================================
+-- 0️⃣ Creación y selección de base de datos
+-- =========================================================
 
--- Grouping by neighbourhood and price
-SELECT DISTINCT neighbourhood, 
-AVG(price) OVER (PARTITION BY neighbourhood) AS avg_price 
-FROM airbnb_menorca 
-ORDER BY avg_price DESC;
+CREATE DATABASE IF NOT EXISTS Airbnb_Menorca;
+USE Airbnb_Menorca;
 
--- Top 10 by number of reviews
-SELECT * FROM airbnb_menorca ORDER BY number_of_reviews DESC LIMIT 10;
 
--- Number of Airbnb properties per neighbourhood
-SELECT DISTINCT neighbourhood, COUNT(host_id) AS num_Airbnb  
+-- =========================================================
+-- 1️⃣ DISTRIBUCIÓN GENERAL
+-- =========================================================
+
+-- Top 10 alojamientos con más reseñas
+SELECT *
+FROM airbnb_menorca
+ORDER BY number_of_reviews DESC
+LIMIT 10;
+
+-- Número de alojamientos por barrio
+SELECT neighbourhood, COUNT(*) AS num_airbnb
 FROM airbnb_menorca
 GROUP BY neighbourhood
-ORDER BY num_Airbnb DESC;
+ORDER BY num_airbnb DESC;
 
--- Top 10 hosts with the most properties
-SELECT 
-    host_id,
-    COUNT(*) AS num_properties
+-- Top 10 anfitriones con más propiedades
+SELECT host_id, COUNT(*) AS num_properties
 FROM airbnb_menorca
 GROUP BY host_id
 ORDER BY num_properties DESC
 LIMIT 10;
 
--- Top 10 by number of Airbnb properties per neighbourhood 
-SELECT DISTINCT neighbourhood, COUNT(host_id) AS num_Airbnb  
-FROM airbnb_menorca 
-GROUP BY neighbourhood
-ORDER BY num_Airbnb DESC LIMIT 10;
 
--- Top 10 by number of room types
-SELECT room_type, COUNT(room_type) AS num_Airbnb 
+-- =========================================================
+-- 2️⃣ SEGMENTACIÓN POR UBICACIÓN
+-- =========================================================
+
+-- Precio medio por barrio (función de ventana)
+SELECT DISTINCT neighbourhood,
+       ROUND(AVG(price) OVER (PARTITION BY neighbourhood), 2) AS avg_price
 FROM airbnb_menorca
-GROUP BY room_type 
-ORDER BY room_type DESC;
-
--- Average price by room type per neighbourhood
-SELECT DISTINCT neighbourhood, room_type, AVG(price) AS avg_price 
-FROM airbnb_menorca 
-GROUP BY neighbourhood, room_type 
 ORDER BY avg_price DESC;
 
--- Analysis of average occupancy per neighbourhood
-SELECT neighbourhood, AVG(availability_365) AS avg_availability
+-- Precio medio por barrio (formato monetario)
+SELECT neighbourhood,
+       CONCAT(ROUND(AVG(price), 2), ' €') AS avg_price
+FROM airbnb_menorca
+GROUP BY neighbourhood
+ORDER BY AVG(price) DESC;
+
+-- Precio medio por tipo de habitación y barrio
+SELECT neighbourhood,
+       room_type,
+       ROUND(AVG(price), 2) AS avg_price
+FROM airbnb_menorca
+GROUP BY neighbourhood, room_type
+ORDER BY avg_price DESC;
+
+
+-- =========================================================
+-- 3️⃣ ANÁLISIS POR TIPO DE ALOJAMIENTO
+-- =========================================================
+
+-- Número de alojamientos por tipo
+SELECT room_type, COUNT(*) AS num_airbnb
+FROM airbnb_menorca
+GROUP BY room_type
+ORDER BY num_airbnb DESC;
+
+-- Disponibilidad media por tipo
+SELECT room_type,
+       ROUND(AVG(availability_365), 2) AS avg_availability
+FROM airbnb_menorca
+GROUP BY room_type;
+
+-- Comparación de estancia mínima por tipo y barrio
+SELECT neighbourhood,
+       room_type,
+       ROUND(AVG(minimum_nights), 2) AS avg_min_nights
+FROM airbnb_menorca
+GROUP BY neighbourhood, room_type;
+
+
+-- =========================================================
+-- 4️⃣ DISPONIBILIDAD Y OCUPACIÓN
+-- =========================================================
+
+-- Disponibilidad media por barrio
+SELECT neighbourhood,
+       ROUND(AVG(availability_365), 2) AS avg_availability
 FROM airbnb_menorca
 GROUP BY neighbourhood;
 
--- Analysis of annual availability
+-- Estadísticas generales de disponibilidad anual
 SELECT 
-    AVG(availability_365) AS avg_availability,
+    ROUND(AVG(availability_365), 2) AS avg_availability,
     MAX(availability_365) AS max_availability,
     MIN(availability_365) AS min_availability
 FROM airbnb_menorca;
 
--- Number of reviews per neighbourhood
-SELECT 
-    neighbourhood,
-    SUM(number_of_reviews_ltm) AS total_reviews_ltm
-FROM airbnb_menorca
-GROUP BY neighbourhood;
 
--- Comparison of minimum nights by room type and neighbourhood
-SELECT 
-    neighbourhood,
-    room_type,
-    AVG(minimum_nights) AS avg_min_nights
-FROM airbnb_menorca
-GROUP BY neighbourhood, room_type;
+-- =========================================================
+-- 5️⃣ PRECIO Y DEMANDA
+-- =========================================================
 
--- Analysis of price distribution by minimum nights
-SELECT 
-    minimum_nights,
-    AVG(price) AS avg_price,
-    COUNT(*) AS num_listings
+-- Precio medio según estancia mínima
+SELECT minimum_nights,
+       ROUND(AVG(price), 2) AS avg_price,
+       COUNT(*) AS num_listings
 FROM airbnb_menorca
 GROUP BY minimum_nights
 ORDER BY minimum_nights;
 
--- Analysis of average availability by room type
-SELECT 
-    room_type,
-    AVG(availability_365) AS avg_availability
-FROM airbnb_menorca
-GROUP BY room_type;
-
--- Analysis of price distribution by number of reviews
+-- Precio medio según rango de reseñas
 SELECT 
     CASE 
         WHEN number_of_reviews <= 10 THEN '0-10'
@@ -101,6 +124,12 @@ SELECT
         WHEN number_of_reviews <= 100 THEN '51-100'
         ELSE '101+'
     END AS review_range,
-    AVG(price) AS avg_price
+    ROUND(AVG(price), 2) AS avg_price
 FROM airbnb_menorca
 GROUP BY review_range;
+
+-- Reseñas en los últimos 12 meses por barrio
+SELECT neighbourhood,
+       SUM(number_of_reviews_ltm) AS total_reviews_ltm
+FROM airbnb_menorca
+GROUP BY neighbourhood;
