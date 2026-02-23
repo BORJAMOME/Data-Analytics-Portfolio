@@ -1,190 +1,110 @@
-
 [![SQL](https://img.shields.io/badge/MySQL-8.0+-f29221?style=for-the-badge&logo=mysql&logoColor=white&labelColor=101010)](https://mysql.com)
 
-
-# Airbnb Data Analysis with SQL (2022)
-Welcome to the Airbnb Data Analysis repository! In this project, we explore and analyze Airbnb data using SQL queries. This analysis provides valuable insights into the Airbnb market, allowing us to understand pricing trends, popular neighborhoods, host activity, and more.
-
-# Dataset
-The dataset used for this analysis contains information about Airbnb listings in Menorca. It includes the following columns:
-- **host_id:** The ID of the host
-- **neighbourhood:** The neighborhood where the property is located
-- **room_type:** The type of room (e.g., entire home/apartment, private room, shared room)
-- **price:** The price per night for the listing
-- **minimum_nights:** The minimum number of nights required for booking
-- **number_of_reviews:** The total number of reviews for the listing
-- **calculated_host_listings_count:** The number of listings the host has
-- **availability_365:** The number of days the listing is available in a year
-- **number_of_reviews_ltm:** The number of reviews in the last twelve months
-
-  
-
-### Top 10 by number of reviews
-```sql
-SELECT * FROM airbnb_menorca
-ORDER BY number_of_reviews DESC LIMIT 10;
-```
-
-### Top 10 hosts with the most properties
- ```sql
-SELECT host_id, COUNT(*) AS num_properties
-FROM airbnb_menorca
-GROUP BY host_id
-ORDER BY num_properties DESC LIMIT 10;
-```
-
-### Top 10 by number of Airbnb properties per neighbourhood 
-```sql
-SELECT DISTINCT neighbourhood, COUNT(host_id) AS num_Airbnb  
-FROM airbnb_menorca 
-GROUP BY neighbourhood
-ORDER BY num_Airbnb DESC LIMIT 10;
-```
-
-### Top 10 by number of room types
-```sql
-SELECT room_type, COUNT(room_type) AS num_Airbnb 
-FROM airbnb_menorca
-GROUP BY room_type 
-ORDER BY room_type DESC;
-```
-
-### Analysis of average occupancy per neighbourhood
-```sql
-SELECT neighbourhood, AVG(availability_365) AS avg_availability
-FROM airbnb_menorca
-GROUP BY neighbourhood;
-```
-
-### Analysis of annual availability
-```sql
-SELECT 
-    AVG(availability_365) AS avg_availability,
-    MAX(availability_365) AS max_availability,
-    MIN(availability_365) AS min_availability
-FROM airbnb_menorca;
-```
+# Análisis de Datos Airbnb | Menorca 2022
 
 
-### Analysis of price distribution by minimum nights
-```sql
-SELECT 
-    minimum_nights,
-    AVG(price) AS avg_price,
-    COUNT(*) AS num_listings
-FROM airbnb_menorca
-GROUP BY minimum_nights
-ORDER BY minimum_nights;
-```
+El mercado de alquiler vacacional ha transformado la industria turística.  
+Airbnb no solo refleja oferta y demanda, sino también patrones de precios, disponibilidad y concentración de anfitriones.
 
-### Analysis of average availability by room type
-```sql
-SELECT room_type, AVG(availability_365) AS avg_availability
-FROM airbnb_menorca
-GROUP BY room_type;
-```
+En este proyecto analizo datos reales de Airbnb en Menorca (2022) utilizando SQL para entender:
 
-### Analysis of price distribution by number of reviews
-```sql
-SELECT 
-    CASE 
-        WHEN number_of_reviews <= 10 THEN '0-10'
-        WHEN number_of_reviews <= 50 THEN '11-50'
-        WHEN number_of_reviews <= 100 THEN '51-100'
-        ELSE '101+'
-    END AS review_range,
-    AVG(price) AS avg_price
-FROM airbnb_menorca
-GROUP BY review_range;
-```
-
-### Average price by room type per neighbourhood
-```sql
-SELECT DISTINCT neighbourhood, room_type, AVG(price) AS avg_price 
-FROM airbnb_menorca 
-GROUP BY neighbourhood, room_type 
-ORDER BY avg_price DESC;
-```
-
-### Number of Airbnb properties per neighbourhood
-```sql
-SELECT DISTINCT neighbourhood, COUNT(host_id) AS num_Airbnb  
-FROM airbnb_menorca
-GROUP BY neighbourhood
-ORDER BY num_Airbnb DESC;
-```
+- Tendencias de precios
+- Distribución por zonas
+- Actividad de anfitriones
+- Tipología de alojamientos
+- Disponibilidad anual
+- Relación entre reseñas y precio
 
 
-### Number of reviews per neighbourhood
-```sql
-SELECT 
-    neighbourhood,
-    SUM(number_of_reviews_ltm) AS total_reviews_ltm
-FROM airbnb_menorca
-GROUP BY neighbourhood;
-```
+## 🎯 Preguntas de negocio
+
+Este análisis responde a cuestiones como:
+
+- ¿Qué zonas concentran mayor número de alojamientos?
+- ¿Qué tipo de habitación es más frecuente?
+- ¿Existen anfitriones con alta concentración de propiedades?
+- ¿Cómo varía el precio según tipo de alojamiento?
+- ¿Influye el número de reseñas en el precio?
+- ¿Qué nivel de disponibilidad tienen los alojamientos?
+- ¿Se observan patrones en la estancia mínima requerida?
 
 
-### Comparison of minimum nights by room type and neighbourhood
-```sql
-SELECT neighbourhood,room_type,
-    AVG(minimum_nights) AS avg_min_nights
-FROM airbnb_menorca
-GROUP BY neighbourhood, room_type;
-```
+## Dataset utilizado
 
-### Grouping by neighbourhood and price
-```sql
-SELECT DISTINCT neighbourhood, 
-AVG(price) OVER (PARTITION BY neighbourhood) AS avg_price 
-FROM airbnb_menorca 
-ORDER BY avg_price DESC;
-```
+Tabla: `airbnb_menorca`
 
-### Grouping by average price and neighbourhood in descending order
-```sql
-SELECT DISTINCT neighbourhood, CONCAT(ROUND(AVG(price), 2),'€') AS avg_price 
-FROM airbnb_menorca  
-GROUP BY neighbourhood 
-ORDER BY avg_price DESC;
-```
+Variables analizadas:
+
+- host_id
+- neighbourhood
+- room_type
+- price
+- minimum_nights
+- number_of_reviews
+- calculated_host_listings_count
+- availability_365
+- number_of_reviews_ltm
+
+
+# Estructura del análisis
+
+El proyecto está dividido en 5 bloques analíticos:
+
+
+## 1️⃣ Distribución General
+
+- Top 10 alojamientos con más reseñas  
+- Número de alojamientos por barrio  
+- Top 10 anfitriones con más propiedades  
+
+**Objetivo:** Identificar concentración de oferta y actividad.
+
+
+## 2️⃣ Segmentación por Ubicación
+
+- Número de propiedades por barrio  
+- Precio medio por barrio  
+- Precio medio por tipo de habitación y barrio  
+
+**Objetivo:** Analizar diferencias geográficas.
+
+
+## 3️⃣ Análisis por Tipo de Alojamiento
+
+- Número de alojamientos por tipo  
+- Disponibilidad media por tipo  
+- Precio medio por tipo  
+
+**Objetivo:** Entender comportamiento por categoría de producto.
+
+
+## 4️⃣ Análisis Temporal y Disponibilidad
+
+- Disponibilidad media anual  
+- Máximo y mínimo de disponibilidad  
+- Disponibilidad media por barrio  
+
+**Objetivo:** Evaluar nivel de ocupación potencial.
+
+
+## 5️⃣ Factores de Precio y Demanda
+
+- Precio medio según estancia mínima  
+- Precio medio según rango de reseñas  
+- Reseñas anuales por barrio  
+
+**Objetivo:** Detectar patrones entre precio, demanda y requisitos de reserva.
+
+
+## Posibles mejoras futuras
+
+- Integración con Power BI para visualización
+- Comparativa por año
+- Análisis de estacionalidad
+- Segmentación por tipo de anfitrión
+- Modelo simple de predicción de precio
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Este proyecto forma parte de mi portfolio práctico orientado al análisis estructurado y toma de decisiones basada en datos.
