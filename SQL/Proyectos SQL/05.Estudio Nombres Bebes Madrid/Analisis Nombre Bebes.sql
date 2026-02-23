@@ -1,173 +1,88 @@
--- Create database called names
-CREATE database names;
+/* =========================================================
+   PROYECTO: Nombres Bebé Madrid 2022
+   AUTOR: Borja
+   ========================================================= */
 
--- Create database called baby_names
-CREATE TABLE baby_names (
+CREATE DATABASE IF NOT EXISTS names;
+USE names;
+
+CREATE TABLE IF NOT EXISTS baby_names (
   year INT,
   name VARCHAR(64),
-  gender VARCHAR(64),
+  gender VARCHAR(1),
   num INT
 );
 
--- Get the total of unique names per year
-SELECT year, COUNT(DISTINCT name) AS unique_names
+-- Total bebés
+SELECT SUM(num) AS total_babies
 FROM baby_names
-GROUP BY year;
+WHERE year = 2022;
 
--- Calculate the average popularity of names by gender. 
-SELECT gender, AVG(num) AS avg_popularity
+-- Nombres únicos
+SELECT COUNT(DISTINCT name) AS unique_names
 FROM baby_names
-GROUP BY gender;
+WHERE year = 2022;
 
--- Select first names and the total babies with that name and order by the total number of babies with that name, descending
-SELECT name, SUM(num)
+-- Top 5 concentración
+SELECT SUM(num) / 
+      (SELECT SUM(num) FROM baby_names WHERE year = 2022) AS top5_share
+FROM (
+    SELECT num
     FROM baby_names
-    GROUP BY name
-    ORDER BY SUM(num) DESC;
+    WHERE year = 2022
+    ORDER BY num DESC
+    LIMIT 5
+) AS top5;
 
--- Select total babies by gender and order by the total number of babies with that gender, descending
-SELECT gender, SUM(num)
+-- Top 10 concentración
+SELECT SUM(num) / 
+      (SELECT SUM(num) FROM baby_names WHERE year = 2022) AS top10_share
+FROM (
+    SELECT num
     FROM baby_names
-    GROUP BY gender
-    ORDER BY SUM(num) DESC;
+    WHERE year = 2022
+    ORDER BY num DESC
+    LIMIT 10
+) AS top10;
 
--- Classify names by popularity 'Very Popular', 'Popular', 'Moderately Popular', 'Not Very Popular', 'Rarely Used' and 'No Data'
--- Alias this column as popularity_type
--- Select name and num for baby_names
--- Order the results alphabetically by name
-SELECT name, num, 
-    CASE WHEN num > 600 then 'Very Popular'
-		 WHEN num > 300 then 'Popular'
-         WHEN num > 100 then 'Moderately Popular'
-         WHEN num > 50 then 'Not Very Popular'
-         WHEN num > 1 then 'Rarely Used'
-         else 'No data' end as popularity_type
-	FROM baby_names;
+-- Top 20 concentración
+SELECT SUM(num) / 
+      (SELECT SUM(num) FROM baby_names WHERE year = 2022) AS top20_share
+FROM (
+    SELECT num
+    FROM baby_names
+    WHERE year = 2022
+    ORDER BY num DESC
+    LIMIT 20
+) AS top20;
 
--- Select the top 10 names by gender from the 'baby_names' table.
--- Ordering them by their associated number in descending order.
-SELECT gender, name, num
+-- HHI
+SELECT SUM(POWER(share,2)) AS hhi
+FROM (
+    SELECT num / (SELECT SUM(num) FROM baby_names WHERE year = 2022) AS share
+    FROM baby_names
+    WHERE year = 2022
+) AS shares;
+
+-- Entropía
+SELECT -SUM(share * LOG2(share)) AS entropy
+FROM (
+    SELECT num / (SELECT SUM(num) FROM baby_names WHERE year = 2022) AS share
+    FROM baby_names
+    WHERE year = 2022
+) AS shares;
+
+-- Probabilidad por género
+SELECT name,
+       SUM(num) AS total_name_count,
+       (SUM(num) / (SELECT SUM(num) FROM baby_names WHERE year = 2022 AND gender = 'M')) * 100 AS probabilidad
 FROM baby_names
-ORDER BY num DESC
-LIMIT 10;
+WHERE year = 2022 AND gender = 'M'
+GROUP BY name;
 
--- Select the top 10 male's names from the 'baby_names' table.
--- Ordering them by their associated number in descending order.
-SELECT name, num
+SELECT name,
+       SUM(num) AS total_name_count,
+       (SUM(num) / (SELECT SUM(num) FROM baby_names WHERE year = 2022 AND gender = 'F')) * 100 AS probabilidad
 FROM baby_names
-WHERE gender = 'M'
-ORDER BY num DESC
-LIMIT 10;
-
--- Select the top 10 female's names from the 'baby_names' table.
--- Ordering them by their associated number in descending order.
-SELECT name, num
-FROM baby_names
-WHERE gender = 'F'
-ORDER BY num DESC
-LIMIT 10;
-
--- Tally the total number of names composed of a single word compared to those composed of two words.
-SELECT 
-    SUM(CASE WHEN LENGTH(name) - LENGTH(REPLACE(name, ' ', '')) = 0 THEN 1 ELSE 0 END) AS single_word_names,
-    SUM(CASE WHEN LENGTH(name) - LENGTH(REPLACE(name, ' ', '')) > 0 THEN 1 ELSE 0 END) AS compound_names
-FROM baby_names;
-
--- Select the first letter of each name and count how many names start with that letter.
-SELECT 
-    SUBSTRING(name, 1, 1) AS first_letter,
-    COUNT(*) AS total_names
-FROM baby_names
-GROUP BY SUBSTRING(name, 1, 1)
-ORDER BY first_letter;
-
--- Calculate the probability that a name starts with a certain letter.
-SELECT 
-    LEFT(name, 1) AS first_letter,
-    COUNT(*) AS name_count,
-    COUNT(*) / (SELECT COUNT(*) FROM baby_names) AS probability
-FROM 
-    baby_names
-GROUP BY 
-    first_letter
-ORDER BY 
-    first_letter;
-
--- Select the last letter of each name and count how many names ends with that letter.
-SELECT 
-    RIGHT(name, 1) AS last_letter,
-    COUNT(*) AS name_count
-FROM 
-    baby_names
-GROUP BY 
-    last_letter
-ORDER BY 
-    last_letter;
-
--- Calculate the probability that a name ends with a certain letter.
-SELECT 
-    last_letter,
-    COUNT(*) AS name_count,
-    COUNT(*) / (SELECT COUNT(*) FROM baby_names) AS probability
-FROM 
-    (SELECT RIGHT(name, 1) AS last_letter FROM baby_names) AS last_letters
-GROUP BY 
-    last_letter
-ORDER BY 
-    last_letter;
-
--- Calculate which name has the most letters.
-SELECT 
-    name,
-    LENGTH(name) AS letter_count
-FROM 
-    baby_names
-ORDER BY 
-    letter_count DESC
-LIMIT 1;
-
--- Calculate which name has the less letters.
-SELECT 
-    name,
-    LENGTH(name) AS letter_count
-FROM 
-    baby_names
-ORDER BY 
-    letter_count ASC
-LIMIT 1;
-
--- Based on the average number of letters in each name, calculate the probability that a name has X number of letters.
-SELECT 
-    letter_count,
-    COUNT(*) AS name_count,
-    COUNT(*) / (SELECT COUNT(*) FROM baby_names) AS probability
-FROM 
-    (SELECT LENGTH(name) AS letter_count FROM baby_names) AS letter_counts
-GROUP BY 
-    letter_count
-ORDER BY 
-    letter_count;
-
--- What is the probability that, being male and born in 2022, I have one name or another?
-SELECT 
-    name,
-    SUM(num) AS total_name_count,
-    CONCAT(FORMAT((SUM(num) / (SELECT SUM(num) FROM baby_names WHERE gender = 'M')) * 100, 2), '%') AS probability
-FROM 
-    baby_names
-WHERE 
-    gender = 'M'
-GROUP BY 
-    name;
-
--- What is the probability that, being female and born in 2022, I have one name or another?
-SELECT 
-    name,
-    SUM(num) AS total_name_count,
-    CONCAT(FORMAT((SUM(num) / (SELECT SUM(num) FROM baby_names WHERE gender = 'M')) * 100, 2), '%') AS probability
-FROM 
-    baby_names
-WHERE 
-    gender = 'F'
-GROUP BY 
-    name;
+WHERE year = 2022 AND gender = 'F'
+GROUP BY name;
