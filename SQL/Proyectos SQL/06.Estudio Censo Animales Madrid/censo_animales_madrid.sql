@@ -1,13 +1,13 @@
 /* =========================================================
    PROYECTO: Censo Animales Madrid 2014-2022
-   AUTOR: Borja
+   VERSIÓN DEFINITIVA
    ========================================================= */
 
 CREATE DATABASE IF NOT EXISTS censo_animal;
 USE censo_animal;
 
 -- =========================================================
--- 1️⃣ TOTALES GENERALES POR AÑO
+-- 1️⃣ ¿QUÉ ESPECIE DOMINA?
 -- =========================================================
 
 SELECT 
@@ -20,65 +20,58 @@ GROUP BY año
 ORDER BY año;
 
 -- =========================================================
--- 2️⃣ EVOLUCIÓN INTERANUAL (TASA DE CRECIMIENTO)
+-- 2️⃣ EVOLUCIÓN TOTAL DE MASCOTAS (PERROS + GATOS)
 -- =========================================================
 
 SELECT 
     año,
+    SUM(perros + gatos) AS total_mascotas,
     ROUND(
-        (SUM(perros) - LAG(SUM(perros)) OVER (ORDER BY año)) 
-        / LAG(SUM(perros)) OVER (ORDER BY año) * 100, 2
-    ) AS tasa_crecimiento_perros,
-    ROUND(
-        (SUM(gatos) - LAG(SUM(gatos)) OVER (ORDER BY año)) 
-        / LAG(SUM(gatos)) OVER (ORDER BY año) * 100, 2
-    ) AS tasa_crecimiento_gatos
+        (SUM(perros + gatos) - LAG(SUM(perros + gatos)) OVER (ORDER BY año))
+        / LAG(SUM(perros + gatos)) OVER (ORDER BY año) * 100,
+    2) AS crecimiento_total_pct
 FROM censo_animales
 GROUP BY año
 ORDER BY año;
 
 -- =========================================================
--- 3️⃣ RANKING DISTRITOS (2022)
--- =========================================================
-
-SELECT distrito, perros, gatos
-FROM censo_animales
-WHERE año = 2022
-ORDER BY perros DESC;
-
--- =========================================================
--- 4️⃣ CRECIMIENTO POR DISTRITO (2014 vs 2022)
+-- 3️⃣ RANKING COMBINADO POR DISTRITO (2022)
 -- =========================================================
 
 SELECT 
     distrito,
-    ROUND(
-        (SUM(CASE WHEN año = 2022 THEN perros END) -
-         SUM(CASE WHEN año = 2014 THEN perros END)) 
-         / NULLIF(SUM(CASE WHEN año = 2014 THEN perros END),0) * 100, 2
-    ) AS crecimiento_perros,
-    ROUND(
-        (SUM(CASE WHEN año = 2022 THEN gatos END) -
-         SUM(CASE WHEN año = 2014 THEN gatos END)) 
-         / NULLIF(SUM(CASE WHEN año = 2014 THEN gatos END),0) * 100, 2
-    ) AS crecimiento_gatos
+    perros,
+    gatos,
+    (perros + gatos) AS total_animales
+FROM censo_animales
+WHERE año = 2022
+ORDER BY total_animales DESC;
+
+-- =========================================================
+-- 4️⃣ DISTRITO CON MAYOR CRECIMIENTO FELINO ABSOLUTO
+-- =========================================================
+
+SELECT 
+    distrito,
+    SUM(CASE WHEN año = 2022 THEN gatos END) -
+    SUM(CASE WHEN año = 2014 THEN gatos END) AS crecimiento_gatos_abs
 FROM censo_animales
 GROUP BY distrito
-ORDER BY crecimiento_gatos DESC;
+ORDER BY crecimiento_gatos_abs DESC;
 
 -- =========================================================
--- 5️⃣ DIFERENCIA PERROS VS GATOS (2022)
+-- 5️⃣ RATIO PERRO/GATO POR DISTRITO (2022)
 -- =========================================================
 
 SELECT 
     distrito,
-    ABS(perros - gatos) AS diferencia_especies
+    ROUND(perros / gatos, 2) AS ratio_perro_gato
 FROM censo_animales
 WHERE año = 2022
-ORDER BY diferencia_especies DESC;
+ORDER BY ratio_perro_gato DESC;
 
 -- =========================================================
--- 6️⃣ ANÁLISIS POR ZONAS GEOGRÁFICAS (2022)
+-- 6️⃣ ANÁLISIS POR ZONAS (2022)
 -- =========================================================
 
 SELECT
@@ -91,8 +84,21 @@ SELECT
         ELSE 'Otra Zona'
     END AS zona,
     SUM(perros) AS total_perros,
-    SUM(gatos) AS total_gatos
+    SUM(gatos) AS total_gatos,
+    ROUND(SUM(gatos) * 100.0 / SUM(perros + gatos), 2) AS porcentaje_gatos
 FROM censo_animales
 WHERE año = 2022
 GROUP BY zona
 ORDER BY zona;
+
+-- =========================================================
+-- 7️⃣ ¿SE REDUCE LA BRECHA PERRO-GATO?
+-- =========================================================
+
+SELECT 
+    año,
+    SUM(perros) - SUM(gatos) AS diferencia_absoluta,
+    ROUND(SUM(perros) / SUM(gatos), 2) AS ratio
+FROM censo_animales
+GROUP BY año
+ORDER BY año;
