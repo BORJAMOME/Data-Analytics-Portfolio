@@ -1,6 +1,6 @@
 # Análisis de Edificios Protegidos de Madrid
 
-![ejemplo](/docs/imagenes/crossfilter.png)
+
 
 Análisis exploratorio y visualización del catálogo oficial de edificios protegidos del Ayuntamiento de Madrid.
 
@@ -26,7 +26,12 @@ El notebook incluye:
 - KPIs patrimoniales
 - Visualizaciones minimalistas
 - Mapa interactivo de edificios protegidos
+
+![ejemplo](/docs/images/Patrimonio1.png)
+
 - Heatmap de concentración
+
+![ejemplo](/docs/images/Patrimonio2.png)
 
 ## Dataset
 
