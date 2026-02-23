@@ -1,92 +1,34 @@
-# Análisis de Calidad de Vida Urbana y Conectividad en Ciudades Españolas
+# ¿Dónde se vive mejor sin pagar de más? 
 
+¿Dónde invertir si buscamos equilibrio entre precio, conectividad y calidad ambiental?
+¿La proximidad a Madrid o Barcelona justifica realmente el sobrecoste inmobiliario?
 
-Este proyecto analiza municipios españoles de más de 75.000 habitantes con el objetivo de entender:
+Este proyecto analiza municipios españoles de más de 75.000 habitantes integrando datos de conectividad, mercado inmobiliario, clima y calidad del aire para identificar oportunidades y desequilibrios en el mercado urbano.
 
-- ¿Influye la conectividad en el precio de la vivienda?
-- ¿La proximidad a grandes núcleos urbanos encarece los municipios?
-- ¿Qué ciudades presentan mejor equilibrio entre clima, calidad ambiental y coste inmobiliario?
-- ¿Existen municipios infravalorados en términos de calidad-precio?
+**Enfoque:** transformar datos dispersos en un sistema comparativo que permita detectar municipios infravalorados y entender qué variables influyen realmente en el precio de la vivienda.
 
-El análisis combina variables de conectividad, mercado inmobiliario, clima y calidad del aire para extraer insights estratégicos.
+**Metodología aplicada:**
 
+- Integración de múltiples fuentes oficiales y abiertas.
 
+- Limpieza y estandarización de variables heterogéneas.
 
-## Dataset
+- Construcción de un índice exploratorio de calidad de vida.
 
-El dataset incluye municipios españoles de más de 75.000 habitantes e integra información procedente de múltiples fuentes oficiales y abiertas.
+- Análisis de correlaciones entre proximidad urbana, conectividad aérea y coste inmobiliario.
 
-### Identificación y Demografía
-- Nombre del municipio  
-- Provincia  
-- Comunidad Autónoma  
-- Población (INE, 2022)
+- Identificación de municipios con alto valor relativo (calidad/precio).
 
-### Movilidad y Conectividad
-- Kilómetros de carril bici por cada 100.000 habitantes (El País, La Sexta, ayuntamientos)
-- Distancia a Madrid en km (Google Maps)
-- Tiempo medio de viaje en coche a Madrid (Google Maps)
-- Tiempo medio de viaje en tren o autobús a Madrid (Google Maps)
-- Distancia a Barcelona en km (Google Maps)
-- Tiempo medio de viaje en coche a Barcelona (Google Maps)
-- Tiempo medio de viaje en tren o autobús a Barcelona (Google Maps)
-- Aeropuerto internacional más cercano (AENA, Google Maps)
-- Número de conexiones del aeropuerto internacional más cercano (AENA)
-- Distancia en km al aeropuerto internacional más cercano (Google Maps)
+**Tecnologías:** Python · Pandas · NumPy · Matplotlib · Seaborn · Google Colab
 
-### Mercado Inmobiliario
-- Precio de alquiler por metro cuadrado (Idealista, marzo 2023)
-- Precio medio de venta por metro cuadrado (Idealista, marzo 2023)
+**Principales conclusiones**
 
-### Turismo y Patrimonio
-- Número de visitantes internacionales anuales (pendiente de completar)
-- Patrimonio de la Humanidad (Wikipedia)
+- La proximidad a Madrid y Barcelona es uno de los factores más determinantes en el precio de venta por m².
 
-### Medioambiente y Clima
-- Porcentaje de días con calidad de aire:
-  - Buena
-  - Razonablemente Buena
-  - Regular
-  - Desfavorable
-  - Muy Desfavorable
-  - Extremadamente Desfavorable  
-  (Ministerio para la Transición Ecológica y Reto Demográfico)
+- La conectividad aérea influye, pero no explica por sí sola el encarecimiento.
 
-- Ponderación calidad del aire (cálculo propio a partir de los seis indicadores anteriores)
-- Temperatura máxima media (Weatherspark)
-- Temperatura mínima media (Weatherspark)
-- Horas de sol medias anuales (AEMET)
+- Existen municipios con buena calidad ambiental y precios relativamente accesibles que no reflejan su potencial en el mercado.
 
----
-
-## Tecnologías Utilizadas
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Google Colab
-
----
-
-## Metodología
-
-1. Limpieza y transformación de datos (valores nulos, formatos inconsistentes, conversión numérica).
-2. Construcción de un índice exploratorio de calidad de vida.
-3. Análisis de correlaciones entre conectividad, proximidad urbana y precio de vivienda.
-4. Visualización de relaciones clave.
-5. Identificación de municipios con alto valor relativo.
-
-
-## Principales Insights
-
-- La conectividad aérea muestra relación con el precio de vivienda, pero no lo explica completamente.
-- La proximidad a Madrid y Barcelona es uno de los factores más influyentes en el coste inmobiliario.
-- Existen municipios con buena calidad ambiental y precios relativamente accesibles.
-- La calidad de vida urbana depende del equilibrio entre múltiples factores, no exclusivamente de infraestructura.
-
-
-
+- El precio no depende de un único factor: el equilibrio entre clima, movilidad e infraestructura es lo que define el atractivo urbano.
 
 Borja — Data Analyst  
