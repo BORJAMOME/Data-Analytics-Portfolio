@@ -1,47 +1,55 @@
 # Análisis de Edificios Protegidos de Madrid
 
-Análisis exploratorio y geoespacial del catálogo oficial de edificios protegidos del Ayuntamiento de Madrid.
+![ejemplo](/docs/imagenes/crossfilter.png)
 
+Análisis exploratorio y visualización del catálogo oficial de edificios protegidos del Ayuntamiento de Madrid.
 
-Este proyecto analiza el patrimonio arquitectónico de Madrid mediante técnicas de análisis de datos y visualización geoespacial.
+Proyecto enfocado en entender la distribución, evolución y concentración del patrimonio arquitectónico de la ciudad mediante técnicas de análisis de datos y visualización moderna.
 
-El objetivo es entender:
+## Objetivo del proyecto
 
-- Cómo se distribuye la protección patrimonial en la ciudad
-- Qué cambios han ocurrido desde 1997
-- Qué patrones urbanos se observan en la protección del patrimonio
+Explorar cómo se distribuye la protección patrimonial en Madrid y detectar patrones urbanos a partir de datos geoespaciales.
 
-## Preguntas clave
+El análisis aborda:
 
-- ¿Qué niveles de protección predominan?
-- ¿Se han modificado las categorías de protección a lo largo del tiempo?
-- ¿Dónde se concentra el patrimonio protegido?
+- Distribución por niveles de protección
+- Cambios desde 1997
+- Concentración espacial del patrimonio
+- Visualización interactiva sobre mapa
 
-## Mapa interactivo
+## Contenido del notebook
 
-El notebook incluye un mapa interactivo con:
+El notebook incluye:
 
-- Ubicación de los edificios protegidos
-- Clasificación por nivel de protección
-- Mapa de calor de concentración patrimonial
-
-## Tecnologías utilizadas
-
-- Python
-- Pandas
-- Matplotlib y Seaborn
-- Folium (análisis geoespacial)
-- PyProj (transformación de coordenadas)
+- Preparación y limpieza de datos
+- Análisis descriptivo
+- KPIs patrimoniales
+- Visualizaciones minimalistas
+- Mapa interactivo de edificios protegidos
+- Heatmap de concentración
 
 ## Dataset
 
 Catálogo oficial de edificios protegidos del Ayuntamiento de Madrid.
 
-## Principales conclusiones
 
-- Alta concentración de edificios protegidos en el centro histórico
-- Cambios en los niveles de protección desde finales del siglo XX
-- Patrones espaciales vinculados al desarrollo urbano
+## Tecnologías utilizadas
+
+- Python
+- Pandas y NumPy
+- Seaborn y Matplotlib
+- Folium (visualización geoespacial)
+- PyProj (transformación de coordenadas)
+
+## Cómo ejecutar el proyecto
+
+1. Clonar el repositorio
+2. Instalar dependencias
+3. Abrir el notebook en Jupyter o Google Colab
+
+El notebook se encuentra sin outputs para reducir tamaño y facilitar su visualización en GitHub.
+
+Para ver gráficos y mapas interactivos, es necesario ejecutarlo localmente o en Google Colab.
 
 Borja
 
