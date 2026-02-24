@@ -1,4 +1,4 @@
-# ¿Dónde se vive mejor sin pagar de más? 
+# ¿Cuáles son las mejores ciudades españolas para teletrabajar? 
 
 ¿Dónde invertir si buscamos equilibrio entre precio, conectividad y calidad ambiental?
 ¿La proximidad a Madrid o Barcelona justifica realmente el sobrecoste inmobiliario?
