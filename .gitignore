@@ -1,0 +1,79 @@
+# ============================================================
+#  .gitignore · Data Analytics Portfolio
+# ============================================================
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_convert_files/
+Untitled*.ipynb
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+ENV/
+.env
+*.env
+
+# --- Distribuciones / builds ---
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+
+# --- Testing y cobertura ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# --- Datos pesados (excluir por convención) ---
+*.parquet
+*.hdf5
+*.h5
+*.pkl.gz
+
+# --- Modelos entrenados grandes ---
+*.pth
+*.pt
+*.ckpt
+saved_models/
+checkpoints/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Credenciales (NUNCA subir) ---
+credentials.json
+secrets.json
+*.pem
+*.key
+config.ini
+
+# --- Datasets externos (opcional, comentar si quieres subirlos) ---
+# dataset/training_set/
+# dataset/test_set/
