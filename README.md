@@ -41,11 +41,11 @@ Análisis exploratorio, limpieza de datos, visualización avanzada y web scrapin
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**32 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**35 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
 
-**Stack:** scikit-learn, TensorFlow/Keras, minisom, statsmodels, pmdarima.
+**Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 32 proyectos →](03-Machine-Learning/)**
+**[Ver los 35 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
 

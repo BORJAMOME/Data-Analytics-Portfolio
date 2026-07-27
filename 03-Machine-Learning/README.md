@@ -1,9 +1,9 @@
 # Machine Learning
 
 Modelos supervisados, no supervisados, redes neuronales y series temporales.
-32 casos prácticos con Python, scikit-learn, TensorFlow/Keras y statsmodels.
+35 casos prácticos con Python, scikit-learn, TensorFlow/Keras y statsmodels.
 
-**Stack:** Python 3.10 · scikit-learn · TensorFlow · Keras · pandas · NumPy · minisom · statsmodels · pmdarima
+**Stack:** Python 3.10 · scikit-learn · TensorFlow · Keras · pandas · NumPy · minisom · statsmodels · pmdarima · xgboost
 
 ---
 
@@ -16,28 +16,30 @@ Los proyectos están organizados en tres niveles para facilitar la navegación:
 ```
 03-Machine-Learning/
 ├── 01-supervisado/
-│   ├── regresion/                      Predecir un valor numérico continuo
-│   │   ├── regresion-lineal-simple/    (2 casos)
-│   │   ├── regresion-lineal-multiple/  (2 casos)
-│   │   ├── ridge-lasso/                (1 caso)
-│   │   ├── gradient-boosting/          (2 casos)
-│   │   └── svm/                        (2 casos)
-│   └── clasificacion/                  Predecir una categoría
-│       ├── regresion-logistica/        (2 casos)
-│       ├── arbol-decision/             (1 caso)
-│       └── comparativa-modelos/        (2 casos)
+│   ├── regresion/                         Predecir un valor numérico continuo
+│   │   ├── 01-regresion-lineal-simple/    (3 casos)
+│   │   ├── 02-regresion-lineal-multiple/  (2 casos)
+│   │   ├── 03-ridge-lasso/                (1 caso)
+│   │   ├── 04-gradient-boosting/          (2 casos)
+│   │   └── 05-svm/                        (2 casos)
+│   └── clasificacion/                     Predecir una categoría
+│       ├── 01-arbol-decision/             (1 caso)
+│       ├── 02-random-forest/              (1 caso)
+│       ├── 03-xgboost/                    (1 caso)
+│       ├── 04-comparativa-modelos/        (2 casos)
+│       └── 05-regresion-logistica/        (2 casos)
 ├── 02-no-supervisado/
-│   ├── clustering/                     Agrupar por similitud
-│   │   ├── kmeans/                     (3 casos)
-│   │   └── jerarquico/                 (4 casos)
+│   ├── clustering/                        Agrupar por similitud
+│   │   ├── kmeans/                        (3 casos)
+│   │   └── jerarquico/                    (4 casos)
 │   └── reduccion-dimensionalidad/
-│       └── pca/                        (2 casos)
+│       └── pca/                           (2 casos)
 ├── 03-redes-neuronales/
-│   ├── mlp/                            Multilayer Perceptron (4 casos)
-│   ├── cnn/                            Convolutional Neural Network (1 caso)
-│   └── som/                            Self-Organizing Maps (2 casos)
+│   ├── mlp/                               Multilayer Perceptron (4 casos)
+│   ├── cnn/                               Convolutional Neural Network (1 caso)
+│   └── som/                               Self-Organizing Maps (2 casos)
 └── 04-series-temporales/
-    └── arima/                          (2 casos)
+    └── arima/                             (2 casos)
 ```
 
 ---
@@ -48,61 +50,74 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 
 ### Regresión — predecir un número continuo
 
-**Regresión Lineal Simple** · [`01-supervisado/regresion/regresion-lineal-simple/`](01-supervisado/regresion/regresion-lineal-simple/)
+**Regresión Lineal Simple** · [`01-supervisado/regresion/01-regresion-lineal-simple/`](01-supervisado/regresion/01-regresion-lineal-simple/)
 
 | # | Caso | Dataset |
 |---|---|---|
-| 01 | [Precios inmobiliarios](01-supervisado/regresion/regresion-lineal-simple/01-inmobiliaria/) | `datos_regresion_casas.xlsx` |
-| 02 | [Salud pacientes gimnasio](01-supervisado/regresion/regresion-lineal-simple/02-gimnasio/) | `Patient_Health_ALUMNOS.csv` |
+| 01 | [Precios inmobiliarios](01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/) | `datos_regresion_casas.xlsx` |
+| 02 | [Colesterol y hábitos de salud](01-supervisado/regresion/01-regresion-lineal-simple/02-salud/) | `Patient_Health_ALUMNOS.csv` |
+| 03 | [Regresión en datos de gimnasio](01-supervisado/regresion/01-regresion-lineal-simple/03-gym/) | Clientes gym |
 
-**Regresión Lineal Múltiple** · [`01-supervisado/regresion/regresion-lineal-multiple/`](01-supervisado/regresion/regresion-lineal-multiple/)
-
-| # | Caso | Dataset |
-|---|---|---|
-| 01 | [ROI publicitario](01-supervisado/regresion/regresion-lineal-multiple/01-publicidad/) | `Advertising.csv` |
-| 02 | [Retención clientes gimnasio](01-supervisado/regresion/regresion-lineal-multiple/02-gimnasio/) | Clientes gym |
-
-**Regularización — Ridge y Lasso** · [`01-supervisado/regresion/ridge-lasso/`](01-supervisado/regresion/ridge-lasso/)
+**Regresión Lineal Múltiple** · [`01-supervisado/regresion/02-regresion-lineal-multiple/`](01-supervisado/regresion/02-regresion-lineal-multiple/)
 
 | # | Caso | Dataset |
 |---|---|---|
-| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/ridge-lasso/01-regularizacion/) | scikit-learn |
+| 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-publicidad/) | `Advertising.csv` |
+| 02 | [Retención clientes gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gimnasio/) | Clientes gym |
 
-**Gradient Boosting** · [`01-supervisado/regresion/gradient-boosting/`](01-supervisado/regresion/gradient-boosting/)
-
-| # | Caso | Dataset |
-|---|---|---|
-| 01 | [Precios inmobiliarios](01-supervisado/regresion/gradient-boosting/01-inmobiliaria/) | Tasación viviendas |
-| 02 | [Tasación de viviendas](01-supervisado/regresion/gradient-boosting/02-tasacion-viviendas/) | Tasación viviendas |
-
-**Support Vector Machine (SVM)** · [`01-supervisado/regresion/svm/`](01-supervisado/regresion/svm/)
+**Regularización — Ridge y Lasso** · [`01-supervisado/regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
 
 | # | Caso | Dataset |
 |---|---|---|
-| 01 | [Predicción compra iPhone](01-supervisado/regresion/svm/01-iphone/) | iPhone |
-| 02 | [Vida útil de baterías](01-supervisado/regresion/svm/02-baterias/) | Baterías |
+| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/03-ridge-lasso/01-regularizacion/) | scikit-learn |
+
+**Gradient Boosting** · [`01-supervisado/regresion/04-gradient-boosting/`](01-supervisado/regresion/04-gradient-boosting/)
+
+| # | Caso | Dataset |
+|---|---|---|
+| 01 | [Precios inmobiliarios](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Tasación viviendas |
+| 02 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/02-tasacion-viviendas/) | Tasación viviendas |
+
+**Support Vector Machine (SVR)** · [`01-supervisado/regresion/05-svm/`](01-supervisado/regresion/05-svm/)
+
+| # | Caso | Dataset |
+|---|---|---|
+| 01 | [Predicción gasto e-commerce](01-supervisado/regresion/05-svm/01-iphone/) | Clientes e-commerce |
+| 02 | [Degradación de baterías](01-supervisado/regresion/05-svm/02-baterias/) | Baterías |
 
 ### Clasificación — predecir una categoría
 
-**Regresión Logística** · [`01-supervisado/clasificacion/regresion-logistica/`](01-supervisado/clasificacion/regresion-logistica/)
+**Árbol de Decisión** · [`01-supervisado/clasificacion/01-arbol-decision/`](01-supervisado/clasificacion/01-arbol-decision/)
 
 | # | Caso | Dataset |
 |---|---|---|
-| 01 | [Churn gimnasio](01-supervisado/clasificacion/regresion-logistica/01-gimnasio/) | Clientes gym |
-| 02 | [Admisión universitaria](01-supervisado/clasificacion/regresion-logistica/02-universidad/) | `admitidos.xlsx` |
+| 01 | [Perfilado clientes gimnasio](01-supervisado/clasificacion/01-arbol-decision/) | Clientes gym |
 
-**Árbol de Decisión** · [`01-supervisado/clasificacion/arbol-decision/`](01-supervisado/clasificacion/arbol-decision/)
-
-| # | Caso | Dataset |
-|---|---|---|
-| 01 | [Perfilado clientes gimnasio](01-supervisado/clasificacion/arbol-decision/01-gimnasio/) | Clientes gym |
-
-**Comparativa de modelos** · [`01-supervisado/clasificacion/comparativa-modelos/`](01-supervisado/clasificacion/comparativa-modelos/)
+**Random Forest** · [`01-supervisado/clasificacion/02-random-forest/`](01-supervisado/clasificacion/02-random-forest/)
 
 | # | Caso | Dataset |
 |---|---|---|
-| 01 | [Churn de clientes — comparativa 3 modelos](01-supervisado/clasificacion/comparativa-modelos/01-churn-clientes/) | `customer churn.xlsx` |
-| 02 | [Gimnasio — comparativa 3 modelos](01-supervisado/clasificacion/comparativa-modelos/02-gimnasio/) | Clientes gym |
+| 01 | [Satisfacción clientes gimnasio](01-supervisado/clasificacion/02-random-forest/) | Clientes gym |
+
+**XGBoost** · [`01-supervisado/clasificacion/03-xgboost/`](01-supervisado/clasificacion/03-xgboost/)
+
+| # | Caso | Dataset |
+|---|---|---|
+| 01 | [Satisfacción clientes gimnasio](01-supervisado/clasificacion/03-xgboost/) | Clientes gym |
+
+**Comparativa de modelos** · [`01-supervisado/clasificacion/04-comparativa-modelos/`](01-supervisado/clasificacion/04-comparativa-modelos/)
+
+| # | Caso | Dataset |
+|---|---|---|
+| 01 | [Gimnasio — comparativa 3 modelos](01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio/) | Clientes gym |
+| 02 | [Churn de clientes — comparativa 3 modelos](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | `customer churn.xlsx` |
+
+**Regresión Logística** · [`01-supervisado/clasificacion/05-regresion-logistica/`](01-supervisado/clasificacion/05-regresion-logistica/)
+
+| # | Caso | Dataset |
+|---|---|---|
+| 01 | [Churn gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio/) | Clientes gym |
+| 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-universidad/) | `admitidos.xlsx` |
 
 ---
 
@@ -194,10 +209,10 @@ python -m venv .venv
 source .venv/bin/activate   # Linux/Mac
 
 # 3. Instalar dependencias
-pip install pandas numpy matplotlib seaborn scikit-learn tensorflow minisom statsmodels pmdarima jupyter
+pip install pandas numpy matplotlib seaborn scikit-learn tensorflow minisom statsmodels pmdarima xgboost jupyter
 
 # 4. Navegar al proyecto y abrir Jupyter
-cd 01-supervisado/regresion/regresion-lineal-simple/01-inmobiliaria/
+cd 01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/
 jupyter notebook notebook.ipynb
 ```
 
