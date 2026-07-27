@@ -1,44 +1,43 @@
-# ARIMA — Forecast consumo eléctrico
+# SARIMA — Forecast de Consumo Electrico Horario
 
-Predecir el consumo eléctrico futuro a partir del histórico. Comparativa con el mismo problema resuelto con MLP.
+## Contexto de negocio
 
----
+Una empresa energetica necesita predecir el consumo electrico hora a hora
+para optimizar la contratacion de potencia, programar el arranque de
+generadores de respaldo y detectar anomalias de consumo.
 
 ## Dataset
 
-`electricidad.xlsx` — consumo eléctrico histórico.
+| Campo | Detalle |
+|:------|:--------|
+| Archivo | `electricidad.xlsx` (hoja: consumo_electrico) |
+| Registros | 719 horas (~30 dias) |
+| Periodo | 1-30 Enero 2025 |
+| Variable | Consumo electrico en kWh |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-ARIMA + `auto_arima` para búsqueda automática de parámetros. Validación temporal (train/test split cronológico).
+- Analisis de patron diario (heatmap hora x dia)
+- Test de Dickey-Fuller Aumentado (ADF) — estacionariedad confirmada (d=0)
+- ACF / PACF con marcadores en lag 24 y 48 (estacionalidad diaria)
+- SARIMA(1,0,0)(1,0,1,24) con ciclo de 24 horas
+- Diagnostico de residuos (QQ-plot, ACF, histograma)
+- Evaluacion con MAE, RMSE y MAPE
+- Zoom horario al periodo de test
 
-## Librerías principales
+## Hallazgo clave
 
-- `pandas`
-- `matplotlib`
-- `statsmodels`
-- `pmdarima`
+El modelo alcanza un MAPE inferior al 3%, capturando con precision tanto
+los picos diurnos (~65-80 kWh) como los valles nocturnos (~38-45 kWh).
+Suficiente para optimizar la contratacion de potencia en tiempo real.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [01-caso-completo](../01-caso-completo/) — SARIMA semanal (s=52, ventas retail)
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/04-series-temporales/arima/02-forecast-electricidad
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib statsmodels pmdarima jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib statsmodels scikit-learn openpyxl scipy
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

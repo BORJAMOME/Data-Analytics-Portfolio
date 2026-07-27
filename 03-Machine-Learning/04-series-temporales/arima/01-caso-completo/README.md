@@ -1,44 +1,43 @@
-# ARIMA — Caso completo
+# SARIMA — Prediccion de Ventas Semanales en Retail
 
-Modelar y predecir una serie temporal financiera usando el modelo ARIMA (AutoRegressive Integrated Moving Average).
+## Contexto de negocio
 
----
+Una cadena de supermercados necesita anticipar las ventas semanales para
+optimizar inventario, personal y promociones. El modelo reemplaza las
+previsiones manuales basadas en promedios historicos.
 
 ## Dataset
 
-`arima.xlsx` — serie temporal histórica.
+| Campo | Detalle |
+|:------|:--------|
+| Archivo | `arima.xlsx` |
+| Registros | 260 semanas (5 anios) |
+| Periodo | Enero 2020 - Diciembre 2024 |
+| Variable | Ventas semanales en euros |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-ARIMA con `statsmodels`. Test de Dickey-Fuller (estacionariedad), ACF/PACF, selección de parámetros (p, d, q).
+- Descomposicion estacional aditiva (periodo 52 semanas)
+- Test de Dickey-Fuller Aumentado (ADF) para estacionariedad
+- Diferenciacion (d=1) para lograr estacionariedad
+- ACF / PACF para identificacion de parametros
+- SARIMA(0,1,1)(0,1,1,52) con statsmodels
+- Diagnostico de residuos (QQ-plot, ACF, histograma)
+- Forecast a 20 semanas con intervalos de confianza al 95%
 
-## Librerías principales
+## Hallazgo clave
 
-- `pandas`
-- `matplotlib`
-- `statsmodels`
-- `pmdarima`
+El modelo SARIMA captura la estacionalidad anual y consigue un MAPE inferior
+al 5% sobre test, cumpliendo el requisito operativo para automatizar la
+prevision de compras y planificacion de turnos.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [02-forecast-electricidad](../02-forecast-electricidad/) — SARIMA horario (s=24)
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/04-series-temporales/arima/01-caso-completo
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib statsmodels pmdarima jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib statsmodels scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)
