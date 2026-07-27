@@ -1,44 +1,26 @@
-# Clustering Jerárquico — Caso avanzado gimnasio
+# Clustering Jerarquico — Caso avanzado (gimnasio, 2 variables)
 
-Aplicar clustering jerárquico a datos reales de gimnasio y comparar con K-Means.
-
----
+## Contexto de negocio
+Un gimnasio quiere identificar perfiles de miembros usando Antiguedad y Gasto Extra para disenar ofertas de retencion.
 
 ## Dataset
+`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 registros, 7 variables.
 
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx`.
+## Tecnicas aplicadas
+- StandardScaler antes de clustering
+- Dendrograma con linkage Ward
+- Boxplots por cluster
+- Cross-check con variables Abandono y Satisfecho
 
-## Técnica aplicada
+## Hallazgo clave
+Los clusters de 2 variables ya capturan diferencias en tasas de abandono, validando que el comportamiento de gasto predice el riesgo.
 
-`AgglomerativeClustering` con criterio de Ward. Elección del corte del dendrograma.
+## Notebooks relacionados
+- [01-caso-introductorio](../01-caso-introductorio/) — fundamentos con datos sinteticos
+- [04-gimnasio-4variables](../04-gimnasio-4variables/) — misma fuente, 4 variables, radar charts
 
-## Librerías principales
-
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
-- `scipy`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/clustering/jerarquico/02-caso-avanzado
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn scipy jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

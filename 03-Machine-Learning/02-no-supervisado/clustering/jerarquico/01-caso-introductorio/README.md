@@ -1,44 +1,27 @@
-# Clustering Jerárquico — Caso introductorio
+# Clustering Jerarquico — Caso introductorio
 
-Agrupar observaciones sin definir k a priori: el clustering jerárquico construye un árbol completo (dendrograma).
-
----
+## Contexto de negocio
+Un e-commerce quiere segmentar 30 usuarios por su comportamiento digital (clics y compras) para disenar campanas de marketing diferenciadas.
 
 ## Dataset
+Sintetico: 30 usuarios con 3 grupos naturales generados via `make_blobs`.
 
-Datos sintéticos generados en el notebook.
+## Tecnicas aplicadas
+- Dendrograma con 4 metodos de linkage (ward, complete, average, single)
+- Comparacion visual de metodos
+- Corte del dendrograma y asignacion de clusters
+- Scatter plot coloreado por cluster
 
-## Técnica aplicada
+## Hallazgo clave
+Ward produce los clusters mas compactos y equilibrados — recomendado como default para datos bien separados.
 
-`AgglomerativeClustering` + dendrograma con `scipy.cluster.hierarchy`. Distintas métricas de enlace (ward, complete, average).
+## Notebooks relacionados
+- [02-caso-avanzado](../02-caso-avanzado/) — 2 variables reales (gimnasio)
+- [03-caso-completo](../03-caso-completo/) — coeficiente cofenetico + silhouette
+- [04-gimnasio-4variables](../04-gimnasio-4variables/) — radar charts con 4 features
 
-## Librerías principales
-
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
-- `scipy`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/clustering/jerarquico/01-caso-introductorio
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn scipy jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

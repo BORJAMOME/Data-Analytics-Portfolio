@@ -1,43 +1,28 @@
-# Clustering Jerárquico — Gimnasio con 4 variables
+# Clustering Jerarquico — Gimnasio con 4 variables y radar charts
 
-Segmentación 4-dimensional de clientes: cómo interpretar clústeres en un espacio de alta dimensionalidad.
-
----
+## Contexto de negocio
+Un gimnasio quiere crear personas accionables de sus miembros usando 4 metricas de comportamiento, visualizadas con radar charts para comunicar a stakeholders no tecnicos.
 
 ## Dataset
+`dataset_didactico_machine_learning - ALUMNOS.xlsx` — 300 registros, 7 variables.
 
-`dataset_didactico_machine_learning - ALUMNOS.xlsx` — 4 variables clave.
+## Tecnicas aplicadas
+- 4 features: Antiguedad, Asistencias, Horas_Pico, Gasto_Extra
+- StandardScaler + dendrograma Ward
+- PCA 2D para visualizar clusters en alta dimension
+- Radar chart por cluster (matplotlib polar)
+- Boxplots multivariable
+- Cross-check con Abandono y Satisfecho
 
-## Técnica aplicada
+## Hallazgo clave
+Los radar charts revelan que cada cluster tiene un "shape" distinto — no solo difieren en una metrica sino en la combinacion. Esto permite crear personas de marketing matizadas.
 
-Clustering jerárquico + reducción de dimensionalidad para visualizar. Perfilado de grupos.
+## Notebooks relacionados
+- [02-caso-avanzado](../02-caso-avanzado/) — misma fuente, solo 2 variables
+- [K-Means avanzado](../../kmeans/02-caso-avanzado/) — misma fuente con K-Means
 
-## Librerías principales
-
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/clustering/jerarquico/04-gimnasio-4variables
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

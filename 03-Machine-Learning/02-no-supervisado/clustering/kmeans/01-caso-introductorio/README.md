@@ -1,47 +1,27 @@
-# K-Means — Caso introductorio
+# K-Means — Segmentacion de clientes retail
 
-Segmentar clientes de un centro comercial en grupos con comportamiento similar de gasto.
-
----
+## Contexto de negocio
+Un centro comercial quiere agrupar clientes por ingreso y habito de gasto para disenar campanas de marketing diferenciadas (VIP, activacion, fidelizacion).
 
 ## Dataset
+Sintetico: 200 clientes con 5 segmentos naturales (ingreso anual vs spending score).
 
-`Mall_Customers.csv` — descargar de [Kaggle](https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python).
+## Tecnicas aplicadas
+- Metodo del codo (inercia)
+- Silhouette score
+- K-Means con k=5
+- Visualizacion de centroides en espacio original
+- Perfil descriptivo de cada cluster
 
-## Técnica aplicada
+## Hallazgo clave
+K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo ingreso y medio equilibrado. Los centroides permiten asignar nuevos clientes automaticamente.
 
-K-Means. Método del codo (Elbow) y coeficiente de silueta para elegir k óptimo.
+## Notebooks relacionados
+- [02-caso-avanzado](../02-caso-avanzado/) — datos reales de gimnasio, estabilidad de clusters
+- [03-segmentacion-politica](../03-segmentacion-politica/) — dataset real, radar charts, PCA
 
-## Librerías principales
-
-- `pandas`
-- `matplotlib`
-- `seaborn`
-- `scikit-learn`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/clustering/kmeans/01-caso-introductorio
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib seaborn scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-## Notas
-
-Dataset externo: descargar `Mall_Customers.csv` de Kaggle y colocarlo en esta carpeta antes de ejecutar.
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

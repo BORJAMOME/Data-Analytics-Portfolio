@@ -1,43 +1,28 @@
-# Clustering Jerárquico — Caso completo
+# Clustering Jerarquico — Caso completo (banca)
 
-Pipeline completo de clustering jerárquico con datos sintéticos: generación, exploración, dendrograma, corte y evaluación.
-
----
+## Contexto de negocio
+Un banco necesita segmentar 300 clientes por 5 metricas financieras para disenar productos personalizados (tarjetas, creditos, seguros).
 
 ## Dataset
+Sintetico: 300 clientes bancarios con 5 features generados via `make_blobs`.
 
-Generado con `sklearn.datasets.make_blobs`.
+## Tecnicas aplicadas
+- Coeficiente cofenetico para comparar 4 linkages
+- Dendrograma con mejor linkage
+- Silhouette score para validar k
+- Silhouette plot detallado
+- Heatmap normalizado de perfiles
 
-## Técnica aplicada
+## Hallazgo clave
+El coeficiente cofenetico cuantifica que linkage preserva mejor las distancias originales — Ward o Complete suelen ganar con datos euclideos.
 
-`AgglomerativeClustering` end-to-end. Silhouette score y visualización de clústeres.
+## Notebooks relacionados
+- [01-caso-introductorio](../01-caso-introductorio/) — fundamentos basicos
+- [02-caso-avanzado](../02-caso-avanzado/) — datos reales, 2 variables
+- [K-Means caso completo](../../kmeans/03-segmentacion-politica/) — comparativa con K-Means
 
-## Librerías principales
-
-- `scikit-learn`
-- `matplotlib`
-- `scipy`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/clustering/jerarquico/03-caso-completo
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install scikit-learn matplotlib scipy jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

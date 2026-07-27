@@ -1,44 +1,29 @@
-# PCA — Segmentación de empleados
+# PCA + K-Means — Pipeline de reduccion y segmentacion de empleados
 
-Analizar y segmentar empleados de una empresa reduciendo múltiples variables a componentes principales interpretables.
-
----
+## Contexto de negocio
+Una empresa con 232 empleados de ventas quiere identificar perfiles de rendimiento para asignar formacion personalizada. Las 5 metricas estan correlacionadas — PCA las sintetiza antes de agrupar.
 
 ## Dataset
+`employees.xlsx` — 232 empleados, 6 variables (idempleado, Sales_K, Customers, Training_Hours, Satisfaction, Calls_per_day).
 
-`employees.xlsx` — variables demográficas y de rendimiento.
+## Tecnicas aplicadas
+- Matriz de correlacion
+- PCA con scree plot y criterio del 80% de varianza
+- Loadings heatmap para interpretar componentes
+- Pipeline PCA + K-Means: reduccion antes de clustering
+- Comparacion directa: K-Means sobre todas las variables vs K-Means sobre PC
+- Visualizacion de clusters en espacio PCA 2D con centroides
+- Heatmap normalizado de perfiles de rendimiento
 
-## Técnica aplicada
+## Hallazgo clave
+El pipeline PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con menos dimensiones, lo que mejora la estabilidad y la interpretabilidad visual.
 
-PCA combinado con K-Means sobre componentes principales. Análisis de cargas (loadings).
+## Notebooks relacionados
+- [PCA analisis emails](../01-analisis-emails/) — PCA standalone con 10 variables
+- [K-Means avanzado](../../../clustering/kmeans/02-caso-avanzado/) — K-Means sin reduccion previa
 
-## Librerías principales
-
-- `pandas`
-- `matplotlib`
-- `seaborn`
-- `scikit-learn`
-
-## Cómo ejecutar
-
+## Como ejecutar
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib seaborn scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)
