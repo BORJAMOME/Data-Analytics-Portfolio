@@ -77,3 +77,10 @@ config.ini
 # --- Datasets externos (opcional, comentar si quieres subirlos) ---
 # dataset/training_set/
 # dataset/test_set/
+
+# Old unnumbered regression folders (replaced by numbered versions)
+03-Machine-Learning/01-supervisado/regresion/regresion-lineal-simple/
+03-Machine-Learning/01-supervisado/regresion/regresion-lineal-multiple/
+03-Machine-Learning/01-supervisado/regresion/ridge-lasso/
+03-Machine-Learning/01-supervisado/regresion/gradient-boosting/
+03-Machine-Learning/01-supervisado/regresion/svm/
