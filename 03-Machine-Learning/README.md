@@ -55,7 +55,7 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 | # | Caso | Dataset |
 |---|---|---|
 | 01 | [Precios inmobiliarios](01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/) | `datos_regresion_casas.xlsx` |
-| 02 | [Colesterol y hábitos de salud](01-supervisado/regresion/01-regresion-lineal-simple/02-salud/) | `Patient_Health_ALUMNOS.csv` |
+| 02 | [Colesterol y hábitos de salud](01-supervisado/regresion/01-regresion-lineal-simple/02-salud/) | `patient_health.csv` |
 | 03 | [Regresión en datos de gimnasio](01-supervisado/regresion/01-regresion-lineal-simple/03-gym/) | Clientes gym |
 
 **Regresión Lineal Múltiple** · [`01-supervisado/regresion/02-regresion-lineal-multiple/`](01-supervisado/regresion/02-regresion-lineal-multiple/)

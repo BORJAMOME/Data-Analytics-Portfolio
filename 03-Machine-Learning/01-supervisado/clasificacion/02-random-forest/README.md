@@ -14,7 +14,7 @@ Entrenar un Random Forest Classifier, analizar importancia de variables con dos 
 
 ## Dataset
 
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 clientes, 4 features operativas, target binario equilibrado (52/48).
+`gym_clientes.xlsx` — 300 clientes, 4 features operativas, target binario equilibrado (52/48).
 
 ## Técnicas aplicadas
 

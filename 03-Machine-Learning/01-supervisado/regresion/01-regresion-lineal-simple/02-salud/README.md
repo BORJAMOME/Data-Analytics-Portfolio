@@ -10,7 +10,7 @@ Un centro de salud quiere usar el BMI (medicion instantanea) como predictor rapi
 
 ## Dataset
 
-`Patient_Health_ALUMNOS.csv` — 50 pacientes con age, bmi, steps_per_day, sleep_hours, smoking, alcohol, heart_rate, cholesterol, health_risk.
+`patient_health.csv` — 50 pacientes con age, bmi, steps_per_day, sleep_hours, smoking, alcohol, heart_rate, cholesterol, health_risk.
 
 ## Tecnicas aplicadas
 

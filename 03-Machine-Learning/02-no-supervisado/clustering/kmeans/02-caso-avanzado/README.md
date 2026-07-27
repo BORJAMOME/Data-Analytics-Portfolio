@@ -4,7 +4,7 @@
 Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campanas de retencion proactivas antes de perder miembros.
 
 ## Dataset
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx` — 300 registros, 7 variables.
 
 ## Tecnicas aplicadas
 - 4 features de comportamiento (Antiguedad, Asistencias, Horas_Pico, Gasto_Extra)

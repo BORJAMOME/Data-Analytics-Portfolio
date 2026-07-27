@@ -4,7 +4,7 @@
 Un gimnasio quiere identificar perfiles de miembros usando Antiguedad y Gasto Extra para disenar ofertas de retencion.
 
 ## Dataset
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx` — 300 registros, 7 variables.
 
 ## Tecnicas aplicadas
 - StandardScaler antes de clustering

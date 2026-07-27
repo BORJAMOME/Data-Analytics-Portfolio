@@ -14,7 +14,7 @@ Comparar tres algoritmos de clasificación (Árbol de Decisión, Random Forest, 
 
 ## Dataset
 
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 clientes con `Antiguedad_Meses`, `Asistencias_Mes`, `Horas_Pico_Mes`, `Gasto_Mensual_Extra` (features), `Satisfecho` (target binario, 48% positivos) y `Abandono` (informativa, excluida para evitar data leakage).
+`gym_clientes.xlsx` — 300 clientes con `Antiguedad_Meses`, `Asistencias_Mes`, `Horas_Pico_Mes`, `Gasto_Mensual_Extra` (features), `Satisfecho` (target binario, 48% positivos) y `Abandono` (informativa, excluida para evitar data leakage).
 
 ## Técnicas aplicadas
 

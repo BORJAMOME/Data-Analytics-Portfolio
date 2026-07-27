@@ -14,7 +14,7 @@ Construir un modelo de Regresion Logistica con `statsmodels` (inferencia estadis
 
 ## Dataset
 
-`dataset_didactico_machine_learning - ALUMNOS - copia.xlsx` — 300 clientes, 4 features operativas. Target: `Abandono` (binario, **desbalanceado 84/16**).
+`gym_clientes.xlsx` — 300 clientes, 4 features operativas. Target: `Abandono` (binario, **desbalanceado 84/16**).
 
 ## Tecnicas aplicadas
 

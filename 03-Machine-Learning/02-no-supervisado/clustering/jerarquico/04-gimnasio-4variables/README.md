@@ -4,7 +4,7 @@
 Un gimnasio quiere crear personas accionables de sus miembros usando 4 metricas de comportamiento, visualizadas con radar charts para comunicar a stakeholders no tecnicos.
 
 ## Dataset
-`dataset_didactico_machine_learning - ALUMNOS.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx` — 300 registros, 7 variables.
 
 ## Tecnicas aplicadas
 - 4 features: Antiguedad, Asistencias, Horas_Pico, Gasto_Extra
