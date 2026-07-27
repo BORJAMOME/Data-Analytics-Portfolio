@@ -1,43 +1,41 @@
-# MLP — Clasificación en Fintech
+# MLP — Evaluacion de Credito Fintech
 
-Clasificar operaciones o clientes de una fintech usando una red neuronal MLP.
+## Contexto de negocio
 
----
+Una fintech de microcreditos necesita automatizar la decision de
+aprobacion/rechazo de solicitudes, reduciendo la latencia de 48h
+a minutos y eliminando la inconsistencia entre analistas.
 
 ## Dataset
 
-Dataset fintech (incluido en el notebook).
+| Campo | Detalle |
+|:------|:--------|
+| Tipo | Sintetico (np.random.seed(42)) |
+| Registros | 100 solicitantes |
+| Features | Ingresos_Mensuales, Score_Comportamiento, Deudas_Activas |
+| Target | Aprobado (0/1) |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-MLP con dos capas ocultas. Comparativa con modelos lineales.
+- MLP (128, 64, 32) con early stopping y StandardScaler
+- Comparativa con Regresion Logistica y Random Forest
+- Curvas ROC comparativas, matriz de correlacion
+- Distribucion por clase con boxplots
 
-## Librerías principales
+## Hallazgo clave
 
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
+En credit scoring, la Regresion Logistica sigue siendo el standard
+regulatorio por su interpretabilidad. El MLP puede usarse como
+modelo shadow para detectar mejoras sin comprometer compliance.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [01-caso-completo](../01-caso-completo/) — MLP para churn streaming
+- [03-forecast-consumo-electrico](../03-forecast-consumo-electrico/) — MLPRegressor
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/mlp/02-clasificacion-fintech
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

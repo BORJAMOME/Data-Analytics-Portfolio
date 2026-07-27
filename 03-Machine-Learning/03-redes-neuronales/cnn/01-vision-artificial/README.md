@@ -1,46 +1,43 @@
-# CNN — Visión artificial gatos/perros
+# CNN — Vision Artificial para Clasificacion de Objetos (CIFAR-10)
 
-Mismo problema que la clasificación MLP pero usando una Convolutional Neural Network, el modelo apropiado para imágenes.
+## Contexto de negocio
 
----
+Una empresa de seguridad vial desarrolla un sistema de deteccion automatica
+de objetos en intersecciones urbanas. Las camaras capturan imagenes a color
+que deben clasificarse en tiempo real.
 
 ## Dataset
 
-Dataset de imágenes gatos/perros. Descargar de [Kaggle: Dogs vs. Cats](https://www.kaggle.com/c/dogs-vs-cats).
+| Campo | Detalle |
+|:------|:--------|
+| Nombre | CIFAR-10 |
+| Registros | 60.000 imagenes (50k train, 10k test) |
+| Tamano | 32x32 pixeles, RGB (3 canales) |
+| Clases | 10 (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck) |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-CNN con capas convolucionales + max pooling + capas densas. Data augmentation con `ImageDataGenerator`.
+- 3 arquitecturas CNN de complejidad creciente:
+  - CNN Simple (2 Conv2D)
+  - CNN Media (4 Conv2D + Dropout 0.25/0.3)
+  - CNN con BatchNormalization
+- Learning curves comparativas
+- Confusion matrix del mejor modelo
+- Analisis de clasificaciones incorrectas
 
-## Librerías principales
+## Hallazgo clave
 
-- `tensorflow`
-- `keras`
-- `matplotlib`
+La progresion Simple < Media < BatchNorm demuestra que la regularizacion
+(Dropout, BatchNorm) es tan importante como la profundidad. Las clases
+mas confundidas (cat/dog, automobile/truck) reflejan similitud visual real.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [MLP 04 - Vision Fashion-MNIST](../../mlp/04-clasificacion-imagenes-gatos/) — MLP vs CNN en imagenes
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/cnn/01-vision-artificial
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install tensorflow keras matplotlib jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib tensorflow scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-## Notas
-
-Dataset externo: descargar de Kaggle y colocar en `dataset/training_set/` y `dataset/test_set/`.
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

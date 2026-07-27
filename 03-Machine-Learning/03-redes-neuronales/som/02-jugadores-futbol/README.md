@@ -1,44 +1,42 @@
-# SOM — Segmentación jugadores de fútbol
+# SOM — Mapa de Perfiles de Futbolistas
 
-Encontrar perfiles similares de jugadores profesionales de fútbol (Messi, Ronaldo, Modric, Ramos...) usando sus estadísticas.
+## Contexto de negocio
 
----
+El departamento de scouting de un club analiza 800 jugadores para
+identificar arquetipos tacticos, detectar jugadores polivalentes
+y validar si las posiciones asignadas coinciden con los perfiles reales.
 
 ## Dataset
 
-`jugadores_futbol.xlsx` — estadísticas de jugadores.
+| Campo | Detalle |
+|:------|:--------|
+| Archivo | jugadores_futbol.xlsx |
+| Registros | 800 jugadores |
+| Features | Velocidad, Tiro, Regate, Pase, Defensa, Fisico |
+| Label | Posicion_Real (Defensa/Centrocampista/Delantero) — solo validacion |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-SOM (Self-Organizing Maps) con `minisom`. Visualización del mapa con etiquetas de jugadores.
+- SOM 12x12 con minisom (5000 iteraciones)
+- U-Matrix y mapa de posiciones superpuestas
+- Component planes (6 atributos)
+- PCA 2D como validacion comparativa
+- Indice de versatilidad basado en distancia U-Matrix
 
-## Librerías principales
+## Hallazgo clave
 
-- `minisom`
-- `pandas`
-- `matplotlib`
-- `seaborn`
+El mapa SOM muestra 3 zonas claras correspondientes a las 3 posiciones,
+con zonas de transicion donde se situan jugadores polivalentes. Los
+component planes revelan que Defensa/Fisico y Tiro/Regate son los
+ejes principales de diferenciacion.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [01-casos-introductorios](../01-casos-introductorios/) — SOM para segmentacion de clientes
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/som/02-jugadores-futbol
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install minisom pandas matplotlib seaborn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn minisom scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

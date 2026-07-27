@@ -1,47 +1,41 @@
-# MLP — Clasificación de imágenes gatos/perros
+# MLP en Vision — Clasificacion de Prendas (Fashion-MNIST)
 
-Clasificar imágenes en gatos o perros usando una red MLP (no convolucional) como baseline antes de una CNN.
+## Contexto de negocio
 
----
+Un marketplace de moda online necesita clasificar automaticamente
+las fotos de productos. Este notebook demuestra por que el MLP
+no es adecuado para vision: pierde la estructura espacial de la imagen.
 
 ## Dataset
 
-Dataset de imágenes gatos/perros. Descargar de [Kaggle: Dogs vs. Cats](https://www.kaggle.com/c/dogs-vs-cats).
+| Campo | Detalle |
+|:------|:--------|
+| Nombre | Fashion-MNIST (Zalando Research) |
+| Registros | 70.000 imagenes (60k train, 10k test) |
+| Tamano | 28x28 pixeles, escala de grises |
+| Clases | 10 (T-shirt, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot) |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-MLP con TensorFlow/Keras. Preprocesado de imágenes (flattening), normalización, entrenamiento.
+- MLP sklearn (256, 128) sobre imagenes aplanadas (784 features)
+- CNN Keras (2 Conv2D + MaxPooling) como referencia
+- Random Forest como baseline
+- Visualizacion de errores del MLP que la CNN acierta
 
-## Librerías principales
+## Hallazgo clave
 
-- `tensorflow`
-- `keras`
-- `numpy`
-- `matplotlib`
+La CNN supera al MLP porque los filtros convolucionales detectan patrones
+locales (bordes, texturas) que el MLP no puede aprender al tratar cada
+pixel de forma independiente. Las confusiones tipicas (pullover/coat,
+shirt/t-shirt) involucran diferencias de forma.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [CNN 01 - Vision Artificial](../../cnn/01-vision-artificial/) — CNN completa sobre CIFAR-10
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/mlp/04-clasificacion-imagenes-gatos
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install tensorflow keras numpy matplotlib jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib tensorflow scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-## Notas
-
-Dataset externo: descargar de Kaggle y colocar en `dataset/training_set/` y `dataset/test_set/` con subcarpetas `cats/` y `dogs/`.
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

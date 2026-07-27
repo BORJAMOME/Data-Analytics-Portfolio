@@ -1,43 +1,41 @@
-# MLP — Forecast consumo eléctrico
+# MLP Regressor — Forecast de Consumo Electrico
 
-Predecir el consumo eléctrico a partir de variables ambientales y temporales usando una red neuronal.
+## Contexto de negocio
 
----
+Una empresa de distribucion electrica necesita predecir el consumo
+hora a hora para optimizar la compra de energia en el mercado mayorista.
+Las desviaciones generan penalizaciones economicas directas.
 
 ## Dataset
 
-`electricidad.xlsx` — histórico de consumo.
+| Campo | Detalle |
+|:------|:--------|
+| Archivo | electricidad.xlsx (hoja: consumo_electrico) |
+| Registros | 719 horas (~30 dias) |
+| Periodo | Enero 2025 |
+| Features | hora, dia_semana, es_fin_semana, hora_sin/cos, lag1, lag24 |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-`MLPRegressor`. Feature engineering temporal, escalado, validación temporal.
+- Feature engineering temporal (ciclico, lags)
+- MLPRegressor (128, 64, 32) con early stopping
+- Comparativa con Regresion Lineal y Random Forest Regressor
+- Scatter real vs predicho, barras de MAE, feature importance
 
-## Librerías principales
+## Hallazgo clave
 
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
+Los lag features (consumo_lag1, consumo_lag24) capturan la mayor parte
+de la senal predictiva. La inercia termica y el patron diario explican
+la variabilidad mas que la hora o el dia de la semana por si solos.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [01-caso-completo](../01-caso-completo/) — MLP clasificacion (churn)
+- [02-clasificacion-fintech](../02-clasificacion-fintech/) — MLP clasificacion (credito)
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/mlp/03-forecast-consumo-electrico
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

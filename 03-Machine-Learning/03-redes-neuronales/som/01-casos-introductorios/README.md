@@ -1,43 +1,41 @@
-# SOM — Casos introductorios
+# SOM — Segmentacion de Clientes con Self-Organizing Maps
 
-Introducción a los Self-Organizing Maps (Kohonen): redes neuronales no supervisadas para visualización y clustering.
+## Contexto de negocio
 
----
+Una cadena de retail quiere segmentar su base de 500 clientes para
+personalizar campanas de marketing, usando Self-Organizing Maps
+para descubrir la topologia natural de los datos de comportamiento.
 
 ## Dataset
 
-`dataset_SOM.xlsx` — datos genéricos para primer contacto.
+| Campo | Detalle |
+|:------|:--------|
+| Archivo | dataset_SOM.xlsx |
+| Registros | 500 clientes |
+| Variables | Recencia_Dias, Frecuencia_Semanal, Gasto_Promedio, Uso_Descuentos |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-SOM con la librería `minisom`. Mapa de activación (U-matrix), inicialización aleatoria vs PCA.
+- SOM 10x10 con minisom (5000 iteraciones)
+- U-Matrix (distancias entre neuronas vecinas)
+- Mapa de frecuencia (clientes por neurona)
+- Component planes (un mapa por variable)
+- SOM + K-Means para clustering sobre pesos del SOM
+- Comparativa con K-Means directo (silhouette score)
 
-## Librerías principales
+## Hallazgo clave
 
-- `minisom`
-- `pandas`
-- `matplotlib`
+El SOM revela la topologia de los segmentos: los clientes de alto
+valor y los cazadores de descuentos ocupan regiones diferenciadas
+del mapa, con zonas de transicion que K-Means no detecta.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [02-jugadores-futbol](../02-jugadores-futbol/) — SOM para scouting deportivo
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/som/01-casos-introductorios
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install minisom pandas matplotlib jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn minisom scikit-learn openpyxl
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

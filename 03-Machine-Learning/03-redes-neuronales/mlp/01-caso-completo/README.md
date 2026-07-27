@@ -1,43 +1,41 @@
-# MLP — Caso completo
+# MLP — Prediccion de Abandono en Streaming
 
-Pipeline completo de un Multilayer Perceptron: desde carga de datos hasta evaluación y análisis de resultados.
+## Contexto de negocio
 
----
+Una plataforma de streaming necesita predecir que suscriptores cancelaran
+para activar campanas de retencion proactivas. El coste de adquirir un
+nuevo usuario es 5x superior al de retener uno existente.
 
 ## Dataset
 
-Dataset scikit-learn (probablemente `load_digits` o similar).
+| Campo | Detalle |
+|:------|:--------|
+| Tipo | Sintetico (np.random.seed(42)) |
+| Registros | 100 suscriptores |
+| Features | Edad, Meses_Contrato, Horas_Al_Mes |
+| Target | Abandono (0/1) |
 
-## Técnica aplicada
+## Tecnicas aplicadas
 
-`MLPClassifier` de scikit-learn. Arquitectura, funciones de activación, optimizador Adam.
+- MLP (64, 32) con early stopping y StandardScaler
+- Comparativa con Regresion Logistica y Random Forest
+- Curvas ROC, matriz de confusion, curva de aprendizaje
+- Feature importance via permutation
 
-## Librerías principales
+## Hallazgo clave
 
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
+Con 3 variables y 100 registros, el MLP no supera significativamente
+a los modelos clasicos. Las Horas_Al_Mes son el predictor dominante:
+los suscriptores con bajo consumo abandonan con mayor probabilidad.
 
-## Cómo ejecutar
+## Notebooks relacionados
+
+- [02-clasificacion-fintech](../02-clasificacion-fintech/) — MLP para credit scoring
+- [03-forecast-consumo-electrico](../03-forecast-consumo-electrico/) — MLPRegressor
+
+## Como ejecutar
 
 ```bash
-# Desde la raíz del repositorio
-cd 03-Machine-Learning/03-redes-neuronales/mlp/01-caso-completo
-
-# Activar entorno virtual
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate    # Linux/Mac
-
-# Instalar dependencias
-pip install pandas matplotlib scikit-learn jupyter
-
-# Abrir el notebook
+pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
 ```
-
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)
