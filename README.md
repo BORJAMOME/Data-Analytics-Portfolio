@@ -12,7 +12,7 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 ```
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
-├── 02-Python/                  Pandas, EDA, visualización, web scraping
+├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
 ├── 03-Machine-Learning/        32 casos: supervisado, no supervisado, RRNN, series
 └── 04-IA-BigData/              NLP, LLMs, Spark, Big Data
 ```
@@ -33,11 +33,11 @@ Consultas analíticas complejas, modelado dimensional (esquema estrella y copo d
 
 ### [02 · Python](02-Python/)
 
-Análisis exploratorio, limpieza de datos, visualización avanzada y web scraping. De pandas puro a dashboards interactivos con Plotly.
+**4 casos de negocio + 4 manuales de referencia.** Análisis exploratorio con storytelling completo (comercial, educación, seguros, restauración) y manuales pedagógicos de Pandas, NumPy y Matplotlib.
 
-**Stack:** pandas, numpy, matplotlib, seaborn, plotly, BeautifulSoup, Selenium.
+**Stack:** pandas, numpy, matplotlib, seaborn.
 
-*Próximamente*
+**[Ver la sección completa →](02-Python/)**
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
