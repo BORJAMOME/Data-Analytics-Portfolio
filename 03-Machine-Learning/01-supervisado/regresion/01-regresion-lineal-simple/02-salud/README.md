@@ -1,40 +1,85 @@
-# Regresion Lineal Simple — Colesterol y habitos de salud
+# Regresión Lineal Simple — Predicción del colesterol
 
-50 pacientes, una pregunta: el IMC predice el colesterol? Con R2 = 0.97, la respuesta es contundente en esta muestra. La clave esta en entender por que: datos sinteticos con correlaciones fuertes producen modelos perfectos que no necesariamente generalizan.
+¿Es posible estimar el nivel de colesterol de un paciente únicamente a partir de su Índice de Masa Corporal (BMI)? En este proyecto se analiza esta hipótesis mediante un modelo de regresión lineal simple entrenado con datos de 50 pacientes.
+
+El modelo consigue explicar aproximadamente el **97 % de la variabilidad del colesterol** utilizando únicamente el BMI. Aunque se evaluaron modelos más complejos, el modelo simple fue finalmente seleccionado por ofrecer el mejor equilibrio entre **precisión**, **interpretabilidad** y **robustez**.
 
 ---
 
 ## Contexto de negocio
 
-Un centro de salud quiere usar el BMI (medicion instantanea) como predictor rapido del colesterol. Este notebook evalua si esa hipotesis es viable usando datos de 50 pacientes.
+Un centro de salud desea disponer de una herramienta sencilla que permita realizar una estimación rápida del colesterol de un paciente a partir de una medición fácilmente obtenible como el **Índice de Masa Corporal (BMI)**.
+
+El objetivo es comprobar si esta variable, por sí sola, proporciona suficiente capacidad predictiva para apoyar la toma de decisiones clínicas.
+
+---
 
 ## Dataset
 
-`patient_health.csv` — 50 pacientes con age, bmi, steps_per_day, sleep_hours, smoking, alcohol, heart_rate, cholesterol, health_risk.
+**patient_health.csv**
 
-## Tecnicas aplicadas
+Contiene información de **50 pacientes**, incluyendo las siguientes variables:
 
-- Analisis de correlacion bivariada con p-valores (Pearson)
-- Regresion lineal simple (BMI -> Cholesterol)
-- Diagnostico de supuestos (Shapiro-Wilk, QQ-plot, residuos)
-- Interpretacion critica de un modelo con R2 alto en datos sinteticos
+- Edad (`age`)
+- Índice de Masa Corporal (`bmi`)
+- Pasos diarios (`steps_per_day`)
+- Horas de sueño (`sleep_hours`)
+- Hábito de fumar (`smoking`)
+- Consumo semanal de alcohol (`alcohol_units_per_week`)
+- Frecuencia cardíaca (`heart_rate`)
+- Colesterol (`cholesterol`)
+- Nivel de riesgo (`health_risk`)
 
-## Hallazgo clave
+---
 
-> El modelo alcanza R2 = 0.9762 en test — el BMI explica casi toda la varianza del colesterol en esta muestra. Sin embargo, la correlacion es artificialmente fuerte (datos sinteticos). En datos reales, el colesterol depende de multiples factores y un modelo univariable no seria suficiente.
+## Técnicas aplicadas
 
-## Notebooks relacionados
+- Análisis exploratorio de datos (EDA)
+- Estadística descriptiva
+- Análisis de correlación de Pearson
+- Regresión lineal simple
+- Comparación con modelos de regresión múltiple
+- Evaluación de multicolinealidad mediante VIF
+- Evaluación del modelo (R², MAE, RMSE y MAPE)
+- Validación con conjunto de entrenamiento y prueba
+- Diagnóstico de los supuestos de la regresión
 
-- [Regresion Simple — Inmobiliaria](../01-inmobiliaria/) — otro caso donde la regresion simple funciona bien
-- [Regresion Multiple](../../02-regresion-lineal-multiple/) — anadir variables para mejorar prediccion
+---
 
-## Como ejecutar
+## Hallazgo principal
+
+> El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene un **R² ≈ 0.97**, explicando la mayor parte de la variabilidad del colesterol. Aunque los modelos múltiples alcanzan un R² ligeramente superior, presentan problemas graves de multicolinealidad. Por ello, se selecciona el modelo simple como solución final por ser más estable, interpretable y suficientemente preciso.
+
+---
+
+## Resultados
+
+- **Variable predictora:** BMI
+- **R² (Train):** 0.9698
+- **R² (Test):** 0.9814
+- **MAE (Test):** 4.84 unidades de colesterol
+- **RMSE (Test):** 5.82 unidades de colesterol
+- **MAPE (Test):** 2.17 %
+
+---
+
+## Conclusiones
+
+- El BMI es un predictor muy sólido del colesterol en este conjunto de datos.
+- El modelo generaliza correctamente y no presenta evidencias de sobreajuste.
+- Los modelos múltiples mejoran ligeramente la precisión, pero introducen problemas importantes de multicolinealidad.
+- En este caso, un modelo sencillo ofrece una excelente capacidad predictiva y una interpretación mucho más clara.
+
+---
+
+## Cómo ejecutar
 
 ```bash
-pip install pandas matplotlib seaborn scikit-learn scipy jupyter
+pip install pandas matplotlib seaborn scikit-learn scipy statsmodels jupyter
+
 jupyter notebook notebook.ipynb
 ```
 
 ---
 
-[Volver al indice](../../../../README.md)
+[← Volver al índice](../../../../README.md)
