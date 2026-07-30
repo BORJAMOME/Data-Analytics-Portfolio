@@ -1,50 +1,41 @@
-# Regresion Logistica — Abandono de clientes (Gimnasio)
+# Regresión Logística — Abandono de clientes (Gimnasio)
 
-El modelo que no solo predice, sino que explica: odds ratios, p-valores e intervalos de confianza para cuantificar exactamente cuanto pesa cada variable en la decision de abandonar.
+El modelo que no solo predice, sino que explica: odds ratios, p-valores e intervalos de confianza para cuantificar exactamente cuánto pesa cada variable en la decisión de abandonar.
 
 ---
 
 ## Contexto de negocio
 
-Una cadena de gimnasios urbanos observa un ~16% de abandono y necesita entender **que factores lo causan y cuanto pesa cada uno**. A diferencia de los notebooks de arboles (que predicen satisfaccion), aqui se ataca el problema complementario: **explicacion estadistica del abandono**.
+Una cadena de gimnasios urbanos observa un ~16% de abandono y necesita entender **qué factores lo causan y cuánto pesa cada uno**. A diferencia de los notebooks de árboles (que predicen satisfacción), aquí se ataca el problema complementario: **explicación estadística del abandono**.
 
 ## Objetivo
 
-Construir un modelo de Regresion Logistica con `statsmodels` (inferencia estadistica) y `sklearn` (prediccion), analizar odds ratios con intervalos de confianza, diagnosticar multicolinealidad con VIF, y optimizar el threshold de decision.
+Construir un modelo de Regresión Logística con `statsmodels` para obtener inferencia estadística completa (p-valores, odds ratios, intervalos de confianza), diagnosticar multicolinealidad con VIF y refinar el modelo eliminando variables no significativas.
 
 ## Dataset
 
 `gym_clientes.xlsx` — 300 clientes, 4 features operativas. Target: `Abandono` (binario, **desbalanceado 84/16**).
 
-## Tecnicas aplicadas
+## Técnicas aplicadas
 
 - **statsmodels.Logit:** p-valores, pseudo R², intervalos de confianza
-- **Odds Ratios:** cuantificacion del impacto de cada variable
-- **VIF (Variance Inflation Factor):** diagnostico de multicolinealidad
-- **sklearn.LogisticRegression:** modelo de produccion
-- **Analisis de threshold:** optimizacion de Precision/Recall/F1
-- Evaluacion con AUC-ROC, matriz de confusion, classification report
+- **Odds Ratios:** cuantificación del impacto de cada variable
+- **VIF (Variance Inflation Factor):** diagnóstico de multicolinealidad
+- **Refinamiento del modelo:** eliminación de variables con p > 0.05 y VIF extremo
+- Evaluación con AUC-ROC, matriz de confusión, classification report
 
 ## Hallazgo clave
 
-> Cada asistencia mensual adicional **reduce las odds de abandono un ~35%**. Este no es un patron vago — es un coeficiente estadisticamente significativo con intervalo de confianza acotado. AUC ~0,97.
->
-> La regresion logistica traduce el mismo hallazgo que los arboles de decision en un **lenguaje cuantitativo auditable**.
+El modelo completo con 4 variables revelaba una **multicolinealidad severa** (VIF hasta 62.77), impidiendo separar los efectos individuales. El modelo refinado con `Horas_Pico_Mes` y `Gasto_Mensual_Extra` estabiliza los coeficientes y confirma que las horas de uso en franja pico son la señal más fiable de abandono.
 
-## Diferencia con los notebooks de arboles
+La regresión logística traduce el mismo hallazgo que los árboles de decisión en un **lenguaje cuantitativo auditable**.
 
-Los notebooks de [Arbol de Decision](../../01-arbol-decision/), [Random Forest](../../02-random-forest/) y [XGBoost](../../03-xgboost/) usan `Satisfecho` como target y dan reglas operativas. Este notebook usa `Abandono` como target y da coeficientes estadisticos con p-valores — el complemento que necesita un CFO para justificar inversiones en retencion.
 
-## Notebooks relacionados
-
-- [Regresion Logistica — Admision universitaria](../02-universidad/) — caso con 2 variables y frontera de decision visualizable
-- [Comparativa de 3 modelos — Gimnasio](../../04-comparativa-modelos/01-gimnasio/) — prediccion de satisfaccion con DT, RF y XGB
-
-## Librerias principales
+## Librerías principales
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`
 
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 cd 03-Machine-Learning/01-supervisado/clasificacion/regresion-logistica/01-gimnasio
@@ -54,4 +45,4 @@ jupyter notebook notebook.ipynb
 
 ---
 
-[Volver al indice de Machine Learning](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)
