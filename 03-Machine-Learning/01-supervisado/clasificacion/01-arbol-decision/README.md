@@ -1,44 +1,74 @@
-# Árbol de Decisión — Satisfacción de clientes (Gimnasio)
+# Árbol de Decisión — Predicción de la satisfacción de clientes en un gimnasio
 
-Un árbol de decisión de 2 niveles predice la satisfacción de clientes de una cadena de gimnasios con un 90% de accuracy — y produce una regla de negocio que cabe en una servilleta.
+Un Árbol de Decisión de solo **2 niveles** predice la satisfacción de los clientes de una cadena de gimnasios con un **90% de accuracy**, utilizando reglas simples e interpretables que pueden aplicarse directamente en el negocio.
 
 ---
 
 ## Contexto de negocio
 
-La dirección quiere anticipar qué clientes están insatisfechos para actuar antes de que se den de baja. Con los datos operativos disponibles (asistencias, horas pico, gasto extra), el objetivo es encontrar reglas interpretables que el equipo de operaciones pueda aplicar directamente.
+La dirección quiere identificar de forma anticipada a los clientes con riesgo de insatisfacción para actuar antes de que decidan abandonar el gimnasio.
+
+En lugar de depender únicamente de encuestas, el objetivo es aprovechar los datos operativos que ya genera el negocio (antigüedad, frecuencia de asistencia, uso del gimnasio y gasto en servicios adicionales) para obtener reglas de decisión fácilmente interpretables por el equipo de operaciones.
 
 ## Objetivo
 
-Entrenar un Árbol de Decisión Classifier con profundidad óptima (seleccionada por validación cruzada) sobre variables operativas y traducir el modelo en reglas de negocio accionables.
+Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione mediante validación cruzada y transformar el modelo obtenido en reglas de negocio sencillas, explicables y fáciles de implementar.
 
 ## Dataset
 
-`gym_clientes.xlsx` — 300 clientes con `Antiguedad_Meses`, `Asistencias_Mes`, `Horas_Pico_Mes`, `Gasto_Mensual_Extra` (features), `Satisfecho` (target binario, 48% positivos) y `Abandono` (excluida para evitar data leakage).
+**gym_clientes.xlsx**
+
+300 clientes con las siguientes variables:
+
+**Variables predictoras**
+
+- `Antiguedad_Meses`
+- `Asistencias_Mes`
+- `Horas_Pico_Mes`
+- `Gasto_Mensual_Extra`
+
+**Variable objetivo**
+
+- `Satisfecho` (clasificación binaria)
+
+La variable `Abandono` se excluye del entrenamiento para evitar **data leakage**.
 
 ## Técnicas aplicadas
 
-- **Árbol de Decisión** (`max_depth=2`, elegido con CV 5-fold)
-- Validación cruzada para selección de profundidad
-- Visualización del árbol con reglas de decisión
-- Feature importance
-- Evaluación con accuracy, recall, AUC-ROC y matriz de confusión
+- Árbol de Decisión (`DecisionTreeClassifier`)
+- Selección de la profundidad óptima mediante validación cruzada (5-fold)
+- Visualización e interpretación del árbol
+- Importancia de variables (Gini Importance)
+- Evaluación mediante:
+  - Accuracy
+  - Recall
+  - Matriz de confusión
 
 ## Hallazgo clave
 
-> `Asistencias_Mes` concentra el **98,9% de la importancia** del modelo. Un cliente que asiste más de 13 veces al mes durante al menos 3 meses tiene un **98% de probabilidad de estar satisfecho**.
->
-> Accuracy: 90,0% | AUC-ROC: 0,909
+> La **frecuencia de asistencia** explica prácticamente toda la capacidad predictiva del modelo (**98,9% de importancia**). Los clientes que realizan **más de 13 asistencias al mes** son clasificados mayoritariamente como satisfechos y, si además llevan **más de 2,5 meses** en el gimnasio, el árbol acierta en **98 de 102 casos**.
 
-## Modelos relacionados
+**Rendimiento del modelo**
 
-- [Random Forest](../02-random-forest/) — valida el hallazgo con 100 árboles independientes
-- [XGBoost](../03-xgboost/) — confirma por tercera vez la misma señal
-- [Comparativa de los 3 modelos](../04-comparativa-modelos/01-gimnasio/) — recomendación final consolidada
+- Accuracy: **90,0%**
+
+## Insight de negocio
+
+El modelo demuestra que la satisfacción depende principalmente de la **regularidad con la que el cliente utiliza el gimnasio**, mucho más que de su antigüedad o de su gasto adicional.
+
+Esto permite definir reglas muy sencillas para el negocio:
+
+- Detectar automáticamente a clientes con **13 asistencias mensuales o menos**.
+- Reforzar el acompañamiento durante los primeros meses.
+- Utilizar la frecuencia de asistencia como un KPI adelantado de satisfacción.
+- Implementar las reglas del modelo mediante simples condiciones (`IF-ELSE`), sin necesidad de desplegar una infraestructura de Machine Learning.
 
 ## Librerías principales
 
-- `pandas`, `matplotlib`, `seaborn`, `scikit-learn`
+- `pandas`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
 
 ## Cómo ejecutar
 
