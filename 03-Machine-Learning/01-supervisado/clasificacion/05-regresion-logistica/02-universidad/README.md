@@ -1,48 +1,60 @@
-# Regresion Logistica — Admision universitaria
+# Regresión Logística — Admisión universitaria
 
-Frontera de decision visible: con solo 2 variables se puede graficar exactamente donde el modelo cambia de prediccion — algo imposible en problemas con mas dimensiones.
+Con solo **dos variables** es posible construir un modelo que clasifica correctamente el **99% de los candidatos** y visualizar su frontera de decisión. Este proyecto muestra cómo la Regresión Logística combina capacidad predictiva e interpretabilidad en un problema de clasificación binaria.
 
 ---
 
 ## Contexto de negocio
 
-Un departamento de admisiones universitarias recibe miles de solicitudes cada ciclo. El objetivo es construir un sistema de scoring automatizado que estime la probabilidad de admision a partir de las horas de estudio y la nota de examen de acceso.
+Un departamento de admisiones universitarias recibe miles de solicitudes cada ciclo. El objetivo es construir un sistema de **scoring** que estime la probabilidad de admisión utilizando únicamente las **horas de estudio** y la **nota del examen de acceso**.
 
 ## Objetivo
 
-Entrenar una Regresion Logistica sobre 2 variables, visualizar la frontera de decision y el mapa de probabilidad en 2D, y analizar odds ratios con `statsmodels`.
+Entrenar un modelo de **Regresión Logística**, interpretar sus coeficientes mediante **Odds Ratio**, visualizar la frontera de decisión en dos dimensiones y evaluar su capacidad predictiva.
 
 ## Dataset
 
-`admitidos.xlsx` — 1.140 candidatos con `Horas_estudio` (0-30), `Nota_examen` (35-103) y `Admitido` (binario, **desbalanceado 77/23**).
+`admitidos.xlsx`
 
-## Tecnicas aplicadas
+1.140 candidatos con las siguientes variables:
 
-- **statsmodels.Logit:** p-valores, odds ratios con intervalos de confianza
-- **sklearn.LogisticRegression:** modelo de prediccion
-- **Frontera de decision en 2D:** visualizacion de la linea de separacion
-- **Mapa de probabilidad continua:** gradiente de color con isolineas
-- **Analisis de threshold:** optimizacion de Precision/Recall/F1
-- Evaluacion con AUC-ROC, matriz de confusion, classification report
+**Variables predictoras**
+
+- `Horas_estudio`
+- `Nota_examen`
+
+**Variable objetivo**
+
+- `Admitido` (clasificación binaria)
+
+## Técnicas aplicadas
+
+- **statsmodels.Logit** para inferencia estadística
+- **scikit-learn LogisticRegression** para predicción
+- Interpretación mediante **Odds Ratio** e intervalos de confianza
+- Visualización de la frontera de decisión en 2D
+- Mapa continuo de probabilidades
+- Curva ROC
+- Matriz de confusión
+- Evaluación mediante Accuracy, Recall, F1-score y AUC-ROC
 
 ## Hallazgo clave
 
-> La admision depende de una **combinacion lineal** de horas y nota: un estudiante con menos horas puede ser admitido si su nota compensa, y viceversa. La frontera de decision y el mapa de probabilidad muestran este trade-off de forma visual.
+El modelo alcanza una **accuracy del 99%** y un **AUC-ROC de 0.999**, mostrando una capacidad prácticamente perfecta para distinguir entre candidatos admitidos y no admitidos. La **nota del examen** es la variable con mayor impacto sobre la probabilidad de admisión, mientras que las horas de estudio pierden significación estadística al estar fuertemente correlacionadas con la nota obtenida.
 
-## Valor pedagogico
+## Insight de negocio
 
-Este es el unico notebook del portfolio donde se puede **ver la frontera de decision** directamente. Con 2 variables, el espacio de entrada es un plano y la linea de separacion es visible. En problemas con mas variables (como el [gimnasio](../01-gimnasio/) con 4 features), la frontera existe en un hiperespacio que no se puede graficar.
+La probabilidad de admisión depende principalmente del **rendimiento en el examen**, que multiplica por **2,14** las probabilidades de ser admitido por cada punto adicional. Esto permite construir un sistema de scoring transparente, interpretable y fácilmente integrable en el proceso de admisiones.
 
-## Notebooks relacionados
+## Librerías principales
 
-- [Regresion Logistica — Gimnasio](../01-gimnasio/) — caso con 4 variables, VIF, multicolinealidad y odds ratios
-- [Arbol de Decision](../../01-arbol-decision/) — fronteras no lineales sobre el dataset del gimnasio
+- `pandas`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
+- `statsmodels`
 
-## Librerias principales
-
-- `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`
-
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 cd 03-Machine-Learning/01-supervisado/clasificacion/regresion-logistica/02-universidad
@@ -52,4 +64,4 @@ jupyter notebook notebook.ipynb
 
 ---
 
-[Volver al indice de Machine Learning](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)
