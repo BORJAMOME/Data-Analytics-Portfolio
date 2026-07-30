@@ -24,12 +24,6 @@ Comparar tres algoritmos de clasificación sobre las variables disponibles y det
 
 Este es el caso opuesto al [notebook del gimnasio](../01-gimnasio/): allí la señal era tan fuerte que bastaba un árbol simple; aquí no hay señal que capturar.
 
-## Recomendaciones
-
-1. **No desplegar ningún modelo** — un modelo que no supera el azar es peor que no tener modelo.
-2. **Invertir en captura de datos** — variables de comportamiento (uso del servicio, llamadas a soporte, cambios de plan) probablemente contengan la señal que falta.
-3. **Documentar el resultado negativo** — saber qué variables NO predicen el churn es información valiosa para dirigir la inversión en datos.
-
 ## Librerías principales
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`
