@@ -1,44 +1,76 @@
-# XGBoost — Satisfacción de clientes (Gimnasio)
+# XGBoost — Predicción de la satisfacción de clientes en un gimnasio
 
-El algoritmo más potente de la familia de árboles confirma por tercera vez que la satisfacción depende de una sola variable. La lección más valiosa no es el modelo — es **cuándo no usarlo**.
+XGBoost, uno de los algoritmos de clasificación más utilizados en problemas industriales, confirma el mismo hallazgo obtenido por el Árbol de Decisión y el Random Forest: **la frecuencia de asistencia es el principal factor que explica la satisfacción de los clientes**.
 
 ---
 
 ## Contexto de negocio
 
-Tras obtener resultados excelentes con un árbol simple y un Random Forest, se evalúa si XGBoost — referencia en competiciones y problemas industriales — puede extraer patrones no lineales que los modelos anteriores no capturan.
+Tras obtener buenos resultados con un Árbol de Decisión y un Random Forest, se evalúa si un modelo de **Gradient Boosting** es capaz de capturar relaciones más complejas entre las variables y mejorar la capacidad predictiva.
+
+El objetivo no es únicamente obtener la mejor precisión posible, sino comprobar si un modelo más sofisticado aporta información adicional para la toma de decisiones.
 
 ## Objetivo
 
-Entrenar un XGBoost Classifier con grid search de hiperparámetros, analizar el impacto de cada parámetro en el rendimiento, y determinar si la complejidad de gradient boosting aporta valor en un problema con señal fuerte y lineal.
+Entrenar un **XGBoost Classifier**, optimizar sus hiperparámetros mediante **Grid Search**, analizar la importancia de las variables y evaluar si el incremento de complejidad del modelo aporta una mejora significativa respecto a los algoritmos anteriores.
 
 ## Dataset
 
-`gym_clientes.xlsx` — 300 clientes, 4 features operativas, target binario equilibrado (52/48).
+**gym_clientes.xlsx**
+
+300 clientes con las siguientes variables:
+
+**Variables predictoras**
+
+- `Antiguedad_Meses`
+- `Asistencias_Mes`
+- `Horas_Pico_Mes`
+- `Gasto_Mensual_Extra`
+
+**Variable objetivo**
+
+- `Satisfecho` (clasificación binaria)
+
+La variable `Abandono` se excluye para evitar **data leakage**.
 
 ## Técnicas aplicadas
 
-- **XGBoost** con GridSearchCV (n_estimators × max_depth × learning_rate)
-- Visualización del impacto de cada hiperparámetro
-- Feature importance (gain)
+- XGBoost (`XGBClassifier`)
+- Optimización de hiperparámetros mediante `GridSearchCV`
+- Evaluación de:
+  - `n_estimators`
+  - `max_depth`
+  - `learning_rate`
+- Importancia de variables (Gain)
 - Curva ROC
-- Evaluación con accuracy, recall, AUC-ROC y matriz de confusión
+- Evaluación mediante:
+  - Accuracy
+  - Recall
+  - Curva ROC y AUC
+  - Matriz de confusión
 
 ## Hallazgo clave
 
-> XGBoost alcanza el **AUC más alto (0,922)** pero pierde en accuracy (88,3% vs 90,0%) y recall (86,2% vs 89,7%) frente al árbol simple. El boosting secuencial no mejora la predicción cuando la señal es simple y lineal.
->
-> Convergencia de importancia: los 3 algoritmos (DT, RF, XGB) coinciden en que `Asistencias_Mes` domina.
+> La mejor configuración del modelo (**100 árboles, profundidad 4 y learning rate de 0,05**) alcanza una **accuracy del 91,7%** y un **AUC-ROC de 0,917**. XGBoost vuelve a identificar **Asistencias_Mes** como la variable claramente dominante, concentrando el **80,8% de la importancia** del modelo.
 
-## Modelos relacionados
+## Insight de negocio
 
-- [Árbol de Decisión](../01-arbol-decision/) — modelo recomendado para despliegue
-- [Random Forest](../02-random-forest/) — validación de robustez
-- [Comparativa de los 3 modelos](../04-comparativa-modelos/01-gimnasio/) — recomendación final consolidada
+Los tres algoritmos desarrollados durante el proyecto (**Árbol de Decisión, Random Forest y XGBoost**) llegan a la misma conclusión:
+
+- La **frecuencia de asistencia** es el principal indicador de satisfacción.
+- El resto de variables aportan información complementaria, pero su influencia es considerablemente menor.
+- Incrementar la complejidad del modelo no cambia la decisión de negocio, sino que refuerza la confianza en el hallazgo obtenido.
+
+Esta convergencia entre modelos proporciona una base sólida para diseñar estrategias de fidelización centradas en aumentar la frecuencia de uso del gimnasio.
+
 
 ## Librerías principales
 
-- `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`
+- `pandas`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
+- `xgboost`
 
 ## Cómo ejecutar
 
