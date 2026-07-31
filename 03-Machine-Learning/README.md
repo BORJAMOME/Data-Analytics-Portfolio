@@ -6,10 +6,6 @@
 
 ---
 
-## Por qué este repositorio es diferente
-
-La mayoría de portfolios de bootcamp son colecciones de ejercicios sueltos. Este no.
-
 Cada notebook está construido como un **caso de consultoría**: empieza con una pregunta de negocio, elige el modelo adecuado (no el más complejo), evalúa con métricas relevantes y termina con una recomendación clara. Cuando un modelo no funciona, se documenta por qué — porque saber cuándo **no** usar un algoritmo es tan valioso como saber usarlo.
 
 **Lo que encontrarás aquí:**
