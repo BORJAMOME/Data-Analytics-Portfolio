@@ -1,7 +1,7 @@
 # K-Means — Segmentacion de clientes retail
 
 ## Contexto de negocio
-Un centro comercial quiere agrupar clientes por ingreso y habito de gasto para disenar campanas de marketing diferenciadas (VIP, activacion, fidelizacion).
+Un centro comercial quiere agrupar clientes por ingreso y habito de gasto para disenar campañas de marketing diferenciadas (VIP, activacion, fidelizacion).
 
 ## Dataset
 Sintetico: 200 clientes con 5 segmentos naturales (ingreso anual vs spending score).

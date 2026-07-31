@@ -1,7 +1,7 @@
 # K-Means — Segmentacion avanzada de miembros de gimnasio
 
 ## Contexto de negocio
-Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campanas de retencion proactivas antes de perder miembros.
+Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campañas de retencion proactivas antes de perder miembros.
 
 ## Dataset
 `gym_clientes.xlsx` — 300 registros, 7 variables.
