@@ -1,4 +1,4 @@
-# PCA + K-Means — Pipeline de reduccion y segmentacion de empleados
+# PCA + K-Means — Segmentacion de empleados
 
 ## Contexto de negocio
 Una empresa con 232 empleados de ventas quiere identificar perfiles de rendimiento para asignar formacion personalizada. Las 5 metricas estan correlacionadas — PCA las sintetiza antes de agrupar.
@@ -16,7 +16,7 @@ Una empresa con 232 empleados de ventas quiere identificar perfiles de rendimien
 - Heatmap normalizado de perfiles de rendimiento
 
 ## Hallazgo clave
-El pipeline PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con menos dimensiones, lo que mejora la estabilidad y la interpretabilidad visual.
+PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con menos dimensiones, lo que mejora la estabilidad y la interpretabilidad visual.
 
 ## Notebooks relacionados
 - [PCA analisis emails](../01-analisis-emails/) — PCA standalone con 10 variables
