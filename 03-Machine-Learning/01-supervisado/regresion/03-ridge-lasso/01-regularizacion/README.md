@@ -1,41 +1,47 @@
-# Ridge y Lasso — Regularizacion en regresion lineal
+# Ridge y Lasso — Estimación del precio de viviendas
 
-15 variables, solo 5 importan. Lasso las encuentra automaticamente. Ridge las reduce sin eliminarlas. ElasticNet combina ambos.
+Comparación de **Ridge y Lasso** para estimar el precio de viviendas y analizar cómo la regularización afecta a los coeficientes del modelo.
 
 ---
 
 ## Contexto de negocio
 
-En datasets con muchas variables, la regresion lineal sobreajusta. La regularizacion penaliza coeficientes grandes, forzando al modelo a ser parsimonioso.
+Una inmobiliaria necesita estimar el precio de una vivienda a partir de sus características. Ridge y Lasso permiten controlar la complejidad del modelo y mejorar su capacidad de generalización.
 
 ## Dataset
 
-Sintetico (make_regression): 200 registros, 15 features (5 informativas + 10 ruido). Se conoce la verdad para verificar la seleccion.
+Dataset sintético inspirado en viviendas de una ciudad mediana española.
 
-## Tecnicas aplicadas
+**Variables:** metros, habitaciones, baños, edad, distancia al centro y garaje.
 
-- Ridge (L2), Lasso (L1), ElasticNet con GridSearchCV
-- Estandarizacion (StandardScaler) — imprescindible para regularizacion
-- Lasso Path (evolucion de coeficientes segun alpha)
-- Verificacion de seleccion de variables (TP, FP, FN)
-- Comparativa de 4 modelos con R2 y coeficientes
+**Objetivo:** precio de la vivienda.
 
-## Hallazgo clave
+## Técnicas aplicadas
 
-> Lasso identifica correctamente las 5 variables informativas y elimina el ruido. Ridge mantiene todos los coeficientes pero los reduce. La eleccion depende de si se busca seleccion (Lasso) o estabilidad (Ridge).
+- Ridge (L2) y Lasso (L1)
+- StandardScaler
+- RidgeCV y LassoCV para encontrar el `alpha` óptimo
+- MAE, RMSE, MAPE y R²
+- Comparación de coeficientes y predicciones
+
+## Resultados
+
+| Modelo | MAE | RMSE | MAPE | R² |
+|---|---:|---:|---:|---:|
+| Ridge | 38.239 € | 50.230 € | 11,39 % | 0,867 |
+| Lasso | **36.974 €** | **48.812 €** | **11,13 %** | **0,874** |
+
+### Hallazgo clave
+
+> **Lasso obtiene el mejor resultado**, aunque la diferencia respecto a Ridge es pequeña. Los metros son, con diferencia, la variable con mayor peso en el precio. Lasso mantiene las 6 variables, pero reduce y estabiliza sus coeficientes.
 
 ## Notebooks relacionados
 
-- [Regresion Multiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/) — sin regularizacion, 3 variables
-- [Gradient Boosting](../../04-gradient-boosting/01-inmobiliaria/) — modelo no lineal como siguiente paso
+- [Regresión Lineal Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/)
+- [Gradient Boosting — Inmobiliaria](../../04-gradient-boosting/01-inmobiliaria/)
 
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 pip install pandas numpy matplotlib scikit-learn jupyter
 jupyter notebook notebook.ipynb
-```
-
----
-
-[Volver al indice](../../../../README.md)
