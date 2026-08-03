@@ -28,10 +28,6 @@ Los lag features (consumo_lag1, consumo_lag24) capturan la mayor parte
 de la senal predictiva. La inercia termica y el patron diario explican
 la variabilidad mas que la hora o el dia de la semana por si solos.
 
-## Notebooks relacionados
-
-- [01-caso-completo](../01-caso-completo/) — MLP clasificacion (churn)
-- [02-clasificacion-fintech](../02-clasificacion-fintech/) — MLP clasificacion (credito)
 
 ## Como ejecutar
 

@@ -30,10 +30,6 @@ con zonas de transicion donde se situan jugadores polivalentes. Los
 component planes revelan que Defensa/Fisico y Tiro/Regate son los
 ejes principales de diferenciacion.
 
-## Notebooks relacionados
-
-- [01-casos-introductorios](../01-casos-introductorios/) — SOM para segmentacion de clientes
-
 ## Como ejecutar
 
 ```bash
