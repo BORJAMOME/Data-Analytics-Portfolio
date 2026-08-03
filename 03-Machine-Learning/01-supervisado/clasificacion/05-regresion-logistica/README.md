@@ -1,12 +1,12 @@
-# Regresion Logistica
+# Regresión Logística
 
-Clasificador lineal probabilistico. Interpretable, rapido y excelente como baseline de clasificacion binaria.
+Clasificador lineal probabilístico. Interpretable, rápido y excelente como baseline de clasificación binaria.
 
 | # | Caso | Dataset |
 |---|---|---|
 | 01 | [Churn gimnasio](01-gimnasio/) | `gym_clientes.xlsx` |
-| 02 | [Admision universitaria](02-universidad/) | `admitidos.xlsx` |
+| 02 | [Admisión universitaria](02-universidad/) | `admitidos.xlsx` |
 
 ---
 
-[Volver a Clasificacion](../README.md)
+[Volver a Clasificación](../README.md)

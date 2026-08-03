@@ -33,3 +33,8 @@ El modelo captura la **tendencia y estacionalidad anual** de las ventas con un *
 ```bash
 pip install pandas numpy matplotlib statsmodels scikit-learn openpyxl
 jupyter notebook notebook.ipynb
+```
+
+---
+
+[Volver al índice](../../README.md)
