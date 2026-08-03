@@ -29,10 +29,6 @@ El SOM revela la topologia de los segmentos: los clientes de alto
 valor y los cazadores de descuentos ocupan regiones diferenciadas
 del mapa, con zonas de transicion que K-Means no detecta.
 
-## Notebooks relacionados
-
-- [02-jugadores-futbol](../02-jugadores-futbol/) — SOM para scouting deportivo
-
 ## Como ejecutar
 
 ```bash
