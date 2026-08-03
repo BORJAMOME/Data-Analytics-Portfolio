@@ -1,40 +1,40 @@
-# SVR — Degradacion de baterias
+# SVM — Reemplazo de baterías
 
-Prediccion de capacidad restante con SVR: superficie de prediccion y zona de reemplazo para mantenimiento predictivo.
+Clasificación de baterías mediante **Support Vector Machines (SVM)** para identificar cuáles necesitan reemplazo a partir de su edad e intensidad de uso.
 
 ---
 
 ## Contexto de negocio
 
-Un fabricante necesita predecir cuando sus baterias necesitaran reemplazo. Demasiado pronto es un coste innecesario; demasiado tarde causa fallos en campo.
+Un fabricante necesita detectar qué baterías están próximas a necesitar reemplazo. El objetivo es minimizar los fallos en campo mediante un modelo de **mantenimiento predictivo**.
 
 ## Dataset
 
-Sintetico (120 baterias): Edad_Anos, Intensidad_Uso y Capacidad_Restante_Pct con degradacion sigmoidal.
+Sintético: **119 baterías**, con las variables:
 
-## Tecnicas aplicadas
+- `Edad_Anos`
+- `Intensidad_Uso`
+- `Requiere_Reemplazo` — variable objetivo binaria.
 
-- SVR con 3 kernels + GridSearchCV
-- Superficie de prediccion 2D (contour plot)
-- Zona de reemplazo (capacidad < 30%) con visualizacion
-- Comparativa con regresion lineal baseline
+## Técnicas aplicadas
+
+- SVM con kernel **Lineal** y **Polinomial**.
+- Comparación entre diferentes kernels.
+- Estandarización de las variables con `StandardScaler`.
+- Evaluación mediante **Accuracy, Recall y F1-score**.
+- Visualización de las fronteras de decisión.
+- Selección del modelo según su capacidad para detectar baterías que requieren reemplazo.
 
 ## Hallazgo clave
 
-> SVR captura la degradacion no lineal con alta precision. La superficie de prediccion define zonas de reemplazo basadas en edad e intensidad — herramienta practica para mantenimiento preventivo.
+El **SVM con kernel polinómico de grado 2** obtiene el mejor equilibrio entre rendimiento y complejidad, alcanzando aproximadamente un **91,7% de accuracy** y un **96,2% de recall** para las baterías que necesitan reemplazo.
 
-## Notebooks relacionados
+Esto significa que el modelo consigue detectar aproximadamente **96 de cada 100 baterías que realmente necesitan ser sustituidas**, por lo que puede ser una herramienta útil como apoyo al mantenimiento preventivo.
 
-- [SVR — Gasto de clientes](../01-iphone/) — SVR en e-commerce
-- [Regresion Lineal Simple](../../01-regresion-lineal-simple/) — el punto de partida
-
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
-pip install pandas numpy matplotlib scikit-learn jupyter
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 jupyter notebook notebook.ipynb
-```
-
----
 
 [Volver al indice](../../../../README.md)
