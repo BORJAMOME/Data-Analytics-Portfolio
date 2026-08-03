@@ -28,10 +28,6 @@ Una cadena de supermercados necesita anticipar las ventas semanales para optimiz
 
 El modelo captura la **tendencia y estacionalidad anual** de las ventas con un **MAPE del 2,21%** sobre el conjunto de test, mostrando un buen nivel de precisión para apoyar la planificación de inventario y recursos.
 
-## Notebooks relacionados
-
-- [02-forecast-electricidad](../02-forecast-electricidad/) — SARIMA horario (s=24)
-
 ## Cómo ejecutar
 
 ```bash
