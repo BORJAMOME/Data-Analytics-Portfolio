@@ -17,29 +17,6 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 ---
 
-## Stack técnico
-
-```
-Python 3.10 · scikit-learn · TensorFlow/Keras · XGBoost · statsmodels · pmdarima · minisom
-pandas · NumPy · Matplotlib · Seaborn · SciPy · openpyxl
-```
-
----
-
-## Highlights — 5 notebooks que recomiendo leer primero
-
-Si tienes poco tiempo, estos cinco casos muestran el rango completo de técnicas y pensamiento analítico:
-
-| # | Notebook | Por qué destaca |
-|---|---|---|
-| 1 | [Comparativa DT vs RF vs XGBoost — Gimnasio](01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio/) | 3 algoritmos sobre el mismo dataset. Conclusión contraintuitiva: el árbol simple gana. Demuestra criterio para elegir modelo. |
-| 2 | [Comparativa Churn — Resultado negativo](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | 3 algoritmos, AUC 0,50-0,58: ninguno funciona. Demuestra que saber cuándo un modelo **no** sirve es igual de valioso. |
-| 3 | [Forecast eléctrico — SARIMA](04-series-temporales/arima/02-forecast-electricidad/) | Series temporales reales: estacionariedad, diferenciación, SARIMA, predicción a futuro con intervalos de confianza. |
-| 4 | [PCA — Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | Reducción de 6 variables a 2 componentes principales. Clustering sobre el espacio reducido. |
-| 5 | [SVM — Reemplazo de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVM con kernel polinómico para mantenimiento predictivo. 96% de recall en detección de baterías defectuosas. |
-
----
-
 ## Estructura del repositorio
 
 Los proyectos están organizados en tres niveles: **Categoría** → **Familia de modelo** → **Caso práctico**.
