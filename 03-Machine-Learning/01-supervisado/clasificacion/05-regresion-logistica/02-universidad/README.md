@@ -57,7 +57,7 @@ La probabilidad de admisión depende principalmente del **rendimiento en el exam
 ## Cómo ejecutar
 
 ```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/regresion-logistica/02-universidad
+cd 03-Machine-Learning/01-supervisado/clasificacion/05-regresion-logistica/02-universidad
 pip install pandas matplotlib seaborn scikit-learn statsmodels openpyxl jupyter
 jupyter notebook notebook.ipynb
 ```

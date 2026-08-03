@@ -45,3 +45,8 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 ```bash
 pip install pandas numpy matplotlib scikit-learn jupyter
 jupyter notebook notebook.ipynb
+```
+
+---
+
+[Volver al índice](../../../../README.md)
