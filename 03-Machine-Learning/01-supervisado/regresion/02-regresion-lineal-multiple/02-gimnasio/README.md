@@ -1,6 +1,6 @@
-# Regresion Lineal Multiple — Gasto extra en gimnasio
+# Regresión Lineal Múltiple — Gasto extra en gimnasio
 
-El dataset transversal del portfolio: en clasificacion predice abandono y satisfaccion, aqui predice cuanto gasta cada cliente en extras.
+El dataset transversal del portfolio: en clasificación predice abandono y satisfacción, aquí predice cuánto gasta cada cliente en extras.
 
 ---
 
@@ -12,23 +12,23 @@ La cadena de gimnasios quiere aumentar el revenue por socio sin subir cuotas. Es
 
 Dataset del gimnasio (300 clientes). Target: `Gasto_Mensual_Extra`. Features: Antiguedad_Meses, Asistencias_Mes, Horas_Pico_Mes.
 
-## Tecnicas aplicadas
+## Técnicas aplicadas
 
 - statsmodels OLS con inferencia
 - VIF para multicolinealidad
 - sklearn LinearRegression
-- Diagnostico de supuestos
+- Diagnóstico de supuestos
 
 ## Hallazgo clave
 
-> El gasto extra depende de la combinacion de antiguedad, frecuencia y uso en horas pico. Los clientes con alta asistencia son los mejores candidatos para upselling.
+> El gasto extra depende de la combinación de antigüedad, frecuencia y uso en horas pico. Los clientes con alta asistencia son los mejores candidatos para upselling.
 
 ## Notebooks relacionados
 
-- [Regresion Logistica — Abandono](../../../clasificacion/05-regresion-logistica/01-gimnasio/) — mismo dataset, angulo de clasificacion
-- [Regresion Multiple — Publicidad](../01-publicidad/) — mismo algoritmo, dataset de marketing
+- [Regresión Logística — Abandono](../../../clasificacion/05-regresion-logistica/01-gimnasio/) — mismo dataset, ángulo de clasificación
+- [Regresión Múltiple — Publicidad](../01-publicidad/) — mismo algoritmo, dataset de marketing
 
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 pip install pandas matplotlib seaborn scikit-learn statsmodels scipy openpyxl jupyter
@@ -37,4 +37,4 @@ jupyter notebook notebook.ipynb
 
 ---
 
-[Volver al indice](../../../../README.md)
+[Volver al índice](../../../../README.md)

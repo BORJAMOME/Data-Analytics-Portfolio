@@ -33,3 +33,8 @@ El modelo consigue un **MAPE inferior al 3%**, capturando correctamente los patr
 ```bash
 pip install pandas numpy matplotlib statsmodels scikit-learn openpyxl scipy
 jupyter notebook notebook.ipynb
+```
+
+---
+
+[Volver al índice](../../README.md)

@@ -36,5 +36,8 @@ Esto significa que el modelo consigue detectar aproximadamente **96 de cada 100 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 jupyter notebook notebook.ipynb
+```
 
-[Volver al indice](../../../../README.md)
+---
+
+[Volver al índice](../../../../README.md)

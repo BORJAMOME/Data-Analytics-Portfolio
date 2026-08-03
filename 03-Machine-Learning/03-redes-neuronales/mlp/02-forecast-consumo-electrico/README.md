@@ -1,35 +1,34 @@
-# MLP Regressor — Forecast de Consumo Electrico
+# MLP Regressor — Forecast de Consumo Eléctrico
 
 ## Contexto de negocio
 
-Una empresa de distribucion electrica necesita predecir el consumo
-hora a hora para optimizar la compra de energia en el mercado mayorista.
-Las desviaciones generan penalizaciones economicas directas.
+Una empresa de distribución eléctrica necesita predecir el consumo
+hora a hora para optimizar la compra de energía en el mercado mayorista.
+Las desviaciones generan penalizaciones económicas directas.
 
 ## Dataset
 
 | Campo | Detalle |
 |:------|:--------|
 | Archivo | electricidad.xlsx (hoja: consumo_electrico) |
-| Registros | 719 horas (~30 dias) |
+| Registros | 719 horas (~30 días) |
 | Periodo | Enero 2025 |
 | Features | hora, dia_semana, es_fin_semana, hora_sin/cos, lag1, lag24 |
 
-## Tecnicas aplicadas
+## Técnicas aplicadas
 
-- Feature engineering temporal (ciclico, lags)
+- Feature engineering temporal (cíclico, lags)
 - MLPRegressor (128, 64, 32) con early stopping
-- Comparativa con Regresion Lineal y Random Forest Regressor
+- Comparativa con Regresión Lineal y Random Forest Regressor
 - Scatter real vs predicho, barras de MAE, feature importance
 
 ## Hallazgo clave
 
 Los lag features (consumo_lag1, consumo_lag24) capturan la mayor parte
-de la senal predictiva. La inercia termica y el patron diario explican
-la variabilidad mas que la hora o el dia de la semana por si solos.
+de la señal predictiva. La inercia térmica y el patrón diario explican
+la variabilidad más que la hora o el día de la semana por sí solos.
 
-
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn openpyxl

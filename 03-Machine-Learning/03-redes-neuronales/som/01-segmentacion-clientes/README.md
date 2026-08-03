@@ -1,10 +1,10 @@
-# SOM — Segmentacion de Clientes con Self-Organizing Maps
+# SOM — Segmentación de Clientes con Self-Organizing Maps
 
 ## Contexto de negocio
 
 Una cadena de retail quiere segmentar su base de 500 clientes para
-personalizar campanas de marketing, usando Self-Organizing Maps
-para descubrir la topologia natural de los datos de comportamiento.
+personalizar campañas de marketing, usando Self-Organizing Maps
+para descubrir la topología natural de los datos de comportamiento.
 
 ## Dataset
 
@@ -14,9 +14,9 @@ para descubrir la topologia natural de los datos de comportamiento.
 | Registros | 500 clientes |
 | Variables | Recencia_Dias, Frecuencia_Semanal, Gasto_Promedio, Uso_Descuentos |
 
-## Tecnicas aplicadas
+## Técnicas aplicadas
 
-- SOM 10x10 con minisom (5000 iteraciones)
+- SOM 10×10 con minisom (5000 iteraciones)
 - U-Matrix (distancias entre neuronas vecinas)
 - Mapa de frecuencia (clientes por neurona)
 - Component planes (un mapa por variable)
@@ -25,11 +25,11 @@ para descubrir la topologia natural de los datos de comportamiento.
 
 ## Hallazgo clave
 
-El SOM revela la topologia de los segmentos: los clientes de alto
+El SOM revela la topología de los segmentos: los clientes de alto
 valor y los cazadores de descuentos ocupan regiones diferenciadas
-del mapa, con zonas de transicion que K-Means no detecta.
+del mapa, con zonas de transición que K-Means no detecta.
 
-## Como ejecutar
+## Cómo ejecutar
 
 ```bash
 pip install pandas numpy matplotlib seaborn minisom scikit-learn openpyxl

@@ -1,6 +1,6 @@
-# Machine Learning — 35 Casos Prácticos
+# Machine Learning — 30 Casos Prácticos
 
-> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales convolucionales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
+> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borja-mora-mendez/) · Madrid, 2026
 
@@ -10,7 +10,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **35 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **30 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **15 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -33,10 +33,10 @@ Si tienes poco tiempo, estos cinco casos muestran el rango completo de técnicas
 | # | Notebook | Por qué destaca |
 |---|---|---|
 | 1 | [Comparativa DT vs RF vs XGBoost — Gimnasio](01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio/) | 3 algoritmos sobre el mismo dataset. Conclusión contraintuitiva: el árbol simple gana. Demuestra criterio para elegir modelo. |
-| 2 | [CNN — Visión artificial gatos/perros](03-redes-neuronales/cnn/01-vision-artificial/) | Deep learning aplicado: Conv2D, MaxPooling, data augmentation. El salto de MLP a CNN con el mismo dataset. |
-| 3 | [Forecast eléctrico — ARIMA](04-series-temporales/arima/02-forecast-electricidad/) | Series temporales reales: estacionariedad, diferenciación, auto_arima, predicción a futuro. |
+| 2 | [Comparativa Churn — Resultado negativo](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | 3 algoritmos, AUC 0,50-0,58: ninguno funciona. Demuestra que saber cuándo un modelo **no** sirve es igual de valioso. |
+| 3 | [Forecast eléctrico — SARIMA](04-series-temporales/arima/02-forecast-electricidad/) | Series temporales reales: estacionariedad, diferenciación, SARIMA, predicción a futuro con intervalos de confianza. |
 | 4 | [PCA — Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | Reducción de 6 variables a 2 componentes principales. Clustering sobre el espacio reducido. |
-| 5 | [SVR — Degradación de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVM aplicado a regresión con kernel RBF. Problema de ingeniería real con datos no lineales. |
+| 5 | [SVM — Reemplazo de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVM con kernel polinómico para mantenimiento predictivo. 96% de recall en detección de baterías defectuosas. |
 
 ---
 
@@ -47,13 +47,13 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 ```
 03-Machine-Learning/
 │
-├── 01-supervisado/                          17 notebooks
+├── 01-supervisado/                          15 notebooks
 │   ├── regresion/                           Predecir un valor numérico continuo
-│   │   ├── 01-regresion-lineal-simple/      3 casos · R² desde 0.65 hasta 0.97
+│   │   ├── 01-regresion-lineal-simple/      2 casos · R² desde 0.75 hasta 0.97
 │   │   ├── 02-regresion-lineal-multiple/    2 casos · Colinealidad, VIF, selección de variables
 │   │   ├── 03-ridge-lasso/                  1 caso  · Regularización L1/L2, validación cruzada
-│   │   ├── 04-gradient-boosting/            2 casos · Ensemble secuencial, hiperparámetros
-│   │   └── 05-svm/                          2 casos · Kernels RBF, regresión no lineal
+│   │   ├── 04-gradient-boosting/            1 caso  · Ensemble secuencial, hiperparámetros
+│   │   └── 05-svm/                          2 casos · Kernels RBF, regresión y clasificación
 │   │
 │   └── clasificacion/                       Predecir una categoría
 │       ├── 01-arbol-decision/               1 caso  · Interpretabilidad, feature importance
@@ -70,13 +70,12 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   └── reduccion-dimensionalidad/
 │       └── pca/                             2 casos · Varianza explicada, biplot
 │
-├── 03-redes-neuronales/                     7 notebooks
-│   ├── mlp/                                 4 casos · Clasificación, forecast, imágenes
-│   ├── cnn/                                 1 caso  · Conv2D, MaxPooling, data augmentation
+├── 03-redes-neuronales/                     4 notebooks
+│   ├── mlp/                                 2 casos · Clasificación fintech, forecast eléctrico
 │   └── som/                                 2 casos · Mapas autoorganizados, clustering visual
 │
 └── 04-series-temporales/                    2 notebooks
-    └── arima/                               2 casos · Estacionariedad, auto_arima, forecast
+    └── arima/                               2 casos · Estacionariedad, SARIMA, forecast
 ```
 
 ---
@@ -93,34 +92,32 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [Precios inmobiliarios](01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/) | OLS, supuestos, residuos | `datos_regresion_casas.xlsx` |
 | 02 | [Colesterol y salud](01-supervisado/regresion/01-regresion-lineal-simple/02-salud/) | R² alto en datos sintéticos: por qué no fiarse | `patient_health.csv` |
-| 03 | [Gasto extra gimnasio](01-supervisado/regresion/01-regresion-lineal-simple/03-gym/) | Simple vs múltiple: cuándo añadir variables mejora | `gym_clientes.xlsx` |
 
 **Regresión Lineal Múltiple** · [`regresion/02-regresion-lineal-multiple/`](01-supervisado/regresion/02-regresion-lineal-multiple/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
 | 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-publicidad/) | Selección de variables, p-valores, R² ajustado | `Advertising.csv` |
-| 02 | [Retención clientes gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
+| 02 | [Gasto extra gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
 
 **Regularización — Ridge y Lasso** · [`regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/03-ridge-lasso/01-regularizacion/) | L1 vs L2, alpha óptimo, selección automática de variables | scikit-learn |
+| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/03-ridge-lasso/01-regularizacion/) | L1 vs L2, alpha óptimo, selección automática de variables | `viviendas_vigo.xlsx` |
 
 **Gradient Boosting** · [`regresion/04-gradient-boosting/`](01-supervisado/regresion/04-gradient-boosting/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Precios inmobiliarios](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Ensemble secuencial, learning rate, n_estimators | Tasación viviendas |
-| 02 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/02-tasacion-viviendas/) | Feature importance, comparativa con regresión lineal | Tasación viviendas |
+| 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
 
-**Support Vector Machine (SVR)** · [`regresion/05-svm/`](01-supervisado/regresion/05-svm/)
+**Support Vector Machine** · [`regresion/05-svm/`](01-supervisado/regresion/05-svm/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Predicción gasto e-commerce](01-supervisado/regresion/05-svm/01-iphone/) | Kernel lineal vs RBF, escalado de features | Clientes e-commerce |
-| 02 | [Degradación de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVM en problemas de ingeniería con relaciones no lineales | Baterías |
+| 01 | [Predicción gasto e-commerce](01-supervisado/regresion/05-svm/01-iphone/) | SVR con kernel lineal vs RBF, escalado de features | Clientes e-commerce |
+| 02 | [Reemplazo de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVC con kernel polinómico, mantenimiento predictivo | Baterías |
 
 ### Clasificación — predecir una categoría
 
@@ -147,14 +144,14 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
 | 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio/) | Benchmark riguroso, recomendación de despliegue | `gym_clientes.xlsx` |
-| 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, datos reales con ruido | `customer churn.xlsx` |
+| 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
 
 **Regresión Logística** · [`clasificacion/05-regresion-logistica/`](01-supervisado/clasificacion/05-regresion-logistica/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Churn gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio/) | Clasificación probabilística, umbral de decisión | `gym_clientes.xlsx` |
-| 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-universidad/) | Curva ROC, AUC, interpretación de coeficientes | `admitidos.xlsx` |
+| 01 | [Abandono gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio/) | Odds ratios, VIF, inferencia estadística con statsmodels | `gym_clientes.xlsx` |
+| 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-universidad/) | Curva ROC, AUC, frontera de decisión 2D | `admitidos.xlsx` |
 
 ---
 
@@ -168,18 +165,18 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso introductorio](02-no-supervisado/clustering/kmeans/01-caso-introductorio/) | Método del codo, silueta, visualización 2D | Mall Customers (Kaggle) |
-| 02 | [Caso avanzado gimnasio](02-no-supervisado/clustering/kmeans/02-caso-avanzado/) | Escalado, StandardScaler, perfiles de segmento | `gym_clientes.xlsx` |
-| 03 | [Segmentación política](02-no-supervisado/clustering/kmeans/03-segmentacion-politica/) | Clustering en datos categóricos transformados | `politicos.xlsx` |
+| 01 | [Segmentación clientes retail](02-no-supervisado/clustering/kmeans/01-caso-clientes-retail/) | Método del codo, silueta, visualización 2D | Sintético (200 clientes) |
+| 02 | [Segmentación gimnasio](02-no-supervisado/clustering/kmeans/02-caso-gym/) | Escalado, estabilidad de clusters, cross-check con abandono | `gym_clientes.xlsx` |
+| 03 | [Segmentación política](02-no-supervisado/clustering/kmeans/03-segmentacion-politica/) | Feature selection: elegir bien las variables importa más que el algoritmo | `politicos.xlsx` |
 
 **Clustering Jerárquico** · [`clustering/jerarquico/`](02-no-supervisado/clustering/jerarquico/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso introductorio](02-no-supervisado/clustering/jerarquico/01-caso-introductorio/) | Dendrograma, linkage, distancia de corte | Sintético |
-| 02 | [Caso avanzado gimnasio](02-no-supervisado/clustering/jerarquico/02-caso-avanzado/) | Ward vs complete linkage, comparativa con K-Means | `gym_clientes.xlsx` |
-| 03 | [Caso completo con dendrograma](02-no-supervisado/clustering/jerarquico/03-caso-completo/) | Pipeline completo de clustering jerárquico | make_blobs |
-| 04 | [Gimnasio con 4 variables](02-no-supervisado/clustering/jerarquico/04-gimnasio-4variables/) | Efecto de añadir dimensiones al clustering | `gym_clientes.xlsx` |
+| 01 | [Caso introductorio](02-no-supervisado/clustering/jerarquico/01-caso-introductorio/) | Dendrograma, 4 métodos de linkage, comparación visual | Sintético (30 usuarios) |
+| 02 | [Caso avanzado gimnasio](02-no-supervisado/clustering/jerarquico/02-caso-avanzado/) | Ward + StandardScaler, cross-check con abandono | `gym_clientes.xlsx` |
+| 03 | [Caso completo banca](02-no-supervisado/clustering/jerarquico/03-caso-completo/) | Coeficiente cofenético, silhouette plot, heatmap de perfiles | Sintético (300 clientes) |
+| 04 | [Gimnasio con 4 variables](02-no-supervisado/clustering/jerarquico/04-gimnasio-4variables/) | Radar charts, PCA 2D, personas de marketing | `gym_clientes.xlsx` |
 
 ### Reducción de dimensionalidad
 
@@ -187,82 +184,74 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Análisis de emails](02-no-supervisado/reduccion-dimensionalidad/pca/01-analisis-emails/) | Varianza explicada, scree plot, loadings | `PCA.xlsx` |
-| 02 | [Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | PCA + clustering: reducir para segmentar | `employees.xlsx` |
+| 01 | [Análisis de comportamiento de clientes](02-no-supervisado/reduccion-dimensionalidad/pca/01-analisis-emails/) | Varianza explicada, scree plot, biplot, loadings | `PCA.xlsx` |
+| 02 | [Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | PCA + K-Means: reducir para segmentar | `employees.xlsx` |
 
 ---
 
 ## 03 · Redes Neuronales
 
-Desde el Perceptrón Multicapa clásico hasta convolucionales para visión artificial y Self-Organizing Maps para clustering visual.
+Desde el Perceptrón Multicapa para clasificación y forecast hasta Self-Organizing Maps para clustering visual.
 
 **MLP — Multilayer Perceptron** · [`mlp/`](03-redes-neuronales/mlp/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso completo](03-redes-neuronales/mlp/01-caso-completo/) | Arquitectura, activaciones, epochs, early stopping | scikit-learn |
-| 02 | [Clasificación Fintech](03-redes-neuronales/mlp/02-clasificacion-fintech/) | MLP en datos tabulares financieros | Fintech |
-| 03 | [Forecast consumo eléctrico](03-redes-neuronales/mlp/03-forecast-consumo-electrico/) | RRNN para series temporales: ventanas deslizantes | `electricidad.xlsx` |
-| 04 | [Clasificación imágenes gatos/perros](03-redes-neuronales/mlp/04-clasificacion-imagenes-gatos/) | MLP en imágenes: limitaciones sin convolución | Dogs vs. Cats (Kaggle) |
-
-**CNN — Convolutional Neural Network** · [`cnn/`](03-redes-neuronales/cnn/)
-
-| # | Caso | Qué se aprende | Dataset |
-|---|---|---|---|
-| 01 | [Visión artificial gatos/perros](03-redes-neuronales/cnn/01-vision-artificial/) | Conv2D, MaxPooling, data augmentation, transfer learning | Dogs vs. Cats (Kaggle) |
+| 01 | [Clasificación Fintech](03-redes-neuronales/mlp/01-clasificacion-fintech/) | MLP vs Regresión Logística vs Random Forest en credit scoring | Sintético (100 solicitantes) |
+| 02 | [Forecast consumo eléctrico](03-redes-neuronales/mlp/02-forecast-consumo-electrico/) | Feature engineering temporal, lag features, comparativa con RF | `electricidad.xlsx` |
 
 **SOM — Self-Organizing Maps** · [`som/`](03-redes-neuronales/som/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Casos introductorios](03-redes-neuronales/som/01-casos-introductorios/) | Topología 2D, mapeo de alta dimensión | `dataset_SOM.xlsx` |
-| 02 | [Segmentación jugadores de fútbol](03-redes-neuronales/som/02-jugadores-futbol/) | SOM para perfilado deportivo multivariable | `jugadores_futbol.xlsx` |
+| 01 | [Segmentación de clientes](03-redes-neuronales/som/01-segmentacion-clientes/) | SOM 10×10, U-matrix, hit map, perfiles de cluster | Sintético (200 clientes) |
+| 02 | [Jugadores de fútbol](03-redes-neuronales/som/02-jugadores-futbol/) | SOM para scouting deportivo, component planes, radar charts | `jugadores_futbol.xlsx` |
 
 ---
 
 ## 04 · Series Temporales
 
-Modelos para predecir valores futuros a partir de datos históricos secuenciales.
+Modelos clásicos de forecasting aplicados a demanda y consumo.
 
 **ARIMA** · [`arima/`](04-series-temporales/arima/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso completo](04-series-temporales/arima/01-caso-completo/) | Estacionariedad, ACF/PACF, selección de (p,d,q) | `arima.xlsx` |
-| 02 | [Forecast consumo eléctrico](04-series-temporales/arima/02-forecast-electricidad/) | auto_arima, predicción a futuro, intervalos de confianza | `electricidad.xlsx` |
+| 01 | [Caso retail](04-series-temporales/arima/01-caso-retail/) | ACF/PACF, estacionariedad, ADF test, ARIMA manual vs auto | `ventas_retail.csv` |
+| 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
 
 ---
 
-## Cómo ejecutar los notebooks
+## Cómo ejecutar cualquier notebook
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/BORJAMOME/Data-Analytics-Portfolio.git
-cd Data-Analytics-Portfolio/03-Machine-Learning
+git clone https://github.com/borjamoraMendez/Data-Analytics-Portfolio.git
 
-# 2. Crear entorno virtual (recomendado)
-python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate   # Linux/Mac
+# 2. Entrar en la carpeta del caso
+cd Data-Analytics-Portfolio/03-Machine-Learning/<subcarpeta>
 
-# 3. Instalar dependencias
-pip install pandas numpy matplotlib seaborn scikit-learn tensorflow minisom statsmodels pmdarima xgboost scipy openpyxl jupyter
+# 3. Instalar dependencias (si aplica)
+pip install -r requirements.txt
 
-# 4. Navegar al proyecto y abrir Jupyter
-cd 01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/
+# 4. Abrir el notebook
 jupyter notebook notebook.ipynb
 ```
 
-Cada notebook es autónomo: dentro de su carpeta encontrarás el código y el dataset asociado. Todas las rutas son relativas — no es necesario editar nada.
+> **Requisitos comunes:** Python 3.10+, pandas, numpy, scikit-learn, matplotlib, seaborn, plotly.
+> Algunos notebooks usan librerías adicionales (xgboost, tensorflow, minisom, statsmodels) — cada README de proyecto lo especifica.
 
 ---
 
 ## Contacto
 
-- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
-- **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
-- **GitHub:** [@BORJAMOME](https://github.com/BORJAMOME)
+**Borja Mora Méndez**
+- [LinkedIn](https://www.linkedin.com/in/borjamoramendez/)
+- [GitHub](https://github.com/borjamoraMendez)
+- borja.mora.mendez@gmail.com
 
 ---
 
-[← Volver al portfolio principal](../README.md)
+<p align="center">
+  <a href="https://github.com/borjamoraMendez/Data-Analytics-Portfolio">← Volver al Portfolio principal</a>
+</p>

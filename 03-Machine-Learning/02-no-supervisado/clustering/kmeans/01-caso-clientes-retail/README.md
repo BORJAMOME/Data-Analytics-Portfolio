@@ -1,26 +1,26 @@
-# K-Means — Segmentacion de clientes retail
+# K-Means — Segmentación de clientes retail
 
 ## Contexto de negocio
-Un centro comercial quiere agrupar clientes por ingreso y habito de gasto para disenar campañas de marketing diferenciadas (VIP, activacion, fidelizacion).
+Un centro comercial quiere agrupar clientes por ingreso y hábito de gasto para diseñar campañas de marketing diferenciadas (VIP, activación, fidelización).
 
 ## Dataset
-Sintetico: 200 clientes con 5 segmentos naturales (ingreso anual vs spending score).
+Sintético: 200 clientes con 5 segmentos naturales (ingreso anual vs spending score).
 
-## Tecnicas aplicadas
-- Metodo del codo (inercia)
+## Técnicas aplicadas
+- Método del codo (inercia)
 - Silhouette score
 - K-Means con k=5
-- Visualizacion de centroides en espacio original
+- Visualización de centroides en espacio original
 - Perfil descriptivo de cada cluster
 
 ## Hallazgo clave
-K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo ingreso y medio equilibrado. Los centroides permiten asignar nuevos clientes automaticamente.
+K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo ingreso y medio equilibrado. Los centroides permiten asignar nuevos clientes automáticamente.
 
 ## Notebooks relacionados
-- [02-caso-avanzado](../02-caso-avanzado/) — datos reales de gimnasio, estabilidad de clusters
-- [03-segmentacion-politica](../03-segmentacion-politica/) — dataset real, radar charts, PCA
+- [02-caso-avanzado](../02-caso-gym/) — datos reales de gimnasio, estabilidad de clusters
+- [03-segmentación-política](../03-segmentacion-politica/) — dataset real, radar charts, PCA
 
-## Como ejecutar
+## Cómo ejecutar
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn
 jupyter notebook notebook.ipynb
