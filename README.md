@@ -3,7 +3,7 @@
 Portfolio de proyectos de datos desarrollados durante el bootcamp de Data Analytics.
 SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales de negocio.
 
-**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
+**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borjamoramendez/)
 
 ---
 
@@ -84,10 +84,8 @@ cd Data-Analytics-Portfolio
 
 ## Contacto
 
-- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
+- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borjamoramendez/)
 - **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
-- **GitHub:** [@borja-mora](https://github.com/borja-mora)
+- **GitHub:** [@borja-mora](https://github.com/BORJAMOME/Data-Analytics-Portfolio.git)
 
 ---
-
-*Última actualización: julio 2026 · Madrid, España*
