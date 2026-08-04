@@ -41,11 +41,11 @@ Consultas analíticas complejas, modelado dimensional (esquema estrella y copo d
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**35 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**30 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 35 proyectos →](03-Machine-Learning/)**
+**[Ver los 30 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
 
