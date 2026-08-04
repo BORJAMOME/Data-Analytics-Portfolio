@@ -2,7 +2,7 @@
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
-**Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borja-mora-mendez/) · Madrid, 2026
+**Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
 ---
 
@@ -199,36 +199,4 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 
 ---
 
-## Cómo ejecutar cualquier notebook
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/borjamoraMendez/Data-Analytics-Portfolio.git
-
-# 2. Entrar en la carpeta del caso
-cd Data-Analytics-Portfolio/03-Machine-Learning/<subcarpeta>
-
-# 3. Instalar dependencias (si aplica)
-pip install -r requirements.txt
-
-# 4. Abrir el notebook
-jupyter notebook notebook.ipynb
-```
-
-> **Requisitos comunes:** Python 3.10+, pandas, numpy, scikit-learn, matplotlib, seaborn, plotly.
-> Algunos notebooks usan librerías adicionales (xgboost, tensorflow, minisom, statsmodels) — cada README de proyecto lo especifica.
-
----
-
-## Contacto
-
-**Borja Mora Méndez**
-- [LinkedIn](https://www.linkedin.com/in/borjamoramendez/)
-- [GitHub](https://github.com/borjamoraMendez)
-- borja.mora.mendez@gmail.com
-
----
-
-<p align="center">
-  <a href="https://github.com/borjamoraMendez/Data-Analytics-Portfolio">← Volver al Portfolio principal</a>
-</p>
+*Última actualización: julio 2026 · Madrid, España*
