@@ -29,12 +29,6 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 - [Regresión Simple — Salud](../02-salud/) — mismo algoritmo, caso donde R² es bajo (hallazgo negativo válido)
 - [Regresión Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/) — añadir más variables para mejorar R²
 
-## Cómo ejecutar
-
-```bash
-pip install pandas matplotlib seaborn scikit-learn scipy openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

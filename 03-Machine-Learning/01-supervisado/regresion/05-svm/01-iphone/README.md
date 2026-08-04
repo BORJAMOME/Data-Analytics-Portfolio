@@ -28,12 +28,6 @@ Sintético (120 clientes): Score_Fidelidad, Ingresos_Mensuales y Gasto_Anual con
 - [SVR — Baterías](../02-baterias/) — SVR aplicado a mantenimiento predictivo
 - [Gradient Boosting](../../04-gradient-boosting/) — modelo ensemble como alternativa
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib scikit-learn jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

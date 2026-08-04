@@ -72,13 +72,6 @@ Esta convergencia entre modelos proporciona una base sólida para diseñar estra
 - `scikit-learn`
 - `xgboost`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/03-xgboost
-pip install pandas matplotlib seaborn scikit-learn xgboost openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

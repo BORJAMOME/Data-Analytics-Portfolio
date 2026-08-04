@@ -21,8 +21,3 @@ Los radar charts revelan que cada cluster tiene un "shape" distinto — no solo 
 - [02-caso-avanzado](../02-caso-avanzado/) — misma fuente, solo 2 variables
 - [K-Means avanzado](../../kmeans/02-caso-gym/) — misma fuente con K-Means
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

@@ -27,12 +27,6 @@ Una plataforma de tasación online necesita estimaciones precisas. La regresión
 
 - [Regresión Lineal Simple — Inmobiliaria](../../01-regresion-lineal-simple/01-inmobiliaria/) — misma pregunta, una sola variable
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

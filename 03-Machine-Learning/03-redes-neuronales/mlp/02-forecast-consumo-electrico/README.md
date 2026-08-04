@@ -28,9 +28,3 @@ Los lag features (consumo_lag1, consumo_lag24) capturan la mayor parte
 de la señal predictiva. La inercia térmica y el patrón diario explican
 la variabilidad más que la hora o el día de la semana por sí solos.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

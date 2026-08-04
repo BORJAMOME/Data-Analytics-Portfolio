@@ -28,12 +28,6 @@ Dataset del gimnasio (300 clientes). Target: `Gasto_Mensual_Extra`. Features: An
 - [Regresión Logística — Abandono](../../../clasificacion/05-regresion-logistica/01-gimnasio/) — mismo dataset, ángulo de clasificación
 - [Regresión Múltiple — Publicidad](../01-publicidad/) — mismo algoritmo, dataset de marketing
 
-## Cómo ejecutar
-
-```bash
-pip install pandas matplotlib seaborn scikit-learn statsmodels scipy openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

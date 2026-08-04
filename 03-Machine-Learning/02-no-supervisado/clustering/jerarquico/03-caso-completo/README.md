@@ -21,8 +21,3 @@ El coeficiente cofenético cuantifica qué linkage preserva mejor las distancias
 - [02-caso-avanzado](../02-caso-avanzado/) — datos reales, 2 variables
 - [K-Means caso completo](../../kmeans/03-segmentacion-politica/) — comparativa con K-Means
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
-jupyter notebook notebook.ipynb
-```

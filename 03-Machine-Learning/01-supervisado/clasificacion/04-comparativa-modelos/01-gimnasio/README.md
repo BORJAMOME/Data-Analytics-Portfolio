@@ -51,13 +51,6 @@ Para un análisis en profundidad de cada algoritmo, consultar los notebooks stan
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio
-pip install pandas matplotlib seaborn scikit-learn xgboost jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 
