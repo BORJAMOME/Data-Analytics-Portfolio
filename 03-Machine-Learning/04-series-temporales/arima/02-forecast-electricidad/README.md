@@ -28,12 +28,6 @@ Una empresa energética necesita predecir el consumo eléctrico hora a hora para
 
 El modelo consigue un **MAPE inferior al 3%**, capturando correctamente los patrones diarios de consumo, incluidos los picos y valles horarios. El resultado muestra que SARIMA es capaz de generar predicciones precisas para apoyar la planificación energética.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib statsmodels scikit-learn openpyxl scipy
-jupyter notebook notebook.ipynb
-```
 
 ---
 

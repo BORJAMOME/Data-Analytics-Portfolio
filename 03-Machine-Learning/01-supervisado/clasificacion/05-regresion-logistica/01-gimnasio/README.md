@@ -35,13 +35,6 @@ La regresión logística traduce el mismo hallazgo que los árboles de decisión
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio
-pip install pandas matplotlib seaborn scikit-learn statsmodels openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

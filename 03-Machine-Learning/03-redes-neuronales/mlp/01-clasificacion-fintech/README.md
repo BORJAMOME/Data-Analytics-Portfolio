@@ -28,9 +28,3 @@ En credit scoring, la Regresión Logística sigue siendo el estándar
 regulatorio por su interpretabilidad. El MLP puede usarse como
 modelo shadow para detectar mejoras sin comprometer compliance.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
-jupyter notebook notebook.ipynb
-```

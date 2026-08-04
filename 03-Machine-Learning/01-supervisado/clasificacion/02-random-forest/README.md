@@ -74,13 +74,6 @@ Además, la estabilidad observada en la curva de validación indica que **100 á
 - `seaborn`
 - `scikit-learn`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/02-random-forest
-pip install pandas matplotlib seaborn scikit-learn openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

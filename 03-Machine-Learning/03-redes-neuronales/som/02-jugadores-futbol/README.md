@@ -30,9 +30,3 @@ con zonas de transición donde se sitúan jugadores polivalentes. Los
 component planes revelan que Defensa/Físico y Tiro/Regate son los
 ejes principales de diferenciación.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn minisom scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

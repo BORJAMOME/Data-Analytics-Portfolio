@@ -21,8 +21,3 @@ Los clusters son estables a través de múltiples inicializaciones (baja varianz
 - [Jerárquico 4 variables](../../jerarquico/04-gimnasio-4variables/) — misma fuente con clustering jerárquico
 - [01-caso-introductorio](../01-caso-clientes-retail/) — fundamentos K-Means
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

@@ -198,5 +198,3 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 | 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
 
 ---
-
-*Última actualización: julio 2026 · Madrid, España*

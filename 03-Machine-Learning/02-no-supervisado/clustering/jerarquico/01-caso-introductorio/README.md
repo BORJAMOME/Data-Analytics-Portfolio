@@ -20,8 +20,3 @@ Ward produce los clusters más compactos y equilibrados — recomendado como def
 - [03-caso-completo](../03-caso-completo/) — coeficiente cofenético + silhouette
 - [04-gimnasio-4variables](../04-gimnasio-4variables/) — radar charts con 4 features
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
-jupyter notebook notebook.ipynb
-```

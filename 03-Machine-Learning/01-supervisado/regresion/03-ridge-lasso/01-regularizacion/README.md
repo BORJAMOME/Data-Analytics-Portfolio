@@ -40,12 +40,6 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 - [Regresión Lineal Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/)
 - [Gradient Boosting — Inmobiliaria](../../04-gradient-boosting/01-inmobiliaria/)
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib scikit-learn jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

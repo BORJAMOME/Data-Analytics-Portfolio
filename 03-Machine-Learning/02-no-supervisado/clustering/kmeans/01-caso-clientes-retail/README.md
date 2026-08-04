@@ -20,8 +20,3 @@ K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo 
 - [02-caso-avanzado](../02-caso-gym/) — datos reales de gimnasio, estabilidad de clusters
 - [03-segmentación-política](../03-segmentacion-politica/) — dataset real, radar charts, PCA
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
-jupyter notebook notebook.ipynb
-```

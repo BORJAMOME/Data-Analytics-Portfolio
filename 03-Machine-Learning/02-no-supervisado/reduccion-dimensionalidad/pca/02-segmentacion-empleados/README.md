@@ -22,8 +22,3 @@ PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con
 - [PCA análisis emails](../01-analisis-emails/) — PCA standalone con 10 variables
 - [K-Means avanzado](../../../clustering/kmeans/02-caso-gym/) — K-Means sin reducción previa
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

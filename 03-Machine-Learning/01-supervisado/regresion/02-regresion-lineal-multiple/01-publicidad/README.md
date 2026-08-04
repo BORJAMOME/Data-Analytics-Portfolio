@@ -67,13 +67,6 @@ Contiene información de **200 campañas publicitarias**, incluyendo la inversi�
 
 ---
 
-## Cómo ejecutar
-
-```bash
-pip install pandas matplotlib seaborn scikit-learn statsmodels scipy jupyter
-
-jupyter notebook notebook.ipynb
-```
 
 ---
 

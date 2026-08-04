@@ -29,9 +29,3 @@ El SOM revela la topología de los segmentos: los clientes de alto
 valor y los cazadores de descuentos ocupan regiones diferenciadas
 del mapa, con zonas de transición que K-Means no detecta.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn minisom scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```

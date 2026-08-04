@@ -54,13 +54,6 @@ La probabilidad de admisión depende principalmente del **rendimiento en el exam
 - `scikit-learn`
 - `statsmodels`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/05-regresion-logistica/02-universidad
-pip install pandas matplotlib seaborn scikit-learn statsmodels openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

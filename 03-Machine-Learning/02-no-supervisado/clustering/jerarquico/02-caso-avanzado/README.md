@@ -19,8 +19,3 @@ Los clusters de 2 variables ya capturan diferencias en tasas de abandono, valida
 - [01-caso-introductorio](../01-caso-introductorio/) — fundamentos con datos sintéticos
 - [04-gimnasio-4variables](../04-gimnasio-4variables/) — misma fuente, 4 variables, radar charts
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```
