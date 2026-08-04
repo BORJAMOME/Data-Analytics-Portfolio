@@ -72,13 +72,6 @@ Contiene información de **50 pacientes**, incluyendo las siguientes variables:
 
 ---
 
-## Cómo ejecutar
-
-```bash
-pip install pandas matplotlib seaborn scikit-learn scipy statsmodels jupyter
-
-jupyter notebook notebook.ipynb
-```
 
 ---
 

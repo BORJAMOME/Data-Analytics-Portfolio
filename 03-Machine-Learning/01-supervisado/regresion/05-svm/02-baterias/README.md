@@ -31,12 +31,6 @@ El **SVM con kernel polinómico de grado 2** obtiene el mejor equilibrio entre r
 
 Esto significa que el modelo consigue detectar aproximadamente **96 de cada 100 baterías que realmente necesitan ser sustituidas**, por lo que puede ser una herramienta útil como apoyo al mantenimiento preventivo.
 
-## Cómo ejecutar
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

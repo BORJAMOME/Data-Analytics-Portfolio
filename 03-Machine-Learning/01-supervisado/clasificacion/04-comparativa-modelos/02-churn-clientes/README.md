@@ -28,13 +28,6 @@ Este es el caso opuesto al [notebook del gimnasio](../01-gimnasio/): allí la se
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes
-pip install pandas matplotlib seaborn scikit-learn xgboost jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

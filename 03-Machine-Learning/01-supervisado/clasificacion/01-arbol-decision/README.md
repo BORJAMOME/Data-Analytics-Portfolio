@@ -70,13 +70,6 @@ Esto permite definir reglas muy sencillas para el negocio:
 - `seaborn`
 - `scikit-learn`
 
-## Cómo ejecutar
-
-```bash
-cd 03-Machine-Learning/01-supervisado/clasificacion/01-arbol-decision
-pip install pandas matplotlib seaborn scikit-learn openpyxl jupyter
-jupyter notebook notebook.ipynb
-```
 
 ---
 

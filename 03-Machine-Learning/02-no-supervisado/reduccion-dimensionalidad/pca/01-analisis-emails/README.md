@@ -21,8 +21,3 @@ Las primeras componentes revelan dimensiones latentes como "valor del cliente" y
 - [PCA + K-Means empleados](../02-segmentacion-empleados/) — pipeline PCA antes de clustering
 - [K-Means segmentación política](../../../clustering/kmeans/03-segmentacion-politica/) — PCA como visualización
 
-## Cómo ejecutar
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn openpyxl
-jupyter notebook notebook.ipynb
-```
