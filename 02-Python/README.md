@@ -5,7 +5,7 @@
 > puro a storytelling de negocio: cada caso empieza con una pregunta real y termina con
 > recomendaciones accionables, no con una tabla suelta.
 
-**Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borja-mora-mendez/) · Madrid, 2026
+**Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
 ---
 
@@ -84,7 +84,7 @@ el hallazgo clave y qué técnica se practica.
 
 ## Contacto
 
-- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
+- **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 - **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
 
 ---

@@ -3,7 +3,7 @@
 Portfolio de proyectos de datos desarrollados durante el bootcamp de Data Analytics.
 SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales de negocio.
 
-**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
+**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 
 ---
 
@@ -13,7 +13,7 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
 ├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
-├── 03-Machine-Learning/        32 casos: supervisado, no supervisado, RRNN, series
+├── 03-Machine-Learning/        30 casos: supervisado, no supervisado, RRNN, series
 └── 04-IA-BigData/              NLP, LLMs, Spark, Big Data
 ```
 
@@ -41,11 +41,11 @@ Consultas analíticas complejas, modelado dimensional (esquema estrella y copo d
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**35 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**30 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 35 proyectos →](03-Machine-Learning/)**
+**[Ver los 30 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
 
@@ -76,7 +76,7 @@ Procesamiento de lenguaje natural, integración con LLMs (OpenAI, Anthropic) y p
 3. **Ejecución local:** cada proyecto es autónomo — clona el repositorio, activa un entorno virtual e instala las dependencias listadas en el README del proyecto.
 
 ```bash
-git clone https://github.com/borja-mora/Data-Analytics-Portfolio.git
+git clone https://github.com/BORJAMOME/Data-Analytics-Portfolio.git
 cd Data-Analytics-Portfolio
 ```
 
@@ -84,9 +84,9 @@ cd Data-Analytics-Portfolio
 
 ## Contacto
 
-- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borja-mora-mendez/)
+- **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 - **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
-- **GitHub:** [@borja-mora](https://github.com/borja-mora)
+- **GitHub:** [@BORJAMOME](https://github.com/BORJAMOME)
 
 ---
 
