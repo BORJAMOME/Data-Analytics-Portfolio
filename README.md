@@ -3,11 +3,7 @@
 Portfolio de proyectos de datos desarrollados durante el bootcamp de Data Analytics.
 SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales de negocio.
 
-<<<<<<< HEAD
-**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
-=======
 **Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borjamoramendez/)
->>>>>>> 058646c46631810dbd33e99ddc42562b11050273
 
 ---
 
@@ -73,29 +69,10 @@ Procesamiento de lenguaje natural, integración con LLMs (OpenAI, Anthropic) y p
 
 ---
 
-## Cómo navegar este repositorio
-
-1. **Vista rápida:** revisa este README y las categorías del portfolio.
-2. **Análisis en profundidad:** entra en la categoría que más te interese y elige uno de los proyectos destacados de su README.
-3. **Ejecución local:** cada proyecto es autónomo — clona el repositorio, activa un entorno virtual e instala las dependencias listadas en el README del proyecto.
-
-```bash
-git clone https://github.com/BORJAMOME/Data-Analytics-Portfolio.git
-cd Data-Analytics-Portfolio
-```
-
----
-
 ## Contacto
 
-<<<<<<< HEAD
 - **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 - **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
 - **GitHub:** [@BORJAMOME](https://github.com/BORJAMOME)
-=======
-- **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borjamoramendez/)
-- **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
-- **GitHub:** [@borja-mora](https://github.com/BORJAMOME/Data-Analytics-Portfolio.git)
->>>>>>> 058646c46631810dbd33e99ddc42562b11050273
 
 ---
