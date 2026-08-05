@@ -72,4 +72,4 @@ El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene u
 
 
 
-[← Volver al índice](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)

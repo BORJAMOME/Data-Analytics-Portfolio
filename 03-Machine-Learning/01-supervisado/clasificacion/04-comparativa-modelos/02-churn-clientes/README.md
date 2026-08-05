@@ -31,4 +31,4 @@ Este es el caso opuesto al [notebook del gimnasio](../01-gimnasio/): allí la se
 
 ---
 
-[Volver al índice de Machine Learning](../../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)

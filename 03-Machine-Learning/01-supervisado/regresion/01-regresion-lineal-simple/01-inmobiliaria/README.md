@@ -32,4 +32,4 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 
 ---
 
-[Volver al índice](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)

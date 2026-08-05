@@ -31,4 +31,4 @@ El modelo captura la **tendencia y estacionalidad anual** de las ventas con un *
 
 ---
 
-[Volver al índice](../../README.md)
+[Volver al índice de Machine Learning](../../../README.md)

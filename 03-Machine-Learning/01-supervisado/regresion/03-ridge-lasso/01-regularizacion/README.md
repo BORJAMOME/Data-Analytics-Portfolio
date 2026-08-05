@@ -43,4 +43,4 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 
 ---
 
-[Volver al índice](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)
