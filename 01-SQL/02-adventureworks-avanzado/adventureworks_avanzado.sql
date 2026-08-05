@@ -1,5 +1,5 @@
 -- ============================================================================
--- ADVENTUREWORKS AVANZADO — WINDOW FUNCTIONS + EXAMEN DE ENTREVISTA
+-- ADVENTUREWORKS AVANZADO — WINDOW FUNCTIONS 
 -- ============================================================================
 -- Caso de negocio: análisis del comportamiento de compra de clientes,
 -- rankings de productos, acumulados de ventas y crecimiento interanual
