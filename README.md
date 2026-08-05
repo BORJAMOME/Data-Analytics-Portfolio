@@ -3,7 +3,7 @@
 Portfolio de proyectos de datos desarrollados durante el bootcamp de Data Analytics.
 SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales de negocio.
 
-**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borja-mora-mendez](https://www.linkedin.com/in/borjamoramendez/)
+**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 
 ---
 
@@ -27,7 +27,7 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 Consultas analíticas complejas, modelado dimensional (esquema estrella y copo de nieve), procedimientos almacenados y optimización de queries en SQL Server.
 
-**Stack:** T-SQL, SQL Server Management Studio, DAX Studio.
+**Stack:** T-SQL, SQL Server Management Studio.
 
 *Próximamente*
 
@@ -64,7 +64,7 @@ Procesamiento de lenguaje natural, integración con LLMs (OpenAI, Anthropic) y p
 | **Análisis y modelado** | Python, SQL Server (T-SQL), pandas, NumPy |
 | **Machine Learning e IA** | scikit-learn, TensorFlow, Keras, statsmodels |
 | **Business Intelligence** | Power BI, DAX, Power Query, Tabular Editor |
-| **Visualización** | Matplotlib, Seaborn, Plotly, Tableau |
+| **Visualización** | Matplotlib, Seaborn|
 | **Entorno de desarrollo** | Jupyter, Visual Studio Code, Git, GitHub |
 
 ---

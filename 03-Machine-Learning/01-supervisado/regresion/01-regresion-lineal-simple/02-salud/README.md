@@ -48,7 +48,7 @@ Contiene información de **50 pacientes**, incluyendo las siguientes variables:
 
 ## Hallazgo principal
 
-> El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene un **R² ≈ 0.97**, explicando la mayor parte de la variabilidad del colesterol. Aunque los modelos múltiples alcanzan un R² ligeramente superior, presentan problemas graves de multicolinealidad. Por ello, se selecciona el modelo simple como solución final por ser más estable, interpretable y suficientemente preciso.
+El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene un **R² ≈ 0.97**, explicando la mayor parte de la variabilidad del colesterol. Aunque los modelos múltiples alcanzan un R² ligeramente superior, presentan problemas graves de multicolinealidad. Por ello, se selecciona el modelo simple como solución final por ser más estable, interpretable y suficientemente preciso.
 
 ---
 
@@ -70,9 +70,6 @@ Contiene información de **50 pacientes**, incluyendo las siguientes variables:
 - Los modelos múltiples mejoran ligeramente la precisión, pero introducen problemas importantes de multicolinealidad.
 - En este caso, un modelo sencillo ofrece una excelente capacidad predictiva y una interpretación mucho más clara.
 
----
 
-
----
 
 [← Volver al índice](../../../../README.md)
