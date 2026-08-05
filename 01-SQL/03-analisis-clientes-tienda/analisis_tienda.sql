@@ -623,3 +623,32 @@ SELECT
     AVG(total)  AS ticket_medio
 FROM pedidos
 GROUP BY id_cliente;
+
+-- ============================================================================
+-- INSIGHTS DE NEGOCIO
+-- ============================================================================
+-- 1. Clientes fantasma (ej. 2, 12): detectar clientes registrados sin
+--    pedidos permite lanzar campañas de activación dirigidas antes de
+--    darlos por perdidos — cada cliente inactivo es coste de captación
+--    sin retorno.
+--
+-- 2. Segmentación VIP (ej. 20, 36): clasificar clientes por gasto con
+--    CASE + DENSE_RANK revela que un pequeño grupo genera la mayor
+--    parte de los ingresos. Proteger estas cuentas con atención
+--    preferente es más rentable que captar nuevos clientes.
+--
+-- 3. Top 3 por ciudad (ej. 37): el ranking geográfico con PARTITION BY
+--    muestra que la distribución de clientes valiosos no es homogénea.
+--    Algunas ciudades concentran el gasto — dato clave para decidir
+--    dónde abrir nuevos puntos de venta o intensificar distribución.
+--
+-- 4. Evolución de gasto con LAG (ej. 34): el incremento entre pedidos
+--    consecutivos por cliente permite detectar tendencias de abandono
+--    (decrementos sostenidos) o de fidelización (incrementos progresivos)
+--    a nivel individual, no solo agregado.
+--
+-- 5. Dashboard SQL (ej. 40): las métricas por cliente (pedidos, total,
+--    ticket medio) en un solo SELECT son la base para alimentar un
+--    dashboard en Power BI — este query se convierte directamente en
+--    la fuente de datos de un informe de gestión comercial.
+-- ============================================================================
