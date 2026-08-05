@@ -21,7 +21,7 @@ Dataset del gimnasio (300 clientes). Target: `Gasto_Mensual_Extra`. Features: An
 
 ## Hallazgo clave
 
-> El gasto extra depende de la combinación de antigüedad, frecuencia y uso en horas pico. Los clientes con alta asistencia son los mejores candidatos para upselling.
+El gasto extra depende de la combinación de antigüedad, frecuencia y uso en horas pico. Los clientes con alta asistencia son los mejores candidatos para upselling.
 
 ## Notebooks relacionados
 
@@ -29,6 +29,5 @@ Dataset del gimnasio (300 clientes). Target: `Gasto_Mensual_Extra`. Features: An
 - [Regresión Múltiple — Publicidad](../01-publicidad/) — mismo algoritmo, dataset de marketing
 
 
----
 
 [Volver al índice](../../../../README.md)
