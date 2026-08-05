@@ -89,4 +89,3 @@ el hallazgo clave y qué técnica se practica.
 
 ---
 
-*Última actualización: julio 2026 · Madrid, España*
