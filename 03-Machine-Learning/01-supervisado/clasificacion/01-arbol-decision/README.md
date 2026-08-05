@@ -73,5 +73,5 @@ Esto permite definir reglas muy sencillas para el negocio:
 
 ---
 
-[Volver al índice de Machine Learning](../../../../README.md)
+[Volver al índice de Machine Learning](../../../README.md)
 

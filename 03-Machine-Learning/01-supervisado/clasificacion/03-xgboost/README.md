@@ -75,4 +75,4 @@ Esta convergencia entre modelos proporciona una base sólida para diseñar estra
 
 ---
 
-[Volver al índice de Machine Learning](../../../../README.md)
+[Volver al índice de Machine Learning](../../../README.md)
