@@ -24,5 +24,3 @@ de SQL Server sin dependencias externas.
 
 - `analisis_concesionarios.sql` — Base de datos autocontenida + 10 ejercicios resueltos
   con múltiples enfoques (CTEs, subqueries, LAG, PERCENTILE_CONT)
-
-**Stack:** T-SQL · SQL Server Management Studio (SSMS)

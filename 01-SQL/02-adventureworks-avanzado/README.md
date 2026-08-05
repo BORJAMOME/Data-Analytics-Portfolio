@@ -1,4 +1,4 @@
-# AdventureWorks Avanzado — Window Functions y examen de entrevista
+# AdventureWorks Avanzado — Window Functions
 
 **Caso de negocio:** una empresa de fabricación y distribución (AdventureWorks) necesita
 analizar el comportamiento de compra de sus clientes, crear rankings de productos por precio,
@@ -24,7 +24,6 @@ real de análisis de crecimiento.
 
 ## Archivos
 
-- `adventureworks_avanzado.sql` — 11 ejercicios de Window Functions + examen de entrevista
+- `adventureworks_avanzado.sql` — 11 ejercicios de Window Functions + ejercicios 
   con CTE y LAG (crecimiento YoY)
 
-**Stack:** T-SQL · SQL Server Management Studio (SSMS) · AdventureWorks2025
