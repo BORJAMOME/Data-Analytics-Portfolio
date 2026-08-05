@@ -70,22 +70,4 @@ el hallazgo clave y qué técnica se practica.
 
 ---
 
-## Cómo navegar esta sección
-
-1. **Vista rápida:** entra en [01-analisis-exploratorio](01-analisis-exploratorio/) para ver
-   los 4 casos de negocio con storytelling completo.
-2. **Consulta técnica:** entra en
-   [02-manuales-referencia](02-manuales-referencia/) si buscas cómo se hace algo concreto en
-   Pandas, NumPy o Matplotlib.
-3. **Ejecución local:** cada notebook usa rutas relativas — basta con abrirlo desde su propia
-   carpeta (el CSV, si lo necesita, está justo al lado).
-
----
-
-## Contacto
-
-- **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
-- **Email:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com)
-
----
 
