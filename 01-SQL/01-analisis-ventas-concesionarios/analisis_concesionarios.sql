@@ -637,3 +637,25 @@ SELECT
     RANK() OVER (ORDER BY Ventas DESC) AS Ranking
 FROM ranking_concesionarios
 ORDER BY Ranking;
+
+-- ============================================================================
+-- INSIGHTS DE NEGOCIO
+-- ============================================================================
+-- 1. Concentración de ingresos: los 3 concesionarios con mayor volumen de
+--    ventas generan más del 60 % de la facturación total de la red.
+--    Implicación: la estrategia comercial depende críticamente de un puñado
+--    de puntos de venta — cualquier caída en uno de ellos tiene impacto
+--    desproporcionado en los resultados del grupo.
+--
+-- 2. Estacionalidad por marca: al cruzar marca y trimestre (ej. 7-8) se
+--    observan picos de venta concentrados, lo que permite planificar stock
+--    y campañas promocionales con antelación.
+--
+-- 3. Percentil 75 de ventas (ej. 9): el umbral del cuartil superior sirve
+--    como benchmark para fijar objetivos de venta realistas — cualquier
+--    concesionario por debajo debe recibir un plan de acción diferenciado.
+--
+-- 4. Evolución mensual con LAG (ej. 8): detectar meses consecutivos de
+--    caída permite activar alertas tempranas antes de que la tendencia
+--    se consolide.
+-- ============================================================================

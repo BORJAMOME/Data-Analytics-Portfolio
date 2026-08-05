@@ -253,3 +253,25 @@ SELECT TOP 10
     RANK() OVER (ORDER BY Crecimiento_Promedio DESC) AS Ranking
 FROM crecimiento_cliente
 ORDER BY Crecimiento_Promedio DESC;
+
+-- ============================================================================
+-- INSIGHTS DE NEGOCIO
+-- ============================================================================
+-- 1. Segmentación por deciles (ej. 4): el decil superior de clientes
+--    concentra un volumen de compra desproporcionado respecto al resto.
+--    Este patrón Pareto permite priorizar recursos de fidelización en
+--    los clientes de mayor valor sin dispersar presupuesto.
+--
+-- 2. Running total (ej. 10): la suma acumulada de ventas revela si el
+--    crecimiento es lineal o exponencial — y en qué trimestres se
+--    producen los saltos. Es la base para construir forecasts fiables.
+--
+-- 3. Crecimiento YoY (Parte 2): los 10 clientes con mayor crecimiento
+--    interanual no son necesariamente los de mayor facturación absoluta.
+--    Identificarlos permite detectar cuentas emergentes antes de que
+--    la competencia las capte — oportunidad de upselling temprano.
+--
+-- 4. LAG/LEAD en precios (ej. 11): comparar cada producto con el
+--    inmediatamente superior e inferior en precio revela gaps de
+--    pricing donde podría posicionarse un nuevo producto.
+-- ============================================================================
