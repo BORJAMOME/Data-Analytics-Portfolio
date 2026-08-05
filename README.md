@@ -25,11 +25,17 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [01 · SQL](01-SQL/)
 
-Consultas analíticas complejas, modelado dimensional (esquema estrella y copo de nieve), procedimientos almacenados y optimización de queries en SQL Server.
+**3 proyectos analíticos** con T-SQL y SQL Server: CTEs, Window Functions (ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD), subqueries correlacionadas, PERCENTILE_CONT, sumas acumuladas y ejercicio tipo entrevista técnica.
 
-**Stack:** T-SQL, SQL Server Management Studio.
+**Stack:** T-SQL, SQL Server Management Studio, AdventureWorks2025.
 
-*Próximamente*
+| Proyecto | Qué se aprende |
+|----------|---------------|
+| [Análisis de ventas — Red de concesionarios](01-SQL/01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK |
+| [AdventureWorks Avanzado — Window Functions](01-SQL/02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista |
+| [Análisis de clientes — Tienda](01-SQL/03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY |
+
+**[Ver la sección completa →](01-SQL/)**
 
 ### [02 · Python](02-Python/)
 
@@ -48,7 +54,6 @@ Consultas analíticas complejas, modelado dimensional (esquema estrella y copo d
 **[Ver los 30 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
-
 Procesamiento de lenguaje natural, integración con LLMs (OpenAI, Anthropic) y procesamiento distribuido con Apache Spark.
 
 **Stack:** transformers, spaCy, LangChain, PySpark, DuckDB.
