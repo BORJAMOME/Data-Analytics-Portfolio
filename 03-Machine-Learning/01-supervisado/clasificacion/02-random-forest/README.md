@@ -77,4 +77,4 @@ Además, la estabilidad observada en la curva de validación indica que **100 á
 
 ---
 
-[Volver al índice de Machine Learning](../../../../README.md)
+[Volver al índice de Machine Learning](../../../README.md)

@@ -31,4 +31,4 @@ El modelo consigue un **MAPE inferior al 3%**, capturando correctamente los patr
 
 ---
 
-[Volver al índice](../../README.md)
+[Volver al índice de Machine Learning](../../../README.md)

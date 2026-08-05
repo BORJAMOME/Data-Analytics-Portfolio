@@ -31,4 +31,4 @@ Sintético (120 clientes): Score_Fidelidad, Ingresos_Mensuales y Gasto_Anual con
 
 ---
 
-[Volver al índice](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)

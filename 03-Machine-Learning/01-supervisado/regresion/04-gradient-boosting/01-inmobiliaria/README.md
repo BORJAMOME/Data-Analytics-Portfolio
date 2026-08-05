@@ -30,4 +30,4 @@ Una plataforma de tasación online necesita estimaciones precisas. La regresión
 
 ---
 
-[Volver al índice](../../../../README.md)
+[Volver al índice de Machine Learning](../../../../README.md)
