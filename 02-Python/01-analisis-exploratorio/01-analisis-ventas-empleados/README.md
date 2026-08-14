@@ -11,7 +11,7 @@ suficiente para tomar esa decisión.
   "sin actividad").
 - Cálculo de ratios de productividad evitando división por cero (`replace(0, np.nan)`).
 - Detección de top performers con percentiles (`np.percentile`).
-- Lectura de una matriz de correlación para descartar una variable como palanca de gestión.
+- Lectura de una matriz de correlación para descartar una variable como criterio de gestión.
 
 ## Hallazgo clave
 

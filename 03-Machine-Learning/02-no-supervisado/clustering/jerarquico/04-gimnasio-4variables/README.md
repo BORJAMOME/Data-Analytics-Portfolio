@@ -1,7 +1,7 @@
 # Clustering Jerárquico — Gimnasio con 4 variables y radar charts
 
 ## Contexto de negocio
-Un gimnasio quiere crear personas accionables de sus miembros usando 4 métricas de comportamiento, visualizadas con radar charts para comunicar a stakeholders no técnicos.
+Un gimnasio quiere crear personas accionables de sus miembros usando 4 métricas de comportamiento, visualizadas con radar charts para comunicar los resultados a un público no técnico.
 
 ## Dataset
 `gym_clientes.xlsx` — 300 registros, 7 variables.

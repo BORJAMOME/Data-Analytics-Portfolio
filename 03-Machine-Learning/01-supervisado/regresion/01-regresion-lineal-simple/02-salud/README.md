@@ -2,7 +2,7 @@
 
 ¿Es posible estimar el nivel de colesterol de un paciente únicamente a partir de su Índice de Masa Corporal (BMI)? En este proyecto se analiza esta hipótesis mediante un modelo de regresión lineal simple entrenado con datos de 50 pacientes.
 
-El modelo consigue explicar aproximadamente el **97 % de la variabilidad del colesterol** utilizando únicamente el BMI. Aunque se evaluaron modelos más complejos, el modelo simple fue finalmente seleccionado por ofrecer el mejor equilibrio entre **precisión**, **interpretabilidad** y **robustez**.
+El modelo consigue explicar aproximadamente el **97 % de la variabilidad del colesterol** utilizando únicamente el BMI. Aunque se evaluaron modelos más complejos, se optó por el modelo simple por su buen equilibrio entre precisión, interpretabilidad y robustez.
 
 ---
 

@@ -53,7 +53,7 @@ La variable `Abandono` se excluye para evitar **data leakage**.
 
 > La mejor configuración del modelo (**100 árboles, profundidad 4 y learning rate de 0,05**) alcanza una **accuracy del 91,7%** y un **AUC-ROC de 0,917**. XGBoost vuelve a identificar **Asistencias_Mes** como la variable claramente dominante, concentrando el **80,8% de la importancia** del modelo.
 
-## Insight de negocio
+## Lectura de negocio
 
 Los tres algoritmos desarrollados durante el proyecto (**Árbol de Decisión, Random Forest y XGBoost**) llegan a la misma conclusión:
 

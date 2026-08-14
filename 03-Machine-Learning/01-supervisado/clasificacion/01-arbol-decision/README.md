@@ -52,7 +52,7 @@ La variable `Abandono` se excluye del entrenamiento para evitar **data leakage**
 
 - Accuracy: **90,0%**
 
-## Insight de negocio
+## Lectura de negocio
 
 El modelo demuestra que la satisfacción depende principalmente de la **regularidad con la que el cliente utiliza el gimnasio**, mucho más que de su antigüedad o de su gasto adicional.
 

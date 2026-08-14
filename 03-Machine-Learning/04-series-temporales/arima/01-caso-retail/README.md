@@ -26,7 +26,7 @@ Una cadena de supermercados necesita anticipar las ventas semanales para optimiz
 
 ## Hallazgo clave
 
-El modelo captura la **tendencia y estacionalidad anual** de las ventas con un **MAPE del 2,21%** sobre el conjunto de test, mostrando un buen nivel de precisión para apoyar la planificación de inventario y recursos.
+El modelo captura la tendencia y estacionalidad anual de las ventas con un **MAPE del 2,21%** sobre el conjunto de test — precisión de sobra para apoyar la planificación de inventario y recursos.
 
 
 ---

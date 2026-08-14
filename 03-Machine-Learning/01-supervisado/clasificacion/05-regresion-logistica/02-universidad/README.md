@@ -42,7 +42,7 @@ Entrenar un modelo de **Regresión Logística**, interpretar sus coeficientes me
 
 El modelo alcanza una **accuracy del 99%** y un **AUC-ROC de 0.999**, mostrando una capacidad prácticamente perfecta para distinguir entre candidatos admitidos y no admitidos. La **nota del examen** es la variable con mayor impacto sobre la probabilidad de admisión, mientras que las horas de estudio pierden significación estadística al estar fuertemente correlacionadas con la nota obtenida.
 
-## Insight de negocio
+## Lectura de negocio
 
 La probabilidad de admisión depende principalmente del **rendimiento en el examen**, que multiplica por **2,14** las probabilidades de ser admitido por cada punto adicional. Esto permite construir un sistema de scoring transparente, interpretable y fácilmente integrable en el proceso de admisiones.
 
