@@ -29,15 +29,15 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   │   ├── 01-regresion-lineal-simple/      2 casos · R² desde 0.75 hasta 0.97
 │   │   ├── 02-regresion-lineal-multiple/    2 casos · Colinealidad, VIF, selección de variables
 │   │   ├── 03-ridge-lasso/                  1 caso  · Regularización L1/L2, validación cruzada
-│   │   ├── 04-gradient-boosting/            1 caso  · Ensemble secuencial, hiperparámetros
-│   │   └── 05-svm/                          2 casos · Kernels RBF, regresión y clasificación
+│   │   └── 04-gradient-boosting/            1 caso  · Ensemble secuencial, hiperparámetros
 │   │
 │   └── clasificacion/                       Predecir una categoría
 │       ├── 01-arbol-decision/               1 caso  · Interpretabilidad, feature importance
 │       ├── 02-random-forest/                1 caso  · Ensemble bagging, OOB score
 │       ├── 03-xgboost/                      1 caso  · GridSearchCV, gradient boosting
 │       ├── 04-comparativa-modelos/          2 casos · Benchmark DT vs RF vs XGBoost
-│       └── 05-regresion-logistica/          2 casos · Clasificación probabilística, curva ROC
+│       ├── 05-regresion-logistica/          2 casos · Clasificación probabilística, curva ROC
+│       └── 06-svm/                          2 casos · Kernels polinómico y RBF, clasificación
 │
 ├── 02-no-supervisado/                       9 notebooks
 │   ├── clustering/                          Agrupar por similitud
@@ -89,13 +89,6 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
 
-**Support Vector Machine** · [`regresion/05-svm/`](01-supervisado/regresion/05-svm/)
-
-| # | Caso | Qué se aprende | Dataset |
-|---|---|---|---|
-| 01 | [Predicción gasto e-commerce](01-supervisado/regresion/05-svm/01-iphone/) | SVR con kernel lineal vs RBF, escalado de features | Clientes e-commerce |
-| 02 | [Reemplazo de baterías](01-supervisado/regresion/05-svm/02-baterias/) | SVC con kernel polinómico, mantenimiento predictivo | Baterías |
-
 ### Clasificación — predecir una categoría
 
 **Árbol de Decisión** · [`clasificacion/01-arbol-decision/`](01-supervisado/clasificacion/01-arbol-decision/)
@@ -129,6 +122,13 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [Abandono gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio/) | Odds ratios, VIF, inferencia estadística con statsmodels | `gym_clientes.xlsx` |
 | 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-universidad/) | Curva ROC, AUC, frontera de decisión 2D | `admitidos.xlsx` |
+
+**Support Vector Machine** · [`clasificacion/06-svm/`](01-supervisado/clasificacion/06-svm/)
+
+| # | Caso | Qué se aprende | Dataset |
+|---|---|---|---|
+| 01 | [Propensión de compra iPhone](01-supervisado/clasificacion/06-svm/01-iphone/) | SVC con kernel lineal, polinómico y RBF, escalado de features | Clientes e-commerce |
+| 02 | [Reemplazo de baterías](01-supervisado/clasificacion/06-svm/02-baterias/) | SVC con kernel lineal y polinómico, mantenimiento predictivo | Baterías |
 
 ---
 
