@@ -1,32 +1,32 @@
-# SVR — Predicción del gasto de clientes
+# SVM — Propensión de compra de iPhone
 
-Support Vector Regression con kernels linear, RBF y polynomial: cuando la relación no es una recta.
+Support Vector Classifier con kernels linear, polynomial y RBF: cuando la frontera entre comprar y no comprar no es una recta.
 
 ---
 
 ## Contexto de negocio
 
-Un e-commerce quiere predecir el gasto anual de cada cliente. La relación fidelidad-gasto es curvilínea — SVR con kernel RBF la captura.
+Un e-commerce de tecnología quiere anticipar qué clientes son propensos a comprar un iPhone a partir de sus ingresos y su fidelidad tecnológica. La frontera entre "compra" y "no compra" no es lineal — se compara el mismo problema con tres kernels distintos.
 
 ## Dataset
 
-Sintético (120 clientes): Score_Fidelidad, Ingresos_Mensuales y Gasto_Anual con relación no lineal (parabólica).
+Sintético (233 clientes): Score_Fidelidad, Ingresos_Mensuales y Compra_iPhone (target binario, 36,5% de compradores).
 
 ## Técnicas aplicadas
 
-- SVR con 3 kernels (linear, RBF, poly) + comparativa
-- GridSearchCV para tuning de C, gamma, epsilon
+- SVC con 3 kernels (linear, polynomial, RBF) + comparativa
 - Estandarización obligatoria para SVM
-- Comparativa con regresión lineal baseline
+- `classification_report` (precision, recall, f1-score) para evaluar cada kernel
+- Visualización de la frontera de decisión sobre los datos originales
 
 ## Hallazgo clave
 
-> SVR con kernel RBF supera a la regresión lineal en relaciones curvilíneas. El kernel trick transforma el espacio sin definir la transformación explícitamente.
+> El kernel polinómico (grado 2) obtiene el mejor resultado, con un 98% de accuracy, seguido del RBF (97%) y el lineal (93%). Los kernels no lineales capturan mejor la combinación entre ingresos y fidelidad que separa a compradores de no compradores.
 
 ## Notebooks relacionados
 
-- [SVR — Baterías](../02-baterias/) — SVR aplicado a mantenimiento predictivo
-- [Gradient Boosting](../../04-gradient-boosting/) — modelo ensemble como alternativa
+- [SVM — Baterías](../02-baterias/) — SVM aplicado a mantenimiento predictivo
+- [Gradient Boosting](../../../regresion/04-gradient-boosting/) — modelo ensemble como alternativa
 
 
 ---
