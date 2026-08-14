@@ -1,6 +1,6 @@
 # Regresión Logística — Abandono de clientes (Gimnasio)
 
-El modelo que no solo predice, sino que explica: odds ratios, p-valores e intervalos de confianza para cuantificar exactamente cuánto pesa cada variable en la decisión de abandonar.
+Un modelo que no se limita a predecir: explica. Odds ratios, p-valores e intervalos de confianza cuantifican cuánto pesa cada variable en la decisión de abandonar.
 
 ---
 
