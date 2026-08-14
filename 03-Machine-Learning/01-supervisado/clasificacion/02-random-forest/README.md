@@ -58,7 +58,7 @@ La variable `Abandono` se excluye para evitar **data leakage**.
 - Accuracy: **90,0%**
 - AUC-ROC: **0,917**
 
-## Insight de negocio
+## Lectura de negocio
 
 El Random Forest confirma que la satisfacción de los clientes depende principalmente de la **regularidad con la que utilizan el gimnasio**.
 

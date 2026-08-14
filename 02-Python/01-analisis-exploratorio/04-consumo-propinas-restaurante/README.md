@@ -15,8 +15,8 @@ turnos de personal a partir del patrón de consumo y propinas de sus clientes.
 ## Hallazgo clave
 
 Las mesas pequeñas (1-2 personas) dejan mayor % de propina, pero las mesas grandes en la cena
-del fin de semana son las que más facturan — son palancas de negocio distintas y no deben
-confundirse.
+del fin de semana son las que más facturan: responden a lógicas de negocio distintas y no
+conviene confundirlas.
 
 ## Archivos
 
