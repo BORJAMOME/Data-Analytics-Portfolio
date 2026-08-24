@@ -13,7 +13,7 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
 ├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
-├── 03-Machine-Learning/        34 casos: supervisado, no supervisado, RRNN, series
+├── 03-Machine-Learning/        35 casos: supervisado, no supervisado, RRNN, series
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
 
@@ -47,11 +47,11 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**34 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**35 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 34 proyectos →](03-Machine-Learning/)**
+**[Ver los 35 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
 Agentes de IA, integración con LLMs (OpenAI, Anthropic, Groq, Ollama), APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark.
