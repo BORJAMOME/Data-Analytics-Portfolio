@@ -530,7 +530,8 @@ SELECT
     )                       AS porcentaje
 FROM concesionarios c
 JOIN ventas v ON c.id_concesionario = v.id_concesionario
-GROUP BY c.nombreORDER BY porcentaje DESC;
+GROUP BY c.nombre
+ORDER BY porcentaje DESC;
 
 
 -- ----------------------------------------------------------------------------
@@ -614,7 +615,8 @@ SELECT
     nombre,
     ingresos,
     CAST(pct * 100 AS DECIMAL(5,2)) AS pct
-FROM rankingWHERE pct >= 0.75;
+FROM ranking
+WHERE pct >= 0.75;
 
 
 -- ----------------------------------------------------------------------------
@@ -641,11 +643,13 @@ ORDER BY Ranking;
 -- ============================================================================
 -- INSIGHTS DE NEGOCIO
 -- ============================================================================
--- 1. Concentración de ingresos: los 3 concesionarios con mayor volumen de
---    ventas generan más del 60 % de la facturación total de la red.
---    Implicación: la estrategia comercial depende críticamente de un puñado
---    de puntos de venta — cualquier caída en uno de ellos tiene impacto
---    desproporcionado en los resultados del grupo.
+-- 1. Concentración de ingresos: con 50 concesionarios en la red, los 3 con
+--    mayor volumen de ventas generan cerca de un 10 % de la facturación
+--    total — una red razonablemente diversificada, sin dependencia crítica
+--    de un puñado de puntos de venta. El benchmark útil aquí no es la
+--    concentración (no la hay) sino el percentil 75 (ej. 9): identificar
+--    qué concesionarios están por debajo del cuartil superior para
+--    asignarles un plan de acción diferenciado.
 --
 -- 2. Estacionalidad por marca: al cruzar marca y trimestre (ej. 7-8) se
 --    observan picos de venta concentrados, lo que permite planificar stock

@@ -205,7 +205,7 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso retail](04-series-temporales/arima/01-caso-retail/) | ACF/PACF, estacionariedad, ADF test, ARIMA manual vs auto | `ventas_retail.csv` |
+| 01 | [Caso retail](04-series-temporales/arima/01-caso-retail/) | ACF/PACF, estacionariedad, ADF test, SARIMA con estacionalidad anual | `arima.xlsx` |
 | 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
 
 ---
