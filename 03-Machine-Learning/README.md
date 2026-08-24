@@ -1,4 +1,4 @@
-# Machine Learning — 34 Casos Prácticos
+# Machine Learning — 35 Casos Prácticos
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
@@ -10,7 +10,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **34 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **35 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -48,8 +48,8 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   └── reduccion-dimensionalidad/
 │       └── pca/                             2 casos · Varianza explicada, biplot
 │
-├── 03-redes-neuronales/                     5 notebooks
-│   ├── mlp/                                 3 casos · Fundamentos, clasificación fintech, forecast eléctrico
+├── 03-redes-neuronales/                     6 notebooks
+│   ├── mlp/                                 4 casos · Fundamentos, fintech, forecast eléctrico, sentimiento IMDB
 │   └── som/                                 2 casos · Mapas autoorganizados, clustering visual
 │
 └── 04-series-temporales/                    2 notebooks
@@ -186,6 +186,7 @@ Desde el Perceptrón Multicapa para clasificación y forecast hasta Self-Organiz
 | 00 | [Fundamentos: capas ocultas](03-redes-neuronales/mlp/00-fundamentos-capas-ocultas/) | Por qué un modelo lineal no resuelve círculos concéntricos ni XOR, y un MLP sí | Sintético (círculos, XOR) |
 | 01 | [Clasificación Fintech](03-redes-neuronales/mlp/01-clasificacion-fintech/) | MLP vs Regresión Logística vs Random Forest en credit scoring | Sintético (100 solicitantes) |
 | 02 | [Forecast consumo eléctrico](03-redes-neuronales/mlp/02-forecast-consumo-electrico/) | Feature engineering temporal, lag features, comparativa con RF | `electricidad.xlsx` |
+| 03 | [Sentimiento en reseñas IMDB](03-redes-neuronales/mlp/03-clasificacion-sentimiento-imdb/) | Embedding + pooling en NLP, TF-IDF+LogReg supera al MLP | IMDB (25.000 reseñas) |
 
 **SOM — Self-Organizing Maps** · [`som/`](03-redes-neuronales/som/)
 
