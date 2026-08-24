@@ -13,8 +13,8 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
 ├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
-├── 03-Machine-Learning/        30 casos: supervisado, no supervisado, RRNN, series
-└── 04-IA-BigData/              NLP, LLMs, Spark, Big Data
+├── 03-Machine-Learning/        31 casos: supervisado, no supervisado, RRNN, series
+└── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
 
 Cada carpeta principal tiene su propio README con la lista de proyectos, técnicas aplicadas y accesos directos.
@@ -47,18 +47,26 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**30 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**31 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 30 proyectos →](03-Machine-Learning/)**
+**[Ver los 31 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
-Procesamiento de lenguaje natural, integración con LLMs (OpenAI, Anthropic) y procesamiento distribuido con Apache Spark.
+Agentes de IA, integración con LLMs (OpenAI, Anthropic, Groq, Ollama), APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark.
 
-**Stack:** transformers, spaCy, LangChain, PySpark, DuckDB.
+**Stack:** transformers, spaCy, LangChain, ipyleaflet, Streamlit, PySpark, DuckDB, ultralytics (YOLOv8).
 
-*Próximamente*
+| Proyecto | Qué se aprende |
+|----------|---------------|
+| [Chatbot de reservas — Nivel 0](04-IA-BigData/01-Agentes-IA/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base de la progresión hacia agentes con IA |
+| [Simulador de rutas reales — OSRM](04-IA-BigData/03-APIs-Visualizacion/01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
+| [Cesta de la compra — Apriori](04-IA-BigData/04-Mineria-Datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
+| [Detección de objetos en imágenes](04-IA-BigData/06-Vision-Artificial/01-deteccion-objetos-imagenes/) | YOLOv8 preentrenado, límites de un modelo genérico frente a clases no vistas |
+| [Conteo de vehículos en vídeo](04-IA-BigData/06-Vision-Artificial/02-conteo-vehiculos-video/) | YOLOv8 + ByteTrack, tracking de identidad entre frames, conteo por cruce de línea |
+
+**[Ver la sección completa →](04-IA-BigData/)**
 
 ---
 

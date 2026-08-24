@@ -1,4 +1,4 @@
-# Machine Learning — 30 Casos Prácticos
+# Machine Learning — 31 Casos Prácticos
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
@@ -10,8 +10,8 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **30 notebooks** organizados por tipo de aprendizaje y familia de modelo
-- **15 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía y deporte
+- **31 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
 
@@ -39,9 +39,9 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │       ├── 05-regresion-logistica/          2 casos · Clasificación probabilística, curva ROC
 │       └── 06-svm/                          2 casos · Kernels polinómico y RBF, clasificación
 │
-├── 02-no-supervisado/                       9 notebooks
+├── 02-no-supervisado/                       10 notebooks
 │   ├── clustering/                          Agrupar por similitud
-│   │   ├── kmeans/                          3 casos · Método del codo, silueta, inercia
+│   │   ├── kmeans/                          4 casos · Método del codo, silueta, inercia, t-SNE
 │   │   └── jerarquico/                      4 casos · Dendrogramas, linkage, distancias
 │   │
 │   └── reduccion-dimensionalidad/
@@ -145,6 +145,7 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 | 01 | [Segmentación clientes retail](02-no-supervisado/clustering/kmeans/01-caso-clientes-retail/) | Método del codo, silueta, visualización 2D | Sintético (200 clientes) |
 | 02 | [Segmentación gimnasio](02-no-supervisado/clustering/kmeans/02-caso-gym/) | Escalado, estabilidad de clusters, cross-check con abandono | `gym_clientes.xlsx` |
 | 03 | [Segmentación política](02-no-supervisado/clustering/kmeans/03-segmentacion-politica/) | Feature selection: elegir bien las variables importa más que el algoritmo | `politicos.xlsx` |
+| 04 | [Segmentación retail con t-SNE](02-no-supervisado/clustering/kmeans/04-segmentacion-retail-tsne/) | t-SNE para visualizar en 2D, elección honesta de k, evaluación contra perfil ya asignado | Clientes retail (6.457 filas) |
 
 **Clustering Jerárquico** · [`clustering/jerarquico/`](02-no-supervisado/clustering/jerarquico/)
 
