@@ -297,7 +297,8 @@ SELECT
     c.nombre     AS Cliente,
     SUM(p.total) AS Gasto_Total
 FROM clientes c
-JOIN pedidos p ON c.id_cliente = p.id_clienteGROUP BY c.nombre
+JOIN pedidos p ON c.id_cliente = p.id_cliente
+GROUP BY c.nombre
 HAVING SUM(p.total) > (SELECT AVG(total) FROM pedidos)
 ORDER BY Gasto_Total DESC;
 
@@ -327,7 +328,8 @@ SELECT
     SUM(dp.cantidad) AS Ventas
 FROM categorias ca
 JOIN productos p        ON ca.id_categoria = p.id_categoria
-JOIN detalle_pedidos dp ON p.id_producto   = dp.id_productoGROUP BY ca.nombre
+JOIN detalle_pedidos dp ON p.id_producto   = dp.id_producto
+GROUP BY ca.nombre
 HAVING SUM(dp.cantidad) > (SELECT AVG(cantidad) FROM detalle_pedidos)
 ORDER BY Ventas DESC;
 
