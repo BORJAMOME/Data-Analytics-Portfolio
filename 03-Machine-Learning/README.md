@@ -1,4 +1,4 @@
-# Machine Learning — 31 Casos Prácticos
+# Machine Learning — 33 Casos Prácticos
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
@@ -10,7 +10,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **31 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **33 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -24,12 +24,12 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 ```
 03-Machine-Learning/
 │
-├── 01-supervisado/                          15 notebooks
+├── 01-supervisado/                          16 notebooks
 │   ├── regresion/                           Predecir un valor numérico continuo
 │   │   ├── 01-regresion-lineal-simple/      2 casos · R² desde 0.75 hasta 0.97
 │   │   ├── 02-regresion-lineal-multiple/    2 casos · Colinealidad, VIF, selección de variables
 │   │   ├── 03-ridge-lasso/                  1 caso  · Regularización L1/L2, validación cruzada
-│   │   └── 04-gradient-boosting/            1 caso  · Ensemble secuencial, hiperparámetros
+│   │   └── 04-gradient-boosting/            2 casos · Ensemble secuencial, hiperparámetros
 │   │
 │   └── clasificacion/                       Predecir una categoría
 │       ├── 01-arbol-decision/               1 caso  · Interpretabilidad, feature importance
@@ -47,8 +47,8 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   └── reduccion-dimensionalidad/
 │       └── pca/                             2 casos · Varianza explicada, biplot
 │
-├── 03-redes-neuronales/                     4 notebooks
-│   ├── mlp/                                 2 casos · Clasificación fintech, forecast eléctrico
+├── 03-redes-neuronales/                     5 notebooks
+│   ├── mlp/                                 3 casos · Fundamentos, clasificación fintech, forecast eléctrico
 │   └── som/                                 2 casos · Mapas autoorganizados, clustering visual
 │
 └── 04-series-temporales/                    2 notebooks
@@ -88,6 +88,7 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
 | 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
+| 02 | [Tiempo de carrera de 5K](01-supervisado/regresion/04-gradient-boosting/02-tiempo-carrera-5k/) | Detección de filas casi duplicadas, evaluación honesta sin fuga de datos | Corredores (sintético) |
 
 ### Clasificación — predecir una categoría
 
@@ -175,6 +176,7 @@ Desde el Perceptrón Multicapa para clasificación y forecast hasta Self-Organiz
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
+| 00 | [Fundamentos: capas ocultas](03-redes-neuronales/mlp/00-fundamentos-capas-ocultas/) | Por qué un modelo lineal no resuelve círculos concéntricos ni XOR, y un MLP sí | Sintético (círculos, XOR) |
 | 01 | [Clasificación Fintech](03-redes-neuronales/mlp/01-clasificacion-fintech/) | MLP vs Regresión Logística vs Random Forest en credit scoring | Sintético (100 solicitantes) |
 | 02 | [Forecast consumo eléctrico](03-redes-neuronales/mlp/02-forecast-consumo-electrico/) | Feature engineering temporal, lag features, comparativa con RF | `electricidad.xlsx` |
 
