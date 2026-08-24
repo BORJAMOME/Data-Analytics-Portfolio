@@ -26,6 +26,7 @@ Una plataforma de tasación online necesita estimaciones precisas. La regresión
 ## Notebooks relacionados
 
 - [Regresión Lineal Simple — Inmobiliaria](../../01-regresion-lineal-simple/01-inmobiliaria/) — misma pregunta, una sola variable
+- [Gradient Boosting — Tiempo de carrera de 5K](../02-tiempo-carrera-5k/) — mismo algoritmo, otro dominio
 
 
 ---
