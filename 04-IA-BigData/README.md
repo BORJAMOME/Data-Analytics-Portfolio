@@ -4,13 +4,14 @@ Agentes de IA, integración con Large Language Models (LLMs), APIs externas con 
 interactiva, minería de datos, visión artificial y aplicaciones interactivas — casos prácticos
 más allá del modelado clásico de `03-Machine-Learning`.
 
-**Stack:** Transformers · spaCy · LangChain · OpenAI API · Anthropic API · Groq · Ollama · ipyleaflet · Streamlit · PySpark · DuckDB · ultralytics (YOLOv8) · ByteTrack
+**Stack implementado:** ipyleaflet · mlxtend · ultralytics (YOLOv8) · ByteTrack
+**Stack previsto** (para `02-LLMs-Chatbots` y `05-Apps-Interactivas`, aún sin casos): LangChain · OpenAI API · Anthropic API · Groq · Ollama · Streamlit
 
 ---
 
 ## Estructura
 
-Los proyectos están organizados en 5 categorías:
+Los proyectos están organizados en 6 categorías (dos de ellas, `02` y `05`, son placeholders aún sin casos):
 
 ```
 04-IA-BigData/
