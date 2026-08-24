@@ -1,4 +1,4 @@
-# Machine Learning — 33 Casos Prácticos
+# Machine Learning — 34 Casos Prácticos
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
@@ -10,7 +10,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **33 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **34 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -24,7 +24,7 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 ```
 03-Machine-Learning/
 │
-├── 01-supervisado/                          16 notebooks
+├── 01-supervisado/                          17 notebooks
 │   ├── regresion/                           Predecir un valor numérico continuo
 │   │   ├── 01-regresion-lineal-simple/      2 casos · R² desde 0.75 hasta 0.97
 │   │   ├── 02-regresion-lineal-multiple/    2 casos · Colinealidad, VIF, selección de variables
@@ -37,7 +37,8 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │       ├── 03-xgboost/                      1 caso  · GridSearchCV, gradient boosting
 │       ├── 04-comparativa-modelos/          2 casos · Benchmark DT vs RF vs XGBoost
 │       ├── 05-regresion-logistica/          2 casos · Clasificación probabilística, curva ROC
-│       └── 06-svm/                          2 casos · Kernels polinómico y RBF, clasificación
+│       ├── 06-svm/                          2 casos · Kernels polinómico y RBF, clasificación
+│       └── 07-naive-bayes/                  1 caso  · Clasificación de texto, CountVectorizer vs TF-IDF
 │
 ├── 02-no-supervisado/                       10 notebooks
 │   ├── clustering/                          Agrupar por similitud
@@ -130,6 +131,12 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [Propensión de compra iPhone](01-supervisado/clasificacion/06-svm/01-iphone/) | SVC con kernel lineal, polinómico y RBF, escalado de features | Clientes e-commerce |
 | 02 | [Reemplazo de baterías](01-supervisado/clasificacion/06-svm/02-baterias/) | SVC con kernel lineal y polinómico, mantenimiento predictivo | Baterías |
+
+**Naive Bayes** · [`clasificacion/07-naive-bayes/`](01-supervisado/clasificacion/07-naive-bayes/)
+
+| # | Caso | Qué se aprende | Dataset |
+|---|---|---|---|
+| 01 | [Detección de SMS spam](01-supervisado/clasificacion/07-naive-bayes/) | CountVectorizer vs TF-IDF (no siempre gana el más sofisticado), interpretabilidad, límite de dominio | `sms_spam.xlsx` |
 
 ---
 
