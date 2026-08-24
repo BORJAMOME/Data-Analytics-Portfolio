@@ -19,4 +19,5 @@ Cuando metes todas las variables, K-Means agrupa a la gente por estado civil y e
 ## Notebooks relacionados
 - [PCA análisis emails](../../reduccion-dimensionalidad/pca/01-analisis-emails/) — PCA standalone
 - [PCA + K-Means empleados](../../reduccion-dimensionalidad/pca/02-segmentacion-empleados/) — pipeline combinado
+- [Segmentación retail con t-SNE](../04-segmentacion-retail-tsne/) — mismo patrón de honestidad en la elección de k y evaluación de resultados
 
