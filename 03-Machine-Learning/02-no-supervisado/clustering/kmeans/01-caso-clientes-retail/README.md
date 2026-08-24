@@ -19,4 +19,5 @@ K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo 
 ## Notebooks relacionados
 - [02-caso-avanzado](../02-caso-gym/) — datos reales de gimnasio, estabilidad de clusters
 - [03-segmentación-política](../03-segmentacion-politica/) — dataset real, radar charts, PCA
+- [04-segmentación retail con t-SNE](../04-segmentacion-retail-tsne/) — mismo dominio, dataset real de 6.457 clientes, visualización con t-SNE
 
