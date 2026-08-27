@@ -1,17 +1,17 @@
 # IA & Big Data
 
 Agentes de IA, integración con Large Language Models (LLMs), APIs externas con visualización
-interactiva, minería de datos, visión artificial y aplicaciones interactivas — casos prácticos
-más allá del modelado clásico de `03-Machine-Learning`.
+interactiva, minería de datos, visión artificial, aplicaciones interactivas y procesamiento
+distribuido con Spark — casos prácticos más allá del modelado clásico de `03-Machine-Learning`.
 
-**Stack implementado:** ipyleaflet · mlxtend · ultralytics (YOLOv8) · ByteTrack
+**Stack implementado:** ipyleaflet · mlxtend · ultralytics (YOLOv8) · ByteTrack · PySpark (Spark SQL, MLlib)
 **Stack previsto** (para `02-LLMs-Chatbots` y `05-Apps-Interactivas`, aún sin casos): LangChain · OpenAI API · Anthropic API · Groq · Ollama · Streamlit
 
 ---
 
 ## Estructura
 
-Los proyectos están organizados en 6 categorías (dos de ellas, `02` y `05`, son placeholders aún sin casos):
+Los proyectos están organizados en 7 categorías (dos de ellas, `02` y `05`, son placeholders aún sin casos):
 
 ```
 04-IA-BigData/
@@ -23,9 +23,11 @@ Los proyectos están organizados en 6 categorías (dos de ellas, `02` y `05`, so
 ├── 04-Mineria-Datos/            Reglas de asociación, patrones de comportamiento
 │   └── 01-cesta-compra-apriori/     Market basket analysis con Apriori (mlxtend)
 ├── 05-Apps-Interactivas/        Dashboards y apps con Streamlit
-└── 06-Vision-Artificial/        Detección y tracking de objetos con modelos preentrenados
-    ├── 01-deteccion-objetos-imagenes/   YOLOv8 sobre fotos de catálogo
-    └── 02-conteo-vehiculos-video/       YOLOv8 + ByteTrack, conteo de tráfico en vídeo
+├── 06-Vision-Artificial/        Detección y tracking de objetos con modelos preentrenados
+│   ├── 01-deteccion-objetos-imagenes/   YOLOv8 sobre fotos de catálogo
+│   └── 02-conteo-vehiculos-video/       YOLOv8 + ByteTrack, conteo de tráfico en vídeo
+└── 07-Big-Data-Distribuido/     Procesamiento distribuido con Apache Spark
+    └── 01-pipeline-ventas-pyspark/      Pipeline completo en PySpark sobre 203.533 ventas
 ```
 
 ## Proyectos
@@ -37,6 +39,7 @@ Los proyectos están organizados en 6 categorías (dos de ellas, `02` y `05`, so
 | [04 · Minería de Datos](04-Mineria-Datos/) | [Cesta de la compra — Apriori](04-Mineria-Datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
 | [06 · Visión Artificial](06-Vision-Artificial/) | [Detección de objetos en imágenes](06-Vision-Artificial/01-deteccion-objetos-imagenes/) | YOLOv8 preentrenado, límites de un modelo genérico frente a clases no vistas |
 | [06 · Visión Artificial](06-Vision-Artificial/) | [Conteo de vehículos en vídeo](06-Vision-Artificial/02-conteo-vehiculos-video/) | YOLOv8 + ByteTrack, tracking de identidad entre frames, conteo por cruce de línea |
+| [07 · Big Data Distribuido](07-Big-Data-Distribuido/) | [Pipeline de ventas distribuido con PySpark](07-Big-Data-Distribuido/01-pipeline-ventas-pyspark/) | Esquema como contrato, Spark SQL, funciones de ventana, broadcast joins, planes de ejecución, particiones y caché, UDF vs nativo, Parquet, MLlib |
 
 Las demás categorías (`02-LLMs-Chatbots`, `05-Apps-Interactivas`) se irán completando próximamente.
 

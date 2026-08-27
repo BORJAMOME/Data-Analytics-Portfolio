@@ -84,3 +84,9 @@ config.ini
 03-Machine-Learning/01-supervisado/regresion/ridge-lasso/
 03-Machine-Learning/01-supervisado/regresion/gradient-boosting/
 03-Machine-Learning/01-supervisado/regresion/svm/
+
+# --- Artefactos de Spark en local ---
+spark-warehouse/
+metastore_db/
+derby.log
+_parquet_demo/
