@@ -54,9 +54,9 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 **[Ver los 35 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
-Agentes de IA, APIs externas con visualización interactiva, minería de datos y visión artificial. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima categoría.
+Agentes de IA, APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima categoría.
 
-**Stack:** ipyleaflet, mlxtend, ultralytics (YOLOv8), ByteTrack.
+**Stack:** ipyleaflet, mlxtend, ultralytics (YOLOv8), ByteTrack, PySpark (Spark SQL, MLlib).
 
 | Proyecto | Qué se aprende |
 |----------|---------------|
