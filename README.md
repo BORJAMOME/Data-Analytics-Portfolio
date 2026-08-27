@@ -65,6 +65,7 @@ Agentes de IA, APIs externas con visualización interactiva, minería de datos, 
 | [Cesta de la compra — Apriori](04-IA-BigData/04-Mineria-Datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
 | [Detección de objetos en imágenes](04-IA-BigData/06-Vision-Artificial/01-deteccion-objetos-imagenes/) | YOLOv8 preentrenado, límites de un modelo genérico frente a clases no vistas |
 | [Conteo de vehículos en vídeo](04-IA-BigData/06-Vision-Artificial/02-conteo-vehiculos-video/) | YOLOv8 + ByteTrack, tracking de identidad entre frames, conteo por cruce de línea |
+| [Pipeline de ventas distribuido con PySpark](04-IA-BigData/07-Big-Data-Distribuido/01-pipeline-ventas-pyspark/) | Spark SQL, funciones de ventana, broadcast joins, planes de ejecución, particiones y caché, UDF vs nativo, Parquet, MLlib |
 
 **[Ver la sección completa →](04-IA-BigData/)**
 
@@ -76,6 +77,7 @@ Agentes de IA, APIs externas con visualización interactiva, minería de datos, 
 |---|---|
 | **Análisis y modelado** | Python, SQL Server (T-SQL), pandas, NumPy |
 | **Machine Learning e IA** | scikit-learn, TensorFlow, Keras, statsmodels |
+| **Big Data** | Apache Spark (PySpark), Spark SQL, MLlib, Parquet |
 | **Business Intelligence** | Power BI, DAX, Power Query, Tabular Editor |
 | **Visualización** | Matplotlib, Seaborn|
 | **Entorno de desarrollo** | Jupyter, Visual Studio Code, Git, GitHub |
