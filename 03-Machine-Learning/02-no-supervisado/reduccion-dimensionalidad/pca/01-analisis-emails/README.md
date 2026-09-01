@@ -17,7 +17,3 @@ Un e-commerce con 10 métricas por cliente quiere reducirlas a las dimensiones r
 ## Hallazgo clave
 Las primeras componentes revelan dimensiones latentes como "valor del cliente" y "engagement digital" que resumen las 10 métricas con mínima pérdida de información.
 
-## Notebooks relacionados
-- [PCA + K-Means empleados](../02-segmentacion-empleados/) — pipeline PCA antes de clustering
-- [K-Means segmentación política](../../../clustering/kmeans/03-segmentacion-politica/) — PCA como visualización
-

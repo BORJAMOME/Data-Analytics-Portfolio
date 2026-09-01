@@ -17,7 +17,4 @@ Un gimnasio quiere crear personas accionables de sus miembros usando 4 métricas
 ## Hallazgo clave
 Los radar charts revelan que cada cluster tiene un "shape" distinto — no solo difieren en una métrica sino en la combinación. Esto permite crear personas de marketing matizadas.
 
-## Notebooks relacionados
-- [02-caso-avanzado](../02-caso-avanzado/) — misma fuente, solo 2 variables
-- [K-Means avanzado](../../kmeans/02-caso-gym/) — misma fuente con K-Means
 

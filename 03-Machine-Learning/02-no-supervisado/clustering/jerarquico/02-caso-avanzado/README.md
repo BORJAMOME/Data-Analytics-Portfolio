@@ -15,7 +15,4 @@ Un gimnasio quiere identificar perfiles de miembros usando Antigüedad y Gasto E
 ## Hallazgo clave
 Los clusters de 2 variables ya capturan diferencias en tasas de abandono, validando que el comportamiento de gasto predice el riesgo.
 
-## Notebooks relacionados
-- [01-caso-introductorio](../01-caso-introductorio/) — fundamentos con datos sintéticos
-- [04-gimnasio-4variables](../04-gimnasio-4variables/) — misma fuente, 4 variables, radar charts
 

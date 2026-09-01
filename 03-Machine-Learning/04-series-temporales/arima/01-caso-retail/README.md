@@ -28,7 +28,3 @@ Una cadena de supermercados necesita anticipar las ventas semanales para optimiz
 
 El modelo captura la tendencia y estacionalidad anual de las ventas con un **MAPE del 2,21%** sobre el conjunto de test — precisión de sobra para apoyar la planificación de inventario y recursos.
 
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

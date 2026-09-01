@@ -51,7 +51,3 @@ Para un análisis en profundidad de cada algoritmo, consultar los notebooks stan
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`
 
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

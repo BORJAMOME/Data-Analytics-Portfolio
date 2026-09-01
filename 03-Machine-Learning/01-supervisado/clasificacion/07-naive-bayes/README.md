@@ -28,6 +28,3 @@ Un operador de telefonía quiere filtrar SMS de phishing y publicidad no deseada
 
 scikit-learn (MultinomialNB, CountVectorizer, TfidfVectorizer), pandas, Matplotlib, Seaborn
 
----
-
-[Volver al índice de Machine Learning](../../../README.md)

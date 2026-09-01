@@ -71,8 +71,3 @@ Esta convergencia entre modelos proporciona una base sólida para diseñar estra
 - `seaborn`
 - `scikit-learn`
 - `xgboost`
-
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)
