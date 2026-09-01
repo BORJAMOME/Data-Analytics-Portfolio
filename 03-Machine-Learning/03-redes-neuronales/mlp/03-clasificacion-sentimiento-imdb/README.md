@@ -17,7 +17,7 @@ IMDB Movie Reviews (incluido en `tensorflow.keras.datasets`) — 25.000 reseñas
 
 ## Hallazgo clave
 
-El MLP con embedding propio alcanza **87,55% de accuracy en test**, pero **TF-IDF + Regresión Logística llega a 88,39%** sin entrenar ninguna red neuronal. La arquitectura de embedding no aporta ventaja real aquí: promedia los vectores de palabras ignorando su orden (igual que TF-IDF) y trunca reseñas largas (longitud media 238,7 tokens, frente a un límite de 200), sin datos suficientes para que el embedding aprendido compense.
+El MLP con embedding propio alcanza **87,44% de accuracy en test**, pero **TF-IDF + Regresión Logística llega a 88,39%** sin entrenar ninguna red neuronal. La arquitectura de embedding no aporta ventaja real aquí: promedia los vectores de palabras ignorando su orden (igual que TF-IDF) y trunca reseñas largas (longitud media 238,7 tokens, frente a un límite de 200), sin datos suficientes para que el embedding aprendido compense.
 
 ## Notas sobre el notebook original
 
