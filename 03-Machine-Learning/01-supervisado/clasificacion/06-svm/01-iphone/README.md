@@ -29,6 +29,3 @@ Sintético (233 clientes): Score_Fidelidad, Ingresos_Mensuales y Compra_iPhone (
 - [Gradient Boosting](../../../regresion/04-gradient-boosting/) — modelo ensemble como alternativa
 
 
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

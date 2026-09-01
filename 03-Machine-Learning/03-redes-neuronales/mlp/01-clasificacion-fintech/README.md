@@ -29,8 +29,4 @@ El MLP gana en accuracy (87,5% vs 83,3%) pero la Regresión Logística obtiene m
 complejidad del MLP aporte una ventaja real — en *credit scoring*, la Regresión Logística sigue
 siendo el estándar regulatorio por su interpretabilidad, y aquí ni siquiera pierde en rendimiento.
 
-## Notebooks relacionados
-
-- [Por qué las redes neuronales necesitan capas ocultas](../00-fundamentos-capas-ocultas/) — la base teórica: cuándo un MLP resuelve algo que un modelo lineal no puede, y cuándo no
-- [Sentimiento en reseñas IMDB](../03-clasificacion-sentimiento-imdb/) — mismo patrón en NLP: TF-IDF + Regresión Logística supera al MLP con embedding propio
 
