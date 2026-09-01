@@ -37,8 +37,8 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 
 ## Notebooks relacionados
 
-- [Regresión Lineal Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/)
-- [Gradient Boosting — Inmobiliaria](../../04-gradient-boosting/01-inmobiliaria/)
+- [Regresión Lineal Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-ventas-publicidad/)
+- [Gradient Boosting — Tasación viviendas](../../04-gradient-boosting/01-tasacion-viviendas/)
 
 
 ---

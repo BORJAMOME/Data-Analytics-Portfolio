@@ -25,7 +25,7 @@ Sintético (233 clientes): Score_Fidelidad, Ingresos_Mensuales y Compra_iPhone (
 
 ## Notebooks relacionados
 
-- [SVM — Baterías](../02-baterias/) — SVM aplicado a mantenimiento predictivo
+- [SVM — Baterías](../02-reemplazo-baterias/) — SVM aplicado a mantenimiento predictivo
 - [Gradient Boosting](../../../regresion/04-gradient-boosting/) — modelo ensemble como alternativa
 
 

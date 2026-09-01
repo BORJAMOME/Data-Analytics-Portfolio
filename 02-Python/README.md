@@ -56,9 +56,9 @@ Python 3.10 · pandas · NumPy · Matplotlib · Seaborn
 │   ├── 01-analisis-ventas-empleados/      Servicios · ¿la edad predice el rendimiento?
 │   ├── 02-habitos-rendimiento-estudiantes/ Educación · hábitos vs. nota de examen
 │   ├── 03-riesgo-salud-pacientes/         Seguros · perfil de riesgo cardiovascular
-│   └── 04-consumo-propinas-restaurante/   Restauración · pricing y turnos de personal
+│   └── 04-propinas-restaurante/            Restauración · pricing y turnos de personal
 │
-└── 02-manuales-referencia/                4 manuales de estudio
+└── 02-guias-referencia/                   4 manuales de estudio
     ├── 01-matplotlib/                     10 tipos de gráfico + cheat sheet
     ├── 02-numpy/                          Arrays, broadcasting, agregación
     ├── 03-pandas-limpieza-datos/          Pipeline completo sobre dataset "sucio"

@@ -68,27 +68,27 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Precios inmobiliarios](01-supervisado/regresion/01-regresion-lineal-simple/01-inmobiliaria/) | OLS, supuestos, residuos | `datos_regresion_casas.xlsx` |
-| 02 | [Colesterol y salud](01-supervisado/regresion/01-regresion-lineal-simple/02-salud/) | R² alto en datos sintéticos: por qué no fiarse | `patient_health.csv` |
+| 01 | [Precios inmobiliarios](01-supervisado/regresion/01-regresion-lineal-simple/01-precio-viviendas/) | OLS, supuestos, residuos | `datos_regresion_casas.xlsx` |
+| 02 | [Colesterol y salud](01-supervisado/regresion/01-regresion-lineal-simple/02-colesterol-bmi/) | R² alto en datos sintéticos: por qué no fiarse | `patient_health.csv` |
 
 **Regresión Lineal Múltiple** · [`regresion/02-regresion-lineal-multiple/`](01-supervisado/regresion/02-regresion-lineal-multiple/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-publicidad/) | Selección de variables, p-valores, R² ajustado | `Advertising.csv` |
-| 02 | [Gasto extra gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
+| 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-ventas-publicidad/) | Selección de variables, p-valores, R² ajustado | `Advertising.csv` |
+| 02 | [Gasto extra gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gasto-extra-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
 
 **Regularización — Ridge y Lasso** · [`regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/03-ridge-lasso/01-regularizacion/) | L1 vs L2, alpha óptimo, selección automática de variables | `viviendas_vigo.xlsx` |
+| 01 | [Ridge y Lasso con validación cruzada](01-supervisado/regresion/03-ridge-lasso/01-comparativa-regularizacion/) | L1 vs L2, alpha óptimo, selección automática de variables | `viviendas_vigo.xlsx` |
 
 **Gradient Boosting** · [`regresion/04-gradient-boosting/`](01-supervisado/regresion/04-gradient-boosting/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-inmobiliaria/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
+| 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-tasacion-viviendas/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
 | 02 | [Tiempo de carrera de 5K](01-supervisado/regresion/04-gradient-boosting/02-tiempo-carrera-5k/) | Detección de filas casi duplicadas, evaluación honesta sin fuga de datos | Corredores (sintético) |
 
 ### Clasificación — predecir una categoría
@@ -115,22 +115,22 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-gimnasio/) | Benchmark riguroso, recomendación de despliegue | `gym_clientes.xlsx` |
+| 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Benchmark riguroso, recomendación de despliegue | `gym_clientes.xlsx` |
 | 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
 
 **Regresión Logística** · [`clasificacion/05-regresion-logistica/`](01-supervisado/clasificacion/05-regresion-logistica/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Abandono gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-gimnasio/) | Odds ratios, VIF, inferencia estadística con statsmodels | `gym_clientes.xlsx` |
-| 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-universidad/) | Curva ROC, AUC, frontera de decisión 2D | `admitidos.xlsx` |
+| 01 | [Abandono gimnasio](01-supervisado/clasificacion/05-regresion-logistica/01-satisfaccion-gimnasio/) | Odds ratios, VIF, inferencia estadística con statsmodels | `gym_clientes.xlsx` |
+| 02 | [Admisión universitaria](01-supervisado/clasificacion/05-regresion-logistica/02-admision-universidad/) | Curva ROC, AUC, frontera de decisión 2D | `admitidos.xlsx` |
 
 **Support Vector Machine** · [`clasificacion/06-svm/`](01-supervisado/clasificacion/06-svm/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Propensión de compra iPhone](01-supervisado/clasificacion/06-svm/01-iphone/) | SVC con kernel lineal, polinómico y RBF, escalado de features | Clientes e-commerce |
-| 02 | [Reemplazo de baterías](01-supervisado/clasificacion/06-svm/02-baterias/) | SVC con kernel lineal y polinómico, mantenimiento predictivo | Baterías |
+| 01 | [Propensión de compra iPhone](01-supervisado/clasificacion/06-svm/01-compra-iphone/) | SVC con kernel lineal, polinómico y RBF, escalado de features | Clientes e-commerce |
+| 02 | [Reemplazo de baterías](01-supervisado/clasificacion/06-svm/02-reemplazo-baterias/) | SVC con kernel lineal y polinómico, mantenimiento predictivo | Baterías |
 
 **Naive Bayes** · [`clasificacion/07-naive-bayes/`](01-supervisado/clasificacion/07-naive-bayes/)
 
@@ -150,19 +150,19 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Segmentación clientes retail](02-no-supervisado/clustering/kmeans/01-caso-clientes-retail/) | Método del codo, silueta, visualización 2D | Sintético (200 clientes) |
-| 02 | [Segmentación gimnasio](02-no-supervisado/clustering/kmeans/02-caso-gym/) | Escalado, estabilidad de clusters, cross-check con abandono | `gym_clientes.xlsx` |
-| 03 | [Segmentación política](02-no-supervisado/clustering/kmeans/03-segmentacion-politica/) | Feature selection: elegir bien las variables importa más que el algoritmo | `politicos.xlsx` |
+| 01 | [Segmentación clientes retail](02-no-supervisado/clustering/kmeans/01-segmentacion-clientes-retail/) | Método del codo, silueta, visualización 2D | Sintético (200 clientes) |
+| 02 | [Segmentación gimnasio](02-no-supervisado/clustering/kmeans/02-segmentacion-gimnasio/) | Escalado, estabilidad de clusters, cross-check con abandono | `gym_clientes.xlsx` |
+| 03 | [Segmentación votantes](02-no-supervisado/clustering/kmeans/03-segmentacion-votantes/) | Feature selection: elegir bien las variables importa más que el algoritmo | `politicos.xlsx` |
 | 04 | [Segmentación retail con t-SNE](02-no-supervisado/clustering/kmeans/04-segmentacion-retail-tsne/) | t-SNE para visualizar en 2D, elección honesta de k, evaluación contra perfil ya asignado | Clientes retail (6.457 filas) |
 
 **Clustering Jerárquico** · [`clustering/jerarquico/`](02-no-supervisado/clustering/jerarquico/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso introductorio](02-no-supervisado/clustering/jerarquico/01-caso-introductorio/) | Dendrograma, 4 métodos de linkage, comparación visual | Sintético (30 usuarios) |
-| 02 | [Caso avanzado gimnasio](02-no-supervisado/clustering/jerarquico/02-caso-avanzado/) | Ward + StandardScaler, cross-check con abandono | `gym_clientes.xlsx` |
-| 03 | [Caso completo banca](02-no-supervisado/clustering/jerarquico/03-caso-completo/) | Coeficiente cofenético, silhouette plot, heatmap de perfiles | Sintético (300 clientes) |
-| 04 | [Gimnasio con 4 variables](02-no-supervisado/clustering/jerarquico/04-gimnasio-4variables/) | Radar charts, PCA 2D, personas de marketing | `gym_clientes.xlsx` |
+| 01 | [Segmentación e-commerce](02-no-supervisado/clustering/jerarquico/01-segmentacion-ecommerce/) | Dendrograma, 4 métodos de linkage, comparación visual | Sintético (30 usuarios) |
+| 02 | [Perfiles gimnasio](02-no-supervisado/clustering/jerarquico/02-perfiles-gimnasio/) | Ward + StandardScaler, cross-check con abandono | `gym_clientes.xlsx` |
+| 03 | [Segmentación banca](02-no-supervisado/clustering/jerarquico/03-segmentacion-banca/) | Coeficiente cofenético, silhouette plot, heatmap de perfiles | Sintético (300 clientes) |
+| 04 | [Perfiles gimnasio con radar](02-no-supervisado/clustering/jerarquico/04-perfiles-gimnasio-radar/) | Radar charts, PCA 2D, personas de marketing | `gym_clientes.xlsx` |
 
 ### Reducción de dimensionalidad
 
@@ -170,7 +170,7 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Análisis de comportamiento de clientes](02-no-supervisado/reduccion-dimensionalidad/pca/01-analisis-emails/) | Varianza explicada, scree plot, biplot, loadings | `PCA.xlsx` |
+| 01 | [Análisis de comportamiento de clientes](02-no-supervisado/reduccion-dimensionalidad/pca/01-comportamiento-clientes-email/) | Varianza explicada, scree plot, biplot, loadings | `PCA.xlsx` |
 | 02 | [Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | PCA + K-Means: reducir para segmentar | `employees.xlsx` |
 
 ---
@@ -205,7 +205,7 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Caso retail](04-series-temporales/arima/01-caso-retail/) | ACF/PACF, estacionariedad, ADF test, SARIMA con estacionalidad anual | `arima.xlsx` |
+| 01 | [Ventas semanales retail](04-series-temporales/arima/01-ventas-semanales-retail/) | ACF/PACF, estacionariedad, ADF test, SARIMA con estacionalidad anual | `arima.xlsx` |
 | 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
 
 ---
