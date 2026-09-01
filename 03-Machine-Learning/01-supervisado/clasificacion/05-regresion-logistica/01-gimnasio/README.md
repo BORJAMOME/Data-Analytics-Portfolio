@@ -35,7 +35,3 @@ La regresión logística traduce el mismo hallazgo que los árboles de decisión
 
 - `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`
 
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

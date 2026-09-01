@@ -17,6 +17,3 @@ La Regresión Logística obtiene **40,8% de accuracy** en los círculos concént
 ## Stack
 TensorFlow/Keras, scikit-learn (LogisticRegression, make_circles), Matplotlib, Seaborn
 
-## Notebooks relacionados
-- [Evaluación de crédito fintech](../01-clasificacion-fintech/) — mismo tipo de arquitectura aplicada a un caso de negocio real, donde el MLP *no* gana claramente al modelo lineal
-- [Forecast de consumo eléctrico](../02-forecast-consumo-electrico/)

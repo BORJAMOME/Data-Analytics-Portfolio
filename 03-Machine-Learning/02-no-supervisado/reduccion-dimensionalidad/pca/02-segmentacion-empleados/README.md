@@ -18,7 +18,4 @@ Una empresa con 232 empleados de ventas quiere identificar perfiles de rendimien
 ## Hallazgo clave
 PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con menos dimensiones, lo que mejora la estabilidad y la interpretabilidad visual.
 
-## Notebooks relacionados
-- [PCA análisis emails](../01-analisis-emails/) — PCA standalone con 10 variables
-- [K-Means avanzado](../../../clustering/kmeans/02-caso-gym/) — K-Means sin reducción previa
 

@@ -54,7 +54,3 @@ La probabilidad de admisión depende principalmente del **rendimiento en el exam
 - `scikit-learn`
 - `statsmodels`
 
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

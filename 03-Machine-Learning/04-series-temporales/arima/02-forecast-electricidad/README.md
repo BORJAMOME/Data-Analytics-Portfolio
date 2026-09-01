@@ -28,7 +28,3 @@ Una empresa energética necesita predecir el consumo eléctrico hora a hora para
 
 El modelo consigue un **MAPE inferior al 3%**, capturando bien los patrones diarios de consumo, incluidos los picos y valles horarios. Precisión de sobra para apoyar la planificación energética.
 
-
----
-
-[Volver al índice de Machine Learning](../../../README.md)

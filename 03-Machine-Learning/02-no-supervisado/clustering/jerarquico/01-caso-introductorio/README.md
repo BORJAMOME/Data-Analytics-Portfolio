@@ -15,8 +15,3 @@ Sintético: 30 usuarios con 3 grupos naturales generados vía `make_blobs`.
 ## Hallazgo clave
 Ward produce los clusters más compactos y equilibrados — recomendado como default para datos bien separados.
 
-## Notebooks relacionados
-- [02-caso-avanzado](../02-caso-avanzado/) — 2 variables reales (gimnasio)
-- [03-caso-completo](../03-caso-completo/) — coeficiente cofenético + silhouette
-- [04-gimnasio-4variables](../04-gimnasio-4variables/) — radar charts con 4 features
-
