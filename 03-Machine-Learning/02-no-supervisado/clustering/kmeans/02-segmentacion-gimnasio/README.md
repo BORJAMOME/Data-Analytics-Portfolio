@@ -17,7 +17,4 @@ Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campa�
 ## Hallazgo clave
 Los clusters son estables a través de múltiples inicializaciones (baja varianza en silhouette), confirmando que los segmentos son reales y no artefactos de la semilla.
 
-## Notebooks relacionados
-- [Jerárquico 4 variables](../../jerarquico/04-perfiles-gimnasio-radar/) — misma fuente con clustering jerárquico
-- [Segmentación clientes retail](../01-segmentacion-clientes-retail/) — fundamentos K-Means
 
