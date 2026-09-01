@@ -21,6 +21,3 @@ Con solo 9 variables de comportamiento, K-Means recupera casi exactamente (96.8%
 ## Stack
 pandas, NumPy, scikit-learn (`TSNE`, `KMeans`, `silhouette_score`), Matplotlib, Seaborn
 
-## Notebooks relacionados
-- [Segmentación clientes retail](../01-segmentacion-clientes-retail/) — mismo dominio (retail), dataset sintético más simple
-- [Segmentación votantes](../03-segmentacion-votantes/) — mismo patrón de honestidad en la elección de k y evaluación de resultados
