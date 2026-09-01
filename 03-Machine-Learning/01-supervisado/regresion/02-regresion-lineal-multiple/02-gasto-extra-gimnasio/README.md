@@ -25,8 +25,8 @@ El gasto extra depende de la combinación de antigüedad, frecuencia y uso en ho
 
 ## Notebooks relacionados
 
-- [Regresión Logística — Abandono](../../../clasificacion/05-regresion-logistica/01-gimnasio/) — mismo dataset, ángulo de clasificación
-- [Regresión Múltiple — Publicidad](../01-publicidad/) — mismo algoritmo, dataset de marketing
+- [Regresión Logística — Abandono](../../../clasificacion/05-regresion-logistica/01-satisfaccion-gimnasio/) — mismo dataset, ángulo de clasificación
+- [Regresión Múltiple — Publicidad](../01-ventas-publicidad/) — mismo algoritmo, dataset de marketing
 
 
 

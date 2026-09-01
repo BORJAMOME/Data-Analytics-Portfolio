@@ -22,7 +22,7 @@ Comparar tres algoritmos de clasificación sobre las variables disponibles y det
 >
 > Esto NO es un fallo del modelo — es un fallo de los datos. Las variables disponibles simplemente no contienen información predictiva sobre el churn.
 
-Este es el caso opuesto al [notebook del gimnasio](../01-gimnasio/): allí la señal era tan fuerte que bastaba un árbol simple; aquí no hay señal que capturar.
+Este es el caso opuesto al [notebook del gimnasio](../01-satisfaccion-gimnasio/): allí la señal era tan fuerte que bastaba un árbol simple; aquí no hay señal que capturar.
 
 ## Librerías principales
 

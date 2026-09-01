@@ -32,7 +32,7 @@ scikit-learn (GradientBoostingRegressor), pandas, Matplotlib, Seaborn
 
 ## Notebooks relacionados
 
-- [Gradient Boosting — Tasación de viviendas](../01-inmobiliaria/) — mismo algoritmo, comparativa directa con regresión lineal
+- [Gradient Boosting — Tasación de viviendas](../01-tasacion-viviendas/) — mismo algoritmo, comparativa directa con regresión lineal
 
 ---
 

@@ -15,7 +15,7 @@ No hay NLP, similitud semántica ni ningún modelo de lenguaje: la intención de
 se resuelve por selección explícita de menú, no por interpretación de texto libre.
 
 ## Por qué está aquí
-Este caso es deliberadamente el **Nivel 0** de la categoría `01-Agentes-IA`: la línea base
+Este caso es deliberadamente el **Nivel 0** de la categoría `01-agentes-ia`: la línea base
 de "cero inteligencia" frente a la que se comparan los siguientes casos, donde el mismo
 tipo de problema (interpretar qué quiere el usuario) se resuelve primero con similitud
 semántica (sin LLM) y después con un LLM local — mostrando qué aporta realmente cada capa
