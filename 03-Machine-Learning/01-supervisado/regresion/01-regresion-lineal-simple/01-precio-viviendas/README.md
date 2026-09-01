@@ -26,8 +26,8 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 
 ## Notebooks relacionados
 
-- [Regresión Simple — Salud](../02-salud/) — mismo algoritmo, caso donde R² es bajo (hallazgo negativo válido)
-- [Regresión Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-publicidad/) — añadir más variables para mejorar R²
+- [Regresión Simple — Colesterol](../02-colesterol-bmi/) — mismo algoritmo, caso donde R² es bajo (hallazgo negativo válido)
+- [Regresión Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-ventas-publicidad/) — añadir más variables para mejorar R²
 
 
 ---
