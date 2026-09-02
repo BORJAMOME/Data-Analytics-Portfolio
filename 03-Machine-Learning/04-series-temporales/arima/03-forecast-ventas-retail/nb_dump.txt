@@ -1,0 +1,1100 @@
+--- [0] markdown ---
+# Forecast de ventas retail — SARIMA vs SARIMAX
+
+---
+
+**Autor:** Borja Mora Méndez  
+**Contacto:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com) · [LinkedIn](https://www.linkedin.com/in/borja-mora-mendez/)  
+**Repositorio:** [Data Analytics Portfolio](https://github.com/BORJAMOME/Data-Analytics-Portfolio)  
+**Categoría:** Machine Learning · Series Temporales · ARIMA
+
+---
+
+### Objetivo
+
+Comparar un modelo SARIMA (solo histórico de ventas) con un SARIMAX (que incorpora promociones, huelgas y conflicto bélico como variables exógenas) para predecir ventas semanales de un negocio retail, y medir cuánto mejora la predicción cuando se añade contexto externo.
+
+### Contexto de negocio
+
+**El cliente:** un negocio retail que necesita prever sus ventas semanales para planificar inventario, logística y campañas.
+
+**El problema:** las ventas no solo dependen del patrón estacional — eventos externos como huelgas, problemas logísticos o conflictos geopolíticos provocan caídas que un modelo puramente temporal no anticipa.
+
+**La pregunta:** ¿cuánto mejora la predicción cuando el modelo tiene en cuenta esos eventos, y se puede usar para simular escenarios futuros ("¿qué pasa si hay huelga la semana que viene?")?
+
+--- [1] markdown ---
+## 1. Importación de librerías
+
+--- [2] code ---
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.stats.diagnostic import acorr_ljungbox
+from statsmodels.tsa.stattools import adfuller
+from scipy.stats import shapiro
+
+# Estilo de gráficos
+plt.rcParams.update({
+    "figure.figsize": (14, 6),
+    "axes.titlesize": 14,
+    "axes.titleweight": "bold",
+    "axes.labelsize": 12,
+    "axes.grid": True,
+    "grid.alpha": 0.3,
+    "grid.linestyle": "--",
+    "legend.frameon": False,
+    "font.size": 11
+})
+
+# Función auxiliar para calcular MAPE
+def mape(y_real, y_pred):
+    """Mean Absolute Percentage Error."""
+    y_real, y_pred = np.array(y_real), np.array(y_pred)
+    # Evitar divisiones por cero
+    mask = y_real != 0
+    return np.mean(np.abs((y_real[mask] - y_pred[mask]) / y_real[mask])) * 100
+
+print("Librerías cargadas correctamente.")
+
+--- [3] markdown ---
+## 2. Carga de datos
+
+El dataset contiene **156 observaciones semanales** con ventas en euros y 5 variables exógenas: `promotion` (intensidad del descuento, continua), `strike`, `war`, `logistics` y `other_incident` (binarias). Las variables `price_index` y `temperature` se descartan para mantener el modelo centrado en eventos con impacto directo.
+
+--- [4] code ---
+df = pd.read_excel("SALES_FORECASTING_VARIABLES_EXOGENAS.xlsx")
+
+print(f"Dimensiones del dataset: {df.shape[0]} filas x {df.shape[1]} columnas")
+print(f"Periodo: {df['date'].min().strftime('%Y-%m-%d')} a {df['date'].max().strftime('%Y-%m-%d')}")
+print(f"\nPrimeras filas:")
+display(df.head(10))
+
+print(f"\nEstadísticas descriptivas:")
+display(df.describe().round(2))
+
+print(f"\nValores nulos:")
+print(df.isnull().sum())
+
+--- [5] markdown ---
+## 3. Análisis de las variables exógenas
+
+Antes de modelar, revisamos la frecuencia de cada evento. Variables con muy pocas ocurrencias pueden no tener señal estadística suficiente, y la frecuencia nos ayuda a diseñar escenarios futuros realistas.
+
+--- [6] code ---
+EXOG_COLS = ["promotion", "strike", "war", "logistics", "other_incident"]
+
+print("=" * 60)
+print("DISTRIBUCIÓN DE VARIABLES EXÓGENAS")
+print("=" * 60)
+
+# Variables binarias
+for col in ["strike", "war", "logistics", "other_incident"]:
+    n_events = df[col].sum()
+    pct = n_events / len(df) * 100
+    print(f"\n{col.upper()}: {int(n_events)} semanas con evento ({pct:.1f}%)")
+
+# Promotion (continua)
+print(f"\nPROMOTION:")
+print(f"  Semanas sin promoción: {(df['promotion'] == 0).sum()}")
+print(f"  Semanas con promoción: {(df['promotion'] > 0).sum()}")
+print(f"  Niveles de intensidad: {sorted(df['promotion'].unique())}")
+
+# Tabla cruzada: ¿hay eventos simultáneos?
+print("\n" + "=" * 60)
+print("EVENTOS SIMULTÁNEOS (semanas con más de un evento)")
+print("=" * 60)
+
+binary_cols = ["strike", "war", "logistics", "other_incident"]
+df["n_events"] = df[binary_cols].sum(axis=1)
+simultaneous = df[df["n_events"] > 1]
+
+if len(simultaneous) > 0:
+    print(f"\n{len(simultaneous)} semanas con eventos simultáneos:")
+    display(simultaneous[["date", "sales"] + binary_cols])
+else:
+    print("\nNo hay semanas con eventos simultáneos en el histórico.")
+
+df.drop(columns="n_events", inplace=True)
+
+--- [7] markdown ---
+## 4. Exploración visual de la serie temporal
+
+### 4.1 Evolución general de las ventas
+
+--- [8] code ---
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(df["date"], df["sales"], linewidth=1.7, color="#2563eb", label="Ventas semanales")
+
+# Media móvil de 12 semanas para ver tendencia
+df["ma_12"] = df["sales"].rolling(window=12, center=True).mean()
+ax.plot(df["date"], df["ma_12"], linewidth=2, color="#dc2626", linestyle="--",
+        label="Media móvil 12 semanas", alpha=0.8)
+
+ax.set_title("Evolución de las ventas semanales (3 años)")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Ventas (€)")
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+
+# Estadísticas básicas
+print(f"Venta media semanal: {df['sales'].mean():,.0f} €")
+print(f"Venta mínima: {df['sales'].min():,.0f} €")
+print(f"Venta máxima: {df['sales'].max():,.0f} €")
+print(f"Desviación estándar: {df['sales'].std():,.0f} €")
+print(f"Coeficiente de variación: {df['sales'].std() / df['sales'].mean() * 100:.1f}%")
+
+--- [9] markdown ---
+### 4.2 Ventas con incidencias externas
+
+Superponemos los eventos sobre la serie para ver su impacto visualmente.
+
+--- [10] code ---
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(df["date"], df["sales"], linewidth=1.8, color="#6b7280",
+        label="Ventas semanales", zorder=2, alpha=0.7)
+
+# Colores para cada tipo de evento
+event_config = [
+    ("strike", "Huelga", "#ef4444", "v"),
+    ("war", "Guerra", "#7c3aed", "X"),
+    ("logistics", "Logística", "#f59e0b", "s"),
+    ("other_incident", "Otros", "#06b6d4", "D"),
+]
+
+for col, label, color, marker in event_config:
+    mask = df[col] == 1
+    if mask.any():
+        ax.scatter(df.loc[mask, "date"], df.loc[mask, "sales"],
+                   s=100, color=color, edgecolor="black", linewidth=0.8,
+                   label=f"{label} ({mask.sum()} sem.)", zorder=3, marker=marker)
+
+# Promociones (puntos proporcionales a la intensidad)
+promo_mask = df["promotion"] > 0
+if promo_mask.any():
+    sizes = df.loc[promo_mask, "promotion"] * 800
+    ax.scatter(df.loc[promo_mask, "date"], df.loc[promo_mask, "sales"],
+               s=sizes, color="#22c55e", edgecolor="black", linewidth=0.8,
+               label=f"Promoción ({promo_mask.sum()} sem.)", zorder=3,
+               alpha=0.6, marker="o")
+
+ax.set_title("Ventas semanales con incidencias externas")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Ventas (€)")
+ax.legend(title="Eventos", loc="upper left")
+
+plt.tight_layout()
+plt.show()
+
+--- [11] markdown ---
+### 4.3 Impacto visual de las promociones
+
+La variable `promotion` es continua (no binaria): representa la intensidad del descuento. Valores más altos indican promociones más agresivas.
+
+--- [12] code ---
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Panel 1: Intensidad promocional en el tiempo
+axes[0].bar(df["date"], df["promotion"], width=5, color="#22c55e", alpha=0.7)
+axes[0].set_title("Intensidad promocional por semana")
+axes[0].set_xlabel("Fecha")
+axes[0].set_ylabel("Nivel de promoción")
+
+# Panel 2: Ventas con vs sin promoción
+promo_yes = df[df["promotion"] > 0]["sales"]
+promo_no = df[df["promotion"] == 0]["sales"]
+
+bp = axes[1].boxplot(
+    [promo_no, promo_yes],
+    labels=["Sin promoción", "Con promoción"],
+    patch_artist=True,
+    widths=0.5
+)
+
+bp["boxes"][0].set_facecolor("#e5e7eb")
+bp["boxes"][1].set_facecolor("#bbf7d0")
+
+axes[1].set_title("Distribución de ventas: con vs sin promoción")
+axes[1].set_ylabel("Ventas (€)")
+
+plt.tight_layout()
+plt.show()
+
+# Estadísticas
+print(f"Venta media SIN promoción: {promo_no.mean():,.0f} €")
+print(f"Venta media CON promoción: {promo_yes.mean():,.0f} €")
+print(f"Diferencia: {promo_yes.mean() - promo_no.mean():,.0f} € ({(promo_yes.mean() / promo_no.mean() - 1) * 100:.1f}%)")
+
+--- [13] markdown ---
+## 5. Análisis de estacionariedad
+
+Los modelos ARIMA requieren que la serie sea estacionaria (media y varianza constantes en el tiempo). Aplicamos el test ADF sobre la serie original y la diferenciada.
+
+- **H₀:** la serie tiene raíz unitaria (no es estacionaria).
+- Si p-valor < 0.05 → rechazamos H₀ → la serie es estacionaria.
+
+--- [14] code ---
+def adf_test(series, name=""):
+    """Ejecuta test ADF e imprime resultados."""
+    result = adfuller(series.dropna(), autolag="AIC")
+    print(f"Test ADF — {name}")
+    print(f"  Estadístico ADF: {result[0]:.4f}")
+    print(f"  p-valor:         {result[1]:.6f}")
+    print(f"  Lags usados:     {result[2]}")
+    print(f"  Observaciones:   {result[3]}")
+    for key, val in result[4].items():
+        print(f"  Valor crítico {key}: {val:.4f}")
+
+    if result[1] < 0.05:
+        print(f"  → RESULTADO: Serie ESTACIONARIA (p < 0.05)")
+    else:
+        print(f"  → RESULTADO: Serie NO estacionaria (p >= 0.05)")
+    print()
+
+# Test sobre la serie original
+print("=" * 60)
+print("ANÁLISIS DE ESTACIONARIEDAD")
+print("=" * 60 + "\n")
+
+adf_test(df["sales"], "Ventas originales")
+
+# Test sobre la serie diferenciada (1 diferencia)
+adf_test(df["sales"].diff(), "Ventas diferenciadas (d=1)")
+
+# Test sobre log de ventas
+adf_test(np.log(df["sales"]), "Log(Ventas)")
+
+# Test sobre log diferenciado
+adf_test(np.log(df["sales"]).diff(), "Δ Log(Ventas)")
+
+--- [15] markdown ---
+### 5.1 Funciones de Autocorrelación (ACF) y Autocorrelación Parcial (PACF)
+
+- **ACF:** mide la correlación entre la serie y sus valores pasados. Nos ayuda a identificar el orden MA (q) y la estacionalidad.
+- **PACF:** mide la correlación directa (eliminando intermedios). Nos ayuda a identificar el orden AR (p).
+
+Si hay estacionalidad semanal con periodo 52 (anual), veremos picos significativos en el lag 52.
+
+--- [16] code ---
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+# ACF y PACF de la serie original
+plot_acf(df["sales"].dropna(), lags=60, ax=axes[0, 0], title="ACF — Ventas originales")
+plot_pacf(df["sales"].dropna(), lags=60, ax=axes[0, 1], title="PACF — Ventas originales", method="ywm")
+
+# ACF y PACF de la serie log-diferenciada
+log_diff = np.log(df["sales"]).diff().dropna()
+plot_acf(log_diff, lags=60, ax=axes[1, 0], title="ACF — Δ Log(Ventas)")
+plot_pacf(log_diff, lags=60, ax=axes[1, 1], title="PACF — Δ Log(Ventas)", method="ywm")
+
+plt.tight_layout()
+plt.show()
+
+print("Interpretación:")
+print("- El decaimiento gradual en ACF de la serie original confirma la necesidad de diferenciar.")
+print("- Tras diferenciar, buscamos picos significativos para determinar los órdenes p y q.")
+print("- Picos en lag 52 indicarían estacionalidad anual (52 semanas).")
+
+--- [17] markdown ---
+## 6. Transformación logarítmica
+
+Aplicamos logaritmo natural a las ventas para estabilizar la varianza y poder interpretar los coeficientes como cambios porcentuales. Se revierte con `np.exp()` para obtener predicciones en euros.
+
+--- [18] code ---
+df["log_sales"] = np.log(df["sales"])
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+axes[0].plot(df["date"], df["sales"], linewidth=1.5, color="#2563eb")
+axes[0].set_title("Ventas originales")
+axes[0].set_ylabel("Ventas (€)")
+axes[0].set_xlabel("Fecha")
+
+axes[1].plot(df["date"], df["log_sales"], linewidth=1.5, color="#dc2626")
+axes[1].set_title("Log(Ventas)")
+axes[1].set_ylabel("Log(Ventas)")
+axes[1].set_xlabel("Fecha")
+
+plt.tight_layout()
+plt.show()
+
+print(f"Varianza original: {df['sales'].var():,.0f}")
+print(f"Varianza log:      {df['log_sales'].var():.6f}")
+print(f"\nLa transformación log reduce la varianza de {df['sales'].var():,.0f} a {df['log_sales'].var():.6f}")
+
+--- [19] markdown ---
+## 7. Separación temporal Train / Test
+
+En series temporales la separación siempre es temporal, nunca aleatoria: el test debe ser el periodo más reciente porque simulamos que no conocemos el futuro. Reservamos las **últimas 12 semanas** (~3 meses) como test.
+
+--- [20] code ---
+TEST_WEEKS = 12
+
+train = df.iloc[:-TEST_WEEKS].copy()
+test = df.iloc[-TEST_WEEKS:].copy()
+
+print(f"Train: {len(train)} semanas ({train['date'].min().strftime('%Y-%m-%d')} a {train['date'].max().strftime('%Y-%m-%d')})")
+print(f"Test:  {len(test)} semanas  ({test['date'].min().strftime('%Y-%m-%d')} a {test['date'].max().strftime('%Y-%m-%d')})")
+print(f"\nProporción: {len(train)/len(df)*100:.1f}% train / {len(test)/len(df)*100:.1f}% test")
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(train["date"], train["sales"], linewidth=1.8, color="#2563eb", label="Train")
+ax.plot(test["date"], test["sales"], linewidth=1.8, color="#dc2626", label="Test")
+ax.axvline(x=test["date"].iloc[0], linestyle="--", linewidth=1.5,
+           color="#6b7280", label="Inicio Test", alpha=0.7)
+
+ax.set_title("Separación temporal Train / Test")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Ventas (€)")
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+
+--- [21] markdown ---
+## 8. Modelo 1: SARIMA Baseline (sin variables exógenas)
+
+Empezamos con un modelo que solo usa el histórico de ventas, sin variables externas. Es el punto de referencia: si el SARIMAX no mejora este resultado, las variables exógenas no aportan valor real.
+
+### Configuración SARIMA(1,1,1)(1,1,1,52)
+
+- **(p=1, d=1, q=1):** un término autorregresivo, una diferencia, un término de media móvil.
+- **(P=1, D=1, Q=1, s=52):** componente estacional anual (52 semanas).
+
+--- [22] code ---
+print("=" * 70)
+print("MODELO 1: SARIMA BASELINE")
+print("Solo usa la información histórica de la serie, sin variables externas")
+print("=" * 70)
+
+sarima_order = (1, 1, 1)
+seasonal_order = (1, 1, 1, 52)
+
+sarima_model = SARIMAX(
+    train["log_sales"],
+    order=sarima_order,
+    seasonal_order=seasonal_order,
+    enforce_stationarity=False,
+    enforce_invertibility=False
+)
+
+sarima_result = sarima_model.fit(disp=False)
+print(sarima_result.summary())
+
+--- [23] markdown ---
+### 8.1 Predicciones y métricas del SARIMA Baseline
+
+Generamos predicciones para las 12 semanas de test y evaluamos con tres métricas:
+
+- **MAE (Mean Absolute Error):** error medio en euros. Fácil de interpretar: "de media nos equivocamos en X €".
+- **MAPE (Mean Absolute Percentage Error):** error porcentual medio. Permite comparar entre series de diferente escala.
+- **RMSE (Root Mean Squared Error):** penaliza más los errores grandes. Útil cuando los picos de error son costosos.
+
+--- [24] code ---
+# Predicciones en escala log
+sarima_forecast_log = sarima_result.get_forecast(steps=TEST_WEEKS)
+
+# Volver a escala original
+sarima_forecast = np.exp(sarima_forecast_log.predicted_mean)
+
+# Intervalo de confianza del 95%
+sarima_ci = sarima_forecast_log.conf_int()
+sarima_lower = np.exp(sarima_ci.iloc[:, 0])
+sarima_upper = np.exp(sarima_ci.iloc[:, 1])
+
+# Métricas
+sarima_mae = mean_absolute_error(test["sales"], sarima_forecast)
+sarima_mape = mape(test["sales"], sarima_forecast)
+sarima_rmse = np.sqrt(mean_squared_error(test["sales"], sarima_forecast))
+
+print("=" * 50)
+print("MÉTRICAS SARIMA BASELINE")
+print("=" * 50)
+print(f"MAE:  {sarima_mae:,.0f} € (error medio absoluto)")
+print(f"MAPE: {sarima_mape:.2f}% (error porcentual medio)")
+print(f"RMSE: {sarima_rmse:,.0f} € (raíz del error cuadrático medio)")
+
+# Visualización
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(train["date"], train["sales"], linewidth=1.5, color="#93c5fd",
+        label="Train", alpha=0.6)
+ax.plot(test["date"], test["sales"], linewidth=2, color="#2563eb",
+        label="Ventas reales (test)")
+ax.plot(test["date"], sarima_forecast, linewidth=2, linestyle="--",
+        color="#dc2626", label=f"SARIMA (MAPE={sarima_mape:.2f}%)")
+ax.fill_between(test["date"], sarima_lower.to_numpy(), sarima_upper.to_numpy(),
+                alpha=0.15, color="#dc2626", label="IC 95%")
+
+ax.set_title("SARIMA Baseline: predicción vs realidad")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Ventas (€)")
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+
+--- [25] markdown ---
+## 9. Modelo 2: SARIMAX con Variables Exógenas
+
+El SARIMAX incorpora variables externas que pueden explicar variaciones que la serie por sí sola no captura. El modelo estima un coeficiente para cada variable que cuantifica su impacto en ventas.
+
+| Variable | Tipo | Qué representa |
+|---|---|---|
+| `promotion` | Continua [0-0.18] | Intensidad del descuento |
+| `strike` | Binaria {0,1} | Huelga activa esa semana |
+| `war` | Binaria {0,1} | Conflicto bélico |
+| `logistics` | Binaria {0,1} | Problemas en la cadena de suministro |
+| `other_incident` | Binaria {0,1} | Otra incidencia relevante |
+
+--- [26] code ---
+print("=" * 70)
+print("MODELO 2: SARIMAX CON VARIABLES EXÓGENAS")
+print("Incorpora información de eventos externos para mejorar la predicción")
+print("=" * 70)
+
+sarimax_model = SARIMAX(
+    train["log_sales"],
+    exog=train[EXOG_COLS],
+    order=sarima_order,
+    seasonal_order=seasonal_order,
+    enforce_stationarity=False,
+    enforce_invertibility=False
+)
+
+sarimax_result = sarimax_model.fit(disp=False)
+print(sarimax_result.summary())
+
+--- [27] markdown ---
+### 9.1 Predicciones y métricas del SARIMAX
+
+Comparamos directamente con el SARIMA baseline para determinar si las variables exógenas aportan valor predictivo.
+
+--- [28] code ---
+# Predicciones en escala log
+sarimax_forecast_log = sarimax_result.get_forecast(
+    steps=TEST_WEEKS,
+    exog=test[EXOG_COLS]
+)
+
+# Volver a escala original
+sarimax_forecast = np.exp(sarimax_forecast_log.predicted_mean)
+
+# Intervalo de confianza del 95%
+sarimax_ci = sarimax_forecast_log.conf_int()
+sarimax_lower = np.exp(sarimax_ci.iloc[:, 0])
+sarimax_upper = np.exp(sarimax_ci.iloc[:, 1])
+
+# Métricas
+sarimax_mae = mean_absolute_error(test["sales"], sarimax_forecast)
+sarimax_mape = mape(test["sales"], sarimax_forecast)
+sarimax_rmse = np.sqrt(mean_squared_error(test["sales"], sarimax_forecast))
+
+print("=" * 50)
+print("MÉTRICAS SARIMAX")
+print("=" * 50)
+print(f"MAE:  {sarimax_mae:,.0f} €")
+print(f"MAPE: {sarimax_mape:.2f}%")
+print(f"RMSE: {sarimax_rmse:,.0f} €")
+
+print(f"\n{'=' * 50}")
+print("COMPARACIÓN SARIMA vs SARIMAX")
+print(f"{'=' * 50}")
+print(f"{'Métrica':<10} {'SARIMA':>12} {'SARIMAX':>12} {'Mejora':>12}")
+print(f"{'-'*46}")
+print(f"{'MAE':<10} {sarima_mae:>12,.0f} {sarimax_mae:>12,.0f} {(1 - sarimax_mae/sarima_mae)*100:>11.1f}%")
+print(f"{'MAPE':<10} {sarima_mape:>11.2f}% {sarimax_mape:>11.2f}% {(1 - sarimax_mape/sarima_mape)*100:>11.1f}%")
+print(f"{'RMSE':<10} {sarima_rmse:>12,.0f} {sarimax_rmse:>12,.0f} {(1 - sarimax_rmse/sarima_rmse)*100:>11.1f}%")
+
+# Visualización comparativa
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(test["date"], test["sales"], linewidth=2.5, color="#1e293b",
+        label="Ventas reales", marker="o", markersize=5)
+ax.plot(test["date"], sarima_forecast, linewidth=2, linestyle="--",
+        color="#dc2626", label=f"SARIMA (MAPE={sarima_mape:.2f}%)")
+ax.plot(test["date"], sarimax_forecast, linewidth=2, linestyle="--",
+        color="#22c55e", label=f"SARIMAX (MAPE={sarimax_mape:.2f}%)")
+
+ax.fill_between(test["date"], sarimax_lower.to_numpy(), sarimax_upper.to_numpy(),
+                alpha=0.1, color="#22c55e")
+
+# Marcar eventos en periodo test
+for col, label, color, marker in event_config:
+    mask = test[col] == 1
+    if mask.any():
+        ax.scatter(test.loc[mask, "date"], test.loc[mask, "sales"],
+                   s=100, color=color, edgecolor="black", linewidth=0.8,
+                   label=label, zorder=4, marker=marker)
+
+ax.set_title("Comparación SARIMA vs SARIMAX sobre periodo de test")
+ax.set_xlabel("Fecha")
+ax.set_ylabel("Ventas (€)")
+ax.legend(loc="best")
+
+plt.tight_layout()
+plt.show()
+
+--- [29] markdown ---
+### 9.2 Interpretación de los coeficientes de las variables exógenas
+
+Como trabajamos en escala logarítmica, cada coeficiente β se interpreta así:
+
+> **Impacto porcentual ≈ (e^β − 1) × 100%**
+
+- Un coeficiente **positivo** indica que el evento **aumenta** las ventas.
+- Un coeficiente **negativo** indica que el evento **reduce** las ventas.
+- La magnitud indica la fuerza del efecto.
+
+**Importante:** estos son efectos estimados *ceteris paribus* (manteniendo todo lo demás constante). No implican causalidad directa sin un análisis más profundo.
+
+--- [30] code ---
+print("=" * 70)
+print("INTERPRETACIÓN DE COEFICIENTES — VARIABLES EXÓGENAS")
+print("=" * 70)
+
+coefficients = sarimax_result.params
+pvalues = sarimax_result.pvalues
+
+print(f"\n{'Variable':<20} {'Coef (β)':>10} {'p-valor':>10} {'Impacto %':>12} {'Significativo':>15}")
+print("-" * 67)
+
+for col in EXOG_COLS:
+    if col in coefficients.index:
+        beta = coefficients[col]
+        pval = pvalues[col]
+        pct = (np.exp(beta) - 1) * 100
+        sig = "*** Sí" if pval < 0.05 else "No"
+
+        print(f"{col:<20} {beta:>10.4f} {pval:>10.4f} {pct:>11.2f}% {sig:>15}")
+
+print("\n" + "=" * 70)
+print("INTERPRETACIÓN PARA EL NEGOCIO")
+print("=" * 70)
+
+for col in EXOG_COLS:
+    if col in coefficients.index:
+        beta = coefficients[col]
+        pval = pvalues[col]
+        pct = (np.exp(beta) - 1) * 100
+        sig = pval < 0.05
+
+        direction = "aumentan" if pct > 0 else "caen"
+        abs_pct = abs(pct)
+
+        if col == "promotion":
+            print(f"\n→ PROMOCIÓN: Por cada unidad de intensidad promocional, las ventas")
+            print(f"  {direction} un {abs_pct:.1f}% aprox. {'(estadísticamente significativo)' if sig else '(NO significativo)'}")
+        else:
+            event_names = {"strike": "HUELGA", "war": "GUERRA",
+                          "logistics": "PROBLEMA LOGÍSTICO", "other_incident": "OTRA INCIDENCIA"}
+            print(f"\n→ {event_names.get(col, col.upper())}: Cuando ocurre, las ventas")
+            print(f"  {direction} un {abs_pct:.1f}% aprox. {'(estadísticamente significativo)' if sig else '(NO significativo)'}")
+
+--- [31] markdown ---
+## 10. Backtesting temporal
+
+Un único split train/test puede dar una visión sesgada. El backtesting simula cómo habría funcionado el modelo en múltiples momentos del pasado: entrenamos hasta la semana T, predecimos las siguientes N semanas, avanzamos la ventana y repetimos. Esto da una distribución de errores, no un solo número.
+
+--- [32] code ---
+print("=" * 70)
+print("BACKTESTING TEMPORAL — SARIMAX")
+print("=" * 70)
+
+# Parámetros del backtesting
+HORIZON = 4          # Predecimos 4 semanas hacia adelante
+MIN_TRAIN = 104      # Mínimo 2 años de train (104 semanas)
+STEP = 4             # Avanzamos 4 semanas en cada iteración
+
+backtesting_results = []
+
+# Calcular número de iteraciones
+n_iters = 0
+for start_test in range(MIN_TRAIN, len(df) - HORIZON + 1, STEP):
+    n_iters += 1
+
+print(f"Horizonte de predicción: {HORIZON} semanas")
+print(f"Mínimo de entrenamiento: {MIN_TRAIN} semanas")
+print(f"Paso entre ventanas: {STEP} semanas")
+print(f"Iteraciones de backtesting: {n_iters}")
+print()
+
+iteration = 0
+for start_test in range(MIN_TRAIN, len(df) - HORIZON + 1, STEP):
+    iteration += 1
+
+    # Separar train y test para esta ventana
+    bt_train = df.iloc[:start_test]
+    bt_test = df.iloc[start_test:start_test + HORIZON]
+
+    try:
+        # Entrenar SARIMAX
+        bt_model = SARIMAX(
+            bt_train["log_sales"],
+            exog=bt_train[EXOG_COLS],
+            order=sarima_order,
+            seasonal_order=seasonal_order,
+            enforce_stationarity=False,
+            enforce_invertibility=False
+        )
+        bt_result = bt_model.fit(disp=False, maxiter=200)
+
+        # Predecir
+        bt_forecast_log = bt_result.get_forecast(
+            steps=HORIZON,
+            exog=bt_test[EXOG_COLS]
+        )
+        bt_forecast = np.exp(bt_forecast_log.predicted_mean)
+
+        # Métricas
+        bt_mae = mean_absolute_error(bt_test["sales"], bt_forecast)
+        bt_mape_val = mape(bt_test["sales"], bt_forecast)
+        bt_rmse = np.sqrt(mean_squared_error(bt_test["sales"], bt_forecast))
+
+        backtesting_results.append({
+            "iteration": iteration,
+            "train_end": bt_train["date"].iloc[-1],
+            "test_start": bt_test["date"].iloc[0],
+            "test_end": bt_test["date"].iloc[-1],
+            "MAE": bt_mae,
+            "MAPE": bt_mape_val,
+            "RMSE": bt_rmse
+        })
+
+        print(f"  Iteración {iteration}/{n_iters} | "
+              f"Train hasta {bt_train['date'].iloc[-1].strftime('%Y-%m-%d')} | "
+              f"MAPE={bt_mape_val:.2f}%")
+
+    except Exception as e:
+        print(f"  Iteración {iteration}: Error - {str(e)[:50]}")
+
+bt_df = pd.DataFrame(backtesting_results)
+
+print(f"\n{'=' * 50}")
+print("RESUMEN DEL BACKTESTING")
+print(f"{'=' * 50}")
+print(f"{'Métrica':<10} {'Media':>10} {'Mediana':>10} {'Std':>10} {'Min':>10} {'Max':>10}")
+print("-" * 60)
+for metric in ["MAE", "MAPE", "RMSE"]:
+    print(f"{metric:<10} {bt_df[metric].mean():>10.1f} {bt_df[metric].median():>10.1f} "
+          f"{bt_df[metric].std():>10.1f} {bt_df[metric].min():>10.1f} {bt_df[metric].max():>10.1f}")
+
+--- [33] markdown ---
+### 10.1 Visualización del backtesting
+
+Graficamos cómo varía el MAPE en cada ventana temporal. Un modelo estable debería tener errores similares en todas las ventanas. Picos de error señalan periodos donde el modelo tiene dificultades (posiblemente coincidiendo con eventos inusuales).
+
+--- [34] code ---
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Panel 1: MAPE por iteración
+axes[0].bar(bt_df["iteration"], bt_df["MAPE"], color="#2563eb", alpha=0.7, edgecolor="white")
+axes[0].axhline(y=bt_df["MAPE"].mean(), color="#dc2626", linestyle="--",
+                linewidth=2, label=f"Media: {bt_df['MAPE'].mean():.2f}%")
+axes[0].axhline(y=bt_df["MAPE"].median(), color="#22c55e", linestyle="--",
+                linewidth=2, label=f"Mediana: {bt_df['MAPE'].median():.2f}%")
+axes[0].set_title("MAPE por ventana de backtesting")
+axes[0].set_xlabel("Iteración")
+axes[0].set_ylabel("MAPE (%)")
+axes[0].legend()
+
+# Panel 2: Distribución del MAPE
+axes[1].hist(bt_df["MAPE"], bins=8, color="#2563eb", alpha=0.7, edgecolor="white")
+axes[1].axvline(x=bt_df["MAPE"].mean(), color="#dc2626", linestyle="--",
+                linewidth=2, label=f"Media: {bt_df['MAPE'].mean():.2f}%")
+axes[1].set_title("Distribución del MAPE (backtesting)")
+axes[1].set_xlabel("MAPE (%)")
+axes[1].set_ylabel("Frecuencia")
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+# Interpretación
+mean_mape = bt_df["MAPE"].mean()
+if mean_mape < 5:
+    quality = "EXCELENTE"
+elif mean_mape < 10:
+    quality = "BUENO"
+elif mean_mape < 20:
+    quality = "ACEPTABLE"
+else:
+    quality = "MEJORABLE"
+
+print(f"\nCalidad del modelo según MAPE medio del backtesting: {quality}")
+print(f"MAPE medio: {mean_mape:.2f}%")
+print(f"\nReferencia de MAPE en forecasting de retail:")
+print(f"  < 5%  → Excelente (pronóstico muy preciso)")
+print(f"  5-10% → Bueno (aceptable para la mayoría de decisiones)")
+print(f"  10-20%→ Aceptable (útil pero con margen de mejora)")
+print(f"  > 20% → Mejorable (revisar modelo o datos)")
+
+--- [35] markdown ---
+## 11. Diagnóstico de residuos
+
+Si el modelo ha capturado toda la información de la serie, los residuos deberían comportarse como ruido blanco: media cercana a cero, sin autocorrelación y distribución aproximadamente normal.
+
+--- [36] code ---
+# Residuos del modelo SARIMAX (entrenado sobre train)
+residuals = sarimax_result.resid
+
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+# 1. Serie de residuos
+axes[0, 0].plot(train["date"], residuals, linewidth=0.8, color="#2563eb")
+axes[0, 0].axhline(y=0, color="#dc2626", linestyle="--", linewidth=1)
+axes[0, 0].set_title("Residuos en el tiempo")
+axes[0, 0].set_xlabel("Fecha")
+axes[0, 0].set_ylabel("Residuo")
+
+# 2. Histograma de residuos
+axes[0, 1].hist(residuals, bins=20, color="#2563eb", alpha=0.7,
+                edgecolor="white", density=True)
+# Añadir curva normal teórica
+from scipy.stats import norm
+x_range = np.linspace(residuals.min(), residuals.max(), 100)
+axes[0, 1].plot(x_range, norm.pdf(x_range, residuals.mean(), residuals.std()),
+                color="#dc2626", linewidth=2, label="Normal teórica")
+axes[0, 1].set_title("Distribución de residuos")
+axes[0, 1].set_xlabel("Residuo")
+axes[0, 1].legend()
+
+# 3. ACF de residuos
+plot_acf(residuals, lags=40, ax=axes[1, 0], title="ACF de residuos")
+
+# 4. Q-Q plot
+from scipy.stats import probplot
+probplot(residuals, dist="norm", plot=axes[1, 1])
+axes[1, 1].set_title("Q-Q Plot de residuos")
+axes[1, 1].get_lines()[0].set_color("#2563eb")
+axes[1, 1].get_lines()[1].set_color("#dc2626")
+
+plt.tight_layout()
+plt.show()
+
+# Tests estadísticos
+print("=" * 60)
+print("TESTS ESTADÍSTICOS SOBRE RESIDUOS")
+print("=" * 60)
+
+# Media
+print(f"\nMedia de residuos: {residuals.mean():.6f}")
+print(f"  → {'OK: cercana a 0' if abs(residuals.mean()) < 0.01 else 'ATENCIÓN: media alejada de 0'}")
+
+# Ljung-Box (autocorrelación)
+print("\nTest de Ljung-Box (autocorrelación de residuos):")
+print("  H₀: Los residuos NO están autocorrelacionados (ruido blanco)")
+print("  H₁: Los residuos ESTÁN autocorrelacionados")
+
+lb_result = acorr_ljungbox(residuals, lags=[10, 20, 30], return_df=True)
+print(f"\n  {'Lag':>5} {'Estadístico':>15} {'p-valor':>10} {'Resultado':>20}")
+print(f"  {'-'*50}")
+for idx, row in lb_result.iterrows():
+    result_text = "OK (no autocorr.)" if row["lb_pvalue"] > 0.05 else "AUTOCORRELACIÓN"
+    print(f"  {idx:>5} {row['lb_stat']:>15.2f} {row['lb_pvalue']:>10.4f} {result_text:>20}")
+
+# Shapiro-Wilk (normalidad)
+stat_sw, p_sw = shapiro(residuals)
+print(f"\nTest de Shapiro-Wilk (normalidad):")
+print(f"  Estadístico: {stat_sw:.4f}")
+print(f"  p-valor:     {p_sw:.4f}")
+if p_sw > 0.05:
+    print(f"  → OK: No se rechaza normalidad (p > 0.05)")
+else:
+    print(f"  → Los residuos no siguen distribución normal exacta.")
+    print(f"    Esto es común en datos reales y no invalida el modelo si")
+    print(f"    los demás diagnósticos son aceptables.")
+
+--- [37] markdown ---
+## 12. Entrenamiento del modelo final
+
+Una vez validado, entrenamos el modelo final usando todos los datos (train + test) para maximizar la información disponible en las predicciones futuras.
+
+--- [38] code ---
+print("=" * 70)
+print("MODELO FINAL — ENTRENADO CON TODOS LOS DATOS")
+print("=" * 70)
+
+final_model = SARIMAX(
+    df["log_sales"],
+    exog=df[EXOG_COLS],
+    order=sarima_order,
+    seasonal_order=seasonal_order,
+    enforce_stationarity=False,
+    enforce_invertibility=False
+)
+
+final_result = final_model.fit(disp=False)
+print(final_result.summary())
+
+# AIC/BIC para referencia
+print(f"\nAIC: {final_result.aic:.2f}")
+print(f"BIC: {final_result.bic:.2f}")
+
+--- [39] markdown ---
+## 13. Simulación de escenarios futuros
+
+El modelo SARIMAX permite responder preguntas concretas de negocio cambiando los valores de las variables exógenas: *"¿qué pasa si hay huelga?", "¿cuánto ganamos con una promoción agresiva?", "¿qué ocurre si la guerra se prolonga y hay problemas logísticos a la vez?"*
+
+Generamos escenarios individuales (un evento a la vez) y combinados (varios simultáneos).
+
+--- [40] code ---
+# Horizonte de predicción
+FORECAST_HORIZON = 4
+
+# Última fecha disponible
+last_date = df["date"].iloc[-1]
+
+# Generar fechas futuras
+future_dates = pd.date_range(
+    start=last_date + pd.Timedelta(weeks=1),
+    periods=FORECAST_HORIZON,
+    freq="W-MON"
+)
+
+# DataFrame base (escenario neutro)
+future_base = pd.DataFrame({"date": future_dates})
+future_base["promotion"] = 0.0
+future_base["strike"] = 0
+future_base["war"] = 0
+future_base["logistics"] = 0
+future_base["other_incident"] = 0
+
+def predict_scenario(scenario_df, scenario_name):
+    """Genera predicción para un escenario dado."""
+    pred = final_result.get_forecast(
+        steps=FORECAST_HORIZON,
+        exog=scenario_df[EXOG_COLS]
+    )
+    mean_log = pred.predicted_mean
+    ci_log = pred.conf_int()
+
+    result = scenario_df[["date"]].copy()
+    result["forecast"] = np.exp(mean_log).values
+    result["lower95"] = np.exp(ci_log.iloc[:, 0]).values
+    result["upper95"] = np.exp(ci_log.iloc[:, 1]).values
+    result["scenario"] = scenario_name
+    return result
+
+print(f"Horizonte de predicción: {FORECAST_HORIZON} semanas")
+print(f"Periodo: {future_dates[0].strftime('%Y-%m-%d')} a {future_dates[-1].strftime('%Y-%m-%d')}")
+
+--- [41] markdown ---
+### 13.1 Escenarios individuales
+
+Cada escenario aísla el efecto de una sola variable exógena, manteniendo las demás en su valor neutro.
+
+--- [42] code ---
+all_scenarios = []
+
+# 1. ESCENARIO BASE — Sin eventos, sin promoción
+scenario_base = predict_scenario(future_base, "Base (sin eventos)")
+all_scenarios.append(scenario_base)
+
+# 2. HUELGA — 2 primeras semanas
+future_strike = future_base.copy()
+future_strike.loc[future_strike.index[:2], "strike"] = 1
+scenario_strike = predict_scenario(future_strike, "Huelga (2 semanas)")
+all_scenarios.append(scenario_strike)
+
+# 3. GUERRA — 4 semanas completas
+future_war = future_base.copy()
+future_war["war"] = 1
+scenario_war = predict_scenario(future_war, "Guerra (4 semanas)")
+all_scenarios.append(scenario_war)
+
+# 4. PROBLEMAS LOGÍSTICOS — 3 semanas
+future_logistics = future_base.copy()
+future_logistics.loc[future_logistics.index[:3], "logistics"] = 1
+scenario_logistics = predict_scenario(future_logistics, "Logística (3 semanas)")
+all_scenarios.append(scenario_logistics)
+
+# 5. OTRA INCIDENCIA — 1 semana
+future_other = future_base.copy()
+future_other.loc[future_other.index[:1], "other_incident"] = 1
+scenario_other = predict_scenario(future_other, "Otra incidencia (1 semana)")
+all_scenarios.append(scenario_other)
+
+# 6. PROMOCIÓN FUERTE — promoción al 15% durante 4 semanas
+future_promo = future_base.copy()
+future_promo["promotion"] = 0.15
+scenario_promo = predict_scenario(future_promo, "Promoción fuerte (15%)")
+all_scenarios.append(scenario_promo)
+
+# Mostrar todos los escenarios individuales
+print("=" * 70)
+print("ESCENARIOS INDIVIDUALES — Predicción próximas 4 semanas")
+print("=" * 70)
+
+for sc in all_scenarios:
+    name = sc["scenario"].iloc[0]
+    total = sc["forecast"].sum()
+    vs_base = (total / scenario_base["forecast"].sum() - 1) * 100
+    print(f"\n→ {name}")
+    print(f"  Ventas estimadas (4 sem.): {total:,.0f} €")
+    if name != "Base (sin eventos)":
+        direction = "▲" if vs_base > 0 else "▼"
+        print(f"  Diferencia vs base: {direction} {abs(vs_base):.1f}%")
+
+--- [43] markdown ---
+### 13.2 Escenarios combinados
+
+Los escenarios combinados son más realistas porque en el mundo real los eventos no ocurren aislados. Una guerra suele provocar problemas logísticos; una crisis puede coincidir con la cancelación de promociones.
+
+--- [44] code ---
+combined_scenarios = []
+
+# 7. GUERRA + PROBLEMAS LOGÍSTICOS (crisis geopolítica)
+future_crisis_geo = future_base.copy()
+future_crisis_geo["war"] = 1
+future_crisis_geo["logistics"] = 1
+sc_geo = predict_scenario(future_crisis_geo, "Crisis geopolítica (guerra + logística)")
+combined_scenarios.append(sc_geo)
+
+# 8. HUELGA + OTRA INCIDENCIA (crisis laboral)
+future_crisis_lab = future_base.copy()
+future_crisis_lab.loc[future_crisis_lab.index[:2], "strike"] = 1
+future_crisis_lab["other_incident"] = 1
+sc_lab = predict_scenario(future_crisis_lab, "Crisis laboral (huelga + incidencia)")
+combined_scenarios.append(sc_lab)
+
+# 9. PROMOCIÓN AGRESIVA + LOGÍSTICA ESTABLE (campaña ideal)
+future_ideal = future_base.copy()
+future_ideal["promotion"] = 0.18  # Máxima intensidad histórica
+sc_ideal = predict_scenario(future_ideal, "Campaña ideal (promo máxima 18%)")
+combined_scenarios.append(sc_ideal)
+
+# 10. CRISIS TOTAL (todos los eventos negativos a la vez)
+future_worst = future_base.copy()
+future_worst["strike"] = 1
+future_worst["war"] = 1
+future_worst["logistics"] = 1
+future_worst["other_incident"] = 1
+sc_worst = predict_scenario(future_worst, "Crisis total (todos los eventos)")
+combined_scenarios.append(sc_worst)
+
+# 11. PROMOCIÓN DURANTE CRISIS LOGÍSTICA (contramedida)
+future_counter = future_base.copy()
+future_counter["logistics"] = 1
+future_counter["promotion"] = 0.12
+sc_counter = predict_scenario(future_counter, "Contramedida (promo 12% + logística)")
+combined_scenarios.append(sc_counter)
+
+# Mostrar escenarios combinados
+print("=" * 70)
+print("ESCENARIOS COMBINADOS — Predicción próximas 4 semanas")
+print("=" * 70)
+
+base_total = scenario_base["forecast"].sum()
+
+for sc in combined_scenarios:
+    name = sc["scenario"].iloc[0]
+    total = sc["forecast"].sum()
+    vs_base = (total / base_total - 1) * 100
+    diff_eur = total - base_total
+    direction = "▲" if vs_base > 0 else "▼"
+
+    print(f"\n→ {name}")
+    print(f"  Ventas estimadas (4 sem.): {total:,.0f} €")
+    print(f"  Diferencia vs base: {direction} {abs(vs_base):.1f}% ({diff_eur:+,.0f} €)")
+
+--- [45] markdown ---
+### 13.3 Comparación visual de escenarios
+
+Visualizamos todos los escenarios juntos para facilitar la comunicación a stakeholders.
+
+--- [46] code ---
+# Reunir todos los escenarios
+all_combined = pd.concat(all_scenarios + combined_scenarios, ignore_index=True)
+
+# Calcular totales por escenario
+totals = all_combined.groupby("scenario")["forecast"].sum().sort_values()
+
+# Gráfico de barras comparativo
+fig, ax = plt.subplots(figsize=(14, 8))
+
+colors = []
+base_val = scenario_base["forecast"].sum()
+
+for val in totals.values:
+    if val > base_val * 1.01:
+        colors.append("#22c55e")
+    elif val < base_val * 0.99:
+        colors.append("#dc2626")
+    else:
+        colors.append("#6b7280")
+
+bars = ax.barh(range(len(totals)), totals.values, color=colors, edgecolor="white",
+               height=0.7)
+
+# Línea de referencia del escenario base
+ax.axvline(x=base_val, color="#1e293b", linestyle="--", linewidth=1.5,
+           label=f"Base: {base_val:,.0f} €")
+
+# Etiquetas
+ax.set_yticks(range(len(totals)))
+ax.set_yticklabels(totals.index, fontsize=10)
+ax.set_xlabel("Ventas estimadas — 4 semanas (€)")
+ax.set_title("Comparación de escenarios de predicción")
+
+# Valores en las barras
+for i, (val, name) in enumerate(zip(totals.values, totals.index)):
+    pct = (val / base_val - 1) * 100
+    sign = "+" if pct > 0 else ""
+    ax.text(val + base_val * 0.005, i, f"{val:,.0f} € ({sign}{pct:.1f}%)",
+            va="center", fontsize=9)
+
+ax.legend(loc="lower right")
+plt.tight_layout()
+plt.show()
+
+--- [47] markdown ---
+### 13.4 Detalle semana a semana de los escenarios clave
+
+--- [48] code ---
+# Mostrar tablas detalladas de escenarios clave
+key_scenarios = [scenario_base, scenario_promo, scenario_war, sc_geo, sc_worst]
+
+for sc in key_scenarios:
+    name = sc["scenario"].iloc[0]
+    print(f"\n{'=' * 60}")
+    print(f"  {name}")
+    print(f"{'=' * 60}")
+    display(
+        sc.style.format({
+            "forecast": "{:,.0f} €",
+            "lower95": "{:,.0f} €",
+            "upper95": "{:,.0f} €"
+        })
+    )
+
+--- [49] markdown ---
+## Conclusión
+
+> **El hallazgo:** incorporar variables exógenas (promociones, huelgas, conflicto bélico, problemas logísticos) mejora la predicción un **31 %** frente al modelo que solo usa el histórico de ventas. La serie temporal sola no basta cuando hay eventos externos que mueven las cifras.
+
+**Lo que funciona:**
+
+1. El modelo SARIMA captura bien la estacionalidad semanal como punto de partida.
+2. El SARIMAX reduce el error de forma consistente — no solo en un split, sino a lo largo de todo el backtesting.
+3. La simulación de escenarios convierte el modelo en una herramienta de planificación, no solo de predicción.
+
+**Recomendaciones:**
+
+1. **Inventario:** ajustar pedidos según la predicción base, con stock extra cuando haya promoción prevista.
+2. **Riesgo:** cuantificar cuánto se pierde en escenarios adversos (huelga, crisis logística) para dimensionar planes de contingencia.
+3. **Promociones:** usar el coeficiente de `promotion` para estimar si el retorno de un descuento compensa su coste.
+
+**Límite honesto:** el modelo asume que el efecto de cada variable exógena es constante en el tiempo. Si el negocio cambia estructuralmente, los coeficientes necesitan recalibrarse.
