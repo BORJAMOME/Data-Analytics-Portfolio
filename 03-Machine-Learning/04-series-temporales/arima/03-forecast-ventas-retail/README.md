@@ -2,6 +2,8 @@
 
 Caso de negocio: una cadena retail quiere estimar ventas semanales incorporando eventos externos (promociones, huelgas, guerras, problemas logísticos). La comparación entre un SARIMA baseline y un SARIMAX con variables exógenas demuestra que **los eventos externos reducen el error de predicción un 31 %**, bajando el MAPE del 7,78 % al 5,31 %.
 
+Este notebook es el análisis completo. Si prefieres recorrer el caso como una historia interactiva —sin necesidad de tocar código— hay una aplicación en Streamlit que lo explica de principio a fin y deja simular escenarios en vivo: **[forecast-ventas-retail-app](https://github.com/BORJAMOME/forecast-ventas-retail-app)**.
+
 ---
 
 ## Contexto de negocio
