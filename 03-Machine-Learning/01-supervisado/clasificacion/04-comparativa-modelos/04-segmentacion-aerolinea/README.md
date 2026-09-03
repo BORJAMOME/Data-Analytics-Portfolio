@@ -1,5 +1,7 @@
 # Comparativa de 3 modelos — Segmentación de clientes de aerolínea
 
+Este notebook es el análisis completo. Si prefieres recorrer el caso como una historia interactiva — sin necesidad de tocar código — hay una aplicación en Streamlit que compara los 3 modelos y deja construir un cliente hipotético para ver si los modelos están de acuerdo sobre su segmento: **[comparativa-modelos-aerolinea-app](https://github.com/BORJAMOME/comparativa-modelos-aerolinea-app)**.
+
 Caso de negocio: una aerolínea quiere clasificar automáticamente a sus clientes en tres segmentos (Básico, Frecuente, Premium) para diseñar acciones comerciales diferenciadas. La comparativa de tres algoritmos sobre 1 500 clientes y 20 variables revela que **Gradient Boosting alcanza un F1-macro del 78,4 %**, superando al baseline aleatorio (17,6 %) y a la Regresión Logística (66,2 %).
 
 ---
