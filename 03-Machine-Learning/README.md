@@ -1,4 +1,4 @@
-# Machine Learning — 35 Casos Prácticos
+# Machine Learning — 36 Casos Prácticos
 
 > Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
@@ -10,7 +10,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **35 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **36 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -52,8 +52,11 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   ├── mlp/                                 4 casos · Fundamentos, fintech, forecast eléctrico, sentimiento IMDB
 │   └── som/                                 2 casos · Mapas autoorganizados, clustering visual
 │
-└── 04-series-temporales/                    2 notebooks
-    └── arima/                               2 casos · Estacionariedad, SARIMA, forecast
+├── 04-series-temporales/                    2 notebooks
+│   └── arima/                               2 casos · Estacionariedad, SARIMA, forecast
+│
+└── 05-aprendizaje-por-refuerzo/              1 notebook
+    └── sarsa/                               1 caso  · Política óptima, validación contra solución analítica
 ```
 
 ---
@@ -207,5 +210,17 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 |---|---|---|---|
 | 01 | [Ventas semanales retail](04-series-temporales/arima/01-ventas-semanales-retail/) | ACF/PACF, estacionariedad, ADF test, SARIMA con estacionalidad anual | `arima.xlsx` |
 | 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
+
+---
+
+## 05 · Aprendizaje por Refuerzo
+
+Un agente aprende una política de decisión por ensayo y error, optimizando la recompensa acumulada a largo plazo en lugar de predecir una etiqueta.
+
+**SARSA** · [`sarsa/`](05-aprendizaje-por-refuerzo/sarsa/)
+
+| # | Caso | Qué se aprende | Dataset |
+|---|---|---|---|
+| 01 | [Política de marketing personalizado](05-aprendizaje-por-refuerzo/sarsa/01-marketing-ecommerce/) | SARSA on-policy con ε-greedy, validación contra la solución analítica exacta, +92% de recompensa frente a política aleatoria | Entorno simulado (MDP, 4 estados × 4 acciones) |
 
 ---

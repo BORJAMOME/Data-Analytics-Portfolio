@@ -13,7 +13,7 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
 ├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
-├── 03-Machine-Learning/        35 casos: supervisado, no supervisado, RRNN, series
+├── 03-Machine-Learning/        36 casos: supervisado, no supervisado, RRNN, series, refuerzo
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
 
@@ -47,20 +47,21 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**35 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, CNN, SOM) y series temporales (ARIMA).
+**36 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, SOM), series temporales (ARIMA) y aprendizaje por refuerzo (SARSA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-**[Ver los 35 proyectos →](03-Machine-Learning/)**
+**[Ver los 36 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
-Agentes de IA, APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima categoría.
+Agentes de IA, sistemas de recomendación, APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima incorporación.
 
-**Stack:** ipyleaflet, mlxtend, ultralytics (YOLOv8), ByteTrack, PySpark (Spark SQL, MLlib).
+**Stack:** scikit-learn (TF-IDF, similitud coseno), ipyleaflet, mlxtend, ultralytics (YOLOv8), ByteTrack, PySpark (Spark SQL, MLlib).
 
 | Proyecto | Qué se aprende |
 |----------|---------------|
 | [Chatbot de reservas — Nivel 0](04-IA-BigData/01-agentes-ia/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base de la progresión hacia agentes con IA |
+| [Recomendador de películas por contenido](04-IA-BigData/02-sistemas-recomendacion/01-recomendador-peliculas-contenido/) | Filtrado basado en contenido (TF-IDF + similitud coseno), visualización PCA del espacio de películas, cuándo usarlo frente al filtrado colaborativo |
 | [Simulador de rutas reales — OSRM](04-IA-BigData/03-apis-visualizacion/01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
 | [Cesta de la compra — Apriori](04-IA-BigData/04-mineria-datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
 | [Detección de objetos en imágenes](04-IA-BigData/06-vision-artificial/01-deteccion-objetos-imagenes/) | YOLOv8 preentrenado, límites de un modelo genérico frente a clases no vistas |
