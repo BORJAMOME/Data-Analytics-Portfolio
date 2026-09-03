@@ -1,5 +1,7 @@
 # K-Means + t-SNE — Segmentación de clientes retail
 
+Este notebook es el análisis completo. Si prefieres recorrer el caso como una historia interactiva —sin necesidad de tocar código— hay una aplicación en Streamlit que lo explica de principio a fin y deja construir un cliente hipotético para ver en qué segmento cae: **[segmentacion-retail-app](https://github.com/BORJAMOME/segmentacion-retail-app)**.
+
 ## Contexto de negocio
 Una cadena de electrónica de consumo (tipo MediaMarkt) trata a toda su base de clientes por igual. No hay una forma sistemática de distinguir al comprador ocasional de bajo ticket del cliente de alto valor, ni de dirigir el presupuesto de retención a quien más lo necesita.
 
