@@ -1,6 +1,6 @@
 # Análisis Conjoint — Preferencias de Vuelos
 
-Este notebook es el análisis completo. Si prefieres recorrer el caso como una historia interactiva — sin necesidad de tocar código — hay una aplicación en Streamlit que lo explica de principio a fin y deja diseñar un vuelo hipotético para ver cómo lo valoraría cada segmento de cliente: **[conjoint-vuelos-app](https://github.com/BORJAMOME/conjoint-vuelos-app)**.
+En este notebook encontaras el caso completo. Si prefieres recorrer el caso de manera interactiva, sin necesidad de tocar código, he creado esta aplicación en Streamlit que lo explica de principio a fin y deja diseñar un vuelo hipotético para ver cómo lo valoraría cada segmento de cliente: **[conjoint-vuelos-app](https://github.com/BORJAMOME/conjoint-vuelos-app)**.
 
 ¿Cuánto vale realmente cada característica de un vuelo — precio, equipaje, escalas, flexibilidad — para el cliente, y es el mismo valor para todo el mundo? Un análisis conjoint descompone la valoración global de 24.000 valoraciones de vuelo en la contribución individual de cada atributo, y compara esa prioridad entre tres segmentos de cliente.
 
