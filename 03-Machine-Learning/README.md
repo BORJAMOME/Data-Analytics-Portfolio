@@ -1,19 +1,19 @@
 # Machine Learning — 36 Casos Prácticos
 
-> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
+> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp intensvo de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
 ---
 
-Cada notebook está construido como un **caso de consultoría**: empieza con una pregunta de negocio, elige el modelo adecuado (no el más complejo), evalúa con métricas relevantes y termina con una recomendación clara. Cuando un modelo no funciona, se documenta por qué — porque saber cuándo **no** usar un algoritmo es tan valioso como saber usarlo.
+Cada notebook está construido como un **caso de consultoría**: empieza con una pregunta de negocio, elige el modelo adecuado (no el más complejo), evalúa con métricas relevantes y termina con una recomendación clara.
 
 **Lo que encontrarás aquí:**
 
 - **36 notebooks** organizados por tipo de aprendizaje y familia de modelo
-- **16 datasets** reales y didácticos de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
+- **16 datasets** reales de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
-- **Progresión deliberada** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
+- **Progresión de conocimientos** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
 
 ---
 
