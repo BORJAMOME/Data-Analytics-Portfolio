@@ -1,6 +1,6 @@
-# Árbol de Decisión — Predicción de la satisfacción de clientes en un gimnasio
+# Árbol de Decisión — Predicción de la satisfacción de clientes en una cadena de gimnasios
 
-Un Árbol de Decisión de solo **2 niveles** predice la satisfacción de los clientes de una cadena de gimnasios con un **90% de accuracy**, utilizando reglas simples e interpretables que pueden aplicarse directamente en el negocio.
+Árbol de Decisión de solo **2 niveles** predice la satisfacción de los clientes de una cadena de gimnasios con un **90% de accuracy**, utilizando reglas simples e interpretables que pueden aplicarse directamente en el negocio.
 
 ---
 
@@ -31,7 +31,7 @@ Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione media
 
 - `Satisfecho` (clasificación binaria)
 
-La variable `Abandono` se excluye del entrenamiento para evitar **data leakage**.
+**Importante** La variable `Abandono` se excluye del entrenamiento para evitar **data leakage**.
 
 ## Técnicas aplicadas
 
