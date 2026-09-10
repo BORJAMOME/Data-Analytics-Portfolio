@@ -1,4 +1,4 @@
-# Random Forest — Predicción de la satisfacción de clientes en un gimnasio
+# Random Forest - Predicción de la satisfacción de clientes en un gimnasio
 
 Un **Random Forest de 100 árboles** confirma el mismo patrón identificado por el Árbol de Decisión: la **frecuencia de asistencia** es el principal factor que explica la satisfacción de los clientes. Más que mejorar la precisión, este modelo aporta una mayor robustez al validar el resultado mediante un conjunto de árboles entrenados sobre muestras diferentes.
 
@@ -12,7 +12,7 @@ Tras construir un Árbol de Decisión sencillo e interpretable, se evalúa si un
 
 ## Objetivo
 
-Entrenar un **Random Forest Classifier**, seleccionar un número adecuado de árboles mediante validación cruzada, analizar la importancia de las variables utilizando dos métodos diferentes y evaluar el rendimiento del modelo.
+Entrenar un **Random Forest**, seleccionar un número adecuado de árboles mediante validación cruzada, analizar la importancia de las variables utilizando dos métodos diferentes y evaluar el rendimiento del modelo.
 
 ## Dataset
 
