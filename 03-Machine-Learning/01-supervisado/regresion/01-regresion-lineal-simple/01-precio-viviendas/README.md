@@ -24,12 +24,3 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 
 > Cada metro cuadrado adicional añade ~2.500 USD al precio. El modelo explica más del 75% de la variabilidad solo con la superficie.
 
-## Notebooks relacionados
-
-- [Regresión Simple — Colesterol](../02-colesterol-bmi/) — mismo algoritmo, caso donde R² es bajo (hallazgo negativo válido)
-- [Regresión Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-ventas-publicidad/) — añadir más variables para mejorar R²
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)
