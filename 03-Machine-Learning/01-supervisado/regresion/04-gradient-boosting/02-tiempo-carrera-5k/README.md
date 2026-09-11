@@ -29,11 +29,3 @@ El notebook de origen incluía una referencia a un "modelo estratificado" de com
 ## Stack
 
 scikit-learn (GradientBoostingRegressor), pandas, Matplotlib, Seaborn
-
-## Notebooks relacionados
-
-- [Gradient Boosting — Tasación de viviendas](../01-tasacion-viviendas/) — mismo algoritmo, comparativa directa con regresión lineal
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

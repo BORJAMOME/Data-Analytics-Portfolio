@@ -34,13 +34,3 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 ### Hallazgo clave
 
 > **Lasso obtiene el mejor resultado**, aunque la diferencia respecto a Ridge es pequeña. Los metros son, con diferencia, la variable con mayor peso en el precio. Lasso mantiene las 6 variables, pero reduce y estabiliza sus coeficientes.
-
-## Notebooks relacionados
-
-- [Regresión Lineal Múltiple — Publicidad](../../02-regresion-lineal-multiple/01-ventas-publicidad/)
-- [Gradient Boosting — Tasación viviendas](../../04-gradient-boosting/01-tasacion-viviendas/)
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)

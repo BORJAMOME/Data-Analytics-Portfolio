@@ -23,12 +23,3 @@ Una plataforma de tasación online necesita estimaciones precisas. La regresión
 
 > Gradient Boosting captura relaciones no lineales que la regresión lineal pierde. La feature importance revela qué variables importan realmente en la tasación.
 
-## Notebooks relacionados
-
-- [Regresión Lineal Simple — Precio viviendas](../../01-regresion-lineal-simple/01-precio-viviendas/) — misma pregunta, una sola variable
-- [Gradient Boosting — Tiempo de carrera de 5K](../02-tiempo-carrera-5k/) — mismo algoritmo, otro dominio
-
-
----
-
-[Volver al índice de Machine Learning](../../../../README.md)
