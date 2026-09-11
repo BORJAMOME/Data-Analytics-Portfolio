@@ -1,6 +1,6 @@
 # Sistema de color de los notebooks
 
-> Paleta y reglas de color validadas (consejo UX/UI Data + validador de accesibilidad CVD) que se aplican a **todos los gráficos matplotlib/seaborn** de este portfolio. Documento de referencia para no reinventar el sistema cada vez que se crea o audita un notebook nuevo.
+> Paleta y reglas de color validadas (consejo UX/UI Data + validador de accesibilidad CVD) que se aplican a **todos los gráficos matplotlib/seaborn** de este portfolio — no solo `03-Machine-Learning`, también `04-IA-BigData` y cualquier otra sección con notebooks. Documento de referencia para no reinventar el sistema cada vez que se crea o audita un notebook nuevo.
 
 ---
 
@@ -163,6 +163,16 @@ SEQUENTIAL_PURPLE = LinearSegmentedColormap.from_list(
 - **Mapa de segmentos** (K-Means sobre los pesos del SOM): identidad de cluster → `ListedColormap(CLUSTER_PALETTE[:k])`, regla 12.
 - **Categoría real superpuesta al mapa SOM o a una proyección PCA** (ej. posición real de un jugador): identidad de categoría → `CLUSTER_PALETTE[i]` + `CLUSTER_MARKERS[i]`, mismo color en todos los gráficos del notebook que usen esa misma categoría (regla de oro).
 
+### 14. Identidad categórica de alta cardinalidad (>7 categorías sin orden ni signo)
+`CLUSTER_PALETTE` está validado (CVD, pares adyacentes) solo para sus 7 hues en ese orden — no lo extiendas ni lo repitas ciclando cuando hay más categorías, eso rompe la validación silenciosamente. Cuando una variable categórica pura (sin relación de orden, sin lectura de signo) tiene más de 7 valores únicos — ej. 16 géneros de película en un scatter PCA — no existe ninguna paleta que garantice distinguibilidad todos-contra-todos a esa escala, así que el objetivo cambia: dejar de depender del color como único canal de identificación.
+
+- Usa un colormap cualitativo estándar de matplotlib (`plt.cm.tab20`, `tab20b`, etc.) en vez de forzar `CLUSTER_PALETTE` fuera de su rango validado. Esto **no** está verificado con el validador CVD — es una concesión pragmática, no una garantía de accesibilidad, y hay que decirlo así si alguien pregunta.
+- Compensa siempre con una etiqueta de texto por punto (título, nombre, id) para que la identificación real no dependa del color — el color da una impresión aproximada de agrupación, la etiqueta da la identificación exacta.
+- Sigue prohibido el hue puro de `POSITIVE`/`NEGATIVE` dentro de ese colormap si por casualidad coincide visualmente con esos tonos y la categoría en cuestión pudiera confundirse con un signo — revisar visualmente antes de dar por bueno.
+
+### 15. Gráficos en Plotly (no matplotlib/seaborn)
+Cuando un notebook usa Plotly para una visualización interactiva (ej. scatter de reglas de asociación support/confidence/lift), aplica los mismos tokens como strings hex directos vía `marker=dict(color=PURPLE, ...)` / `fig.update_layout(paper_bgcolor=BACKGROUND, plot_bgcolor=BACKGROUND, font_color=INK)` — mismas reglas de significado (rule 9 para scatter de una sola serie sin grupos, etc.), solo cambia la API para aplicarlas.
+
 ---
 
 ## Accesibilidad — ya validado, no hace falta repetir el cálculo
@@ -184,8 +194,10 @@ SEQUENTIAL_PURPLE = LinearSegmentedColormap.from_list(
 | `02-no-supervisado/clustering/` | ✅ Migrada | 9 notebooks |
 | `02-no-supervisado/reduccion-dimensionalidad/` | ✅ Migrada | 2 notebooks |
 | `03-redes-neuronales/` | ✅ Migrada | mlp (4 notebooks), som (2 notebooks) |
-| `04-series-temporales/` | ⬜ Pendiente | arima |
-| `05-aprendizaje-por-refuerzo/` | ⬜ Pendiente | sarsa |
+| `04-series-temporales/` | ✅ Migrada | arima (3 notebooks) |
+| `05-aprendizaje-por-refuerzo/` | ✅ Migrada | sarsa (1 notebook) |
+| `04-IA-BigData/02-sistemas-recomendacion/01-recomendador-peliculas-contenido/` | ✅ Migrada | 1 notebook — introduce la regla 14 (identidad de alta cardinalidad) |
+| `04-IA-BigData/04-mineria-datos/01-cesta-compra-apriori/` | ✅ Migrada | 1 notebook — incluye un gráfico en Plotly (regla 15) |
 
 ## Casos especiales ya resueltos (para no volver a decidirlos)
 
@@ -198,3 +210,6 @@ SEQUENTIAL_PURPLE = LinearSegmentedColormap.from_list(
 - **Target binario con lectura de negocio real** (ej. `Aprobado`/`Rechazado`, `Requiere_reemplazo`): aunque sea la "identidad" de una categoría en un scatter o una barra de distribución, si una clase es objetivamente el desenlace bueno y la otra el malo, se trata como signo real → `POSITIVE`/`NEGATIVE`, no como identidad neutra. Distinto de clases sintéticas sin lectura de negocio (ej. `make_circles`, XOR), que sí son identidad pura → `PURPLE` + `CONTEXT_LINES[0]`.
 - **Comparativa de 3+ modelos en el mismo gráfico** (ej. MLP vs Regresión Lineal vs Random Forest, tanto en scatter real-vs-predicho como en barra de métrica): es identidad de modelo, nunca signo → el protagonista en `PURPLE`, el resto en `CONTEXT_LINES[0]`, `CONTEXT_LINES[1]`... en el mismo orden en todos los gráficos del notebook donde aparezcan esos modelos (regla de oro).
 - **Segunda métrica en un eje secundario (`twinx`)** que no es la serie protagonista (ej. R² de validación superpuesto al loss de entrenamiento): no es signo ni identidad de cluster → trátala como serie de contexto, `CONTEXT_LINES[0]`.
+- **Eventos externos superpuestos en una serie temporal** (huelga, guerra, incidencia logística, promoción): si el evento tiene una lectura de negocio real (perjudica o favorece la métrica), es signo, no identidad arbitraria — no uses `CLUSTER_PALETTE`. Todos los eventos negativos comparten `NEGATIVE` (huelga, guerra, logística, otra incidencia) diferenciados solo por forma de marcador; el evento positivo (promoción) usa `POSITIVE`. La serie base de fondo va en `NEUTRAL_LINE`.
+- **Serie temporal con predicción y ground truth real** (backtesting, val vs test): la línea de fondo/histórico sin evaluar va en `NEUTRAL_LINE`; el valor real que se usa para evaluar el modelo (test, ground truth) va en `INK` (es la referencia, igual que la diagonal "predicción perfecta"); la predicción del modelo (la serie protagonista, la que se está mostrando/evaluando) va en `PURPLE`, con su banda de intervalo de confianza también en `PURPLE` a baja alpha. La línea vertical de corte train/test o inicio de forecast es una anotación de referencia → `INK`, nunca `NEGATIVE`.
+- **Comparativa de 2 variantes de un mismo modelo (ej. SARIMA vs SARIMAX)**: identidad, no signo — la variante que el notebook recomienda/destaca como resultado final va en `PURPLE`, la otra en `CONTEXT_LINES[0]`, igual que Ridge vs Lasso.
