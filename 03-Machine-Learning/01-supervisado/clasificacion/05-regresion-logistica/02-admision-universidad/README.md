@@ -1,6 +1,6 @@
 # Regresión Logística — Admisión universitaria
 
-Con solo **dos variables** es posible construir un modelo que clasifica correctamente el **99% de los candidatos** y visualizar su frontera de decisión. Este proyecto muestra cómo la Regresión Logística combina capacidad predictiva e interpretabilidad en un problema de clasificación binaria.
+Con solo **dos variables** es posible construir un modelo que clasifica correctamente el **99% de los candidatos**. Este proyecto muestra cómo la Regresión Logística combina capacidad predictiva e interpretabilidad en un problema de clasificación binaria.
 
 ---
 
@@ -10,7 +10,7 @@ Un departamento de admisiones universitarias recibe miles de solicitudes cada ci
 
 ## Objetivo
 
-Entrenar un modelo de **Regresión Logística**, interpretar sus coeficientes mediante **Odds Ratio**, visualizar la frontera de decisión en dos dimensiones y evaluar su capacidad predictiva.
+Entrenar un modelo de **Regresión Logística** con `statsmodels`, interpretar sus coeficientes mediante **Odds Ratio** e intervalos de confianza, y evaluar su capacidad predictiva.
 
 ## Dataset
 
@@ -29,11 +29,9 @@ Entrenar un modelo de **Regresión Logística**, interpretar sus coeficientes me
 
 ## Técnicas aplicadas
 
-- **statsmodels.Logit** para inferencia estadística
-- **scikit-learn LogisticRegression** para predicción
+- **statsmodels.Logit** para inferencia estadística y predicción
 - Interpretación mediante **Odds Ratio** e intervalos de confianza
-- Visualización de la frontera de decisión en 2D
-- Mapa continuo de probabilidades
+- Diagnóstico de multicolinealidad con **VIF**
 - Curva ROC
 - Matriz de confusión
 - Evaluación mediante Accuracy, Recall, F1-score y AUC-ROC

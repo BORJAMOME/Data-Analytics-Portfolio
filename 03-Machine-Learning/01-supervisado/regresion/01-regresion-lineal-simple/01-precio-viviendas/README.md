@@ -15,12 +15,14 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 ## Técnicas aplicadas
 
 - Selección de variable por correlación
-- Regresión lineal simple (sklearn)
-- Diagnóstico de 4 supuestos: linealidad, normalidad (Shapiro-Wilk), homocedasticidad, independencia
-- QQ-plot, residuos vs predichos, distribución de residuos
-- Predicciones de ejemplo
+- Regresión lineal simple (statsmodels) como modelo de partida, ampliada a regresión múltiple (2 y 3 variables) para comparar
+- Comparación de modelos por R² ajustado, AIC/BIC y significancia (p-valor)
+- Detección de multicolinealidad con VIF
+- Diagnóstico visual de 4 supuestos del modelo ganador: linealidad y homocedasticidad (residuos vs predichos), normalidad (histograma de residuos y QQ-plot), independencia (residuos vs orden)
+- Validación final con train/test split y regresión lineal (sklearn)
+- Predicciones de ejemplo con intervalo aproximado
 
 ## Hallazgo clave
 
-> Cada metro cuadrado adicional añade ~2.500 USD al precio. El modelo explica más del 75% de la variabilidad solo con la superficie.
+> Con solo los metros cuadrados el modelo ya explica ~90% de la variabilidad del precio (R² = 0.899). Añadiendo la distancia al centro como segunda variable, el modelo ganador sube a R² = 0.980: cada m² adicional añade ~2.500 USD y cada km de distancia al centro resta ~4.000 USD, manteniendo la otra variable constante.
 

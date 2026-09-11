@@ -1,12 +1,12 @@
 # Gradient Boosting Regressor — Tasación de viviendas
 
-Modelo no lineal vs regresión lineal: comparativa directa sobre el mismo dataset inmobiliario con feature importance y curva de aprendizaje.
+Modelo de Gradient Boosting para estimar el precio de viviendas en Madrid, con búsqueda de hiperparámetros por GridSearchCV, feature importance y curva de aprendizaje.
 
 ---
 
 ## Contexto de negocio
 
-Una plataforma de tasación online necesita estimaciones precisas. La regresión lineal falla cuando el precio depende de interacciones complejas entre variables.
+Una agencia inmobiliaria que opera en la zona centro de Madrid necesita estimaciones de precio rápidas y consistentes, sin depender únicamente del criterio manual del tasador.
 
 ## Dataset
 
@@ -14,12 +14,21 @@ Una plataforma de tasación online necesita estimaciones precisas. La regresión
 
 ## Técnicas aplicadas
 
-- GradientBoostingRegressor vs LinearRegression (baseline)
-- Cross-validation 5-fold
+- GradientBoostingRegressor con búsqueda de hiperparámetros (GridSearchCV, 5-fold)
+- Curva de aprendizaje (train vs CV) para detectar sobreajuste
 - Feature importance
-- Curva de aprendizaje (detección de sobreajuste)
+- Simulador interactivo de tasación (ipywidgets)
+
+## Resultados (test)
+
+| Métrica | Valor |
+|---|---:|
+| MAE | 59.686 € |
+| RMSE | 72.091 € |
+| R² | 0,925 |
+| MAPE | 9,96 % |
 
 ## Hallazgo clave
 
-> Gradient Boosting captura relaciones no lineales que la regresión lineal pierde. La feature importance revela qué variables importan realmente en la tasación.
+> Con solo 6 variables, el modelo explica ~92,5% de la variación del precio en test (MAPE ~10%). Los metros cuadrados y la latitud son las variables con más peso. El modelo muestra cierto overfitting (R² en train ~99,4% frente a ~92,5% en test): el resultado en test es la referencia real de rendimiento, no el de train.
 

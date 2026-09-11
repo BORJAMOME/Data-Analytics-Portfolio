@@ -28,9 +28,9 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 
 | Modelo | MAE | RMSE | MAPE | R² |
 |---|---:|---:|---:|---:|
-| Ridge | 38.239 € | 50.230 € | 11,39 % | 0,867 |
+| Ridge | 37.195 € | 49.161 € | 11,23 % | 0,872 |
 | Lasso | **36.974 €** | **48.812 €** | **11,13 %** | **0,874** |
 
 ### Hallazgo clave
 
-> **Lasso obtiene el mejor resultado**, aunque la diferencia respecto a Ridge es pequeña. Los metros son, con diferencia, la variable con mayor peso en el precio. Lasso mantiene las 6 variables, pero reduce y estabiliza sus coeficientes.
+> **Lasso obtiene el mejor resultado**, aunque la diferencia respecto a Ridge es muy pequeña (menos de 0,2 puntos de R²). Los metros son, con diferencia, la variable con mayor peso en el precio. Lasso mantiene las 6 variables, pero reduce y estabiliza sus coeficientes.
