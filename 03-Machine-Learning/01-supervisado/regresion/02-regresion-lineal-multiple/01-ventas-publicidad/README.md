@@ -64,8 +64,3 @@ Contiene información de **200 campañas publicitarias**, incluyendo la inversi�
 - **Newspaper** no contribuye significativamente a explicar las ventas una vez consideradas TV y Radio.
 - El modelo mantiene un rendimiento muy similar en entrenamiento y prueba, por lo que **no presenta evidencias de sobreajuste (overfitting)**.
 - El modelo final constituye una herramienta útil para estimar ventas y apoyar la toma de decisiones sobre inversión publicitaria.
-
----
-
-
-[Volver al índice de Machine Learning](../../../../README.md)

@@ -23,9 +23,5 @@ Sintético (233 clientes): Score_Fidelidad, Ingresos_Mensuales y Compra_iPhone (
 
 > El kernel polinómico (grado 2) obtiene el mejor resultado, con un 98% de accuracy, seguido del RBF (97%) y el lineal (93%). Los kernels no lineales capturan mejor la combinación entre ingresos y fidelidad que separa a compradores de no compradores.
 
-## Notebooks relacionados
-
-- [SVM — Baterías](../02-reemplazo-baterias/) — SVM aplicado a mantenimiento predictivo
-- [Gradient Boosting](../../../regresion/04-gradient-boosting/) — modelo ensemble como alternativa
 
 

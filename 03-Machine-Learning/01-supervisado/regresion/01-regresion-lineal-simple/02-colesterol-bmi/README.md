@@ -71,5 +71,3 @@ El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene u
 - En este caso, un modelo sencillo ofrece una excelente capacidad predictiva y una interpretación mucho más clara.
 
 
-
-[Volver al índice de Machine Learning](../../../../README.md)
