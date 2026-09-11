@@ -10,12 +10,10 @@ Una empresa con 232 empleados de ventas quiere identificar perfiles de rendimien
 - Matriz de correlación
 - PCA con scree plot y criterio del 80% de varianza
 - Loadings heatmap para interpretar componentes
-- Pipeline PCA + K-Means: reducción antes de clustering
-- Comparación directa: K-Means sobre todas las variables vs K-Means sobre PC
+- Pipeline PCA + K-Means: reducción de 5 métricas a 3 componentes antes de clustering
+- Selección de k por silhouette score
 - Visualización de clusters en espacio PCA 2D con centroides
 - Heatmap normalizado de perfiles de rendimiento
 
 ## Hallazgo clave
-PCA + K-Means produce clusters de calidad comparable al K-Means directo pero con menos dimensiones, lo que mejora la estabilidad y la interpretabilidad visual.
-
-
+La segmentación no separa a los empleados por rendimiento comercial (ventas y clientes captados son casi idénticos entre clusters), sino por **nivel de actividad y satisfacción del cliente**: un grupo minoritario (18%) cierra ventas similares con un tercio de las llamadas diarias, pero con una satisfacción de cliente 22 puntos inferior — un perfil que vende pero no cuida la relación comercial.
