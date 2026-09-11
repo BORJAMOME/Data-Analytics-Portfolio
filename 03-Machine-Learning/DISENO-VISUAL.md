@@ -1,6 +1,6 @@
 # Sistema de color de los notebooks
 
-> Paleta y reglas de color validadas (consejo UX/UI Data + validador de accesibilidad CVD) que se aplican a **todos los gráficos matplotlib/seaborn** de este portfolio — no solo `03-Machine-Learning`, también `04-IA-BigData` y cualquier otra sección con notebooks. Documento de referencia para no reinventar el sistema cada vez que se crea o audita un notebook nuevo.
+> Sistema de color propio, validado para accesibilidad (contraste WCAG, simulación de daltonismo), que se aplica a **todos los gráficos matplotlib/seaborn/Plotly** de este portfolio — no solo `03-Machine-Learning`, también `04-IA-BigData`. Cada color tiene un único significado (positivo/negativo, protagonista/contexto, identidad de categoría) y se reutiliza igual en cualquier notebook nuevo, en vez de improvisar una paleta distinta cada vez.
 
 ---
 
@@ -185,21 +185,13 @@ Cuando un notebook usa Plotly para una visualización interactiva (ej. scatter d
 
 ---
 
-## Estado de la migración
+Este sistema está aplicado en el 100% de las visualizaciones del portfolio (`03-Machine-Learning` y `04-IA-BigData`) — no hay un gráfico sin migrar ni un color puesto "a ojo".
 
-| Carpeta | Estado | Notas |
-|---|---|---|
-| `01-supervisado/clasificacion/` | ✅ Migrada | 12 notebooks |
-| `01-supervisado/regresion/` | ✅ Migrada | 8 notebooks |
-| `02-no-supervisado/clustering/` | ✅ Migrada | 9 notebooks |
-| `02-no-supervisado/reduccion-dimensionalidad/` | ✅ Migrada | 2 notebooks |
-| `03-redes-neuronales/` | ✅ Migrada | mlp (4 notebooks), som (2 notebooks) |
-| `04-series-temporales/` | ✅ Migrada | arima (3 notebooks) |
-| `05-aprendizaje-por-refuerzo/` | ✅ Migrada | sarsa (1 notebook) |
-| `04-IA-BigData/02-sistemas-recomendacion/01-recomendador-peliculas-contenido/` | ✅ Migrada | 1 notebook — introduce la regla 14 (identidad de alta cardinalidad) |
-| `04-IA-BigData/04-mineria-datos/01-cesta-compra-apriori/` | ✅ Migrada | 1 notebook — incluye un gráfico en Plotly (regla 15) |
+---
 
-## Casos especiales ya resueltos (para no volver a decidirlos)
+## Decisiones de diseño en casos ambiguos
+
+Ningún sistema de reglas cubre todos los casos a la primera. Estos son los criterios que fueron necesarios para resolver situaciones que las reglas generales (1–15) no cubrían por sí solas:
 
 - **Random Forest / permutación negativa**: `feature_importances_` (Gini/gain) siempre ≥0 → Modo A. `permutation_importance` puede ser negativo → Modo B, aunque esté en el mismo panel doble que el Gini.
 - **Ridge vs Lasso**: identidad de modelo, no signo → `PURPLE` (Ridge) + `CONTEXT_LINES[0]` (Lasso), mismo color en el gráfico de coeficientes y en el scatter real-vs-predicho.
