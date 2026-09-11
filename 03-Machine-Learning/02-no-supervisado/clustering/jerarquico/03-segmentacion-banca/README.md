@@ -1,4 +1,4 @@
-# Clustering Jerárquico — Caso completo (banca)
+# Clustering Jerárquico - Caso completo (banca)
 
 ## Contexto de negocio
 Un banco necesita segmentar 300 clientes por 5 métricas financieras para diseñar productos personalizados (tarjetas, créditos, seguros).
