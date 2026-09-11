@@ -4,6 +4,8 @@ Agentes de IA, sistemas de recomendación, APIs externas con visualización inte
 de datos, visión artificial, aplicaciones interactivas y procesamiento distribuido con Spark —
 casos prácticos más allá del modelado clásico de `03-Machine-Learning`.
 
+> 🎨 Los gráficos matplotlib/seaborn/Plotly de este bloque siguen el mismo sistema de color validado que `03-Machine-Learning` — ver [`../03-Machine-Learning/DISENO-VISUAL.md`](../03-Machine-Learning/DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
+
 **Stack implementado:** scikit-learn (TF-IDF, similitud coseno) · ipyleaflet · mlxtend · ultralytics (YOLOv8) · ByteTrack · PySpark (Spark SQL, MLlib)
 **Stack previsto** (para LLMs/chatbots y `05-Apps-Interactivas`, aún sin casos): LangChain · OpenAI API · Anthropic API · Groq · Ollama · Streamlit
 

@@ -39,6 +39,4 @@ el valor de Apriori está precisamente en escalar a combinaciones que a mano son
 ## Stack
 `pandas` · `numpy` · `matplotlib` · `plotly` · `mlxtend`
 
-## Archivos
-- `notebook.ipynb` — análisis completo (manual + Apriori), ejecutado y verificado de extremo a extremo.
-- `transacciones_supermercado.xlsx` — dataset de transacciones.
+

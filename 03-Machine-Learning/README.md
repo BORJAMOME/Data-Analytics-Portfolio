@@ -4,7 +4,7 @@
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
-> 🎨 Todos los gráficos siguen un sistema de color único y validado (accesibilidad CVD incluida) — ver [`DISENO-VISUAL.md`](DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
+> Todos los gráficos siguen un sistema de color único y validado (accesibilidad CVD incluida) — ver [`DISENO-VISUAL.md`](DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
 
 ---
 
