@@ -1,0 +1,369 @@
+--- markdown ---
+# Regresion Lineal Multiple - ROI publicitario
+
+---
+
+**Autor:** Borja Mora Mendez
+**Contacto:** [borja.mora.mendez@gmail.com](mailto:borja.mora.mendez@gmail.com) · [LinkedIn](https://www.linkedin.com/in/borja-mora-mendez/)
+**Repositorio:** [Data Analytics Portfolio](https://github.com/BORJAMOME/Data-Analytics-Portfolio)
+**Categoria:** Machine Learning · Supervisado · Regresion · Regresion Lineal Multiple
+
+---
+
+### Objetivo
+
+Construir un modelo de regresion lineal multiple que prediga las ventas 
+
+--- markdown ---
+## 1️. Setup: librerías y configuración visual
+
+--- code ---
+# Librerías base
+import numpy as np
+import pandas as pd
+
+# Visualización
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.colors import LinearSegmentedColormap
+
+# Modelado estadístico (interpretación)
+import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+# Machine Learning (predicción)
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squar
+
+--- markdown ---
+## 2. Carga de datos
+
+--- code ---
+data = pd.read_csv("Advertising.csv")
+print(f"Registros: {data.shape[0]} | Columnas: {data.shape[1]}")
+data.head()
+
+--- markdown ---
+## 3. EDA
+
+--- code ---
+# Estadística descriptiva
+
+# Seleccionamos solo las columnas numericas relevantes
+cols_num = ["TV", "Radio", "Newspaper", "Sales"]
+data[cols_num].describe().round(2)
+
+--- code ---
+# Comprobar nulos y tipos
+
+print('TIPOS DE DATOS Y VALORES NULOS')
+print('─' * 70)
+info = pd.DataFrame({
+    'Tipo': data.dtypes,
+    'Nulos': data.isnull().sum(),
+    '% Nulos': (data.isnull().sum() / len(data) * 100).round(2),
+    'Únicos': data.nunique()
+})
+info
+
+--- code ---
+# Distribuciones de cada variable
+
+fig, axes = plt.subplots(2, 2, figsize=(13, 8))
+fig.suptitle('Distribuciones de las variables', fontsize=14, fontweight='bold', color=INK, y=1.00)
+
+variables = ["TV", "Radio", "Newspaper", "Sales"]
+for ax, var in zip(axes.flat, variables):
+    ax.hist(data[var], bins=20, color=PURPLE_LIGHT, edgecolor='white', alpha=0.85)
+    ax.axvline(data[var].mean(), color=INK, linestyle='--', linewidth=1.5, label=f'Media: {data[var].mean():.1f}')
+    ax.axvline(data[var].me
+
+--- code ---
+# Matriz de correlación
+
+# Matriz de correlación
+corr = data[cols_num].corr()
+
+fig, ax = plt.subplots(figsize=(10, 8))
+
+sns.heatmap(
+    corr,
+    annot=True,
+    fmt=".4f",
+    cmap=DIVERGING_CMAP,
+    center=0,
+    vmin=-1,
+    vmax=1,
+    square=True,
+    linewidths=2,
+    linecolor=BACKGROUND,
+    cbar_kws={"shrink": 0.75},
+    annot_kws={
+        "size": 10,
+        "weight": "bold",
+    },
+)
+color_annotations(ax, corr.values, threshold=0.8)
+
+ax.set_title(
+    "Matriz de correlación de Pear
+
+--- markdown ---
+### Columna del target (Sales)
+
+
+- ``TV``: 0.7822 → correlación fuerte y positiva. 
+- ``Radio``: 0.5762 → correlación moderada y positiva.
+- ``Newspaper``: 0.2283 → correlación débil y positiva. 
+
+Entre variables predictoras
+- ``TV ↔ Radio:`` 0.0548 → correlación muy débil.
+- ``TV ↔ Newspaper``: 0.0566 → correlación muy débil.
+- ``Radio ↔ Newspaper``: 0.3541 → correlación débil-moderada y positiva.
+Conclusión
+
+La matriz de correlación muestra que TV es el canal publicitario con mayor relación li
+
+--- code ---
+fig, axes = plt.subplots(1, 3, figsize=(16, 10))
+axes = axes.ravel()
+
+for i, col in enumerate(cols_num[:-1]):
+
+    sns.regplot(
+        data=data,
+        x=col,
+        y="Sales",
+        ax=axes[i],
+        scatter_kws={
+            "color": PURPLE,
+            "edgecolor": "white",
+            "s": 60,
+            "alpha": 0.70,
+        },
+        line_kws={
+            "color": INK,
+            "linewidth": 2.5,
+        },
+        ci=None,
+    )
+
+    r = data[col].corr(data["Sales"])
+
+    ax
+
+--- code ---
+# Pair plot: relaciones por parejas
+g = sns.pairplot(
+    data, height=2.2, aspect=1.1,
+    plot_kws={'color': PURPLE, 'alpha': 0.5, 's': 22, 'edgecolor': 'white', 'linewidth': 0.5},
+    diag_kws={'color': PURPLE, 'edgecolor': 'white'},
+    corner=True
+)
+g.fig.suptitle('Relaciones entre todas las variables', y=1.01, fontsize=13, fontweight='bold', color=INK)
+plt.show()
+
+--- markdown ---
+## 4. Selección del modelo
+
+--- code ---
+# Modelo 1: Regresión Múltiple con todas variables
+X = data[["TV", "Radio", "Newspaper"]]
+y = data["Sales"]
+X_const = sm.add_constant(X)
+modelo = sm.OLS(y, X_const).fit()
+
+print(modelo.summary())
+
+--- markdown ---
+### Conclusión
+- ``TV``: es la variable con mayor capacidad explicativa sobre las ventas.
+- ``Radio``: también contribuye de forma significativa al modelo.
+- ``Newspaper``: con un p-valor de 0.860 no aporta información estadísticamente significativa una vez consideradas las otras dos variables.
+
+- Por tanto, un modelo formado únicamente por TV y Radio ofrece prácticamente la misma capacidad predictiva que el modelo con las tres variables, pero con una menor complejidad y una interpretación más s
+
+--- markdown ---
+#### Comprobamos si existe multicolinealidad
+
+--- code ---
+# Calculamos VIF para el Modelo 1 (todas las variables)
+def calcular_vif(X):
+    """Calcula el VIF para cada predictor de X (sin constante)."""
+    X_c = sm.add_constant(X)
+    vif = pd.DataFrame({
+        'Variable': X_c.columns,
+        'VIF': [variance_inflation_factor(X_c.values, i) for i in range(X_c.shape[1])]
+    })
+    vif = vif[vif['Variable'] != 'const'].reset_index(drop=True)
+    vif['Diagnóstico'] = vif['VIF'].apply(
+        lambda v: 'OK' if v < 5 else ('Vigilar' if v < 10 else 'Gra
+
+--- markdown ---
+### Modelo sin incluir Newspaper
+
+--- code ---
+# Modelo 2: Regresión Múltiple sin Newspaper
+X_2 = data[["TV", "Radio"]]
+X_2_const = sm.add_constant(X_2)
+modelo_2 = sm.OLS(y, X_2_const).fit()
+
+print(modelo_2.summary())
+
+--- code ---
+print('VIF del MODELO 2 (TV y Radio):')
+print(calcular_vif(X_2).to_string(index=False))
+
+--- code ---
+# Resumen comparativo
+print('RESUMEN DEL MODELO 2 (Regresión Múltiple — 2 variables)')
+print('═' * 60)
+print(f'  R²                : {modelo_2.rsquared:.6f}   ← antes: {modelo.rsquared:.6f}')
+print(f'  R² ajustado       : {modelo_2.rsquared_adj:.6f}   ← antes: {modelo.rsquared_adj:.6f}')
+print(f'  AIC               : {modelo_2.aic:.2f}        ← antes: {modelo.aic:.2f}')
+print(f'  Error típico (s)  : {np.sqrt(modelo_2.mse_resid):.4f}   ← antes: {np.sqrt(modelo.mse_resid):.4f}')
+print()
+
+coefs_2 =
+
+--- markdown ---
+El modelo demuestra que TV y Radio son suficientes para explicar cerca del 90 % de la variabilidad de las ventas. La eliminación de Newspaper no reduce prácticamente la capacidad predictiva del modelo y, además, mejora ligeramente indicadores como el AIC y el error típico. Esto indica que la inversión en prensa no aporta información adicional relevante una vez conocida la inversión realizada en televisión y radio.
+
+--- markdown ---
+### Diagnóstico de residuos ¿es válido nuestro modelo?
+
+--- code ---
+modelo_final = modelo_2
+residuos = modelo_final.resid
+predichos = modelo_final.fittedvalues
+
+fig, axes = plt.subplots(2, 2, figsize=(13, 9))
+fig.suptitle('Diagnóstico de residuos del modelo final', fontsize=14, fontweight='bold', color=INK, y=1.00)
+
+# 1. Residuos vs valores predichos (linealidad + homocedasticidad)
+axes[0, 0].scatter(predichos, residuos, color=PURPLE, alpha=0.6, s=40, edgecolor='white', linewidth=0.5)
+axes[0, 0].axhline(0, color=INK, linestyle='--', linewidth=1.5)
+axes[0, 0].set
+
+--- markdown ---
+## 5. Validación con train/test split
+
+--- code ---
+X = data[["TV","Radio"]]
+y = data["Sales"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)
+
+print(f"Train: {X_train.shape[0]} registros | Test: {X_test.shape[0]} registros")
+
+--- markdown ---
+## 6. Modelo Regresión Múltiple
+
+--- code ---
+X_train_const = sm.add_constant(X_train)
+ols_model = sm.OLS(y_train, X_train_const).fit()
+print(ols_model.summary())
+
+--- code ---
+# Entrenar el modelo
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Coeficientes
+b0 = model.intercept_
+b_tv, b_radio = model.coef_
+
+print("Ecuación del modelo:")
+print(f"  Sales = {b0:.2f} + {b_tv:.4f} × TV + {b_radio:.4f} × Radio")
+
+print()
+print("Interpretación:")
+print(f"  - Intercepto: {b0:.2f} (ventas estimadas cuando la inversión en TV y Radio es 0).")
+print(f"  - TV: cada unidad adicional invertida en televisión aumenta las ventas en {b_tv:.4f} unidades, manteniendo constante l
+
+--- markdown ---
+### Conclusiones
+
+- El modelo de regresión múltiple construido con TV y Radio alcanza un R² = 0.897, por lo que explica aproximadamente el 89.7 % de la variabilidad de las ventas.
+- El R² ajustado (0.895) es muy próximo al R², indicando que ambas variables aportan información relevante.
+- El modelo demuestra que la inversión en televisión y radio explica cerca del 90 % de las ventas. Ambas variables tienen un efecto positivo y estadísticamente significativo, mientras que la eliminación de Newspa
+
+--- code ---
+# Entrenamos con sklearn
+modelo_ml = LinearRegression()
+modelo_ml.fit(X_train, y_train)
+
+# Predicciones
+y_pred_train = modelo_ml.predict(X_train)
+y_pred_test  = modelo_ml.predict(X_test)
+
+# Métricas
+def metricas(y_real, y_pred, nombre):
+    rmse = np.sqrt(mean_squared_error(y_real, y_pred))
+    mae  = mean_absolute_error(y_real, y_pred)
+    r2   = r2_score(y_real, y_pred)
+    mape = np.mean(np.abs((y_real - y_pred) / y_real)) * 100
+    print(f'{nombre}:')
+    print(f'  R²    : {r2:.4f}')
+    pri
+
+--- markdown ---
+El modelo muestra un buen rendimiento predictivo, explicando cerca del 90 % de la variabilidad de las ventas tanto en entrenamiento como en prueba.
+
+--- code ---
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Real vs Predicho
+axes[0].scatter(y_test, y_pred_test, color=PURPLE, alpha=0.6, edgecolors="white", s=50)
+lims = [min(y_test.min(), y_pred_test.min())-1, max(y_test.max(), y_pred_test.max())+1]
+axes[0].plot(lims, lims, color=INK, linestyle="--", linewidth=1, label="Prediccion perfecta")
+axes[0].set_xlabel("Ventas reales", fontsize=11)
+axes[0].set_ylabel("Ventas predichas", fontsize=11)
+axes[0].set_title(f"Real vs Predicho (R2={r2_test:.3f})", fon
+
+--- markdown ---
+## 7. Simulacion de escenarios — redistribucion de presupuesto
+
+La pregunta del director de marketing: si tengo un presupuesto fijo, como lo redistribuyo?
+
+--- code ---
+# Escenario base: inversión media actual
+budget_actual = data[["TV", "Radio"]].mean()
+
+ventas_actual = modelo_ml.predict(
+    budget_actual.to_frame().T
+)[0]
+
+# Escenario 1: aumentar un 20 % la inversión en TV
+budget_tv = budget_actual.copy()
+budget_tv["TV"] *= 1.20
+
+ventas_tv = modelo_ml.predict(
+    budget_tv.to_frame().T
+)[0]
+
+# Escenario 2: aumentar un 20 % la inversión en Radio
+budget_radio = budget_actual.copy()
+budget_radio["Radio"] *= 1.20
+
+ventas_radio = modelo_ml.predict(
+    budget_ra
+
+--- markdown ---
+## 8. Insights de negocio y recomendaciones
+
+El modelo desarrollado es capaz de predecir las **ventas** con un **89.7 % de capacidad explicativa (R² = 0.897)** utilizando únicamente dos variables: la inversión en **Televisión (TV)** y **Radio**.
+
+- **¿Qué ha aprendido el modelo?**
+
+Manteniendo constante la inversión en radio:
+
+- Cada unidad adicional invertida en **TV** incrementa las ventas en **0.0454 unidades**.
+
+Manteniendo constante la inversión en televisión:
+
+- Cada unidad adicional inver
+
