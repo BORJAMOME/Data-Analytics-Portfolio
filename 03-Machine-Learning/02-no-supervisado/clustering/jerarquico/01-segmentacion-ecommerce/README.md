@@ -13,5 +13,5 @@ Sintético: 30 usuarios con 3 grupos naturales generados vía `make_blobs`.
 - Scatter plot coloreado por cluster
 
 ## Hallazgo clave
-Ward produce los clusters más compactos y equilibrados — recomendado como default para datos bien separados.
+Ward produce los clusters más compactos y equilibrados.
 
