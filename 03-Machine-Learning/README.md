@@ -4,6 +4,8 @@
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
+> 🎨 Todos los gráficos siguen un sistema de color único y validado (accesibilidad CVD incluida) — ver [`DISENO-VISUAL.md`](DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
+
 ---
 
 Cada notebook está construido como un **caso de consultoría**: empieza con una pregunta de negocio, elige el modelo adecuado (no el más complejo), evalúa con métricas relevantes y termina con una recomendación clara.
