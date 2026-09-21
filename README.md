@@ -13,7 +13,7 @@ SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales
 Data-Analytics-Portfolio/
 ├── 01-SQL/                     Consultas, modelado dimensional, ETL en T-SQL
 ├── 02-Python/                  4 casos de negocio EDA + 4 manuales de referencia
-├── 03-Machine-Learning/        36 casos: supervisado, no supervisado, RRNN, series, refuerzo
+├── 03-Machine-Learning/        41 casos: supervisado, no supervisado, RRNN, series, refuerzo
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
 
@@ -47,19 +47,21 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**36 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, SOM), series temporales (ARIMA) y aprendizaje por refuerzo (SARSA).
+**41 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, SOM), series temporales (ARIMA) y aprendizaje por refuerzo (SARSA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-Los 3 casos con más recorrido — negocio, modelo y despliegue — tienen además una app interactiva en producción:
+Cinco casos — con negocio, modelo y despliegue — tienen además una app interactiva en producción:
 
 | Proyecto | Qué se aprende | App en vivo |
 |----------|---------------|--------------|
 | [Segmentación de clientes retail (K-Means + t-SNE)](03-Machine-Learning/02-no-supervisado/clustering/kmeans/04-segmentacion-retail-tsne/) | t-SNE para visualizar en 2D, elección honesta de *k*, validación contra el perfil que el negocio ya intuía | [Abrir app](https://segmentacion-retail.streamlit.app) |
 | [Comparativa de modelos — Segmentación de aerolínea](03-Machine-Learning/01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting, mismo split y validación cruzada, explicabilidad | [Abrir app](https://comparativa-modelos-aerolinea.streamlit.app) |
 | [Previsión de ventas retail (SARIMA vs SARIMAX)](03-Machine-Learning/04-series-temporales/arima/03-forecast-ventas-retail/) | Series temporales con variables exógenas (huelgas, promociones), backtesting, cuánto aporta el contexto frente al histórico puro | [Abrir app](https://forecast-ventas-retail-app-w5msdvcsbuxas94qjcdore.streamlit.app) |
+| [Preferencias de vuelos — análisis conjoint](03-Machine-Learning/01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | [Abrir app](https://preferencias-vuelos.streamlit.app/) |
+| [Ventas semanales retail (SARIMA)](03-Machine-Learning/04-series-temporales/arima/01-ventas-semanales-retail/) | Previsión solo con el histórico: estacionariedad, ACF/PACF y comparación con referencias más exigentes que «repetir el año anterior» | [Abrir app](https://sarima-ventas-retail.streamlit.app/) |
 
-**[Ver los 36 proyectos →](03-Machine-Learning/)**
+**[Ver los 41 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
 Agentes de IA, sistemas de recomendación, APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima incorporación.
