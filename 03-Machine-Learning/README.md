@@ -1,6 +1,6 @@
-# Machine Learning — 36 Casos Prácticos
+# Machine Learning — 41 Casos Prácticos
 
-> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp intensvo de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
+> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp intensivo de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
@@ -12,7 +12,7 @@ Cada notebook está construido como un **caso de consultoría**: empieza con una
 
 **Lo que encontrarás aquí:**
 
-- **36 notebooks** organizados por tipo de aprendizaje y familia de modelo
+- **41 notebooks** organizados por tipo de aprendizaje y familia de modelo
 - **16 datasets** reales de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
 - **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
 - **Progresión de conocimientos** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
@@ -26,10 +26,10 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 ```
 03-Machine-Learning/
 │
-├── 01-supervisado/                          17 notebooks
+├── 01-supervisado/                          20 notebooks
 │   ├── regresion/                           Predecir un valor numérico continuo
 │   │   ├── 01-regresion-lineal-simple/      2 casos · R² desde 0.75 hasta 0.97
-│   │   ├── 02-regresion-lineal-multiple/    2 casos · Colinealidad, VIF, selección de variables
+│   │   ├── 02-regresion-lineal-multiple/    3 casos · Colinealidad, VIF, selección de variables
 │   │   ├── 03-ridge-lasso/                  1 caso  · Regularización L1/L2, validación cruzada
 │   │   └── 04-gradient-boosting/            2 casos · Ensemble secuencial, hiperparámetros
 │   │
@@ -37,14 +37,14 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │       ├── 01-arbol-decision/               1 caso  · Interpretabilidad, feature importance
 │       ├── 02-random-forest/                1 caso  · Ensemble bagging, OOB score
 │       ├── 03-xgboost/                      1 caso  · GridSearchCV, gradient boosting
-│       ├── 04-comparativa-modelos/          2 casos · Benchmark DT vs RF vs XGBoost
+│       ├── 04-comparativa-modelos/          4 casos · Benchmark de modelos
 │       ├── 05-regresion-logistica/          2 casos · Clasificación probabilística, curva ROC
 │       ├── 06-svm/                          2 casos · Kernels polinómico y RBF, clasificación
 │       └── 07-naive-bayes/                  1 caso  · Clasificación de texto, CountVectorizer vs TF-IDF
 │
-├── 02-no-supervisado/                       10 notebooks
+├── 02-no-supervisado/                       11 notebooks
 │   ├── clustering/                          Agrupar por similitud
-│   │   ├── kmeans/                          4 casos · Método del codo, silueta, inercia, t-SNE
+│   │   ├── kmeans/                          5 casos · Método del codo, silueta, inercia, t-SNE
 │   │   └── jerarquico/                      4 casos · Dendrogramas, linkage, distancias
 │   │
 │   └── reduccion-dimensionalidad/
@@ -54,8 +54,8 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   ├── mlp/                                 4 casos · Fundamentos, fintech, forecast eléctrico, sentimiento IMDB
 │   └── som/                                 2 casos · Mapas autoorganizados, clustering visual
 │
-├── 04-series-temporales/                    2 notebooks
-│   └── arima/                               2 casos · Estacionariedad, SARIMA, forecast
+├── 04-series-temporales/                    3 notebooks
+│   └── arima/                               3 casos · Estacionariedad, SARIMA, forecast
 │
 └── 05-aprendizaje-por-refuerzo/              1 notebook
     └── sarsa/                               1 caso  · Política óptima, validación contra solución analítica
@@ -82,6 +82,7 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-ventas-publicidad/) | Selección de variables, p-valores, R² ajustado | `Advertising.csv` |
 | 02 | [Gasto extra gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gasto-extra-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
+| 03 | [Preferencias de vuelos — análisis conjoint](01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | `Conjoint_Flight.xlsx` |
 
 **Regularización — Ridge y Lasso** · [`regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
 
@@ -122,6 +123,8 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 |---|---|---|---|
 | 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Benchmark riguroso, recomendación de despliegue | `gym_clientes.xlsx` |
 | 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
+| 03 | [Riesgo de impago](01-supervisado/clasificacion/04-comparativa-modelos/03-prediccion-impagos/) | Clasificación binaria, umbral de decisión justificado, separación estricta entre train y test | `competicion_clasificacion_train.xlsx` |
+| 04 | [Segmentación de aerolínea](01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting con el mismo split y validación cruzada, explicabilidad | `dataset_linea_aerea_multiclase_v2.xlsx` |
 
 **Regresión Logística** · [`clasificacion/05-regresion-logistica/`](01-supervisado/clasificacion/05-regresion-logistica/)
 
@@ -159,6 +162,7 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 | 02 | [Segmentación gimnasio](02-no-supervisado/clustering/kmeans/02-segmentacion-gimnasio/) | Escalado, estabilidad de clusters, cross-check con abandono | `gym_clientes.xlsx` |
 | 03 | [Segmentación votantes](02-no-supervisado/clustering/kmeans/03-segmentacion-votantes/) | Feature selection: elegir bien las variables importa más que el algoritmo | `politicos.xlsx` |
 | 04 | [Segmentación retail con t-SNE](02-no-supervisado/clustering/kmeans/04-segmentacion-retail-tsne/) | t-SNE para visualizar en 2D, elección honesta de k, evaluación contra perfil ya asignado | Clientes retail (6.457 filas) |
+| 05 | [Perfiles de usuarios de LinkedIn](02-no-supervisado/clustering/kmeans/05-segmentacion-usuarios-linkedin/) | K-Means sobre 5.000 usuarios y 13 variables, silueta, contraste Kruskal-Wallis y visualización con PCA | `linkedin_clustering_users.xlsx` |
 
 **Clustering Jerárquico** · [`clustering/jerarquico/`](02-no-supervisado/clustering/jerarquico/)
 
@@ -212,6 +216,7 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 |---|---|---|---|
 | 01 | [Ventas semanales retail](04-series-temporales/arima/01-ventas-semanales-retail/) | ACF/PACF, estacionariedad, ADF test, SARIMA con estacionalidad anual | `arima.xlsx` |
 | 02 | [Forecast electricidad](04-series-temporales/arima/02-forecast-electricidad/) | Descomposición estacional, SARIMAX, validación walk-forward | `electricidad.xlsx` |
+| 03 | [Previsión de ventas retail (SARIMA vs SARIMAX)](04-series-temporales/arima/03-forecast-ventas-retail/) | Variables exógenas (huelgas, promociones), backtesting, cuánto aporta el contexto frente al histórico puro | `SALES_FORECASTING_VARIABLES_EXOGENAS.xlsx` |
 
 ---
 
