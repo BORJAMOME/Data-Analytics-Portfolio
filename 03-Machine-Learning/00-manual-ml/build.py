@@ -61,8 +61,20 @@ def harness(out):
         f.write(html)
     print("Harness ->", out)
 
+def artifact(out):
+    """Variante sin doctype/html/head/body (la plataforma de artefactos pone su propio esqueleto)."""
+    files = ["core.js"] + viz_files() + content_files() + ["app.js"]
+    t = read("template.html")
+    head = t[t.index("<title>"):t.index("<style>")]
+    html = head + "<style>\n" + read("styles.css") + "\n</style>\n" + read("body.html") + "\n" + scripts(files) + "\n"
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("Artefacto ->", out)
+
 if __name__ == "__main__":
-    if len(sys.argv) > 2 and sys.argv[1] == "--harness":
+    if len(sys.argv) > 2 and sys.argv[1] == "--artifact":
+        artifact(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == "--harness":
         harness(sys.argv[2])
     else:
         build(os.path.join(HERE, "ml_manual_modelos.html"))
