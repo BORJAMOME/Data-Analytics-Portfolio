@@ -15,9 +15,9 @@ EASY.logistica = {
   "Coeficientes interpretables: e<sup>β</sup> es el <b>odds ratio</b>.",
   "Con clases desbalanceadas, olvídate de la accuracy: mira PR-AUC y recall."]};
 CASOS.logistica = [
- ["🏦","Banca","¿Concedo este préstamo? El regulador exige poder explicar cada denegación.","Scoring con probabilidad de impago y motivos legibles (odds ratio por variable).","Política de riesgo auditable y umbral ligado a la pérdida esperada."],
- ["📧","Marketing","¿Quién abrirá la newsletter de mañana?","Probabilidad de apertura por suscriptor según historial y hora de envío.","Enviar solo al top 40%: misma conversión con menos bajas por saturación."],
- ["🏥","Salud","Riesgo de reingreso a 30 días tras el alta.","Probabilidad por paciente con factores interpretables para el equipo médico.","Seguimiento telefónico a los pacientes por encima del umbral clínico."]];
+ ["","Banca","¿Concedo este préstamo? El regulador exige poder explicar cada denegación.","Scoring con probabilidad de impago y motivos legibles (odds ratio por variable).","Política de riesgo auditable y umbral ligado a la pérdida esperada."],
+ ["","Marketing","¿Quién abrirá la newsletter de mañana?","Probabilidad de apertura por suscriptor según historial y hora de envío.","Enviar solo al top 40%: misma conversión con menos bajas por saturación."],
+ ["","Salud","Riesgo de reingreso a 30 días tras el alta.","Probabilidad por paciente con factores interpretables para el equipo médico.","Seguimiento telefónico a los pacientes por encima del umbral clínico."]];
 
 EASY.arbol = {
  frase:"Un juego de <b>«¿Quién es quién?»</b>: preguntas de sí o no que acaban en una decisión.",
@@ -34,9 +34,9 @@ EASY.arbol = {
   "Sin límites <b>memoriza</b>: controla max_depth y min_samples_leaf.",
   "Solo corta en horizontal/vertical y es inestable: en producción suele ir dentro de un bosque."]};
 CASOS.arbol = [
- ["🧾","Backoffice","Automatizar la aprobación de reclamaciones pequeñas con reglas auditables.","Un árbol de profundidad 4 se convierte en la política escrita del motor de decisión.","El 60% de las reclamaciones se resuelve sin intervención humana."],
- ["📞","Telecomunicaciones","Guion para el equipo de retención: ¿qué cliente está en riesgo y por qué?","Las ramas («sin permanencia y más de 2 incidencias») son el argumentario.","Guion de llamada distinto por rama de riesgo."],
- ["🏪","Retail","¿Qué tiendas necesitarán refuerzo de personal el sábado?","Reglas simples sobre previsión de tráfico, eventos y clima.","Regla de refuerzo que el jefe de zona entiende y aplica."]];
+ ["","Backoffice","Automatizar la aprobación de reclamaciones pequeñas con reglas auditables.","Un árbol de profundidad 4 se convierte en la política escrita del motor de decisión.","El 60% de las reclamaciones se resuelve sin intervención humana."],
+ ["","Telecomunicaciones","Guion para el equipo de retención: ¿qué cliente está en riesgo y por qué?","Las ramas («sin permanencia y más de 2 incidencias») son el argumentario.","Guion de llamada distinto por rama de riesgo."],
+ ["","Retail","¿Qué tiendas necesitarán refuerzo de personal el sábado?","Reglas simples sobre previsión de tráfico, eventos y clima.","Regla de refuerzo que el jefe de zona entiende y aplica."]];
 
 EASY.rf = {
  frase:"Pregunta a <b>cientos de árboles distintos</b> y quédate con lo que vota la mayoría.",
@@ -53,9 +53,9 @@ EASY.rf = {
   "Robusto <b>sin apenas ajuste</b>; más árboles nunca empeora (solo tarda más).",
   "Para importancia de variables, usa permutación, no feature_importances_ por impureza."]};
 CASOS.rf = [
- ["🏥","Salud","Anticipar reingresos hospitalarios con historiales llenos de nulos y outliers.","Funciona bien sin apenas ajuste y el OOB da una evaluación honesta.","Seguimiento al alta para el 10% de mayor riesgo."],
- ["🌾","Agroseguros","Clasificar parcelas con riesgo de granizo a partir de clima y satélite.","Combina cientos de variables heterogéneas sin preprocesado pesado.","Tarifa por parcela y no por comarca."],
- ["💳","Medios de pago","Primer modelo de fraude mientras el equipo construye el definitivo.","Baseline sólido en días, con importancia de variables para entender el fraude.","Bloqueo de las operaciones con más de 0,8 de probabilidad."]];
+ ["","Salud","Anticipar reingresos hospitalarios con historiales llenos de nulos y outliers.","Funciona bien sin apenas ajuste y el OOB da una evaluación honesta.","Seguimiento al alta para el 10% de mayor riesgo."],
+ ["","Agroseguros","Clasificar parcelas con riesgo de granizo a partir de clima y satélite.","Combina cientos de variables heterogéneas sin preprocesado pesado.","Tarifa por parcela y no por comarca."],
+ ["","Medios de pago","Primer modelo de fraude mientras el equipo construye el definitivo.","Baseline sólido en días, con importancia de variables para entender el fraude.","Bloqueo de las operaciones con más de 0,8 de probabilidad."]];
 
 EASY.extratrees = {
  frase:"Un Random Forest todavía <b>más aleatorio</b>: en vez de buscar el mejor corte, lo sortea.",
@@ -72,9 +72,9 @@ EASY.extratrees = {
   "Suele igualarlo en precisión; pierde con pocos datos y señal muy sutil.",
   "Ideal cuando el cuello de botella es el <b>tiempo de reentrenamiento</b>."]};
 CASOS.extratrees = [
- ["🛡️","Ciberseguridad","Reentrenar cada 4 horas un clasificador de eventos maliciosos.","Entrena mucho más rápido que Random Forest con resultados equivalentes.","Modelo siempre al día frente a ataques nuevos."],
- ["🎮","Videojuegos","Detectar trampas en partidas con cientos de métricas por jugador.","Rápido de iterar mientras el equipo prueba nuevas variables.","Revisión manual solo del 1% más sospechoso."],
- ["📡","Telecomunicaciones","Clasificar incidencias de red en tiempo casi real.","Buen equilibrio precisión/coste de cómputo con datos ruidosos.","Enrutado automático de la incidencia al equipo técnico correcto."]];
+ ["","Ciberseguridad","Reentrenar cada 4 horas un clasificador de eventos maliciosos.","Entrena mucho más rápido que Random Forest con resultados equivalentes.","Modelo siempre al día frente a ataques nuevos."],
+ ["","Videojuegos","Detectar trampas en partidas con cientos de métricas por jugador.","Rápido de iterar mientras el equipo prueba nuevas variables.","Revisión manual solo del 1% más sospechoso."],
+ ["","Telecomunicaciones","Clasificar incidencias de red en tiempo casi real.","Buen equilibrio precisión/coste de cómputo con datos ruidosos.","Enrutado automático de la incidencia al equipo técnico correcto."]];
 
 EASY.xgboost = {
  frase:"El boosting <b>más afinado y rápido</b>: el primer candidato serio en cualquier tabla grande.",
@@ -91,9 +91,9 @@ EASY.xgboost = {
   "Lo que más sobreajusta: <b>max_depth</b>; usa early_stopping_rounds.",
   "Desbalanceo: scale_pos_weight ≈ n_negativos / n_positivos. Explica con SHAP."]};
 CASOS.xgboost = [
- ["💳","Fintech","Decidir en 2 segundos si se concede un préstamo en el punto de venta.","Scoring de impago con máxima precisión y explicación SHAP por denegación.","Menos pérdida esperada a igual tasa de aprobación."],
- ["🏋️","Gimnasios","¿Qué socios se darán de baja el próximo mes?","Combina uso, pagos y quejas con interacciones no lineales.","Campaña de retención para el top 10% de riesgo."],
- ["🏷️","Pricing","Probabilidad de que un cliente acepte una oferta según precio y contexto.","Curva de aceptación por segmento aprendida del histórico de ofertas.","Precio que maximiza el margen esperado por oferta."]];
+ ["","Fintech","Decidir en 2 segundos si se concede un préstamo en el punto de venta.","Scoring de impago con máxima precisión y explicación SHAP por denegación.","Menos pérdida esperada a igual tasa de aprobación."],
+ ["","Gimnasios","¿Qué socios se darán de baja el próximo mes?","Combina uso, pagos y quejas con interacciones no lineales.","Campaña de retención para el top 10% de riesgo."],
+ ["","Pricing","Probabilidad de que un cliente acepte una oferta según precio y contexto.","Curva de aceptación por segmento aprendida del histórico de ofertas.","Precio que maximiza el margen esperado por oferta."]];
 
 EASY.lightgbm = {
  frase:"Un XGBoost <b>con atajos</b>: mismo boosting, varias veces más rápido con millones de filas.",
@@ -110,9 +110,9 @@ EASY.lightgbm = {
   "Crece por hojas: con pocos datos sobreajusta si no limitas <b>num_leaves</b>.",
   "Mismas buenas prácticas que XGBoost: validación, early stopping, SHAP."]};
 CASOS.lightgbm = [
- ["📱","Publicidad digital","Probabilidad de clic para pujar en subastas de menos de 100 ms.","Reentrena cada día sobre cientos de millones de impresiones.","Puja más ajustada: menos gasto por clic."],
- ["🛒","Supermercados","Previsión de demanda diaria para 30.000 productos × 800 tiendas.","Un único modelo global con variables de producto, tienda y calendario.","Pedidos automáticos con menos roturas y menos merma."],
- ["🏦","Banca","Scoring diario de toda la cartera de clientes.","Procesa millones de filas en minutos con hardware modesto.","Alertas tempranas de riesgo cada mañana."]];
+ ["","Publicidad digital","Probabilidad de clic para pujar en subastas de menos de 100 ms.","Reentrena cada día sobre cientos de millones de impresiones.","Puja más ajustada: menos gasto por clic."],
+ ["","Supermercados","Previsión de demanda diaria para 30.000 productos × 800 tiendas.","Un único modelo global con variables de producto, tienda y calendario.","Pedidos automáticos con menos roturas y menos merma."],
+ ["","Banca","Scoring diario de toda la cartera de clientes.","Procesa millones de filas en minutos con hardware modesto.","Alertas tempranas de riesgo cada mañana."]];
 
 EASY.catboost = {
  frase:"El boosting que <b>entiende categorías</b> («Madrid», «Tarifa Plus») sin que las conviertas a mano.",
@@ -129,9 +129,9 @@ EASY.catboost = {
   "Ideal para datos de <b>CRM</b> llenos de columnas de texto categórico.",
   "Declara bien <code>cat_features</code>; es algo más lento que LightGBM."]};
 CASOS.catboost = [
- ["📶","Telecomunicaciones","Anticipar portabilidades con un CRM lleno de categorías (tarifa, terminal, canal).","Usa categorías de alta cardinalidad sin explotar en miles de columnas.","Ofertas de retención en el primer decil de riesgo."],
- ["✈️","Turismo","Probabilidad de cancelación de una reserva hotelera.","Aprovecha país, agencia, tipo de habitación y canal tal cual vienen.","Overbooking calibrado por tipo de reserva."],
- ["🚘","Seguros","Probabilidad de fraude en un parte de siniestro.","Taller, marca, modelo y provincia como categóricas nativas.","Derivación automática de partes sospechosos a peritaje."]];
+ ["","Telecomunicaciones","Anticipar portabilidades con un CRM lleno de categorías (tarifa, terminal, canal).","Usa categorías de alta cardinalidad sin explotar en miles de columnas.","Ofertas de retención en el primer decil de riesgo."],
+ ["","Turismo","Probabilidad de cancelación de una reserva hotelera.","Aprovecha país, agencia, tipo de habitación y canal tal cual vienen.","Overbooking calibrado por tipo de reserva."],
+ ["","Seguros","Probabilidad de fraude en un parte de siniestro.","Taller, marca, modelo y provincia como categóricas nativas.","Derivación automática de partes sospechosos a peritaje."]];
 
 EASY.adaboost = {
  frase:"Un profesor que, tras cada examen, <b>dedica más atención a los ejercicios que se fallaron</b>.",
@@ -148,9 +148,9 @@ EASY.adaboost = {
   "Sensible a <b>etiquetas erróneas</b>: se obsesiona con ellas.",
   "Hoy es más didáctico que práctico; útil para modelos minúsculos."]};
 CASOS.adaboost = [
- ["🏭","Visión industrial","Clasificar piezas defectuosas con 30 descriptores limpios.","Modelo minúsculo de tocones que corre en el PLC de la línea.","Desvío automático de piezas dudosas a inspección manual."],
- ["📷","Cámaras","Detección de caras en tiempo real en dispositivos antiguos (Viola-Jones).","Cascada de clasificadores débiles muy rápida.","Enfoque automático en cámaras de bajo coste."],
- ["🎓","Formación","Baseline didáctico en un proyecto de clasificación.","Punto de comparación sencillo antes de pasar a XGBoost.","Medir cuánto aporta realmente el boosting moderno."]];
+ ["","Visión industrial","Clasificar piezas defectuosas con 30 descriptores limpios.","Modelo minúsculo de tocones que corre en el PLC de la línea.","Desvío automático de piezas dudosas a inspección manual."],
+ ["","Cámaras","Detección de caras en tiempo real en dispositivos antiguos (Viola-Jones).","Cascada de clasificadores débiles muy rápida.","Enfoque automático en cámaras de bajo coste."],
+ ["","Formación","Baseline didáctico en un proyecto de clasificación.","Punto de comparación sencillo antes de pasar a XGBoost.","Medir cuánto aporta realmente el boosting moderno."]];
 
 EASY.svmlin = {
  frase:"Separa dos grupos con la <b>carretera más ancha posible</b> entre ellos.",
@@ -167,9 +167,9 @@ EASY.svmlin = {
   "Excelente con <b>muchas variables y pocas filas</b> (texto).",
   "Estandariza; C alto sobreajusta. No da probabilidades calibradas (calibra si las necesitas)."]};
 CASOS.svmlin = [
- ["⚖️","Legal","Clasificar contratos entrantes por tipo a partir de su texto (50.000 términos).","SVM lineal sobre TF-IDF: rápido y preciso con matrices enormes y dispersas.","Enrutado automático al equipo especialista."],
- ["📱","Retail electrónico","¿Comprará el nuevo iPhone según edad y salario? (tu notebook)","Frontera de margen máximo interpretable por sus coeficientes.","Segmento objetivo para la campaña de lanzamiento."],
- ["📰","Medios","Detectar si una noticia es de opinión o informativa.","Clasificación de texto ligera, sin GPU.","Etiquetado automático del archivo histórico."]];
+ ["","Legal","Clasificar contratos entrantes por tipo a partir de su texto (50.000 términos).","SVM lineal sobre TF-IDF: rápido y preciso con matrices enormes y dispersas.","Enrutado automático al equipo especialista."],
+ ["","Retail electrónico","¿Comprará el nuevo iPhone según edad y salario? (tu notebook)","Frontera de margen máximo interpretable por sus coeficientes.","Segmento objetivo para la campaña de lanzamiento."],
+ ["","Medios","Detectar si una noticia es de opinión o informativa.","Clasificación de texto ligera, sin GPU.","Etiquetado automático del archivo histórico."]];
 
 EASY.svmker = {
  frase:"Si una línea recta no puede separar los grupos, <b>los levanta a otra dimensión</b> donde sí puede.",
@@ -186,9 +186,9 @@ EASY.svmker = {
   "Los dos mandos: <b>C</b> y <b>γ</b>, que se buscan juntos.",
   "Escala mal: por encima de decenas de miles de filas, pasa a boosting."]};
 CASOS.svmker = [
- ["🔋","Mantenimiento","Baterías industriales próximas al fallo: la frontera edad × uso es curva (tu notebook).","Kernel polinómico/RBF que captura la frontera no lineal con pocos datos.","Sustitución preventiva en la siguiente parada."],
- ["🩺","Diagnóstico","Clasificar muestras con decenas de biomarcadores y pocos pacientes.","Frontera no lineal robusta en alta dimensión con pocas filas.","Derivación a prueba confirmatoria."],
- ["✍️","Documentos","Reconocer dígitos manuscritos en formularios escaneados.","Clásico histórico del SVM RBF sobre píxeles.","Lectura automática de importes y fechas."]];
+ ["","Mantenimiento","Baterías industriales próximas al fallo: la frontera edad × uso es curva (tu notebook).","Kernel polinómico/RBF que captura la frontera no lineal con pocos datos.","Sustitución preventiva en la siguiente parada."],
+ ["","Diagnóstico","Clasificar muestras con decenas de biomarcadores y pocos pacientes.","Frontera no lineal robusta en alta dimensión con pocas filas.","Derivación a prueba confirmatoria."],
+ ["","Documentos","Reconocer dígitos manuscritos en formularios escaneados.","Clásico histórico del SVM RBF sobre píxeles.","Lectura automática de importes y fechas."]];
 
 EASY.knn = {
  frase:"«Dime con quién andas y te diré quién eres»: copia lo que hicieron los <b>casos más parecidos</b>.",
@@ -205,9 +205,9 @@ EASY.knn = {
   "Imprescindible <b>estandarizar</b>; sufre con cientos de variables.",
   "Hoy vive en la <b>búsqueda vectorial</b> (RAG, recomendadores) con índices aproximados."]};
 CASOS.knn = [
- ["🛍️","E-commerce","Asignar categoría a productos nuevos de un catálogo que cambia cada día.","Busca los productos más parecidos (por atributos o embeddings) y copia su categoría.","Publicación automática sin reentrenar nada."],
- ["🏠","Inmobiliaria","Tasación por comparables: «pisos parecidos en la zona».","El precio medio de los K comparables más cercanos, con los comparables a la vista.","Informe de tasación que el cliente entiende."],
- ["🎧","Streaming","«Usuarios parecidos a ti escuchan…».","Vecinos más cercanos en el espacio de gustos.","Lista de recomendaciones personalizada."]];
+ ["","E-commerce","Asignar categoría a productos nuevos de un catálogo que cambia cada día.","Busca los productos más parecidos (por atributos o embeddings) y copia su categoría.","Publicación automática sin reentrenar nada."],
+ ["","Inmobiliaria","Tasación por comparables: «pisos parecidos en la zona».","El precio medio de los K comparables más cercanos, con los comparables a la vista.","Informe de tasación que el cliente entiende."],
+ ["","Streaming","«Usuarios parecidos a ti escuchan…».","Vecinos más cercanos en el espacio de gustos.","Lista de recomendaciones personalizada."]];
 
 EASY.nb = {
  frase:"Suma <b>pistas independientes</b> (palabras) para decidir: ¿spam o no?",
@@ -224,9 +224,9 @@ EASY.nb = {
   "Asume independencia (falso), pero suele acertar <b>qué clase gana</b>.",
   "Sus probabilidades están mal calibradas: no las uses como números exactos."]};
 CASOS.nb = [
- ["✉️","Atención al cliente","Enrutar 4.000 correos diarios a facturación, incidencias, bajas o comercial.","Clasificación por palabras entrenada en segundos con el histórico etiquetado.","Respuesta un 30% más rápida por menos reenvíos."],
- ["📱","Telecomunicaciones","Filtrar SMS de spam (tu notebook).","Bolsa de palabras + Naive Bayes como filtro ligero.","Bloqueo de mensajes fraudulentos antes de llegar al cliente."],
- ["⭐","Reseñas","Clasificar opiniones en positivas o negativas.","Baseline instantáneo antes de probar un transformer.","Medir si el modelo grande compensa su coste."]];
+ ["","Atención al cliente","Enrutar 4.000 correos diarios a facturación, incidencias, bajas o comercial.","Clasificación por palabras entrenada en segundos con el histórico etiquetado.","Respuesta un 30% más rápida por menos reenvíos."],
+ ["","Telecomunicaciones","Filtrar SMS de spam (tu notebook).","Bolsa de palabras + Naive Bayes como filtro ligero.","Bloqueo de mensajes fraudulentos antes de llegar al cliente."],
+ ["","Reseñas","Clasificar opiniones en positivas o negativas.","Baseline instantáneo antes de probar un transformer.","Medir si el modelo grande compensa su coste."]];
 
 EASY.lda = {
  frase:"Busca el <b>ángulo desde el que mirar</b> tus datos para que los grupos se vean lo más separados posible.",
@@ -243,9 +243,9 @@ EASY.lda = {
   "Supone grupos gaussianos con la <b>misma covarianza</b>.",
   "No lo confundas con el LDA de temas (Latent Dirichlet Allocation)."]};
 CASOS.lda = [
- ["💼","Banca privada","Perfilar clientes en conservador / moderado / arriesgado y enseñarlo en un gráfico.","Los ejes discriminantes son a la vez clasificador y mapa comercial.","Cartera modelo propuesta con un gráfico que el cliente entiende."],
- ["🧪","Laboratorio","Distinguir variedades de un producto por su composición química.","Eje que mejor separa variedades con decenas de medidas.","Control de autenticidad del producto."],
- ["🎓","Educación","Identificar qué combinación de notas separa a quienes terminan el grado de quienes abandonan.","Coeficientes discriminantes interpretables.","Tutorías dirigidas desde el primer cuatrimestre."]];
+ ["","Banca privada","Perfilar clientes en conservador / moderado / arriesgado y enseñarlo en un gráfico.","Los ejes discriminantes son a la vez clasificador y mapa comercial.","Cartera modelo propuesta con un gráfico que el cliente entiende."],
+ ["","Laboratorio","Distinguir variedades de un producto por su composición química.","Eje que mejor separa variedades con decenas de medidas.","Control de autenticidad del producto."],
+ ["","Educación","Identificar qué combinación de notas separa a quienes terminan el grado de quienes abandonan.","Coeficientes discriminantes interpretables.","Tutorías dirigidas desde el primer cuatrimestre."]];
 
 EASY.qda = {
  frase:"Como LDA, pero <b>cada grupo tiene su propia forma</b>; la frontera puede ser curva.",
@@ -262,6 +262,6 @@ EASY.qda = {
   "Necesita bastantes datos por clase; regulariza con <code>reg_param</code>.",
   "Compáralo con LDA: si ganan igual, quédate con LDA (más simple)."]};
 CASOS.qda = [
- ["🩸","Diagnóstico clínico","Una condición homogénea frente a otra muy variable en los mismos marcadores.","La frontera curva respeta que cada grupo tiene su dispersión.","Derivación a prueba confirmatoria con menos falsos negativos."],
- ["🏭","Calidad","Lotes correctos (muy estables) frente a defectuosos (dispersos).","Detecta defectuosos a ambos lados del rango normal.","Bloqueo automático de lotes fuera de la región normal."],
- ["💹","Finanzas","Distinguir días de mercado «normales» de días de estrés por rentabilidad y volatilidad.","El grupo de estrés tiene mucha más dispersión: la frontera es una elipse.","Señal de alerta para el comité de riesgos."]];
+ ["","Diagnóstico clínico","Una condición homogénea frente a otra muy variable en los mismos marcadores.","La frontera curva respeta que cada grupo tiene su dispersión.","Derivación a prueba confirmatoria con menos falsos negativos."],
+ ["","Calidad","Lotes correctos (muy estables) frente a defectuosos (dispersos).","Detecta defectuosos a ambos lados del rango normal.","Bloqueo automático de lotes fuera de la región normal."],
+ ["","Finanzas","Distinguir días de mercado «normales» de días de estrés por rentabilidad y volatilidad.","El grupo de estrés tiene mucha más dispersión: la frontera es una elipse.","Señal de alerta para el comité de riesgos."]];

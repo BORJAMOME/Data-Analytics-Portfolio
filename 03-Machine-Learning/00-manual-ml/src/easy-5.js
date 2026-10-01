@@ -15,9 +15,9 @@ EASY.bayesnet = {
   "Responde «¿y si…?» en cualquier dirección y con evidencia parcial.",
   "Que la red esté aprendida de datos no la convierte en causal: las flechas hay que justificarlas."]};
 CASOS.bayesnet = [
- ["🏭","Industria","Paradas de línea sin causa clara: materia prima, humedad, turno o mantenimiento.","Red construida con ingenieros; dada una parada, causa más probable.","Intervenir en la humedad, la causa con más peso."],
- ["🩺","Salud","Apoyo al diagnóstico con síntomas, pruebas y factores de riesgo.","Probabilidad de cada diagnóstico con la evidencia disponible, aunque falten pruebas.","Qué prueba pedir a continuación."],
- ["🛠️","Soporte técnico","Diagnosticar por qué falla el router de un cliente.","Red de síntomas y causas para guiar al agente.","Menos visitas técnicas innecesarias."]];
+ ["","Industria","Paradas de línea sin causa clara: materia prima, humedad, turno o mantenimiento.","Red construida con ingenieros; dada una parada, causa más probable.","Intervenir en la humedad, la causa con más peso."],
+ ["","Salud","Apoyo al diagnóstico con síntomas, pruebas y factores de riesgo.","Probabilidad de cada diagnóstico con la evidencia disponible, aunque falten pruebas.","Qué prueba pedir a continuación."],
+ ["","Soporte técnico","Diagnosticar por qué falla el router de un cliente.","Red de síntomas y causas para guiar al agente.","Menos visitas técnicas innecesarias."]];
 
 EASY.hmm = {
  frase:"Deduce un <b>estado oculto</b> (calma o estrés, sano o averiado) a partir de lo que sí ves.",
@@ -34,9 +34,9 @@ EASY.hmm = {
   "La matriz de transición aporta la <b>persistencia</b>.",
   "Detecta el régimen actual; no adivina el siguiente."]};
 CASOS.hmm = [
- ["📉","Gestión de activos","Saber si el mercado está en calma, transición o estrés.","Regímenes estimados con rendimientos y volatilidad.","Reducir exposición al entrar en régimen de estrés."],
- ["⚙️","Mantenimiento","Fase de desgaste de una máquina a partir de vibraciones.","Estados «sano», «desgaste» y «crítico» inferidos de la señal.","Intervenir al entrar en «desgaste»."],
- ["🛍️","Analítica web","Intención oculta del usuario en su sesión (curiosear, comparar, comprar).","Estados de intención a partir de la secuencia de páginas.","Mostrar el chat de ayuda en la fase «comparar»."]];
+ ["","Gestión de activos","Saber si el mercado está en calma, transición o estrés.","Regímenes estimados con rendimientos y volatilidad.","Reducir exposición al entrar en régimen de estrés."],
+ ["","Mantenimiento","Fase de desgaste de una máquina a partir de vibraciones.","Estados «sano», «desgaste» y «crítico» inferidos de la señal.","Intervenir al entrar en «desgaste»."],
+ ["","Analítica web","Intención oculta del usuario en su sesión (curiosear, comparar, comprar).","Estados de intención a partir de la secuencia de páginas.","Mostrar el chat de ayuda en la fase «comparar»."]];
 
 EASY.arima = {
  frase:"Predice una serie con <b>su propio pasado</b>: lo de hoy se parece a lo de ayer, corregido por errores recientes.",
@@ -53,9 +53,9 @@ EASY.arima = {
   "Necesita serie <b>estacionaria</b> (test ADF); diferencia si hay tendencia.",
   "Línea base obligatoria; valida siempre hacia delante."]};
 CASOS.arima = [
- ["📊","Finanzas","Previsión de ventas del próximo trimestre defendible ante dirección.","Modelo explicable con intervalos de predicción.","Presupuesto con un rango realista, no un número mágico."],
- ["⚡","Energía","Previsión de consumo eléctrico (tu notebook).","ARIMA como línea base antes de modelos más complejos.","Referencia para medir si los modelos complejos aportan."],
- ["🏧","Banca","Efectivo necesario en cada cajero.","Previsión de retiradas por cajero a corto plazo.","Menos cajeros vacíos y menos efectivo inmovilizado."]];
+ ["","Finanzas","Previsión de ventas del próximo trimestre defendible ante dirección.","Modelo explicable con intervalos de predicción.","Presupuesto con un rango realista, no un número mágico."],
+ ["","Energía","Previsión de consumo eléctrico (tu notebook).","ARIMA como línea base antes de modelos más complejos.","Referencia para medir si los modelos complejos aportan."],
+ ["","Banca","Efectivo necesario en cada cajero.","Previsión de retiradas por cajero a corto plazo.","Menos cajeros vacíos y menos efectivo inmovilizado."]];
 
 EASY.sarima = {
  frase:"ARIMA con <b>memoria de calendario</b>: para predecir diciembre mira también el diciembre pasado.",
@@ -73,9 +73,9 @@ EASY.sarima = {
   "Necesitas varios ciclos de historia.",
   "Comprueba el pico de la ACF en el lag s antes y después."]};
 CASOS.sarima = [
- ["🏨","Turismo","Dimensionar la plantilla de hoteles con 3 meses de antelación.","Captura el patrón anual de ocupación.","Contratación de temporada ajustada al pico real."],
- ["🛒","Retail","Ventas semanales con estacionalidad anual (tu notebook).","Bloque estacional que reproduce campañas y verano.","Pedidos a proveedores con el pico ya incorporado."],
- ["🚇","Transporte","Viajeros diarios de metro con patrón semanal.","s = 7: lunes a viernes frente a fines de semana.","Frecuencia de trenes por día de la semana."]];
+ ["","Turismo","Dimensionar la plantilla de hoteles con 3 meses de antelación.","Captura el patrón anual de ocupación.","Contratación de temporada ajustada al pico real."],
+ ["","Retail","Ventas semanales con estacionalidad anual (tu notebook).","Bloque estacional que reproduce campañas y verano.","Pedidos a proveedores con el pico ya incorporado."],
+ ["","Transporte","Viajeros diarios de metro con patrón semanal.","s = 7: lunes a viernes frente a fines de semana.","Frecuencia de trenes por día de la semana."]];
 
 EASY.sarimax = {
  frase:"SARIMA más <b>palancas externas</b> (precio, promociones, clima) para simular escenarios.",
@@ -92,9 +92,9 @@ EASY.sarimax = {
   "Las exógenas futuras tienen que ser conocidas o fijadas por ti.",
   "Permite simular escenarios: su gran valor para negocio."]};
 CASOS.sarimax = [
- ["🛍️","Retail","Ventas con huelgas, promociones y crisis logísticas (tu notebook).","Cuantifica cuánto aporta cada evento y cuánto es inercia.","Calendario promocional optimizado para el año siguiente."],
- ["⚡","Energía","Demanda eléctrica que depende de temperatura y laborables.","Escenarios «ola de calor de +3 °C» para la compra de energía.","Estrategia de cobertura ante picos de demanda."],
- ["🍦","Gran consumo","Ventas de helado según previsión meteorológica y precio.","El precio que fija la empresa entra como exógena conocida.","Precio de verano que maximiza el margen."]];
+ ["","Retail","Ventas con huelgas, promociones y crisis logísticas (tu notebook).","Cuantifica cuánto aporta cada evento y cuánto es inercia.","Calendario promocional optimizado para el año siguiente."],
+ ["","Energía","Demanda eléctrica que depende de temperatura y laborables.","Escenarios «ola de calor de +3 °C» para la compra de energía.","Estrategia de cobertura ante picos de demanda."],
+ ["","Gran consumo","Ventas de helado según previsión meteorológica y precio.","El precio que fija la empresa entra como exógena conocida.","Precio de verano que maximiza el margen."]];
 
 EASY.prophet = {
  frase:"Descompone la serie <b>como un Lego</b>: tendencia + patrón semanal + patrón anual + festivos.",
@@ -111,9 +111,9 @@ EASY.prophet = {
   "Tolera huecos y outliers; el mando clave es <code>changepoint_prior_scale</code>.",
   "Con series cortas o dinámicas complejas, un ARIMA bien hecho puede ganarle."]};
 CASOS.prophet = [
- ["📦","E-commerce","Prever pedidos diarios para dimensionar almacén y atención al cliente.","Absorbe festivos móviles y estacionalidad semanal y anual.","Turnos ajustados con una semana de antelación."],
- ["🌐","Producto digital","Tráfico web diario con lanzamientos y campañas.","Campañas como eventos para separar su efecto.","Capacidad de servidores sin sobresaltos."],
- ["🍕","Restauración","Pedidos de delivery por día con partidos y festivos.","Eventos deportivos como regresores.","Compra de ingredientes ajustada a la demanda."]];
+ ["","E-commerce","Prever pedidos diarios para dimensionar almacén y atención al cliente.","Absorbe festivos móviles y estacionalidad semanal y anual.","Turnos ajustados con una semana de antelación."],
+ ["","Producto digital","Tráfico web diario con lanzamientos y campañas.","Campañas como eventos para separar su efecto.","Capacidad de servidores sin sobresaltos."],
+ ["","Restauración","Pedidos de delivery por día con partidos y festivos.","Eventos deportivos como regresores.","Compra de ingredientes ajustada a la demanda."]];
 
 EASY.hw = {
  frase:"Una media que da <b>más peso a lo reciente</b>, por separado para el nivel, la tendencia y la estacionalidad.",
@@ -130,9 +130,9 @@ EASY.hw = {
   "Aditiva si los picos son constantes; multiplicativa si crecen con el nivel.",
   "Línea base a escala: miles de series en segundos."]};
 CASOS.hw = [
- ["🏬","Distribución","Prever 12.000 referencias sin ajustar un modelo por SKU.","Ajuste automático en milisegundos por serie.","Reposición semanal desatendida."],
- ["🏥","Hospitales","Consumo semanal de material sanitario por planta.","Captura tendencia y estacionalidad (gripe en invierno).","Pedidos de almacén sin roturas."],
- ["☕","Cafeterías","Ventas diarias por producto para preparar la producción.","Patrón semanal y tendencia reciente.","Menos merma de bollería al final del día."]];
+ ["","Distribución","Prever 12.000 referencias sin ajustar un modelo por SKU.","Ajuste automático en milisegundos por serie.","Reposición semanal desatendida."],
+ ["","Hospitales","Consumo semanal de material sanitario por planta.","Captura tendencia y estacionalidad (gripe en invierno).","Pedidos de almacén sin roturas."],
+ ["","Cafeterías","Ventas diarias por producto para preparar la producción.","Patrón semanal y tendencia reciente.","Menos merma de bollería al final del día."]];
 
 EASY.bandit = {
  frase:"Un test A/B que <b>se corrige solo</b>: manda más tráfico a lo que funciona mientras aprende.",
@@ -149,9 +149,9 @@ EASY.bandit = {
   "Thompson sampling es la opción por defecto: sencilla y eficaz.",
   "Complica la inferencia estadística: si necesitas un p-valor limpio, A/B clásico."]};
 CASOS.bandit = [
- ["🛒","E-commerce","Probar 5 versiones de ficha de producto en plena campaña.","Desplaza tráfico a la mejor versión mientras aprende.","Más conversiones durante el propio test."],
- ["📰","Medios","Elegir entre 4 titulares para una noticia que caduca en horas.","Bandit sobre la tasa de clic.","El titular ganador se impone en minutos."],
- ["📧","Marketing","Qué asunto de email enviar a cada tanda de la base.","Envíos por tandas que favorecen el asunto ganador.","Más aperturas totales en la campaña."]];
+ ["","E-commerce","Probar 5 versiones de ficha de producto en plena campaña.","Desplaza tráfico a la mejor versión mientras aprende.","Más conversiones durante el propio test."],
+ ["","Medios","Elegir entre 4 titulares para una noticia que caduca en horas.","Bandit sobre la tasa de clic.","El titular ganador se impone en minutos."],
+ ["","Marketing","Qué asunto de email enviar a cada tanda de la base.","Envíos por tandas que favorecen el asunto ganador.","Más aperturas totales en la campaña."]];
 
 EASY.qlearning = {
  frase:"Un agente que rellena una tabla <b>«situación × acción → cuánto ganaré a la larga»</b> a base de probar.",
@@ -168,9 +168,9 @@ EASY.qlearning = {
   "Off-policy: aprende de la <b>mejor acción posible</b>, aunque esté explorando.",
   "Solo con pocos estados discretos; si no caben en tabla, DQN."]};
 CASOS.qlearning = [
- ["📦","Inventario (simulado)","Política de reposición con demanda aleatoria y costes de rotura.","La tabla dice cuánto pedir en cada nivel de stock.","Regla de reposición que se puede imprimir y auditar."],
- ["🤖","Robótica de almacén","Ruta de un robot en una rejilla con zonas prohibidas.","Aprende la ruta más corta evitando obstáculos.","Rutas sin programarlas a mano."],
- ["🎓","Docencia","Entender los fundamentos del refuerzo.","Tabla legible fila a fila.","Base para pasar a DQN y PPO."]];
+ ["","Inventario (simulado)","Política de reposición con demanda aleatoria y costes de rotura.","La tabla dice cuánto pedir en cada nivel de stock.","Regla de reposición que se puede imprimir y auditar."],
+ ["","Robótica de almacén","Ruta de un robot en una rejilla con zonas prohibidas.","Aprende la ruta más corta evitando obstáculos.","Rutas sin programarlas a mano."],
+ ["","Docencia","Entender los fundamentos del refuerzo.","Tabla legible fila a fila.","Base para pasar a DQN y PPO."]];
 
 EASY.sarsa = {
  frase:"Como Q-Learning, pero aprende <b>con sus propios despistes</b>: evita caminar pegado al acantilado.",
@@ -187,9 +187,9 @@ EASY.sarsa = {
   "Más prudente que Q-Learning mientras explora.",
   "Con exploración → 0, ambos convergen a la misma política."]};
 CASOS.sarsa = [
- ["🛒","E-commerce","Qué acción aplicar cada semana a cada cliente (nada, email, cupón) (tu notebook).","Política que descuenta el coste de sus propios experimentos.","Menos cupones agresivos «por si acaso»."],
- ["🏗️","Robótica","Robot que aprende cerca de zonas peligrosas.","Rutas que mantienen distancia de seguridad mientras explora.","Menos accidentes durante el aprendizaje."],
- ["🎓","Docencia","Entender on-policy frente a off-policy.","El ejemplo clásico del acantilado.","Base para entender PPO (on-policy) y DQN (off-policy)."]];
+ ["","E-commerce","Qué acción aplicar cada semana a cada cliente (nada, email, cupón) (tu notebook).","Política que descuenta el coste de sus propios experimentos.","Menos cupones agresivos «por si acaso»."],
+ ["","Robótica","Robot que aprende cerca de zonas peligrosas.","Rutas que mantienen distancia de seguridad mientras explora.","Menos accidentes durante el aprendizaje."],
+ ["","Docencia","Entender on-policy frente a off-policy.","El ejemplo clásico del acantilado.","Base para entender PPO (on-policy) y DQN (off-policy)."]];
 
 EASY.dqn = {
  frase:"Q-Learning cuando la tabla sería gigantesca: una <b>red neuronal estima</b> el valor de cada acción.",
@@ -206,9 +206,9 @@ EASY.dqn = {
   "Dos estabilizadores: <b>replay buffer</b> y <b>red objetivo</b>.",
   "Necesita simulador y muchísimas interacciones; compara con heurísticas."]};
 CASOS.dqn = [
- ["🔋","Energía","Cuándo cargar y descargar una batería según precio, demanda y renovables.","Optimiza la secuencia completa de decisiones en un simulador con datos reales.","Más beneficio que la regla «cargar barato, descargar caro»."],
- ["🎮","Videojuegos","Agentes que juegan desde los píxeles (Atari).","La red aprende el valor de cada acción a partir de la imagen.","El hito que popularizó el deep reinforcement learning."],
- ["🚦","Movilidad","Control de semáforos en un cruce simulado.","Estado = colas en cada carril; acción = fase del semáforo.","Menos tiempo de espera medio en simulación."]];
+ ["","Energía","Cuándo cargar y descargar una batería según precio, demanda y renovables.","Optimiza la secuencia completa de decisiones en un simulador con datos reales.","Más beneficio que la regla «cargar barato, descargar caro»."],
+ ["","Videojuegos","Agentes que juegan desde los píxeles (Atari).","La red aprende el valor de cada acción a partir de la imagen.","El hito que popularizó el deep reinforcement learning."],
+ ["","Movilidad","Control de semáforos en un cruce simulado.","Estado = colas en cada carril; acción = fase del semáforo.","Menos tiempo de espera medio en simulación."]];
 
 EASY.ppo = {
  frase:"Aprende directamente <b>la estrategia</b>, con una regla de prudencia: no cambiar demasiado de golpe.",
@@ -225,9 +225,9 @@ EASY.ppo = {
   "El <b>clipping</b> limita cuánto cambia en cada paso.",
   "Base del RLHF original; hoy en LLMs dominan variantes como GRPO o DPO."]};
 CASOS.ppo = [
- ["🤖","IA conversacional","Ajustar un modelo de lenguaje al tono y las políticas de la empresa.","Optimiza con un modelo de preferencias sin alejarse demasiado del original (KL).","Respuestas alineadas sin perder capacidades."],
- ["🦾","Robótica","Control continuo de un brazo robótico.","Política que produce fuerzas continuas, estable al entrenar.","Agarre de piezas sin programar trayectorias."],
- ["🏭","Procesos","Control de temperatura de un horno industrial en simulación.","Acciones continuas (potencia) con entrenamiento estable.","Menos consumo con la misma calidad."]];
+ ["","IA conversacional","Ajustar un modelo de lenguaje al tono y las políticas de la empresa.","Optimiza con un modelo de preferencias sin alejarse demasiado del original (KL).","Respuestas alineadas sin perder capacidades."],
+ ["","Robótica","Control continuo de un brazo robótico.","Política que produce fuerzas continuas, estable al entrenar.","Agarre de piezas sin programar trayectorias."],
+ ["","Procesos","Control de temperatura de un horno industrial en simulación.","Acciones continuas (potencia) con entrenamiento estable.","Menos consumo con la misma calidad."]];
 
 EASY.automl = {
  frase:"Un asistente que <b>prueba por ti</b> decenas de modelos y configuraciones y te devuelve un ranking.",
@@ -244,9 +244,9 @@ EASY.automl = {
   "No sustituye tu criterio: fugas, split temporal, línea base.",
   "Diferencias dentro del ruido no justifican un modelo más complejo."]};
 CASOS.automl = [
- ["🧭","Consultoría","Decir en 48 h si un problema es abordable con datos.","Ranking rápido de modelos sobre el dataset del cliente.","Seguir adelante o parar antes de comprometer 3 meses."],
- ["🏢","Pyme","Primer modelo de churn sin equipo de ciencia de datos.","Un baseline sólido sin escribir cientos de líneas.","Lista mensual de clientes en riesgo."],
- ["📊","BI","Validar si añadir una variable nueva aporta algo.","Comparar rankings con y sin la variable en minutos.","Decidir si compensa integrar esa fuente de datos."]];
+ ["","Consultoría","Decir en 48 h si un problema es abordable con datos.","Ranking rápido de modelos sobre el dataset del cliente.","Seguir adelante o parar antes de comprometer 3 meses."],
+ ["","Pyme","Primer modelo de churn sin equipo de ciencia de datos.","Un baseline sólido sin escribir cientos de líneas.","Lista mensual de clientes en riesgo."],
+ ["","BI","Validar si añadir una variable nueva aporta algo.","Comparar rankings con y sin la variable en minutos.","Decidir si compensa integrar esa fuente de datos."]];
 
 EASY.pyspark = {
  frase:"Cuando los datos no caben en tu ordenador, Spark los <b>reparte entre muchos</b> y trabaja en paralelo.",
@@ -263,6 +263,6 @@ EASY.pyspark = {
   "Transformaciones perezosas; el tiempo real está en las <b>acciones</b>.",
   "Si cabe en una máquina, prueba antes Polars o DuckDB."]};
 CASOS.pyspark = [
- ["🧾","Retail","Histórico de 5 años de tickets que ya no cabe en pandas (tu notebook).","Pipeline distribuido con particionado por fecha.","Informe mensual de horas a minutos."],
- ["📡","Telecomunicaciones","Procesar miles de millones de registros de llamadas al día.","Agregaciones por cliente y antena en paralelo.","Variables diarias para el modelo de churn."],
- ["🏦","Banca","Preparar variables de comportamiento para scoring de toda la cartera.","Ventanas temporales sobre años de transacciones en Spark.","Tabla de features lista cada noche."]];
+ ["","Retail","Histórico de 5 años de tickets que ya no cabe en pandas (tu notebook).","Pipeline distribuido con particionado por fecha.","Informe mensual de horas a minutos."],
+ ["","Telecomunicaciones","Procesar miles de millones de registros de llamadas al día.","Agregaciones por cliente y antena en paralelo.","Variables diarias para el modelo de churn."],
+ ["","Banca","Preparar variables de comportamiento para scoring de toda la cartera.","Ventanas temporales sobre años de transacciones en Spark.","Tabla de features lista cada noche."]];

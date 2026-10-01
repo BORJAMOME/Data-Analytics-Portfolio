@@ -30,14 +30,14 @@ var AUDIT = [
  {sev:"baja", t:"Plazos de transparencia del AI Act",
   d:"<span class='now'>Precisado: art. 50 desde el 2 de agosto de 2026, con margen hasta el 2 de diciembre de 2026 para marcar contenido generado por IA de sistemas ya en el mercado</span> (Reglamento (UE) 2026/1744).", w:"Fundamentos · Qué ha cambiado"},
  {sev:"baja", t:"Leyendas de color de los laboratorios",
-  d:"Con la paleta de marca, los textos decían «azul» donde ahora es <span class='now'>morado</span> (umbral, árbol, kernel, plano 3D).", w:"Laboratorios"},
+  d:"<span class='now'>Los textos de las leyendas nombran ahora el color real de cada visual</span> (umbral, árbol, kernel, plano 3D), tras adoptar la paleta azul del portfolio.", w:"Laboratorios"},
  {sev:"ok", t:"Afirmaciones con fecha verificadas en fuentes actuales",
   d:"Digital Omnibus = Reglamento (UE) 2026/1744 (en vigor el 27 de julio de 2026; alto riesgo desde el 2 de diciembre de 2027). TabPFN-2.5 (nov. 2025): hasta 50.000 filas y 2.000 variables, 100% de victorias frente a XGBoost por defecto hasta 10.000 filas y 87% hasta 100.000. YOLO26: 14 de enero de 2026, sin NMS. scikit-learn 1.9: junio de 2026. Gymnasium CliffWalking-v1, pgmpy DiscreteBayesianNetwork y Spark 4 con ANSI por defecto: correctos.", w:"Varias fichas"},
  {sev:"ok", t:"Fórmulas y ejemplos numéricos recalculados",
-  d:"Mínimos cuadrados, Ridge/Lasso/Elastic Net, Gini, α de AdaBoost, peso de hoja de XGBoost, Q-Learning, SARSA, recorte de PPO, ARIMA, lift, Kaplan-Meier, matriz de confusión, validación cruzada y distancias: correctos. Todos los ejemplos nuevos de la capa «para dummies» se calcularon y comprobaron a mano.", w:"63 fichas · 24 fundamentos"}
+  d:"Mínimos cuadrados, Ridge/Lasso/Elastic Net, Gini, α de AdaBoost, peso de hoja de XGBoost, Q-Learning, SARSA, recorte de PPO, ARIMA, lift, Kaplan-Meier, matriz de confusión, validación cruzada y distancias: correctos. Todos los ejemplos nuevos de la capa de explicación sencilla se calcularon y comprobaron a mano.", w:"63 fichas · 24 fundamentos"}
 ];
 var PROPUESTAS = [
- {k:"Hecho en esta edición", t:"Capa «para dummies» en las 63 fichas", d:"Una frase, pasos como si lo hicieras a mano, un ejemplo con números y «lo que tienes que recordar».", done:1},
+ {k:"Hecho en esta edición", t:"Capa de explicación sencilla en las 63 fichas", d:"Una frase, pasos como si lo hicieras a mano, un ejemplo con números y «lo que tienes que recordar».", done:1},
  {k:"Hecho en esta edición", t:"Un visual interactivo propio por modelo", d:"2D y 3D (three.js), con cálculos reales siempre que es razonable y la simulación declarada cuando no.", done:1},
  {k:"Hecho en esta edición", t:"Casos de negocio ampliados", d:"Cada ficha: el caso a fondo + 3 casos reales nuevos de sectores distintos.", done:1},
  {k:"Hecho en esta edición", t:"Rediseño para estudiar", d:"Lectura a 760 px, índice lateral con seguimiento, capítulos, más aire, tema oscuro y marca personal.", done:1},

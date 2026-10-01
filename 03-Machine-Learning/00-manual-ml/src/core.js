@@ -175,21 +175,21 @@ function glossLink(root){
    ══════════════════════════════════════════════════════════════ */
 function fundChip(id){
   var m = byId[id]; if(!m) return "";
-  return '<button class="fchip" data-go="'+id+'">'+FAM[m.f].ic+' '+m.n+'</button>';
+  return '<button class="fchip" data-go="'+id+'">'+m.n+'</button>';
 }
 function fundCard(c){
   var lab = c.lab ? LABS.filter(function(L){ return L.id === c.lab; })[0] : null;
-  return '<details class="fcard" id="fund-'+c.id+'"><summary><span class="fic" aria-hidden="true">'+c.ic+'</span>'+
+  return '<details class="fcard" id="fund-'+c.id+'"><summary>'+
     '<span class="fst"><span class="ft">'+c.t+'</span><span class="ff">'+c.f+'</span></span><span class="fchev" aria-hidden="true">▾</span></summary>'+
     '<div class="fbody">'+
       '<div class="fsec"><div class="dsub">Explicado en sencillo</div><p>'+c.s+'</p></div>'+
       '<div class="fgrid">'+
-        '<div class="fsec fan"><div class="dsub">💡 Analogía</div><p>'+c.an+'</p></div>'+
-        '<div class="fsec fej"><div class="dsub">🔢 Ejemplo</div><p>'+c.ej+'</p></div>'+
+        '<div class="fsec fan"><div class="dsub">Analogía</div><p>'+c.an+'</p></div>'+
+        '<div class="fsec fej"><div class="dsub">Ejemplo</div><p>'+c.ej+'</p></div>'+
       '</div>'+
-      '<div class="fsec ferr"><div class="dsub">⚠ Error típico</div><p>'+c.err+'</p></div>'+
+      '<div class="fsec ferr"><div class="dsub">Error típico</div><p>'+c.err+'</p></div>'+
       (c.cod ? '<details class="codebox"><summary>Ver el código</summary><pre class="dcode">'+c.cod.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</pre></details>' : '')+
-      (lab ? '<a class="flab" href="#lab/'+lab.id+'">'+lab.ic+' Abrir laboratorio: '+lab.t+' →</a>' : '')+
+      (lab ? '<a class="flab" href="#lab/'+lab.id+'">Abrir laboratorio: '+lab.t+' →</a>' : '')+
       (c.rel && c.rel.length ? '<div class="frel"><span class="dsub">Lo vas a usar en</span><div>'+c.rel.map(fundChip).join("")+'</div></div>' : '')+
     '</div></details>';
 }
@@ -203,12 +203,12 @@ function renderFund(){
   FUND.forEach(function(B){
     h += '<section class="fblock"><h3 class="fbh">'+B.b+'</h3><div class="fcards">'+B.items.map(fundCard).join("")+'</div></section>';
   });
-  h += '<section class="fblock" id="fund-glosario"><h3 class="fbh">📖 Glosario · '+GLOS.length+' términos</h3>'+
+  h += '<section class="fblock" id="fund-glosario"><h3 class="fbh">Glosario · '+GLOS.length+' términos</h3>'+
     '<div class="search gsearch"><input id="glq" type="text" placeholder="Filtrar el glosario… (p. ej. «recall», «kernel»)" aria-label="Filtrar glosario"></div>'+
     '<dl class="glist" id="glist">'+GLOS.slice().sort(function(a,b){ return a[0].localeCompare(b[0], "es"); }).map(function(g){
       return '<div class="gi" data-k="'+sinAcentos((g[0]+" "+g[1].join(" ")+" "+g[2]).toLowerCase()).replace(/"/g,"")+'"><dt>'+g[0]+'</dt><dd>'+g[2]+'</dd></div>';
     }).join("")+'</dl></section>';
-  h += '<section class="fblock"><h3 class="fbh">📚 Lecturas recomendadas</h3><ul class="lect">'+
+  h += '<section class="fblock"><h3 class="fbh">Lecturas recomendadas</h3><ul class="lect">'+
     LECTURAS.map(function(l){ return '<li><b>'+l[0]+'</b><span>'+l[1]+'</span></li>'; }).join("")+'</ul></section>';
   host.innerHTML = h;
   host.dataset.done = "1";
@@ -238,7 +238,7 @@ function currentTheme(){
 }
 function initTheme(){
   var b = document.getElementById("themeBtn"); if(!b) return;
-  var paint = function(){ var d = currentTheme() === "dark"; b.textContent = d ? "☀️" : "🌙"; b.setAttribute("aria-pressed", d ? "true" : "false"); };
+  var paint = function(){ var d = currentTheme() === "dark"; b.textContent = d ? "Claro" : "Oscuro"; b.setAttribute("aria-pressed", d ? "true" : "false"); };
   b.addEventListener("click", function(){
     var n = currentTheme() === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", n);
@@ -257,19 +257,19 @@ function initTheme(){
    ══════════════════════════════════════════════════════════════ */
 var FUND = [
 {b:"1 · La base: qué es aprender de datos", items:[
- {id:"modelo",ic:"🧩",t:"Qué es un modelo",f:"Una función que aprende de ejemplos a convertir entradas en una salida.",
+ {id:"modelo",ic:"",t:"Qué es un modelo",f:"Una función que aprende de ejemplos a convertir entradas en una salida.",
   s:"Un modelo es una fórmula que no escribes tú: la <b>aprende</b> a partir de ejemplos. Le das filas con las <b>variables de entrada</b> (features, la X: edad, gasto, antigüedad) y, en supervisado, la <b>respuesta</b> (target, la y: se dio de baja sí/no). El entrenamiento ajusta los parámetros del modelo para que sus predicciones se parezcan lo máximo posible a las respuestas reales.",
   an:"Como un aprendiz de tasador que ve 8.000 pisos ya vendidos con su precio y, a fuerza de ver ejemplos, aprende a poner precio a un piso que no ha visto nunca.",
   ej:"Tabla de 10.000 clientes × 12 columnas (X) + una columna «baja» (y). El modelo aprende y, para un cliente nuevo, devuelve: «probabilidad de baja = 0,23».",
   err:"Pensar que el modelo «entiende» el negocio. Solo ha visto patrones en tus datos: si los datos están sesgados o no contienen la señal, el modelo tampoco la tendrá.",
   rel:["linsimple","logistica","arbol"]},
- {id:"tipos",ic:"🧭",t:"Supervisado, no supervisado y refuerzo",f:"Con respuesta conocida, sin respuesta, o aprendiendo de recompensas.",
+ {id:"tipos",ic:"",t:"Supervisado, no supervisado y refuerzo",f:"Con respuesta conocida, sin respuesta, o aprendiendo de recompensas.",
   s:"<b>Supervisado</b>: tienes la respuesta en el histórico y quieres predecirla (regresión si es un número, clasificación si es una categoría). <b>No supervisado</b>: no hay respuesta; buscas estructura (grupos, anomalías, resúmenes). <b>Refuerzo</b>: un agente toma decisiones una tras otra y aprende de la recompensa que recibe.",
   an:"Supervisado = estudiar con el solucionario. No supervisado = ordenar una caja de fotos sin que nadie te diga las categorías. Refuerzo = aprender a montar en bici a base de caerte.",
   ej:"«¿Cuánto venderé?» → regresión. «¿Se irá este cliente?» → clasificación. «¿Qué tipos de cliente tengo?» → clustering. «¿Qué precio pongo hoy para maximizar el margen del mes?» → refuerzo (o un bandit).",
   err:"Elegir el algoritmo antes de definir la pregunta. Primero el tipo de problema; el modelo viene después (el árbol de «Elegir modelo» te guía).",
   rel:["kmeans","bandit"]},
- {id:"baseline",ic:"📏",t:"La línea base (baseline)",f:"La regla tonta que tu modelo tiene que batir.",
+ {id:"baseline",ic:"",t:"La línea base (baseline)",f:"La regla tonta que tu modelo tiene que batir.",
   s:"Antes de entrenar nada, calcula qué resultado da la solución más simple posible: predecir siempre la media, la clase más frecuente o «lo mismo que la semana pasada». Tu modelo solo aporta valor si mejora esa cifra <b>de forma clara</b>.",
   an:"Si un adivino acierta el tiempo de mañana el 70% de las veces, pero decir «mañana hará lo mismo que hoy» acierta el 68%, el adivino casi no aporta nada.",
   ej:"Churn del 3%: decir «nadie se va» da un 97% de accuracy. Un modelo con 96,5% de accuracy es PEOR que no hacer nada. En series: el pronóstico ingenuo estacional (mismo valor que hace un año) es la línea base obligatoria.",
@@ -278,34 +278,34 @@ var FUND = [
   rel:["automl","hw"]}
 ]},
 {b:"2 · Entrenar sin hacerse trampas", items:[
- {id:"split",ic:"✂️",t:"Train, validación y test",f:"Nunca evalúes con los mismos datos con los que aprendes.",
+ {id:"split",ic:"",t:"Train, validación y test",f:"Nunca evalúes con los mismos datos con los que aprendes.",
   s:"Divide los datos en tres: <b>train</b> (para aprender), <b>validación</b> (para elegir ajustes y comparar modelos) y <b>test</b> (se mira una sola vez, al final, para saber cómo irá en la vida real). Si usas el test para decidir cosas, deja de ser una estimación honesta.",
   an:"Train = los ejercicios del libro. Validación = los exámenes de prueba. Test = el examen final, que no ves hasta el día del examen.",
   ej:"10.000 filas → 6.000 train, 2.000 validación, 2.000 test. Con datos temporales, NO al azar: train = 2022-2024, validación = primer semestre de 2025, test = segundo semestre de 2025.",
   err:"Partir al azar datos que tienen orden temporal o grupos (el mismo cliente en train y en test). El modelo «ve el futuro» o reconoce al cliente y el resultado es una fantasía.",
   cod:"from sklearn.model_selection import train_test_split\n\nX_tr, X_te, y_tr, y_te = train_test_split(\n    X, y, test_size=0.2, stratify=y, random_state=42)   # stratify: misma % de cada clase",
   rel:["xgboost","arima"]},
- {id:"overfit",ic:"🎯",t:"Sobreajuste y subajuste",f:"Memorizar el ruido frente a no captar el patrón.",
+ {id:"overfit",ic:"",t:"Sobreajuste y subajuste",f:"Memorizar el ruido frente a no captar el patrón.",
   s:"Un modelo <b>sobreajusta</b> cuando memoriza los datos de entrenamiento, incluido su ruido: va de maravilla en train y mal en test. <b>Subajusta</b> cuando es demasiado simple: falla en los dos. El objetivo es el punto intermedio. Esta tensión se llama <b>compromiso sesgo-varianza</b>: los modelos simples tienen sesgo (se equivocan siempre de la misma forma) y los complejos, varianza (cambian mucho con cada muestra).",
   an:"El alumno que se aprende de memoria las respuestas del examen del año pasado saca un 10 en ese examen y un 3 en el nuevo. El que no ha estudiado saca un 3 en los dos.",
   ej:"Árbol sin límite de profundidad: 100% de acierto en train, 62% en test → sobreajuste. Regresión lineal sobre una relación en forma de U: 55% en train y 54% en test → subajuste. Árbol de profundidad 5: 81% y 79% → bien.",
   err:"Mirar solo el resultado de entrenamiento. La pregunta siempre es: ¿cuánto empeora en datos que no ha visto?",
   lab:"sobreajuste",rel:["arbol","ridge","knn"]},
- {id:"cv",ic:"🔁",t:"Validación cruzada",f:"Evaluar varias veces rotando el trozo de prueba.",
+ {id:"cv",ic:"",t:"Validación cruzada",f:"Evaluar varias veces rotando el trozo de prueba.",
   s:"En vez de un único split, divides los datos en k trozos (normalmente 5): entrenas con 4 y evalúas con el quinto, y repites rotando. Obtienes 5 resultados: su media es más fiable y su dispersión te dice lo estable que es el modelo.",
   an:"No juzgas a un jugador por un solo partido: miras su media en la temporada y si es regular o irregular.",
   ej:"AUC por fold: 0,81 · 0,83 · 0,80 · 0,82 · 0,79 → media 0,81 ± 0,015. Si otro modelo da 0,815 ± 0,04, la diferencia es ruido.",
   err:"Usar KFold normal en series temporales (usa TimeSeriesSplit) o cuando hay varias filas por cliente (usa GroupKFold).",
   cod:"from sklearn.model_selection import cross_val_score, TimeSeriesSplit\n\nscores = cross_val_score(modelo, X, y, cv=5, scoring='roc_auc')\nprint(scores.mean().round(3), '±', scores.std().round(3))\n# series temporales: cv=TimeSeriesSplit(n_splits=5)",
   rel:["lasso","xgboost"]},
- {id:"leakage",ic:"🕳️",t:"Data leakage (fuga de información)",f:"El error que hace que un modelo perfecto falle en producción.",
+ {id:"leakage",ic:"",t:"Data leakage (fuga de información)",f:"El error que hace que un modelo perfecto falle en producción.",
   s:"Hay fuga cuando el modelo usa, al entrenar, información que <b>no tendrá</b> en el momento real de predecir. Dos formas típicas: variables que se generan después del evento (p. ej., «nº de llamadas de recobro» para predecir el impago) y preprocesado calculado con todos los datos antes de partir (medias, escalados, encodings).",
   an:"Es como predecir quién ganará la carrera mirando la foto del podio.",
   ej:"Modelo de churn con AUC 0,99 en validación. Causa: la variable «motivo_de_baja» solo está rellena en los que ya se han ido. En producción, AUC 0,60.",
   err:"Celebrar un resultado demasiado bueno. Regla práctica: si algo parece demasiado bueno para ser verdad, busca la fuga antes de enseñarlo.",
   cod:"from sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\n\n# El Pipeline aprende el escalado SOLO con train en cada fold: sin fugas\nmodelo = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))",
   rel:["catboost","automl"]},
- {id:"prepro",ic:"🧼",t:"Preprocesado: escalar, codificar, nulos",f:"Dejar los datos en el idioma que entiende cada modelo.",
+ {id:"prepro",ic:"",t:"Preprocesado: escalar, codificar, nulos",f:"Dejar los datos en el idioma que entiende cada modelo.",
   s:"<b>Escalar</b>: poner las variables en escalas comparables (media 0, desviación 1). Imprescindible en modelos que usan distancias o penalizaciones (KNN, SVM, K-Means, Ridge, redes); los árboles no lo necesitan. <b>Codificar</b>: convertir categorías en números (one-hot, ordinal o target encoding). <b>Nulos</b>: imputar (media, mediana, «desconocido») o usar modelos que los toleran (XGBoost, LightGBM).",
   an:"Si una variable va en euros (0-50.000) y otra en años (0-80), para un modelo de distancias la de euros «grita» y la de años «susurra», aunque importe más.",
   ej:"Gasto 1.200 € y edad 35 → tras estandarizar: gasto 0,4 y edad −0,2. Ahora pesan por su información, no por su unidad.",
@@ -314,32 +314,32 @@ var FUND = [
   rel:["kmeans","svmker","catboost"]}
 ]},
 {b:"3 · Cómo aprende un modelo", items:[
- {id:"loss",ic:"⛰️",t:"Función de pérdida y descenso de gradiente",f:"Medir el error y bajarlo paso a paso.",
+ {id:"loss",ic:"",t:"Función de pérdida y descenso de gradiente",f:"Medir el error y bajarlo paso a paso.",
   s:"La <b>función de pérdida</b> es una fórmula que mide cuánto se equivoca el modelo (por ejemplo, la media del error al cuadrado). Entrenar es buscar los parámetros que la hacen mínima. El <b>descenso de gradiente</b> lo hace como quien baja una montaña con niebla: mira hacia dónde baja el terreno y da un paso en esa dirección. El tamaño del paso es el <b>learning rate</b>.",
   an:"Bajar una montaña de noche con linterna: no ves el valle, pero sí la pendiente bajo tus pies. Pasos muy cortos: tardas una eternidad. Pasos enormes: saltas de una ladera a otra y no llegas nunca.",
   ej:"Learning rate 0,01: 400 pasos para converger. 0,1: 40 pasos. 0,3: la pérdida sube en cada paso → diverge. Pruébalo en el laboratorio 3D.",
   err:"Bajar el learning rate en boosting o redes sin subir el número de iteraciones: el modelo se queda a medio camino.",
   lab:"descenso",rel:["mlp","gbr","xgboost","logistica"]},
- {id:"regul",ic:"🧲",t:"Regularización",f:"Penalizar la complejidad para que el modelo generalice.",
+ {id:"regul",ic:"",t:"Regularización",f:"Penalizar la complejidad para que el modelo generalice.",
   s:"Consiste en añadir a la pérdida un castigo por complejidad: coeficientes grandes (Ridge, Lasso), árboles profundos (max_depth), demasiadas hojas, neuronas «apagadas» al azar (dropout). El modelo pierde un poco de ajuste en train a cambio de funcionar mejor con datos nuevos.",
   an:"Un presupuesto limitado para explicar los datos: no puedes gastar en detalles irrelevantes, así que te centras en lo que importa.",
   ej:"Regresión con 80 variables y 500 filas: sin regularizar, R² = 0,92 en train y 0,41 en test. Con Lasso: 0,78 y 0,74, y solo 9 variables con peso.",
   err:"Regularizar sin estandarizar (castigas por unidades, no por importancia) y fijar la fuerza a ojo en vez de con validación cruzada.",
   lab:"regul",rel:["ridge","lasso","elastic","xgboost"]},
- {id:"hiper",ic:"🎛️",t:"Parámetros e hiperparámetros",f:"Lo que aprende el modelo frente a lo que decides tú.",
+ {id:"hiper",ic:"",t:"Parámetros e hiperparámetros",f:"Lo que aprende el modelo frente a lo que decides tú.",
   s:"Los <b>parámetros</b> los aprende el modelo (los coeficientes de una regresión, los cortes de un árbol). Los <b>hiperparámetros</b> los fijas tú antes de entrenar (profundidad máxima, número de árboles, K, learning rate). Se eligen probando combinaciones con validación cruzada: búsqueda en rejilla, aleatoria u optimización bayesiana (Optuna).",
   an:"Una receta: la cantidad de sal que «aprende» el cocinero probando es un parámetro; la temperatura del horno que eliges antes de empezar es un hiperparámetro.",
   ej:"Random Forest: probar max_depth ∈ {4, 8, 12, None} × min_samples_leaf ∈ {1, 5, 20} = 12 combinaciones × 5 folds = 60 entrenamientos.",
   err:"Elegir hiperparámetros mirando el test. Para eso está la validación.",
   cod:"from sklearn.model_selection import RandomizedSearchCV\n\nbusca = RandomizedSearchCV(modelo, {'max_depth': [4, 8, 12, None],\n                                   'min_samples_leaf': [1, 5, 20]},\n                           n_iter=10, cv=5, scoring='roc_auc', random_state=42)\nbusca.fit(X_tr, y_tr); print(busca.best_params_)",
   rel:["rf","lightgbm"]},
- {id:"ensemble",ic:"🌲",t:"Ensembles: bagging y boosting",f:"Muchos modelos mediocres que juntos son excelentes.",
+ {id:"ensemble",ic:"",t:"Ensembles: bagging y boosting",f:"Muchos modelos mediocres que juntos son excelentes.",
   s:"<b>Bagging</b>: entrenas muchos modelos en paralelo, cada uno con una muestra distinta de los datos, y promedias (Random Forest). Reduce la varianza: los errores individuales se compensan. <b>Boosting</b>: entrenas modelos en cadena y cada uno corrige el error del anterior (XGBoost, LightGBM, CatBoost). Reduce el sesgo. En datos tabulares, el boosting es el rey de la precisión.",
   an:"Bagging = la media de 500 opiniones independientes. Boosting = un equipo en cadena donde cada persona revisa y corrige lo que hizo la anterior.",
   ej:"Árbol solo: 74% en test. Random Forest de 300 árboles: 81%. XGBoost ajustado: 83%.",
   err:"Pensar que más árboles en boosting siempre es mejor: sin parada temprana (early stopping) acaba sobreajustando. En Random Forest, en cambio, más árboles nunca empeora.",
   lab:"arbol2d",rel:["rf","xgboost","adaboost","gbr"]},
- {id:"distancia",ic:"📐",t:"Distancias y maldición de la dimensionalidad",f:"«Parecido» es una distancia, y en muchas dimensiones se estropea.",
+ {id:"distancia",ic:"",t:"Distancias y maldición de la dimensionalidad",f:"«Parecido» es una distancia, y en muchas dimensiones se estropea.",
   s:"Muchos modelos deciden por <b>parecido</b>: KNN, K-Means, DBSCAN, SVM con kernel RBF. El parecido se mide con una distancia (euclídea, Manhattan, coseno). Con muchas variables, el espacio es tan enorme que todos los puntos acaban casi igual de lejos unos de otros, y «el vecino más cercano» deja de significar algo.",
   an:"En una habitación, encontrar a la persona más cercana es fácil. Reparte a esas 50 personas por todo el planeta y todas quedan «lejísimos», casi a la misma distancia de ti.",
   ej:"Con 2 variables, el vecino más cercano está a 0,1 y el más lejano a 1,4. Con 500 variables aleatorias, el más cercano queda a unas 8,6 unidades y el más lejano a unas 9,8: casi lo mismo.",
@@ -347,37 +347,37 @@ var FUND = [
   lab:"pca3d",rel:["knn","kmeans","pca","umap"]}
 ]},
 {b:"4 · Medir bien", items:[
- {id:"metreg",ic:"📊",t:"Métricas de regresión",f:"MAE, RMSE, R² y MAPE: qué dice cada una.",
+ {id:"metreg",ic:"",t:"Métricas de regresión",f:"MAE, RMSE, R² y MAPE: qué dice cada una.",
   s:"<b>MAE</b>: cuánto te equivocas de media, en las unidades del target (euros, unidades). <b>RMSE</b>: parecido, pero castiga mucho más los errores grandes. <b>R²</b>: qué parte de la variación explica el modelo (de 0 a 1). <b>MAPE</b>: error en porcentaje; fácil de comunicar pero explota cuando el valor real es cercano a cero.",
   an:"MAE = «de media me equivoco en 12 €». RMSE = lo mismo, pero si un día te equivocas en 500 €, te lo recuerda mucho.",
   ej:"Errores de 10, 10, 10 y 100 €: MAE = 32,5 € · RMSE = 50,7 € (raíz de (3·10² + 100²)/4 = √2.575). El RMSE delata el error grande; el MAE lo diluye.",
   err:"Comparar el RMSE entre problemas con escalas distintas, o reportar MAPE con ventas cercanas a cero (un error de 2 unidades sobre 1 es un 200%).",
   rel:["linmult","gbr","quantile"]},
- {id:"metclf",ic:"🧮",t:"Matriz de confusión, precision y recall",f:"Contar bien los aciertos y los dos tipos de error.",
+ {id:"metclf",ic:"",t:"Matriz de confusión, precision y recall",f:"Contar bien los aciertos y los dos tipos de error.",
   s:"La <b>matriz de confusión</b> cruza lo real con lo predicho: verdaderos positivos (TP), falsos positivos (FP, falsas alarmas), falsos negativos (FN, casos que se te escapan) y verdaderos negativos (TN). <b>Precision</b> = TP / (TP + FP): de lo que marco, cuánto es verdad. <b>Recall</b> = TP / (TP + FN): de lo que existe, cuánto encuentro. <b>F1</b> combina las dos.",
   an:"Una red de pesca. Precision: de lo que saco, qué parte son peces y no botas. Recall: de todos los peces del lago, cuántos he pescado. Una red más grande pesca más peces (recall ↑) pero también más botas (precision ↓).",
   ej:"100 fraudes entre 10.000 operaciones. El modelo marca 200: 80 fraudes reales. Precision = 80/200 = 40% · Recall = 80/100 = 80% · Accuracy = (80 + 9.780)/10.000 = 98,6%, que no dice nada útil.",
   err:"Reportar accuracy con clases desbalanceadas. Y olvidar que precision y recall dependen del umbral que elijas.",
   lab:"umbral",rel:["logistica","xgboost","nb"]},
- {id:"auc",ic:"📈",t:"ROC-AUC y PR-AUC",f:"Medir lo bien que ordena el modelo, sin fijar umbral.",
+ {id:"auc",ic:"",t:"ROC-AUC y PR-AUC",f:"Medir lo bien que ordena el modelo, sin fijar umbral.",
   s:"<b>ROC-AUC</b>: probabilidad de que el modelo dé más puntuación a un positivo al azar que a un negativo al azar (0,5 = moneda al aire; 1 = perfecto). <b>PR-AUC</b>: área bajo la curva precision-recall; es mucho más exigente y honesta cuando los positivos son raros, porque su línea base es la tasa de positivos (p. ej., 0,02) y no 0,5.",
   an:"La ROC-AUC pregunta: «si cojo un culpable y un inocente al azar, ¿cuántas veces pone el modelo al culpable por delante?».",
   ej:"Fraude con un 1% de positivos: ROC-AUC = 0,95 (parece genial) pero PR-AUC = 0,30. Traducción: en el top de alertas, 7 de cada 10 siguen siendo falsas alarmas.",
   err:"Elegir modelo por ROC-AUC en un problema muy desbalanceado. Usa PR-AUC y, sobre todo, la métrica en la capacidad real (recall@300 si tu equipo revisa 300 casos).",
   lab:"umbral",rel:["logistica","xgboost","lightgbm"]},
- {id:"umbral",ic:"🎚️",t:"El umbral de decisión",f:"El 0,5 por defecto casi nunca es el correcto.",
+ {id:"umbral",ic:"",t:"El umbral de decisión",f:"El 0,5 por defecto casi nunca es el correcto.",
   s:"Un clasificador devuelve una probabilidad; el <b>umbral</b> la convierte en decisión. El umbral correcto sale de los costes de negocio: cuánto cuesta un falso positivo (llamar a un cliente que no se iba) frente a un falso negativo (perder a uno que sí se iba).",
   an:"Una alarma antiincendios: si es muy sensible, salta con las tostadas; si es poco sensible, no salta con el fuego. Dónde la pones depende de lo que cuesta cada error.",
   ej:"Llamar cuesta 5 €; perder un cliente, 300 €. Si la llamada lo retiene siempre, compensa llamar cuando p × 300 > 5, es decir, si p > 1,7%: tu umbral no es 0,5, es 0,017. Si la llamada solo retiene a 1 de cada 3, compensa cuando p × 300 × ⅓ > 5 → p > 5%. El umbral sale de la economía de la acción, no del modelo.",
   err:"Dejar predict() con el 0,5 implícito. Usa predict_proba() y decide tú el corte.",
   lab:"umbral",rel:["logistica","rf","xgboost"]},
- {id:"desbalanceo",ic:"⚖️",t:"Clases desbalanceadas",f:"Cuando lo importante es lo raro.",
+ {id:"desbalanceo",ic:"",t:"Clases desbalanceadas",f:"Cuando lo importante es lo raro.",
   s:"Pasa cuando una clase es mucho más rara que otra (2% de fraude, 3% de bajas). Soluciones, de más a menos recomendable: usar métricas adecuadas (PR-AUC, recall), <b>ajustar el umbral</b>, dar más peso a la clase rara (class_weight, scale_pos_weight) y, con cuidado, remuestrear (SMOTE). Rebalancear distorsiona las probabilidades: si las usas como tales, recalibra.",
   an:"Buscar 20 agujas en un pajar de 1.000 pajas: decir «todo es paja» acierta el 98%, pero no encuentra ni una aguja.",
   ej:"Con 2% de positivos, un modelo con recall 0,70 y precision 0,25 puede ser excelente para negocio si revisar un caso es barato y perderlo, caro.",
   err:"Aplicar SMOTE antes del split (fuga: los sintéticos se basan en filas de test) o evaluar sobre datos rebalanceados.",
   lab:"umbral",rel:["xgboost","logistica","iforest"]},
- {id:"calibracion",ic:"🎯",t:"Calibración de probabilidades",f:"Que un 70% signifique de verdad un 70%.",
+ {id:"calibracion",ic:"",t:"Calibración de probabilidades",f:"Que un 70% signifique de verdad un 70%.",
   s:"Un modelo está <b>calibrado</b> si, de todos los casos a los que da un 70%, el evento ocurre en torno al 70%. Muchos modelos ordenan bien pero dan probabilidades descalibradas (Naive Bayes, Random Forest, SVM, modelos con class_weight). Importa cuando la probabilidad se usa como número: pricing, pérdida esperada, pujas.",
   an:"El hombre del tiempo que dice «70% de lluvia» está calibrado si llueve 7 de cada 10 días en que lo dice.",
   ej:"Random Forest dice «0,60» a 1.000 clientes y solo se van 420 (42%). Ordena bien, pero el 0,60 no es una probabilidad real. Calibrado con isotónica, pasa a decir 0,42.",
@@ -386,20 +386,20 @@ var FUND = [
   rel:["rf","nb","lightgbm"]}
 ]},
 {b:"5 · Explicar y decidir", items:[
- {id:"explicar",ic:"🔍",t:"Explicabilidad: importancia, SHAP y PDP",f:"Abrir la caja negra para que negocio confíe.",
+ {id:"explicar",ic:"",t:"Explicabilidad: importancia, SHAP y PDP",f:"Abrir la caja negra para que negocio confíe.",
   s:"<b>Importancia por permutación</b>: desordenas una variable y mides cuánto empeora el modelo. <b>SHAP</b>: reparte cada predicción entre las variables («esta denegación: +0,12 por ingresos bajos, +0,08 por impagos previos»). <b>PDP / ICE</b>: cómo cambia la predicción al mover una variable. Responden a «qué usa el modelo», no a «qué causa el resultado».",
   an:"El informe del árbitro tras el partido: no cambia el resultado, pero explica qué jugadas lo decidieron.",
   ej:"SHAP de un cliente: base 0,05 · +0,09 por «sin permanencia» · +0,06 por «3 tickets este mes» · −0,02 por «antigüedad 4 años» → probabilidad 0,18.",
   err:"Leer SHAP como causalidad («si bajo los tickets, bajará el churn») y usar feature_importances_ por impureza, que favorece las variables con muchos valores distintos.",
   cod:"import shap\n\nexplainer = shap.TreeExplainer(modelo_xgb)\nsv = explainer(X_te)\nshap.plots.beeswarm(sv)          # visión global\nshap.plots.waterfall(sv[0])      # un cliente concreto",
   rel:["xgboost","rf","logistica"]},
- {id:"causal",ic:"🧪",t:"Correlación no es causalidad",f:"Predecir quién compra no es saber qué le hace comprar.",
+ {id:"causal",ic:"",t:"Correlación no es causalidad",f:"Predecir quién compra no es saber qué le hace comprar.",
   s:"Un modelo predictivo encuentra asociaciones: qué va junto con qué. Para saber si una acción <b>causa</b> un efecto necesitas comparar con lo que habría pasado sin ella (el contrafactual). La forma más limpia es un experimento aleatorizado (test A/B); sin él, técnicas como Diff-in-Diff o el emparejamiento por propensión, con supuestos que hay que defender.",
   an:"En verano se venden más helados y hay más ahogamientos. Prohibir los helados no salvará a nadie: el calor causa las dos cosas.",
   ej:"Los clientes que reciben más emails compran más. ¿Funcionan los emails? Puede que marketing ya mandara más emails a los mejores clientes. Solo un grupo de control aleatorio lo aclara.",
   err:"Recomendar «sube la variable X» porque el modelo dice que X es importante.",
   rel:["uplift","propensity","bayesnet"]},
- {id:"series",ic:"⏱️",t:"Particularidades de las series temporales",f:"El orden importa: nunca mezcles pasado y futuro.",
+ {id:"series",ic:"",t:"Particularidades de las series temporales",f:"El orden importa: nunca mezcles pasado y futuro.",
   s:"En series temporales cada dato depende de los anteriores. Tres reglas: valida siempre <b>hacia delante</b> (entrena con el pasado, evalúa con el futuro), crea variables solo con información disponible en el momento de predecir (retardos, medias móviles del pasado) y compara siempre con el pronóstico ingenuo (mismo valor de la semana o del año anterior).",
   an:"Para evaluar a un meteorólogo no le das el tiempo de mañana para que «prediga» el de hoy.",
   ej:"Ventas diarias de 2022 a 2025: entrena hasta junio de 2025, predice julio; luego entrena hasta julio y predice agosto… (backtesting con ventana deslizante).",
@@ -407,13 +407,13 @@ var FUND = [
   lab:"serie",rel:["arima","sarima","prophet","hw"]}
 ]},
 {b:"6 · Del notebook a la realidad", items:[
- {id:"mlops",ic:"🚀",t:"Producción, drift y monitorización",f:"Un modelo desplegado empieza a envejecer el primer día.",
+ {id:"mlops",ic:"",t:"Producción, drift y monitorización",f:"Un modelo desplegado empieza a envejecer el primer día.",
   s:"En producción, el mundo cambia: nuevos clientes, nuevos productos, crisis, cambios de precio. Esto es el <b>drift</b>: cambian los datos de entrada (data drift) o la relación entre las variables y el target (concept drift). Un modelo vivo necesita monitorizar sus entradas y su rendimiento, versionar datos y modelos, y un plan de reentrenamiento.",
   an:"Un mapa de carreteras de 2019 sigue siendo útil, pero cada año acierta un poco menos.",
   ej:"Modelo de fraude con recall 0,80 en enero. En noviembre (Black Friday y nuevos patrones de ataque) cae a 0,55 sin que nadie toque el código.",
   err:"Considerar el proyecto terminado cuando el notebook funciona. El 80% del trabajo real viene después.",
   rel:["iforest","xgboost","pyspark"]},
- {id:"y2026",ic:"🛰️",t:"Qué ha cambiado en 2025-2026",f:"Modelos fundacionales, LLMs y agentes: qué significa para un analista.",
+ {id:"y2026",ic:"",t:"Qué ha cambiado en 2025-2026",f:"Modelos fundacionales, LLMs y agentes: qué significa para un analista.",
   s:"<b>Modelos fundacionales tabulares</b>: TabPFN-2.5 (nov. 2025) predice sin entrenar en datasets de hasta 50.000 filas y gana a XGBoost por defecto en tablas pequeñas y medianas. <b>Series temporales</b>: Chronos-2 (con covariables), TimesFM 2.5 o Moirai dan pronósticos sin ajuste («zero-shot»). <b>LLMs</b>: extracción de texto, clasificación con prompts y agentes que escriben pipelines. <b>Post-entrenamiento de LLMs</b>: GRPO y recompensas verificables desplazan al RLHF clásico con PPO. <b>Regulación</b>: el Digital Omnibus aplaza al 2 de diciembre de 2027 las obligaciones de alto riesgo del AI Act (incluido el credit scoring); las de transparencia (art. 50) rigen desde el 2 de agosto de 2026, con margen hasta el 2 de diciembre de 2026 para marcar el contenido generado por IA de sistemas ya en el mercado.",
   an:"Las herramientas nuevas son calculadoras más potentes; tu criterio (qué pregunta, qué métrica, qué fuga, qué decisión) sigue siendo lo que te hace valioso.",
   ej:"Flujo realista hoy: baseline simple → boosting → probar TabPFN si hay pocas filas → comparar con validación honesta → explicar con SHAP → decidir con el coste de negocio.",
@@ -472,7 +472,7 @@ function labRemount(){
   labCleanupAll(); mountLab(LAB_CUR.id, LAB_CUR.host, LAB_CUR.opts);
 }
 function cssv(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
-var LABFONT = "'Segoe UI', system-ui, -apple-system, sans-serif";
+var LABFONT = "'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif";
 function labColors(){
   return {c:[cssv("--lab1"),cssv("--lab2"),cssv("--lab3"),cssv("--lab4"),cssv("--lab5"),cssv("--lab6")],
           ink:cssv("--ink"), text:cssv("--text"), muted:cssv("--muted"), line:cssv("--line"),
@@ -578,7 +578,7 @@ function mountLab(id, host, opts){
   LAB_CUR = {id:id, host:host, opts:opts};
   var chips = L.models.map(function(mid){
     var m = byId[mid]; if(!m) return "";
-    return '<button class="fchip" data-go="' + mid + '">' + FAM[m.f].ic + ' ' + m.n + '</button>';
+    return '<button class="fchip" data-go="' + mid + '">' + m.n + '</button>';
   }).join("");
   host.innerHTML = '<div class="lab' + (opts.compact ? " compact" : "") + '">' +
     (opts.compact ? '' : '<p class="dq labq">' + L.q + '</p>') +
@@ -603,7 +603,7 @@ function mountLab(id, host, opts){
 function renderLabHub(){
   var host = document.getElementById("labContent");
   var card = function(L){
-    return '<a class="labcard" href="#lab/' + L.id + '"><span class="lcic" aria-hidden="true">' + L.ic + '</span>' +
+    return '<a class="labcard" href="#lab/' + L.id + '">' +
       '<span class="lct">' + L.t + ' <span class="labdim">' + L.dim + '</span></span>' +
       '<span class="lcq">' + L.q + '</span>' +
       '<span class="lcm">' + L.models.slice(0, 4).map(function(m){ return byId[m] ? byId[m].n : ""; }).filter(Boolean).join(" · ") + '</span></a>';
@@ -619,7 +619,7 @@ function renderLabHub(){
     SECS.forEach(function(s){
       var vs = VIZ.filter(function(v){ return byId[v.model] && byId[v.model].b === s.b; });
       if(!vs.length) return;
-      h += '<section class="fblock"><h3 class="fbh">' + s.ic + ' ' + s.t + '</h3><div class="labgrid">' + vs.map(card).join("") + '</div></section>';
+      h += '<section class="fblock"><h3 class="fbh">' + s.t + '</h3><div class="labgrid">' + vs.map(card).join("") + '</div></section>';
     });
   }
   host.innerHTML = h;
@@ -634,7 +634,7 @@ function renderLabPage(id){
   var LIST = LABS.indexOf(L) > -1 ? LABS : VIZ;
   var i = LIST.indexOf(L), prev = LIST[i - 1], next = LIST[i + 1];
   d.innerHTML = '<button class="dback" data-mode="lab">← Todos los laboratorios</button>' +
-    '<div class="dcrumb">🧪 Laboratorio visual · ' + L.dim + '</div><h1>' + L.ic + ' ' + L.t + '</h1><div id="labPageHost"></div>' +
+    '<div class="dcrumb">Laboratorio visual · ' + L.dim + '</div><h1>' + L.t + '</h1><div id="labPageHost"></div>' +
     '<nav class="dnav">' +
     (prev ? '<a class="dnavb" href="#lab/' + prev.id + '"><span class="l">← Anterior</span><span class="n2">' + prev.t + '</span></a>' : '<span></span>') +
     (next ? '<a class="dnavb next" href="#lab/' + next.id + '"><span class="l">Siguiente →</span><span class="n2">' + next.t + '</span></a>' : '<span></span>') +
@@ -782,7 +782,7 @@ function jacobiEig(S){
    ══════════════════════════════════════════════════════════════ */
 
 /* ── 1. SOBREAJUSTE: grado del polinomio ─────────────────────── */
-LABS.push({id:"sobreajuste", g:"fund", ic:"🎯", dim:"2D", t:"Sobreajuste en directo",
+LABS.push({id:"sobreajuste", g:"fund", ic:"", dim:"2D", t:"Sobreajuste en directo",
  q:"¿Por qué un modelo más complejo puede predecir PEOR?",
  intro:"Los puntos son datos reales con ruido; la línea discontinua es la verdad que no conocemos. Ajustamos un polinomio y subimos su <b>grado</b> (su complejidad). A la derecha, el error en <b>entrenamiento</b> y en <b>test</b> (datos que el modelo no ha visto) para cada grado.",
  notice:["El error de entrenamiento <b>siempre baja</b> al subir el grado: el modelo se ciñe cada vez más a los puntos.",
@@ -842,12 +842,12 @@ LABS.push({id:"sobreajuste", g:"fund", ic:"🎯", dim:"2D", t:"Sobreajuste en di
    gen();
    ctlSlider(ctl, "Grado (complejidad)", 1, 12, 1, deg, function(v){ return v; }, function(v){ deg = v; draw(); });
    ctlSlider(ctl, "Regularización λ", -9, 1, 1, lam, function(v){ return v <= -9 ? "sin regularizar" : "10^" + v; }, function(v){ lam = v; draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    draw();
  }});
 
 /* ── 2. REGULARIZACIÓN: geometría de Ridge y Lasso ────────────── */
-LABS.push({id:"regul", g:"fund", ic:"🧲", dim:"2D", t:"Ridge frente a Lasso",
+LABS.push({id:"regul", g:"fund", ic:"", dim:"2D", t:"Ridge frente a Lasso",
  q:"¿Por qué Lasso pone coeficientes exactamente a cero y Ridge no?",
  intro:"Cada punto del plano es una pareja de coeficientes (β₁, β₂). Las <b>elipses</b> son curvas de igual error: el centro (✕) es la regresión sin regularizar. La zona sombreada es el «presupuesto» que permite la regularización: un <b>círculo</b> en Ridge y un <b>rombo</b> en Lasso. La solución es el primer punto donde una elipse toca la zona.",
  notice:["Con Lasso, para presupuestos pequeños la elipse toca el rombo <b>en una esquina</b>: ahí β₂ vale exactamente 0. Esa variable queda eliminada.",
@@ -920,9 +920,9 @@ LABS.push({id:"regul", g:"fund", ic:"🧲", dim:"2D", t:"Ridge frente a Lasso",
  }});
 
 /* ── 3. UMBRAL Y MATRIZ DE CONFUSIÓN ──────────────────────────── */
-LABS.push({id:"umbral", g:"fund", ic:"🎚️", dim:"2D", t:"El umbral y la matriz de confusión",
+LABS.push({id:"umbral", g:"fund", ic:"", dim:"2D", t:"El umbral y la matriz de confusión",
  q:"¿Dónde pongo el corte para decir «sí», y por qué la accuracy engaña?",
- intro:"Un clasificador da a cada cliente una puntuación entre 0 y 1. Las barras muestran cuántos clientes reales <b>se quedan</b> (morado) y <b>se van</b> (naranja) en cada tramo de puntuación. Mueve el <b>umbral</b>: todo lo que queda a su derecha se predice como «se va».",
+ intro:"Un clasificador da a cada cliente una puntuación entre 0 y 1. Las barras muestran cuántos clientes reales <b>se quedan</b> (azul) y <b>se van</b> (naranja) en cada tramo de puntuación. Mueve el <b>umbral</b>: todo lo que queda a su derecha se predice como «se va».",
  notice:["Al bajar el umbral, el <b>recall</b> sube (encuentras más bajas) pero la <b>precision</b> baja (más falsas alarmas). No hay umbral gratis.",
    "Pon el desbalanceo en 3%: casi no se ven las barras naranjas. La accuracy de «decir siempre que no» es del 97%… y no detecta a nadie.",
    "Con un modelo peor (menos separación), las dos montañas se solapan y ningún umbral consigue a la vez buena precision y buen recall."],
@@ -1010,9 +1010,9 @@ function cartFit(X, Y, idx, depth, maxD, minLeaf, rng, randF){
 function cartPred(nd, x){ while(nd.l) nd = x[nd.f] <= nd.t ? nd.l : nd.r; return nd.p; }
 function cartLeaves(nd){ return nd.l ? cartLeaves(nd.l) + cartLeaves(nd.r) : 1; }
 
-LABS.push({id:"arbol2d", g:"sup", ic:"🌳", dim:"2D", t:"Un árbol frente a un bosque",
+LABS.push({id:"arbol2d", g:"sup", ic:"", dim:"2D", t:"Un árbol frente a un bosque",
  q:"¿Cómo parte el espacio un árbol de decisión y por qué un bosque generaliza mejor?",
- intro:"Dos clases (morado y naranja) separadas por una frontera curva, con un 10% de etiquetas erróneas a propósito. El color de fondo es lo que predice el modelo en cada zona. Sube la <b>profundidad máxima</b> y compara el acierto en entrenamiento y en test.",
+ intro:"Dos clases (azul y naranja) separadas por una frontera curva, con un 10% de etiquetas erróneas a propósito. El color de fondo es lo que predice el modelo en cada zona. Sube la <b>profundidad máxima</b> y compara el acierto en entrenamiento y en test.",
  notice:["Un árbol solo corta con líneas <b>horizontales y verticales</b>: aproxima la curva con escalones.",
    "Con mucha profundidad, el árbol dibuja islitas alrededor de los puntos mal etiquetados: <b>100% en train y peor en test</b>. Es sobreajuste.",
    "El bosque (40 árboles con muestras y variables al azar) <b>suaviza</b> la frontera: los caprichos de cada árbol se compensan al votar."],
@@ -1076,12 +1076,12 @@ LABS.push({id:"arbol2d", g:"sup", ic:"🌳", dim:"2D", t:"Un árbol frente a un 
    ctlSeg(ctl, "Modelo", [["tree", "Un árbol"], ["rf", "Random Forest (40)"]], mode, function(v){ mode = v; redo(); });
    ctlSlider(ctl, "Profundidad máxima", 1, 12, 1, depth, function(v){ return v; }, function(v){ depth = v; redo(); });
    ctlCheck(ctl, "Ver los puntos de test", showTest, function(v){ showTest = v; draw(); });
-   ctlBtn(ctl, "🎲 Otros datos", function(){ seed++; gen(); redo(); });
+   ctlBtn(ctl, "Otros datos", function(){ seed++; gen(); redo(); });
    gen(); redo();
  }});
 
 /* ── 5. K-MEANS FRENTE A DBSCAN ───────────────────────────────── */
-LABS.push({id:"densidad", g:"unsup", ic:"🫧", dim:"2D", t:"K-Means frente a DBSCAN",
+LABS.push({id:"densidad", g:"unsup", ic:"", dim:"2D", t:"K-Means frente a DBSCAN",
  q:"¿Qué pasa cuando los grupos no son redondos o hay ruido?",
  intro:"Dos «medias lunas», un grupo compacto y algunos puntos sueltos. <b>K-Means</b> agrupa por distancia al centro más cercano; <b>DBSCAN</b> agrupa por densidad (puntos con suficientes vecinos cerca). Cambia de algoritmo y de parámetros.",
  notice:["K-Means corta las lunas <b>por la mitad</b>: solo sabe hacer grupos más o menos redondos, y además obliga a asignar los puntos sueltos a algún grupo.",
@@ -1157,7 +1157,7 @@ LABS.push({id:"densidad", g:"unsup", ic:"🫧", dim:"2D", t:"K-Means frente a DB
  }});
 
 /* ── 6. ISOLATION FOREST ─────────────────────────────────────── */
-LABS.push({id:"aislamiento", g:"unsup", ic:"🚨", dim:"2D", t:"Aislar lo raro (Isolation Forest)",
+LABS.push({id:"aislamiento", g:"unsup", ic:"", dim:"2D", t:"Aislar lo raro (Isolation Forest)",
  q:"¿Por qué un punto anómalo se aísla con muy pocos cortes al azar?",
  intro:"Haz clic en cualquier punto (o usa los botones). El algoritmo hace <b>cortes al azar</b>, horizontales o verticales, y en cada corte se queda con el trozo que contiene tu punto, hasta dejarlo solo. Cuenta los cortes.",
  notice:["Un punto del centro de la nube necesita <b>muchos cortes</b> (suelen ser 9-12): siempre tiene vecinos dentro del trozo.",
@@ -1220,15 +1220,15 @@ LABS.push({id:"aislamiento", g:"unsup", ic:"🚨", dim:"2D", t:"Aislar lo raro (
      target = best; cuts = []; box = null; avg = null; run();
    });
    K.cv.style.cursor = "crosshair";
-   ctlBtn(ctl, "▶ Aislar un punto raro", function(){ target = 230 + Math.floor(Math.random() * 7); run(); }, true);
-   ctlBtn(ctl, "▶ Aislar un punto normal", function(){ target = Math.floor(Math.random() * 230); run(); });
+   ctlBtn(ctl, "Aislar un punto raro", function(){ target = 230 + Math.floor(Math.random() * 7); run(); }, true);
+   ctlBtn(ctl, "Aislar un punto normal", function(){ target = Math.floor(Math.random() * 230); run(); });
    ctlBtn(ctl, "⟲ Repetir 300 veces (media)", function(){ clearInterval(timer); many(); });
    draw(); run();
    return function(){ clearInterval(timer); };
  }});
 
 /* ── 7. PROCESO GAUSSIANO ────────────────────────────────────── */
-LABS.push({id:"gp", g:"dec", ic:"🌫️", dim:"2D", t:"Incertidumbre con un proceso gaussiano",
+LABS.push({id:"gp", g:"dec", ic:"", dim:"2D", t:"Incertidumbre con un proceso gaussiano",
  q:"¿Cómo sabe un modelo dónde no sabe?",
  intro:"Haz <b>clic en el gráfico</b> para medir la función oculta en ese punto. La línea es la predicción y la banda, el rango donde el modelo cree que está la verdad (95%). El botón «Medir donde más dudas» hace lo que hace la optimización bayesiana.",
  notice:["Junto a los puntos medidos la banda es <b>estrecha</b>: ahí el modelo sabe. Lejos, se <b>abre</b>: ahí no sabe, y lo dice.",
@@ -1281,7 +1281,7 @@ LABS.push({id:"gp", g:"dec", ic:"🌫️", dim:"2D", t:"Incertidumbre con un pro
      var x = (p[0] - box[0]) / box[2] * 10; obs.push([x, f(x) + sn * gauss(r)]); draw();
    });
    K.cv.style.cursor = "crosshair";
-   ctlBtn(ctl, "🎯 Medir donde más dudas", function(){ var mx = draw(); obs.push([mx[0], f(mx[0]) + sn * gauss(r)]); draw(); }, true);
+   ctlBtn(ctl, "Medir donde más dudas", function(){ var mx = draw(); obs.push([mx[0], f(mx[0]) + sn * gauss(r)]); draw(); }, true);
    ctlSlider(ctl, "Longitud de escala ℓ", 0.3, 3, 0.1, ell, function(v){ return fmt(v, 1); }, function(v){ ell = v; draw(); });
    ctlCheck(ctl, "Mostrar la función real (oculta)", showTrue, function(v){ showTrue = v; draw(); });
    ctlBtn(ctl, "↺ Empezar de nuevo", function(){ reset(); draw(); });
@@ -1289,7 +1289,7 @@ LABS.push({id:"gp", g:"dec", ic:"🌫️", dim:"2D", t:"Incertidumbre con un pro
  }});
 
 /* ── 8. SERIES: PRONÓSTICO CONTRA LÍNEAS BASE ────────────────── */
-LABS.push({id:"serie", g:"dec", ic:"📈", dim:"2D", t:"Pronosticar una serie (y batir al ingenuo)",
+LABS.push({id:"serie", g:"dec", ic:"", dim:"2D", t:"Pronosticar una serie (y batir al ingenuo)",
  q:"¿Qué método de previsión gana cuando hay tendencia y estacionalidad?",
  intro:"Cinco años de ventas mensuales inventadas. Entrenamos con los <b>4 primeros años</b> y pronosticamos los <b>12 meses siguientes</b>, que el modelo no ha visto (validación hacia delante). Cambia la forma de la serie y compara el error (MAE) de cuatro métodos.",
  notice:["El <b>ingenuo estacional</b> («lo mismo que el mismo mes del año pasado») es una línea base muy difícil de batir cuando la estacionalidad es fuerte. Cualquier modelo tiene que ganarle.",
@@ -1334,19 +1334,19 @@ LABS.push({id:"serie", g:"dec", ic:"📈", dim:"2D", t:"Pronosticar una serie (y
      var res = Object.keys(NAMES).map(function(k){ var p = fc(k, tr); return [k, te.reduce(function(s, v, i){ return s + Math.abs(v - p[i]); }, 0) / 12]; });
      var best = res.reduce(function(a, b){ return b[1] < a[1] ? b : a; });
      read.innerHTML = '<table class="cmx"><tr><th>Método</th><th>MAE en test</th></tr>' + res.map(function(r){
-       return '<tr><th>' + NAMES[r[0]] + (r[0] === meth ? " ◀" : "") + '</th><td class="' + (r[0] === best[0] ? "ok" : "") + '">' + fmt(r[1], 1) + '</td></tr>'; }).join("") + '</table>' +
+       return '<tr><th>' + NAMES[r[0]] + (r[0] === meth ? " ←" : "") + '</th><td class="' + (r[0] === best[0] ? "ok" : "") + '">' + fmt(r[1], 1) + '</td></tr>'; }).join("") + '</table>' +
        '<span class="ldiag" style="flex-basis:auto;flex:1 1 240px">Gana <b>' + NAMES[best[0]] + '</b>. El MAE está en las mismas unidades que las ventas: «de media, el pronóstico se desvía ' + fmt(best[1], 1) + ' unidades al mes».</span>';
    }
    ctlSeg(ctl, "Método dibujado", [["naive", "Ingenuo"], ["snaive", "Ing. estacional"], ["lin", "Tendencia"], ["hw", "Holt-Winters"]], meth, function(v){ meth = v; draw(); });
    ctlSlider(ctl, "Tendencia (crecimiento mensual)", -0.5, 2, 0.1, trend, function(v){ return fmt(v, 1); }, function(v){ trend = v; gen(); draw(); });
    ctlSlider(ctl, "Estacionalidad (amplitud)", 0, 30, 1, amp, function(v){ return v; }, function(v){ amp = v; gen(); draw(); });
    ctlSlider(ctl, "Ruido", 0, 15, 0.5, noise, function(v){ return fmt(v, 1); }, function(v){ noise = v; gen(); draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
  }});
 
 /* ── 9. BANDIT FRENTE A A/B ──────────────────────────────────── */
-LABS.push({id:"bandit", g:"dec", ic:"🎰", dim:"2D", t:"Bandit frente a test A/B",
+LABS.push({id:"bandit", g:"dec", ic:"", dim:"2D", t:"Bandit frente a test A/B",
  q:"¿Cuánto cuesta aprender cuál es la mejor variante?",
  intro:"Tres versiones de una página con conversión real del 4%, 5% y 6,5% (que nadie conoce). Simulamos 30.000 visitas con dos estrategias: <b>A/B clásico</b> (un tercio para cada una hasta el final) y <b>Thompson sampling</b> (va desplazando el tráfico hacia la que parece ganar).",
  notice:["El bandit manda cada vez más tráfico a la variante C (la mejor) mientras aprende. El A/B sigue regalando 2/3 del tráfico a las peores hasta el final.",
@@ -1401,8 +1401,8 @@ LABS.push({id:"bandit", g:"dec", ic:"🎰", dim:"2D", t:"Bandit frente a test A/
      clearInterval(timer);
      timer = setInterval(function(){ if(st.t >= 30000){ clearInterval(timer); return; } step(500); draw(); }, 70);
    }
-   ctlBtn(ctl, "▶ Simular", play, true);
-   ctlBtn(ctl, "⏸ Pausa", function(){ clearInterval(timer); });
+   ctlBtn(ctl, "Simular", play, true);
+   ctlBtn(ctl, "Pausa", function(){ clearInterval(timer); });
    ctlBtn(ctl, "↺ Reiniciar", function(){ clearInterval(timer); init(); draw(); });
    ctlSeg(ctl, "Diferencia entre variantes", [["g", "Grande"], ["p", "Pequeña"]], gapMode, function(v){ gapMode = v; clearInterval(timer); init(); draw(); });
    init(); draw();
@@ -1417,7 +1417,7 @@ LABS.push({id:"bandit", g:"dec", ic:"🎰", dim:"2D", t:"Bandit frente a test A/
    ══════════════════════════════════════════════════════════════ */
 
 /* ── 1. DESCENSO DE GRADIENTE ─────────────────────────────────── */
-LABS.splice(1, 0, {id:"descenso", g:"fund", ic:"⛰️", dim:"3D", t:"Descenso de gradiente",
+LABS.splice(1, 0, {id:"descenso", g:"fund", ic:"", dim:"3D", t:"Descenso de gradiente",
  q:"¿Cómo «aprende» un modelo bajando por la superficie del error?",
  intro:"La superficie es el <b>error del modelo</b> para cada combinación de dos parámetros (w₁, w₂): cuanto más alto, peor. La bola empieza en un punto malo y en cada paso baja en la dirección de mayor pendiente. El tamaño del paso es el <b>learning rate</b>.",
  notice:["Learning rate pequeño: baja seguro pero <b>muy despacio</b> (muchos pasos).",
@@ -1471,7 +1471,7 @@ LABS.splice(1, 0, {id:"descenso", g:"fund", ic:"⛰️", dim:"3D", t:"Descenso d
          paint();
        }, 90);
      }
-     ctlBtn(ctl, "▶ Descender", go, true);
+     ctlBtn(ctl, "Descender", go, true);
      ctlBtn(ctl, "↺ Volver a empezar", reset);
      ctlSlider(ctl, "Learning rate (tamaño del paso)", 0.01, 0.26, 0.01, lr, function(v){ return fmt(v); }, function(v){ lr = v; reset(); });
      ctlCheck(ctl, "Momentum (impulso)", mom, function(v){ mom = v; reset(); });
@@ -1481,9 +1481,9 @@ LABS.splice(1, 0, {id:"descenso", g:"fund", ic:"⛰️", dim:"3D", t:"Descenso d
  }});
 
 /* ── 2. PLANO DE REGRESIÓN ────────────────────────────────────── */
-LABS.push({id:"plano", g:"sup", ic:"📐", dim:"3D", t:"El plano de la regresión múltiple",
+LABS.push({id:"plano", g:"sup", ic:"", dim:"3D", t:"El plano de la regresión múltiple",
  q:"¿Qué dibuja de verdad una regresión con dos variables?",
- intro:"Cada esfera es una vivienda: <b>superficie</b> (eje rosa), <b>habitaciones</b> (eje morado) y <b>precio</b> (altura). La regresión lineal múltiple busca el <b>plano</b> que deja la menor suma de errores al cuadrado. Las líneas verticales son los <b>residuos</b>: lo que el plano no explica.",
+ intro:"Cada esfera es una vivienda: <b>superficie</b> (eje rosa), <b>habitaciones</b> (eje azul) y <b>precio</b> (altura). La regresión lineal múltiple busca el <b>plano</b> que deja la menor suma de errores al cuadrado. Las líneas verticales son los <b>residuos</b>: lo que el plano no explica.",
  notice:["La pendiente del plano en cada dirección <b>es</b> el coeficiente: cuánto sube el precio por cada unidad de esa variable, con la otra fija.",
    "Con más ruido, los residuos crecen y el R² baja, pero el plano apenas cambia: la tendencia sigue ahí.",
    "Sube la «curvatura real»: los residuos dejan de ser aleatorios (los extremos quedan por encima y el centro por debajo). Ese patrón te dice que una relación lineal no basta."],
@@ -1530,16 +1530,16 @@ LABS.push({id:"plano", g:"sup", ic:"📐", dim:"3D", t:"El plano de la regresió
      ctlSlider(ctl, "Ruido en los datos", 0, 0.7, 0.05, noise, function(v){ return fmt(v); }, function(v){ noise = v; rebuild(); });
      ctlSlider(ctl, "Curvatura real (no lineal)", 0, 1, 0.05, curv, function(v){ return fmt(v); }, function(v){ curv = v; rebuild(); });
      ctlCheck(ctl, "Mostrar residuos", showRes, function(v){ showRes = v; resL.visible = v; });
-     ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; rebuild(); });
+     ctlBtn(ctl, "Otra muestra", function(){ seed++; rebuild(); });
      rebuild();
      return S.dispose;
    });
  }});
 
 /* ── 3. EL TRUCO DEL KERNEL ───────────────────────────────────── */
-LABS.push({id:"kernel", g:"sup", ic:"🪄", dim:"3D", t:"El truco del kernel",
+LABS.push({id:"kernel", g:"sup", ic:"", dim:"3D", t:"El truco del kernel",
  q:"¿Cómo separa un SVM con una recta lo que no se puede separar con una recta?",
- intro:"Dos clases en el suelo: un círculo (naranja) rodeado por un anillo (morado). Ninguna línea recta las separa. Pulsa <b>«Levantar»</b>: cada punto sube a una altura igual a su distancia al centro al cuadrado, <b>x² + z²</b>. Ahora un simple plano horizontal las separa.",
+ intro:"Dos clases en el suelo: un círculo (naranja) rodeado por un anillo (azul). Ninguna línea recta las separa. Pulsa <b>«Levantar»</b>: cada punto sube a una altura igual a su distancia al centro al cuadrado, <b>x² + z²</b>. Ahora un simple plano horizontal las separa.",
  notice:["En 2D la frontera tendría que ser un círculo. En 3D basta un <b>plano plano</b>: el problema se ha vuelto lineal.",
    "Si proyectas ese plano de vuelta al suelo, aparece el <b>círculo</b>: así obtiene el SVM fronteras curvas.",
    "El «truco» es que el kernel calcula el parecido entre puntos como si estuvieran en ese espacio elevado <b>sin construirlo nunca</b>; con el kernel RBF, ese espacio tiene infinitas dimensiones."],
@@ -1573,7 +1573,7 @@ LABS.push({id:"kernel", g:"sup", ic:"🪄", dim:"3D", t:"El truco del kernel",
        hl.visible = e > 0.5;
      });
      function paint(){
-       read.innerHTML = '<span class="ldiag">' + (lifted ? "<b class='lgood'>Separable con un plano.</b> En el suelo, ese mismo plano equivale al círculo verde: la frontera curva del SVM." : "En el suelo, <b>ninguna recta</b> separa el círculo naranja del anillo morado.") + '</span>';
+       read.innerHTML = '<span class="ldiag">' + (lifted ? "<b class='lgood'>Separable con un plano.</b> En el suelo, ese mismo plano equivale al círculo verde: la frontera curva del SVM." : "En el suelo, <b>ninguna recta</b> separa el círculo naranja del anillo azul.") + '</span>';
        btn.innerHTML = lifted ? "⤓ Volver al suelo" : "⤒ Levantar con φ(x, z) = x² + z²";
      }
      var btn = ctlBtn(ctl, "", function(){ lifted = !lifted; paint(); }, true);
@@ -1585,7 +1585,7 @@ LABS.push({id:"kernel", g:"sup", ic:"🪄", dim:"3D", t:"El truco del kernel",
  }});
 
 /* ── 4. K-MEANS PASO A PASO ───────────────────────────────────── */
-LABS.push({id:"kmeans3d", g:"unsup", ic:"📍", dim:"3D", t:"K-Means paso a paso",
+LABS.push({id:"kmeans3d", g:"unsup", ic:"", dim:"3D", t:"K-Means paso a paso",
  q:"¿Cómo encuentra K-Means los grupos, y por qué a veces se equivoca?",
  intro:"Clientes en 3 variables (por ejemplo, recencia, frecuencia y gasto, ya estandarizadas). Los octaedros son los <b>centroides</b>. Avanza paso a paso: <b>asignar</b> (cada punto toma el color del centro más cercano) y <b>mover</b> (cada centro va a la media de sus puntos).",
  notice:["La <b>inercia</b> (suma de distancias al cuadrado) baja en cada paso hasta que nada cambia: el algoritmo ha convergido.",
@@ -1641,9 +1641,9 @@ LABS.push({id:"kmeans3d", g:"unsup", ic:"📍", dim:"3D", t:"K-Means paso a paso
        read.innerHTML = '<span>Iteración <b>' + it + '</b></span><span>Próximo paso <b>' + (conv ? "—" : phase === "assign" ? "asignar" : "mover centros") + '</b></span><span>Inercia <b>' + (it ? fmt(inertia(), 1) : "—") + '</b></span>' +
          '<span class="ldiag">' + (conv ? "<b class='lgood'>Convergido</b>: ningún punto cambia de grupo. Prueba otra inicialización y compara la inercia." : "Cada «asignar» colorea; cada «mover» desplaza los centros a la media.") + '</span>';
      }
-     ctlBtn(ctl, "⏭ Siguiente paso", function(){ clearInterval(timer); stepOnce(); }, true);
-     ctlBtn(ctl, "▶ Hasta el final", function(){ clearInterval(timer); timer = setInterval(function(){ if(conv){ clearInterval(timer); return; } stepOnce(); }, 650); });
-     ctlBtn(ctl, "🎲 Nueva inicialización", function(){ seed++; start(); });
+     ctlBtn(ctl, "Siguiente paso", function(){ clearInterval(timer); stepOnce(); }, true);
+     ctlBtn(ctl, "Hasta el final", function(){ clearInterval(timer); timer = setInterval(function(){ if(conv){ clearInterval(timer); return; } stepOnce(); }, 650); });
+     ctlBtn(ctl, "Nueva inicialización", function(){ seed++; start(); });
      ctlSeg(ctl, "Inicialización", [["pp", "k-means++"], ["bad", "Al azar (mala suerte)"]], init, function(v){ init = v; start(); });
      ctlSlider(ctl, "K", 2, 6, 1, k, function(v){ return v; }, function(v){ k = v; start(); });
      start();
@@ -1652,7 +1652,7 @@ LABS.push({id:"kmeans3d", g:"unsup", ic:"📍", dim:"3D", t:"K-Means paso a paso
  }});
 
 /* ── 5. PCA EN 3D ─────────────────────────────────────────────── */
-LABS.push({id:"pca3d", g:"unsup", ic:"🧭", dim:"3D", t:"PCA: la mejor foto de los datos",
+LABS.push({id:"pca3d", g:"unsup", ic:"", dim:"3D", t:"PCA: la mejor foto de los datos",
  q:"¿Cómo resume PCA tres variables en dos sin perder casi nada?",
  intro:"Una nube de datos con forma de «tabla alargada». Las flechas son los <b>componentes principales</b>: PC1 apunta hacia donde los datos más varían; PC2, hacia donde más varían de lo que queda, en perpendicular; PC3 recoge el resto. Pulsa <b>«Aplastar a 2D»</b> para proyectar sobre el plano PC1-PC2.",
  notice:["Si la nube es delgada (poco grosor), al aplastarla casi no cambia: PC3 tenía muy poca información y la <b>varianza explicada</b> por PC1 + PC2 es casi el 100%.",

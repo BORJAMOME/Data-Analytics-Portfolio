@@ -41,7 +41,7 @@ function mixRGB(cols, w){ /* mezcla de colores ponderada (para pertenencias suav
   for(var i = 0; i < cols.length; i++){ var c = rgb(cols[i]); r += w[i] * c[0]; g += w[i] * c[1]; b += w[i] * c[2]; s += w[i]; }
   s = s || 1; return "rgb(" + Math.round(r / s) + "," + Math.round(g / s) + "," + Math.round(b / s) + ")";
 }
-function ramp(C, t){ /* escala continua morado → rosa → naranja → ámbar */
+function ramp(C, t){ /* escala continua azul → rosa → naranja → ámbar */
   var st = [C.c[0], C.c[5], C.c[1], C.c[4]], u = Math.max(0, Math.min(1, t)) * 3, i = Math.min(2, Math.floor(u)), f = u - i;
   var a = rgb(st[i]), b = rgb(st[i + 1]);
   return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * f) + "," + Math.round(a[1] + (b[1] - a[1]) * f) + "," + Math.round(a[2] + (b[2] - a[2]) * f) + ")";
@@ -142,7 +142,7 @@ function lsq(X, y, pen){
 function shuffleIdx(n, rng){ var a = []; for(var i = 0; i < n; i++) a.push(i); for(i = n - 1; i > 0; i--){ var j = Math.floor(rng() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
 /* ── 1. K-MEDOIDS FRENTE A K-MEANS ───────────────────────────── */
-VIZ.push({id:"v-kmedoids", model:"kmedoids", g:"model", ic:"🎯", dim:"2D",
+VIZ.push({id:"v-kmedoids", model:"kmedoids", g:"model", ic:"", dim:"2D",
  t:"El centro que sí existe (K-Medoids)",
  q:"¿Por qué un solo cliente extremo arrastra el centro de K-Means y no el de K-Medoids?",
  intro:"Tres grupos de clientes según <b>gasto anual</b> y <b>visitas al mes</b>, más un <b>cliente millonario</b> muy atípico. <b>Arrástralo</b> (o usa el deslizador) para alejarlo. Se ejecutan de verdad K-Means (media de cada grupo, 10 arranques k-means++) y K-Medoids (algoritmo PAM: el centro debe ser un cliente real).",
@@ -316,7 +316,7 @@ VIZ.push({id:"v-kmedoids", model:"kmedoids", g:"model", ic:"🎯", dim:"2D",
  }});
 
 /* ── 2. CLUSTERING JERÁRQUICO Y DENDROGRAMA ──────────────────── */
-VIZ.push({id:"v-jerarquico", model:"jerarquico", g:"model", ic:"🌳", dim:"2D",
+VIZ.push({id:"v-jerarquico", model:"jerarquico", g:"model", ic:"", dim:"2D",
  t:"El dendrograma: cortar el árbol de grupos",
  q:"¿Cómo se construye un árbol de grupos y dónde conviene cortarlo?",
  intro:"18 clientes (A…R) en un plano y, a la derecha, su <b>dendrograma</b>: el árbol de fusiones del clustering aglomerativo, calculado de verdad. Empieza con cada cliente solo y en cada paso une los dos grupos más cercanos; la altura de cada unión es la distancia a la que ocurrió. <b>Arrastra la línea de corte</b> y cambia el tipo de enlace.",
@@ -457,20 +457,20 @@ VIZ.push({id:"v-jerarquico", model:"jerarquico", g:"model", ic:"🌳", dim:"2D",
      function(p){ setCut((db[1] + db[3] - p[1]) / db[3] * maxH * 1.08); });
    K.cv.addEventListener("pointermove", function(e){ var p = K.pos(e); K.cv.style.cursor = p[0] > db[0] - 10 && p[1] > db[1] - 10 && p[1] < db[1] + db[3] + 6 ? "ns-resize" : ""; });
    ctlSeg(ctl, "Enlace (cómo se mide la distancia entre grupos)", [["single", "single"], ["complete", "complete"], ["average", "average"], ["ward", "ward"]], link, function(v){ link = v; cluster(); setCut(bestCut()); });
-   ctlBtn(ctl, "▶ Paso a paso", function(){
+   ctlBtn(ctl, "Paso a paso", function(){
      clearInterval(timer); step = 0; draw();
      timer = setInterval(function(){ step++; draw(); if(step >= n - 1){ clearInterval(timer); tm2 = setTimeout(function(){ if(step >= n - 1){ step = -1; draw(); } }, 1400); } }, 650);
    }, true);
-   ctlBtn(ctl, "✂ Cortar en el salto mayor", function(){ setCut(bestCut()); });
+   ctlBtn(ctl, "Cortar en el salto mayor", function(){ setCut(bestCut()); });
    cluster(); cut = bestCut(); draw();
    return function(){ clearInterval(timer); clearTimeout(tm2); };
  }});
 
 /* ── 3. GAUSSIAN MIXTURE CON EM ──────────────────────────────── */
-VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
+VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"", dim:"2D",
  t:"EM paso a paso: grupos con forma y con dudas",
  q:"¿Cómo encuentra una mezcla de gaussianas grupos elípticos y cuánto pertenece cada punto a cada uno?",
- intro:"Clientes descritos por dos variables (minutos en la web y ticket medio, ya escalados) que vienen de <b>tres grupos elípticos solapados</b>. El algoritmo <b>EM</b> se ejecuta de verdad alternando dos pasos: <b>E</b> (calcular qué probabilidad tiene cada punto de pertenecer a cada grupo) y <b>M</b> (recolocar media, forma y peso de cada grupo con esas probabilidades). Pulsa ▶ o avanza paso a paso y <b>haz clic en un punto</b>.",
+ intro:"Clientes descritos por dos variables (minutos en la web y ticket medio, ya escalados) que vienen de <b>tres grupos elípticos solapados</b>. El algoritmo <b>EM</b> se ejecuta de verdad alternando dos pasos: <b>E</b> (calcular qué probabilidad tiene cada punto de pertenecer a cada grupo) y <b>M</b> (recolocar media, forma y peso de cada grupo con esas probabilidades). Pulsa o avanza paso a paso y <b>haz clic en un punto</b>.",
  notice:["Las elipses (1σ y 2σ) empiezan redondas y mal colocadas y, en pocas iteraciones, se <b>estiran y giran</b> hasta encajar con la forma de cada grupo: eso no lo puede hacer K-Means, que solo dibuja grupos redondos.",
    "Los puntos de la zona de solape tienen un <b>color mezclado</b>: pertenecen un poco a cada grupo. Haz clic en uno y lee sus porcentajes.",
    "La <b>log-verosimilitud</b> sube en cada iteración hasta estabilizarse (EM nunca la empeora). Con «asignación dura» ves lo que haría K-Means: cada punto pierde sus matices."],
@@ -564,7 +564,7 @@ VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
      cap(ctx, "Log-verosimilitud por iteración", px0, 188, C);
      ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(gb[0] + .5, gb[1] + .5, gb[2], gb[3]);
      tx(ctx, "iteración", gb[0] + gb[2] / 2, gb[1] + gb[3] + 16, {s:11, c:C.muted, a:"center"});
-     if(hist.length < 2){ tx(ctx, "aparecerá al iterar (pulsa ▶)", gb[0] + gb[2] / 2, gb[1] + gb[3] / 2 + 4, {s:11.5, c:C.muted, a:"center"}); }
+     if(hist.length < 2){ tx(ctx, "aparecerá al iterar (pulsa)", gb[0] + gb[2] / 2, gb[1] + gb[3] / 2 + 4, {s:11.5, c:C.muted, a:"center"}); }
      else {
      var lo = Math.min.apply(null, hist), hi = Math.max.apply(null, hist); if(hi - lo < 1) lo = hi - 1;
      var gx = function(i){ return gb[0] + i / Math.max(10, hist.length - 1) * gb[2]; }, gy = function(v){ return gb[1] + gb[3] - (v - lo) / (hi - lo) * gb[3]; };
@@ -583,12 +583,12 @@ VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
    function play(){
      clearInterval(timer);
      if(conv){ reset(); draw(); }
-     timer = setInterval(function(){ if(conv){ clearInterval(timer); playB.innerHTML = "▶ Ejecutar EM"; return; } half(); }, 320);
-     playB.innerHTML = "⏸ Pausa";
+     timer = setInterval(function(){ if(conv){ clearInterval(timer); playB.innerHTML = "Ejecutar EM"; return; } half(); }, 320);
+     playB.innerHTML = "Pausa";
    }
-   var playB = ctlBtn(ctl, "▶ Ejecutar EM", function(){ if(playB.innerHTML.indexOf("Pausa") > -1){ clearInterval(timer); playB.innerHTML = "▶ Ejecutar EM"; } else play(); }, true);
-   ctlBtn(ctl, "⏭ Un paso (E o M)", function(){ clearInterval(timer); playB.innerHTML = "▶ Ejecutar EM"; half(); });
-   ctlBtn(ctl, "↺ Reiniciar", function(){ clearInterval(timer); playB.innerHTML = "▶ Ejecutar EM"; reset(); draw(); });
+   var playB = ctlBtn(ctl, "Ejecutar EM", function(){ if(playB.innerHTML.indexOf("Pausa") > -1){ clearInterval(timer); playB.innerHTML = "Ejecutar EM"; } else play(); }, true);
+   ctlBtn(ctl, "Un paso (E o M)", function(){ clearInterval(timer); playB.innerHTML = "Ejecutar EM"; half(); });
+   ctlBtn(ctl, "↺ Reiniciar", function(){ clearInterval(timer); playB.innerHTML = "Ejecutar EM"; reset(); draw(); });
    ctlSeg(ctl, "Asignación", [["soft", "Suave (GMM)"], ["hard", "Dura (como K-Means)"]], "soft", function(v){ hard = v === "hard"; draw(); });
    K.cv.addEventListener("click", function(e){
      var p = K.pos(e), b = -1, bd = 16;
@@ -604,7 +604,7 @@ VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
  }});
 
 /* ── 4. t-SNE EXACTO EN DIRECTO ──────────────────────────────── */
-VIZ.push({id:"v-tsne", model:"tsne", g:"model", ic:"🗺️", dim:"2D",
+VIZ.push({id:"v-tsne", model:"tsne", g:"model", ic:"", dim:"2D",
  t:"t-SNE en directo: vecinos sí, tamaños no",
  q:"¿Qué conserva un mapa t-SNE y qué se inventa?",
  intro:"180 clientes descritos por <b>10 variables</b>, en 4 grupos de tamaños y dispersiones <b>muy distintos</b>. Aquí se ejecuta un <b>t-SNE exacto</b> de verdad: verás cómo los puntos, colocados al azar, se ordenan iteración a iteración. A la derecha, la dispersión real de cada grupo frente a la que aparenta en el mapa. Cambia la <b>perplexity</b> (cuántos vecinos «mira» cada punto) y se reinicia.",
@@ -736,10 +736,10 @@ VIZ.push({id:"v-tsne", model:"tsne", g:"model", ic:"🗺️", dim:"2D",
      draw();
      if(it >= MAXIT && ++settle > 45){ pb.innerHTML = "↺ Repetir"; return false; }
    });
-   function go(){ paused = false; pb.innerHTML = "⏸ Pausa"; anim.start(); }
-   var pb = ctlBtn(ctl, "⏸ Pausa", function(){
+   function go(){ paused = false; pb.innerHTML = "Pausa"; anim.start(); }
+   var pb = ctlBtn(ctl, "Pausa", function(){
      if(it >= MAXIT){ restart(); go(); return; }
-     if(paused) go(); else { paused = true; pb.innerHTML = "▶ Seguir"; }
+     if(paused) go(); else { paused = true; pb.innerHTML = "Seguir"; }
    }, true);
    ctlBtn(ctl, "↺ Reiniciar", function(){ restart(); go(); });
    var tmo = 0;
@@ -749,7 +749,7 @@ VIZ.push({id:"v-tsne", model:"tsne", g:"model", ic:"🗺️", dim:"2D",
  }});
 
 /* ── 5. UMAP: DESENROLLAR EL ROLLO SUIZO ─────────────────────── */
-VIZ.push({id:"v-umap", model:"umap", g:"model", ic:"🌀", dim:"3D",
+VIZ.push({id:"v-umap", model:"umap", g:"model", ic:"", dim:"3D",
  t:"Desenrollar un rollo suizo (la idea de UMAP)",
  q:"¿Cómo puede un mapa 2D «desenrollar» datos que en 3D están enrollados?",
  intro:"Un <b>rollo suizo</b>: 900 puntos sobre una lámina enrollada, coloreados según su posición a lo largo de la lámina. Las líneas grises son el <b>grafo de vecinos</b> (cada punto unido a sus n_neighbors más cercanos). El mapa de la derecha arranca de una inicialización espectral del grafo y luego coloca los puntos tirando de los vecinos unidos y empujando a los demás. Es una <b>simplificación didáctica</b> del principio de UMAP: grafo difuso, curva de atracción/repulsión y muestreo negativo como en UMAP, pero sin sus atajos de rendimiento (vecinos aproximados, etc.).",
@@ -962,7 +962,7 @@ VIZ.push({id:"v-umap", model:"umap", g:"model", ic:"🌀", dim:"3D",
  }});
 
 /* ── 6. LOCAL OUTLIER FACTOR ─────────────────────────────────── */
-VIZ.push({id:"v-lof", model:"lof", g:"model", ic:"🏙️", dim:"2D",
+VIZ.push({id:"v-lof", model:"lof", g:"model", ic:"", dim:"2D",
  t:"Raro para su barrio (LOF)",
  q:"¿Por qué un punto puede ser normal en las afueras pero anómalo en el centro?",
  intro:"Pedidos de reparto en un mapa: un <b>centro</b> muy denso, unas <b>afueras</b> dispersas y algunos casos raros. El tamaño de cada círculo es su puntuación de anomalía. <b>LOF</b> (Local Outlier Factor, calculado de verdad con k-distancia y distancia de alcance) compara la densidad de cada punto con la de <b>sus propios vecinos</b>. Haz clic en un punto para ver sus k vecinos y cambia de método.",
@@ -1060,7 +1060,7 @@ VIZ.push({id:"v-lof", model:"lof", g:"model", ic:"🏙️", dim:"2D",
  }});
 
 /* ── 7. APRIORI / MARKET BASKET ──────────────────────────────── */
-VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
+VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"", dim:"2D",
  t:"Cesta de la compra: soporte, confianza y lift",
  q:"¿Cómo se mide si dos productos se compran juntos «de verdad» y cómo evita Apriori contar todas las combinaciones?",
  intro:"24 tickets de un supermercado y 8 productos. En <b>Reglas</b>, elige un antecedente A y un consecuente B: se resaltan los tickets con A y con A y B a la vez, y se calculan las métricas de la regla A → B. En <b>Retícula</b>, sube el soporte mínimo y mira cómo Apriori <b>poda</b> combinaciones sin llegar a contarlas. Todo se calcula de verdad sobre los tickets.",
@@ -1070,7 +1070,7 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
  models:["apriori","reco"],
  build:function(stage, ctl, read, C){
    var PR = ["Pan", "Leche", "Nachos", "Salsa", "Cerveza", "Pañales", "Café", "Galletas"];
-   var IC = ["🥖", "🥛", "🌽", "🌶️", "🍺", "👶", "☕", "🍪"];
+   var IC = ["", "", "", "", "", "", "", ""];
    var TK = ["PLF", "NSC", "PL", "CÑ", "NSC", "FG", "PLG", "NS", "CÑN", "PFG", "LFG", "NSCÑ", "PLFG", "C", "PL", "NSC", "ÑCL", "FG", "PLF", "NC", "SNP", "LG", "CÑ", "PF"];
    var code = "PLNSCÑFG";
    var T = TK.map(function(s){ return PR.map(function(_, j){ return s.indexOf(code[j]) > -1 ? 1 : 0; }); });
@@ -1170,7 +1170,7 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
      };
      var leg = '<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:' + C.text + ';margin:2px 0 10px">' + PR.map(function(p, j){ return '<span>' + IC[j] + ' ' + p + '</span>'; }).join("") + '</div>';
      var key2 = '<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:' + C.muted + ';margin-bottom:6px">' +
-       chipH({c:[0], st:"freq", n:"n"}).replace("🥖", "frecuente") + chipH({c:[0], st:"infreq", n:"n"}).replace("🥖", "contado, no llega") + chipH({c:[0], st:"pruned"}).replace("🥖", "podado sin contar") + '</div>';
+       chipH({c:[0], st:"freq", n:"n"}).replace("", "frecuente") + chipH({c:[0], st:"infreq", n:"n"}).replace("", "contado, no llega") + chipH({c:[0], st:"pruned"}).replace("", "podado sin contar") + '</div>';
      wrap2.innerHTML = '<div style="background:' + C.card + ';border:.5px solid ' + C.line + ';border-radius:16px;padding:16px 18px;box-shadow:var(--shadow-1)">' + leg + key2 +
        ["1 producto", "2 productos", "3 productos"].map(function(t, k){
          var f = status[k].filter(function(o){ return o.st === "freq"; }).length;
@@ -1194,10 +1194,10 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
  }});
 
 /* ── 8. FILTRADO COLABORATIVO: FACTORIZACIÓN MATRICIAL ───────── */
-VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
+VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"", dim:"2D",
  t:"Rellenar los huecos: factorización de matrices",
  q:"¿Cómo adivina un recomendador la nota que darías a una serie que no has visto?",
- intro:"Notas (1-5) de 8 usuarios a 8 series; los <b>?</b> son series que no han visto. Pulsa <b>▶ Factorizar</b>: se ejecuta de verdad una factorización matricial con 2 factores latentes (descenso de gradiente con regularización, más un sesgo por usuario y por serie). El modelo aprende <b>2 números por usuario</b> (sus gustos) y <b>2 por serie</b> (su «perfil»), y su producto rellena los huecos. A la derecha, ese espacio de gustos. <b>Haz clic en un usuario</b> para ver sus 3 recomendaciones.",
+ intro:"Notas (1-5) de 8 usuarios a 8 series; los <b>?</b> son series que no han visto. Pulsa <b>Factorizar</b>: se ejecuta de verdad una factorización matricial con 2 factores latentes (descenso de gradiente con regularización, más un sesgo por usuario y por serie). El modelo aprende <b>2 números por usuario</b> (sus gustos) y <b>2 por serie</b> (su «perfil»), y su producto rellena los huecos. A la derecha, ese espacio de gustos. <b>Haz clic en un usuario</b> para ver sus 3 recomendaciones.",
  notice:["Las celdas con borde discontinuo y número en cursiva son <b>predicciones</b>; las sólidas, notas reales. El modelo nunca ha visto los huecos: los deduce de usuarios con gustos parecidos.",
    "En el espacio latente, las series de acción y las de drama acaban en <b>zonas distintas</b>, y cada usuario se coloca cerca de lo que le gusta. Nadie le ha dicho al modelo qué es «acción»: lo descubre de las notas.",
    "El <b>RMSE</b> en las celdas conocidas baja con las iteraciones. Con λ = 0 el modelo casi <b>memoriza</b> las notas (RMSE ≈ 0) y se fía demasiado de pocos datos; al subir λ, el RMSE en las conocidas sube un poco a cambio de predicciones más prudentes en los huecos."],
@@ -1297,19 +1297,19 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      var rr = shown ? recs(sel) : [];
      read.innerHTML = '<span>Iteración <b>' + it + ' / ' + MAXI + '</b></span><span>RMSE (celdas conocidas) <b>' + (hist.length ? fmt(hist[hist.length - 1], 3) : "—") + '</b></span><span>Usuario <b>' + US[sel] + '</b></span>' +
        '<span class="ldiag">' + (shown ? "Recomendaciones para <b>" + US[sel] + "</b>: " + rr.map(function(x, q){ var v = Math.max(1, Math.min(5, x[1])); return (q + 1) + ". <b>" + SE[x[0]] + "</b> (" + fmt(v, 1) + (v >= 3.5 ? " ✓ le encajará" : v < 3 ? " ✗ poco probable" : " · quizá") + ")"; }).join(" · ") +
-         ". El RMSE dice que, en las notas que sí conocemos, el modelo se equivoca de media unas " + fmt(hist[hist.length - 1], 2) + " estrellas." : "Pulsa <b>▶ Factorizar</b>: verás cómo los <b>?</b> se convierten en predicciones mientras el error baja.") + '</span>';
+         ". El RMSE dice que, en las notas que sí conocemos, el modelo se equivoca de media unas " + fmt(hist[hist.length - 1], 2) + " estrellas." : "Pulsa <b>Factorizar</b>: verás cómo los <b>?</b> se convierten en predicciones mientras el error baja.") + '</span>';
    }
    anim = animator(function(){
      for(var s = 0; s < 2 && it < MAXI; s++) step();
      draw();
      if(it >= MAXI){ pb.innerHTML = "↺ Repetir"; return false; }
    });
-   var pb = ctlBtn(ctl, "▶ Factorizar", function(){
-     if(anim.on){ anim.stop(); pb.innerHTML = "▶ Seguir"; return; }
+   var pb = ctlBtn(ctl, "Factorizar", function(){
+     if(anim.on){ anim.stop(); pb.innerHTML = "Seguir"; return; }
      if(it >= MAXI){ reset(); }
-     pb.innerHTML = "⏸ Pausa"; anim.start();
+     pb.innerHTML = "Pausa"; anim.start();
    }, true);
-   ctlBtn(ctl, "↺ Empezar de nuevo", function(){ anim.stop(); reset(); pb.innerHTML = "▶ Factorizar"; draw(); });
+   ctlBtn(ctl, "↺ Empezar de nuevo", function(){ anim.stop(); reset(); pb.innerHTML = "Factorizar"; draw(); });
    ctlSlider(ctl, "Regularización λ", 0, 1, 0.05, lam, function(v){ return fmt(v); }, function(v){ lam = v; if(it >= MAXI || !anim.on){ reset(); for(var q = 0; q < MAXI; q++) step(); pb.innerHTML = "↺ Repetir"; draw(); } });
    K.cv.addEventListener("click", function(e){
      var p = K.pos(e), b = -1;
@@ -1326,7 +1326,7 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
  }});
 
 /* ── 9. RECOMENDADOR BASADO EN CONTENIDO (TF-IDF + COSENO) ──── */
-VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"🎬", dim:"2D",
+VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"", dim:"2D",
  t:"Parecidas por lo que cuentan (TF-IDF y coseno)",
  q:"¿Cómo decide un recomendador que dos películas se parecen solo leyendo su sinopsis?",
  intro:"10 películas inventadas con su sinopsis. Cada sinopsis se convierte en un vector <b>TF-IDF</b> (cuánto pesa cada palabra: mucho si es frecuente en esa sinopsis y rara en las demás) y se compara con las otras con la <b>similitud del coseno</b> (el ángulo entre vectores). Todo se calcula de verdad. Elige una película (o haz clic en una barra).",
@@ -1383,7 +1383,7 @@ VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"🎬", dim:"
        ctx.fillStyle = hexA(C.line, 0.9); rrect(ctx, bx0 + 138, y + 5, bw - 186, 12, 6); ctx.fill();
        ctx.fillStyle = top ? C.c[0] : hexA(C.c[0], 0.35); rrect(ctx, bx0 + 138, y + 5, Math.max(4, (bw - 186) * v), 12, 6); ctx.fill();
        tx(ctx, fmt(v, 2), bx0 + bw, y + 15, {s:12, w:700, c:top ? C.ink : C.muted, a:"right"});
-       if((sel === 3 && b === 4) || (sel === 4 && b === 3)) tx(ctx, "⚠ trampa", bx0 + 138 + (bw - 186) * v + 8, y + 15, {s:11, w:700, c:C.c[4]});
+       if((sel === 3 && b === 4) || (sel === 4 && b === 3)) tx(ctx, "trampa", bx0 + 138 + (bw - 186) * v + 8, y + 15, {s:11, w:700, c:C.c[4]});
      });
      tx(ctx, "en negrita: top-5 recomendadas", bx0, by0 + 9 * rowh + 14, {s:11, c:C.muted});
      /* plano con flechas */
@@ -1411,7 +1411,7 @@ VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"🎬", dim:"
      read.innerHTML = '<span style="flex-basis:100%"><b>' + F[sel][0] + '</b>: «' + F[sel][1] + '»</span>' +
        '<span style="flex-basis:100%">Palabras con más peso: ' + ch(tw) + '</span>' +
        '<span style="flex-basis:100%">Más parecida, <b>' + F[best][0] + '</b> (coseno ' + fmt(cos(sel, best), 2) + '): ' + ch(tb) + '</span>' +
-       '<span class="ldiag">' + (trap ? "<b class='lwarn'>⚠ Caso trampa</b>: comparten «boda», «familiar», «Sevilla» y «novia», pero una es una comedia de enredos y la otra un drama con desaparición. A un fan de la comedia le recomendaríamos un drama oscuro. Solución en la práctica: añadir género y tono como variables, o usar <i>embeddings</i> que capten el sentido de la frase." :
+       '<span class="ldiag">' + (trap ? "<b class='lwarn'>Caso trampa</b>: comparten «boda», «familiar», «Sevilla» y «novia», pero una es una comedia de enredos y la otra un drama con desaparición. A un fan de la comedia le recomendaríamos un drama oscuro. Solución en la práctica: añadir género y tono como variables, o usar <i>embeddings</i> que capten el sentido de la frase." :
          "Las palabras resaltadas (borde naranja) aparecen en las dos sinopsis: son las que empujan la similitud hacia arriba. Una palabra que sale en casi todas tendría un IDF bajo y apenas contaría.") + '</span>';
    }
    ctlSeg(ctl, "Película elegida", F.map(function(f, b){ return [b, f[0]]; }), sel, function(v){ sel = +v; draw(); });
@@ -1425,10 +1425,10 @@ VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"🎬", dim:"
  }});
 
 /* ── 10. TOPIC MODELING: LDA CON MUESTREO DE GIBBS ───────────── */
-VIZ.push({id:"v-topic", model:"topic", g:"model", ic:"🏷️", dim:"2D",
+VIZ.push({id:"v-topic", model:"topic", g:"model", ic:"", dim:"2D",
  t:"LDA: temas que emergen de las reseñas",
  q:"¿Cómo descubre LDA de qué hablan unas reseñas sin que nadie le diga los temas?",
- intro:"24 reseñas cortas de una tienda online. LDA supone que cada reseña es una <b>mezcla de temas</b> y cada tema, una <b>bolsa de palabras</b> con distintas probabilidades. Aquí se ejecuta de verdad con <b>muestreo de Gibbs colapsado</b>: cada palabra empieza con un tema al azar y, en cada iteración, se reasigna según lo que «dicen» su reseña y el resto de reseñas. Pulsa ▶ y haz clic en una reseña.",
+ intro:"24 reseñas cortas de una tienda online. LDA supone que cada reseña es una <b>mezcla de temas</b> y cada tema, una <b>bolsa de palabras</b> con distintas probabilidades. Aquí se ejecuta de verdad con <b>muestreo de Gibbs colapsado</b>: cada palabra empieza con un tema al azar y, en cada iteración, se reasigna según lo que «dicen» su reseña y el resto de reseñas. Pulsa y haz clic en una reseña.",
  notice:["Al principio las barras de cada reseña son un <b>revoltijo</b> de colores; tras unas decenas de iteraciones casi todas quedan dominadas por un solo tema, y las reseñas mixtas («buen precio pero llegó tarde») conservan dos colores.",
    "Los temas no tienen nombre: el modelo solo da <b>listas de palabras</b>. Que uno sea «envío», otro «precio» y otro «atención al cliente» lo decides tú leyendo sus palabras top.",
    "Con 2 temas, dos de los asuntos reales se funden; con 4, uno se parte en dos o aparece un tema «cajón de sastre». Elegir el nº de temas es, como en clustering, una decisión con criterio de negocio."],
@@ -1532,18 +1532,18 @@ VIZ.push({id:"v-topic", model:"topic", g:"model", ic:"🏷️", dim:"2D",
      read.innerHTML = '<span>Iteración <b>' + it + ' / ' + MAXI + '</b></span><span>Temas <b>' + Kt + '</b></span>' +
        '<span>Reseña ' + (sel + 1) + ' <b>' + th2.map(function(v, k){ return "T" + (k + 1) + " " + pct(v, 0); }).join(" · ") + '</b></span>' +
        '<span style="flex-basis:100%;font-size:15px;line-height:1.9">«' + html + '»</span>' +
-       '<span class="ldiag">' + (it === 0 ? "Ahora cada palabra tiene un tema <b>al azar</b> (el subíndice). Pulsa ▶: en cada iteración, cada palabra se reasigna al tema que más abunda en su reseña y en el que esa palabra es más típica." :
+       '<span class="ldiag">' + (it === 0 ? "Ahora cada palabra tiene un tema <b>al azar</b> (el subíndice). Pulsa: en cada iteración, cada palabra se reasigna al tema que más abunda en su reseña y en el que esa palabra es más típica." :
          "Palabras top: " + Array.apply(null, {length:Kt}).map(function(_, k){ return "<b>T" + (k + 1) + "</b> " + topw(k, 3).map(function(p){ return VOC[p[0]]; }).join(", "); }).join(" · ") + ". Ponerles nombre (envío, precio, atención) es trabajo tuyo.") + '</span>';
    }
    function run(){
      clearInterval(timer); if(it >= MAXI){ seed++; reset(); }
-     pbtn.innerHTML = "⏸ Pausa";
-     timer = setInterval(function(){ sweep(); draw(); if(it >= MAXI){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; } }, it < 40 ? 90 : 60);
+     pbtn.innerHTML = "Pausa";
+     timer = setInterval(function(){ sweep(); draw(); if(it >= MAXI){ clearInterval(timer); pbtn.innerHTML = "Iterar"; } }, it < 40 ? 90 : 60);
    }
-   var pbtn = ctlBtn(ctl, "▶ Iterar", function(){ if(pbtn.innerHTML.indexOf("Pausa") > -1){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; } else run(); }, true);
-   ctlBtn(ctl, "⏭ Una iteración", function(){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; sweep(); draw(); });
-   ctlBtn(ctl, "↺ Reiniciar al azar", function(){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; seed++; reset(); draw(); });
-   ctlSeg(ctl, "Nº de temas", [[2, "2"], [3, "3"], [4, "4"]], Kt, function(v){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; Kt = +v; reset(); draw(); });
+   var pbtn = ctlBtn(ctl, "Iterar", function(){ if(pbtn.innerHTML.indexOf("Pausa") > -1){ clearInterval(timer); pbtn.innerHTML = "Iterar"; } else run(); }, true);
+   ctlBtn(ctl, "Una iteración", function(){ clearInterval(timer); pbtn.innerHTML = "Iterar"; sweep(); draw(); });
+   ctlBtn(ctl, "↺ Reiniciar al azar", function(){ clearInterval(timer); pbtn.innerHTML = "Iterar"; seed++; reset(); draw(); });
+   ctlSeg(ctl, "Nº de temas", [[2, "2"], [3, "3"], [4, "4"]], Kt, function(v){ clearInterval(timer); pbtn.innerHTML = "Iterar"; Kt = +v; reset(); draw(); });
    K.cv.addEventListener("click", function(e){
      var p = K.pos(e); if(p[1] > by - 8 && p[1] < by + bh + 22 && p[0] > bx - 2 && p[0] < bx + ND * bw){ sel = Math.max(0, Math.min(ND - 1, Math.floor((p[0] - bx + 2) / bw))); draw(); }
    });
@@ -1553,7 +1553,7 @@ VIZ.push({id:"v-topic", model:"topic", g:"model", ic:"🏷️", dim:"2D",
  }});
 
 /* ── 11. ARIMA: SIMULADOR ARMA CON ACF Y PACF ────────────────── */
-VIZ.push({id:"v-arima", model:"arima", g:"model", ic:"〰️", dim:"2D",
+VIZ.push({id:"v-arima", model:"arima", g:"model", ic:"", dim:"2D",
  t:"La huella de un ARIMA: ACF y PACF",
  q:"¿Cómo se reconoce en la ACF y la PACF si una serie es AR, MA o necesita diferenciarse?",
  intro:"Genera una serie con un proceso <b>ARMA</b>: φ (parte AR) dice cuánto se parece cada valor al anterior; θ (parte MA) cuánto arrastra el «golpe» aleatorio de ayer. Con <b>d = 1</b> se integra (suma acumulada): un paseo aleatorio con tendencia. Abajo, la <b>ACF</b> (correlación con el retardo k) y la <b>PACF</b> (la misma correlación descontando los retardos intermedios), con sus bandas ±1,96/√n calculadas de verdad.",
@@ -1630,12 +1630,12 @@ VIZ.push({id:"v-arima", model:"arima", g:"model", ic:"〰️", dim:"2D",
    ctlCheck(ctl, "d = 1 (integrar: paseo con tendencia)", false, function(v){ d = v ? 1 : 0; segW.style.display = d ? "" : "none"; gen(); draw(); });
    segW = ctlSeg(ctl, "ACF/PACF de", [["orig", "Serie original"], ["diff", "Serie diferenciada"]], which, function(v){ which = v; draw(); });
    segW.style.display = "none";
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
  }});
 
 /* ── 12. SARIMA: LA ESTACIONALIDAD ANUAL ─────────────────────── */
-VIZ.push({id:"v-sarima", model:"sarima", g:"model", ic:"📅", dim:"2D",
+VIZ.push({id:"v-sarima", model:"sarima", g:"model", ic:"", dim:"2D",
  t:"La «S» de SARIMA: patrones que se repiten cada año",
  q:"¿Cómo se ve la estacionalidad y cuánto mejora el pronóstico un modelo que la tiene en cuenta?",
  intro:"Seis años de ventas mensuales (inventadas) con tendencia y un patrón anual. Tres vistas: el <b>gráfico estacional</b> (una línea por año), la <b>ACF</b> con su pico en el retardo 12 y un <b>pronóstico de 12 meses</b> que el modelo no ha visto (validación hacia delante), comparando un modelo <b>sin</b> parte estacional con otro <b>con</b> ella. Los dos se ajustan de verdad por mínimos cuadrados; son versiones simplificadas de ARIMA y SARIMA.",
@@ -1730,12 +1730,12 @@ VIZ.push({id:"v-sarima", model:"sarima", g:"model", ic:"📅", dim:"2D",
    var showSeg = ctlSeg(ctl, "Pronósticos", [["both", "Los dos"], ["a", "Sin estacional"], ["b", "Con estacional"]], show, function(v){ show = v; draw(); });
    showSeg.style.display = "none";
    ctlSlider(ctl, "Fuerza de la estacionalidad", 0, 50, 1, amp, function(v){ return v; }, function(v){ amp = v; gen(); draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
  }});
 
 /* ── 13. SARIMAX: VARIABLES EXTERNAS Y ESCENARIOS ────────────── */
-VIZ.push({id:"v-sarimax", model:"sarimax", g:"model", ic:"🌡️", dim:"2D",
+VIZ.push({id:"v-sarimax", model:"sarimax", g:"model", ic:"", dim:"2D",
  t:"La «X» de SARIMAX: promociones y temperatura",
  q:"¿Cómo se usan variables externas (exógenas) para pronosticar, y qué pasa con su futuro?",
  intro:"Dos años de ventas semanales (se dibuja el último) de bebidas frías con dos variables externas: <b>semanas de promoción</b> y <b>temperatura</b>. Se ajusta de verdad una <b>regresión con errores AR(1)</b> (estimada por mínimos cuadrados con el método de Cochrane-Orcutt), que es una versión simplificada de SARIMAX. Mueve los deslizadores para plantear <b>escenarios</b> para las próximas 12 semanas: el pronóstico se recalcula y se descompone en base + efecto promo + efecto temperatura.",
@@ -1822,7 +1822,7 @@ VIZ.push({id:"v-sarimax", model:"sarimax", g:"model", ic:"🌡️", dim:"2D",
      var TB = tot(function(s){ return s.base; }), TP = tot(function(s){ return s.pe; }), TT = tot(function(s){ return s.te; });
      read.innerHTML = '<span>Promo <b>+' + fmt(beta[2], 0) + ' ud./semana</b></span><span>Temperatura <b>' + (beta[3] >= 0 ? "+" : "") + fmt(beta[3], 1) + ' ud. por °C</b></span><span>Tendencia <b>+' + fmt(beta[1], 2) + ' ud./semana</b></span><span>ρ (AR(1) del error) <b>' + fmt(rho, 2) + '</b></span>' +
        '<span style="flex-basis:100%">Próximas 12 semanas: <b>' + fmt(TB + TP + TT, 0) + ' ud.</b> = base ' + fmt(TB, 0) + ' + promo ' + fmt(TP, 0) + ' ' + (TT >= 0 ? "+ temperatura " + fmt(TT, 0) + " ▲" : "− temperatura " + fmt(-TT, 0) + " ▼") + '</span>' +
-       '<span class="ldiag"><b class="lwarn">⚠ Ojo con el futuro de las exógenas</b>: para pronosticar con SARIMAX hay que <b>conocer o fijar</b> sus valores futuros. Las promociones las decides tú (bien); la temperatura hay que tomarla de una previsión meteorológica o plantear escenarios (como aquí). Un error en esa previsión se traslada tal cual al pronóstico de ventas.</span>';
+       '<span class="ldiag"><b class="lwarn">Ojo con el futuro de las exógenas</b>: para pronosticar con SARIMAX hay que <b>conocer o fijar</b> sus valores futuros. Las promociones las decides tú (bien); la temperatura hay que tomarla de una previsión meteorológica o plantear escenarios (como aquí). Un error en esa previsión se traslada tal cual al pronóstico de ventas.</span>';
    }
    ctlSlider(ctl, "Semanas con promoción (de las próximas 12)", 0, 12, 1, nP, function(v){ return v; }, function(v){ nP = v; draw(); });
    ctlSlider(ctl, "Temperatura frente a lo normal", -6, 6, 0.5, dT, function(v){ return (v > 0 ? "+" : v < 0 ? "−" : "") + fmt(Math.abs(v), 1) + " °C"; }, function(v){ dT = v; draw(); });
@@ -1830,7 +1830,7 @@ VIZ.push({id:"v-sarimax", model:"sarimax", g:"model", ic:"🌡️", dim:"2D",
  }});
 
 /* ── 14. PROPHET: DESCOMPOSICIÓN ADITIVA ─────────────────────── */
-VIZ.push({id:"v-prophet", model:"prophet", g:"model", ic:"🔮", dim:"2D",
+VIZ.push({id:"v-prophet", model:"prophet", g:"model", ic:"", dim:"2D",
  t:"Prophet por piezas: tendencia, semanas, años y festivos",
  q:"¿Cómo descompone Prophet una serie diaria y por qué la flexibilidad de la tendencia cambia tanto el pronóstico?",
  intro:"Tres años de <b>pedidos diarios</b> (inventados) de una tienda online. Se ajusta de verdad un modelo aditivo como el de Prophet: <b>tendencia lineal por tramos</b> con 25 posibles puntos de cambio, <b>estacionalidad semanal y anual</b> (series de Fourier) y <b>festivos</b>, por mínimos cuadrados con regularización (la de los puntos de cambio, tipo Laplace como en Prophet, resuelta por mínimos cuadrados reponderados). Los <b>últimos 90 días</b> no se usan para ajustar: son la validación.",

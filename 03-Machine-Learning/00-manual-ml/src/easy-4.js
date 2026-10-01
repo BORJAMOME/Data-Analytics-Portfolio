@@ -15,9 +15,9 @@ EASY.kmeans = {
   "<b>Estandariza</b> antes: si no, manda la variable con más rango.",
   "Supone grupos más o menos redondos y sufre con outliers."]};
 CASOS.kmeans = [
- ["🛍️","Retail","900.000 clientes reciben la misma comunicación.","Segmentos por recencia, frecuencia, gasto y categorías.","5 mensajes distintos, uno por segmento accionable."],
- ["🏋️","Gimnasios","Entender los tipos de socio (tu notebook).","Grupos por horario, frecuencia y servicios usados.","Oferta de horarios y clases adaptada a cada perfil."],
- ["🗳️","Investigación social","Perfiles de votantes por actitudes (tu notebook).","Agrupa respuestas de encuesta en perfiles ideológicos.","Mensajes de campaña adaptados a cada perfil."]];
+ ["","Retail","900.000 clientes reciben la misma comunicación.","Segmentos por recencia, frecuencia, gasto y categorías.","5 mensajes distintos, uno por segmento accionable."],
+ ["","Gimnasios","Entender los tipos de socio (tu notebook).","Grupos por horario, frecuencia y servicios usados.","Oferta de horarios y clases adaptada a cada perfil."],
+ ["","Investigación social","Perfiles de votantes por actitudes (tu notebook).","Agrupa respuestas de encuesta en perfiles ideológicos.","Mensajes de campaña adaptados a cada perfil."]];
 
 EASY.kmedoids = {
  frase:"Como K-Means, pero el centro de cada grupo es siempre <b>un cliente real</b>.",
@@ -34,9 +34,9 @@ EASY.kmedoids = {
   "Más <b>robusto a outliers</b> y admite cualquier distancia.",
   "Escala peor que K-Means; usa FasterPAM (paquete kmedoids)."]};
 CASOS.kmedoids = [
- ["🏦","Banca","Presentar la segmentación al comité con un cliente real por grupo.","El medoide es «el cliente tipo», sin medias distorsionadas por patrimonios extremos.","Storytelling comercial con casos concretos."],
- ["🚚","Logística","Elegir dónde ubicar 5 almacenes entre 60 ubicaciones posibles.","Los medoides son ubicaciones reales que minimizan la distancia a los clientes.","Red de almacenes sin proponer sitios que no existen."],
- ["🧾","Seguros","Segmentar pólizas con variables mixtas (numéricas y categóricas).","K-Medoids sobre distancia de Gower.","Grupos coherentes sin forzar codificaciones raras."]];
+ ["","Banca","Presentar la segmentación al comité con un cliente real por grupo.","El medoide es «el cliente tipo», sin medias distorsionadas por patrimonios extremos.","Storytelling comercial con casos concretos."],
+ ["","Logística","Elegir dónde ubicar 5 almacenes entre 60 ubicaciones posibles.","Los medoides son ubicaciones reales que minimizan la distancia a los clientes.","Red de almacenes sin proponer sitios que no existen."],
+ ["","Seguros","Segmentar pólizas con variables mixtas (numéricas y categóricas).","K-Medoids sobre distancia de Gower.","Grupos coherentes sin forzar codificaciones raras."]];
 
 EASY.jerarquico = {
  frase:"Construye el <b>árbol genealógico</b> de tus datos y luego decides a qué altura cortarlo.",
@@ -53,9 +53,9 @@ EASY.jerarquico = {
   "El tipo de <b>enlace</b> cambia la historia (ward = grupos compactos).",
   "Coste cuadrático: para muchos datos, agrupa antes con K-Means."]};
 CASOS.jerarquico = [
- ["🥫","Gran consumo","¿Cómo se agrupan 400 referencias según la compra conjunta?","El dendrograma muestra familias y subfamilias naturales de producto.","Arquitectura de surtido discutida a distintos niveles de corte."],
- ["🛒","E-commerce","Explorar segmentos sin saber cuántos hay (tu notebook).","Ver la estructura completa antes de fijar el número de grupos.","Segmentación con un K justificado por el dendrograma."],
- ["🏦","Banca","Agrupar oficinas por su perfil de negocio (tu notebook).","Jerarquía de oficinas parecidas con distintas granularidades.","Objetivos comerciales por grupo de oficinas."]];
+ ["","Gran consumo","¿Cómo se agrupan 400 referencias según la compra conjunta?","El dendrograma muestra familias y subfamilias naturales de producto.","Arquitectura de surtido discutida a distintos niveles de corte."],
+ ["","E-commerce","Explorar segmentos sin saber cuántos hay (tu notebook).","Ver la estructura completa antes de fijar el número de grupos.","Segmentación con un K justificado por el dendrograma."],
+ ["","Banca","Agrupar oficinas por su perfil de negocio (tu notebook).","Jerarquía de oficinas parecidas con distintas granularidades.","Objetivos comerciales por grupo de oficinas."]];
 
 EASY.dbscan = {
  frase:"Agrupa por <b>multitudes</b>: donde hay mucha gente junta hay un grupo; los solitarios son ruido.",
@@ -72,9 +72,9 @@ EASY.dbscan = {
   "Lo difícil es elegir <b>eps</b>: usa el gráfico de distancia al k-ésimo vecino.",
   "Con densidades muy distintas falla: usa HDBSCAN."]};
 CASOS.dbscan = [
- ["🛵","Reparto","Localizar zonas calientes de entrega para abrir microhubs.","Grupos con la forma real de las calles y entregas dispersas como ruido.","Ubicación de 6 microhubs donde se concentra la demanda."],
- ["📍","Turismo","Detectar puntos de interés a partir de fotos geolocalizadas.","Zonas densas de fotos = lugares de interés; fotos sueltas = ruido.","Mapa de atracciones y rutas recomendadas."],
- ["🚨","Seguridad","Patrones espaciales de incidencias en una ciudad.","Focos de incidencias de forma irregular.","Rutas de patrulla priorizadas."]];
+ ["","Reparto","Localizar zonas calientes de entrega para abrir microhubs.","Grupos con la forma real de las calles y entregas dispersas como ruido.","Ubicación de 6 microhubs donde se concentra la demanda."],
+ ["","Turismo","Detectar puntos de interés a partir de fotos geolocalizadas.","Zonas densas de fotos = lugares de interés; fotos sueltas = ruido.","Mapa de atracciones y rutas recomendadas."],
+ ["","Seguridad","Patrones espaciales de incidencias en una ciudad.","Focos de incidencias de forma irregular.","Rutas de patrulla priorizadas."]];
 
 EASY.gmm = {
  frase:"Supone que los datos son una <b>mezcla de campanas</b> y da a cada caso un % de pertenencia a cada una.",
@@ -91,9 +91,9 @@ EASY.gmm = {
   "Admite grupos <b>elípticos</b> y de distinto tamaño.",
   "Elige K con <b>BIC</b>, no con la silueta."]};
 CASOS.gmm = [
- ["🏦","Banca","Clientes que son a la vez ahorradores e inversores.","% de pertenencia a cada perfil en lugar de una etiqueta dura.","Mensajes de campaña mezclados según el perfil."],
- ["📈","Riesgos","Modelar la distribución de pérdidas como mezcla de «días normales» y «días de crisis».","Dos campanas con medias y dispersiones distintas.","Cálculo de riesgo extremo más realista."],
- ["🎧","Audio","Separar hablantes en grabaciones de un centro de llamadas.","Cada hablante es una campana en el espacio de características de voz.","Transcripción con quién dijo qué."]];
+ ["","Banca","Clientes que son a la vez ahorradores e inversores.","% de pertenencia a cada perfil en lugar de una etiqueta dura.","Mensajes de campaña mezclados según el perfil."],
+ ["","Riesgos","Modelar la distribución de pérdidas como mezcla de «días normales» y «días de crisis».","Dos campanas con medias y dispersiones distintas.","Cálculo de riesgo extremo más realista."],
+ ["","Audio","Separar hablantes en grabaciones de un centro de llamadas.","Cada hablante es una campana en el espacio de características de voz.","Transcripción con quién dijo qué."]];
 
 EASY.pca = {
  frase:"Busca la <b>mejor foto</b> de tus datos: pocas direcciones nuevas que resumen casi toda la información.",
@@ -110,9 +110,9 @@ EASY.pca = {
   "<b>Estandariza</b> y ajústalo dentro del Pipeline (solo con train).",
   "Sirve para modelar y para comunicar; los componentes mezclan variables."]};
 CASOS.pca = [
- ["👥","People Analytics","Encuesta de clima de 60 preguntas imposible de presentar.","PCA reduce a 4 dimensiones interpretables (reconocimiento, carga, liderazgo, desarrollo).","Plan anual sobre 4 ejes en lugar de 60 ítems."],
- ["📧","Marketing","Comportamiento de clientes ante emails con muchas métricas (tu notebook).","Resume aperturas, clics y tiempos en pocos componentes.","Segmentación más estable sobre los componentes."],
- ["💹","Finanzas","Movimiento de la curva de tipos de interés.","Tres componentes explican casi todo: nivel, pendiente y curvatura.","Coberturas diseñadas sobre 3 factores."]];
+ ["","People Analytics","Encuesta de clima de 60 preguntas imposible de presentar.","PCA reduce a 4 dimensiones interpretables (reconocimiento, carga, liderazgo, desarrollo).","Plan anual sobre 4 ejes en lugar de 60 ítems."],
+ ["","Marketing","Comportamiento de clientes ante emails con muchas métricas (tu notebook).","Resume aperturas, clics y tiempos en pocos componentes.","Segmentación más estable sobre los componentes."],
+ ["","Finanzas","Movimiento de la curva de tipos de interés.","Tres componentes explican casi todo: nivel, pendiente y curvatura.","Coberturas diseñadas sobre 3 factores."]];
 
 EASY.tsne = {
  frase:"Un mapa 2D para <b>mirar</b> datos de muchas dimensiones: junta lo que era vecino.",
@@ -129,9 +129,9 @@ EASY.tsne = {
   "Prueba varias <b>perplexity</b> y fija random_state.",
   "Solo para visualizar; para modelar, PCA o UMAP."]};
 CASOS.tsne = [
- ["🛍️","Retail","Marketing no se cree la segmentación porque solo ve una tabla (tu notebook).","Mapa 2D donde los segmentos se ven como islas.","Comité que aprueba la segmentación al verla."],
- ["🧬","Biología","Visualizar tipos de células a partir de miles de genes.","Agrupa células parecidas en el mapa.","Identificación visual de poblaciones raras."],
- ["🔍","Calidad de datos","Revisar si los embeddings de productos tienen sentido.","Los productos parecidos deberían quedar juntos.","Detectar productos mal categorizados."]];
+ ["","Retail","Marketing no se cree la segmentación porque solo ve una tabla (tu notebook).","Mapa 2D donde los segmentos se ven como islas.","Comité que aprueba la segmentación al verla."],
+ ["","Biología","Visualizar tipos de células a partir de miles de genes.","Agrupa células parecidas en el mapa.","Identificación visual de poblaciones raras."],
+ ["","Calidad de datos","Revisar si los embeddings de productos tienen sentido.","Los productos parecidos deberían quedar juntos.","Detectar productos mal categorizados."]];
 
 EASY.umap = {
  frase:"Como t-SNE, pero <b>más rápido</b>, algo más fiel a la estructura global y capaz de colocar datos nuevos.",
@@ -148,9 +148,9 @@ EASY.umap = {
   "<b>n_neighbors</b> es el mando local ↔ global.",
   "Sigue siendo una proyección: distancias orientativas, no exactas."]};
 CASOS.umap = [
- ["🎫","Soporte","Descubrir problemas emergentes en 500.000 tickets.","Mapa de embeddings + HDBSCAN para detectar temas nuevos.","Escalado a producto de un fallo antes de que se haga viral."],
- ["🛍️","E-commerce","Explorar el catálogo para encontrar huecos de surtido.","Mapa de productos por similitud de descripción e imagen.","Zonas del mapa sin oferta propia = oportunidades."],
- ["🧑‍💼","RR. HH.","Mapa de habilidades de la plantilla a partir de CV y proyectos.","Agrupa perfiles parecidos y muestra perfiles puente.","Movilidad interna basada en habilidades."]];
+ ["","Soporte","Descubrir problemas emergentes en 500.000 tickets.","Mapa de embeddings + HDBSCAN para detectar temas nuevos.","Escalado a producto de un fallo antes de que se haga viral."],
+ ["","E-commerce","Explorar el catálogo para encontrar huecos de surtido.","Mapa de productos por similitud de descripción e imagen.","Zonas del mapa sin oferta propia = oportunidades."],
+ ["","RR. HH.","Mapa de habilidades de la plantilla a partir de CV y proyectos.","Agrupa perfiles parecidos y muestra perfiles puente.","Movilidad interna basada en habilidades."]];
 
 EASY.iforest = {
  frase:"Juega a <b>aislar cada punto con cortes al azar</b>: lo raro se queda solo enseguida.",
@@ -167,9 +167,9 @@ EASY.iforest = {
   "<b>contamination</b> es una cuota, no una detección: mejor ordena por puntuación.",
   "Mide rareza <b>global</b>; para rareza local, LOF."]};
 CASOS.iforest = [
- ["💳","Banca","Fraude nuevo que aún no está etiquetado en 40 M de transacciones al mes.","Puntuación de rareza para cada operación, sin etiquetas.","Revisión de las 500 operaciones más raras del día."],
- ["🧾","Contabilidad","Detectar asientos contables inusuales antes del cierre.","Importe, cuenta, usuario y hora poco habituales.","Auditoría centrada en el 1% más extraño."],
- ["🌡️","IoT","Sensores de frigoríficos industriales con lecturas raras.","Rareza por combinación de temperatura, consumo y aperturas.","Aviso antes de perder la mercancía."]];
+ ["","Banca","Fraude nuevo que aún no está etiquetado en 40 M de transacciones al mes.","Puntuación de rareza para cada operación, sin etiquetas.","Revisión de las 500 operaciones más raras del día."],
+ ["","Contabilidad","Detectar asientos contables inusuales antes del cierre.","Importe, cuenta, usuario y hora poco habituales.","Auditoría centrada en el 1% más extraño."],
+ ["","IoT","Sensores de frigoríficos industriales con lecturas raras.","Rareza por combinación de temperatura, consumo y aperturas.","Aviso antes de perder la mercancía."]];
 
 EASY.lof = {
  frase:"Compara lo aislado que está un punto <b>con lo aislados que están sus vecinos</b>.",
@@ -186,9 +186,9 @@ EASY.lof = {
   "Estandariza y elige k (n_neighbors) con cuidado.",
   "Complementa a Isolation Forest: donde discrepan, mira con lupa."]};
 CASOS.lof = [
- ["🏭","Calidad multiplanta","Lotes anómalos cuando cada planta tiene su propio «normal».","Cada lote se compara con su vecindario, no con la media global.","Bloqueo de lotes raros dentro de cada planta."],
- ["🏪","Retail","Tiendas con ventas raras para su tipo (centro comercial vs barrio).","Detecta la tienda de barrio que vende como una de centro comercial (o al revés).","Revisión de datos o de posibles fraudes en caja."],
- ["🌐","Redes","Equipos con tráfico extraño respecto a su grupo de trabajo.","El tráfico de un servidor se compara con el de servidores similares.","Alerta de equipo comprometido."]];
+ ["","Calidad multiplanta","Lotes anómalos cuando cada planta tiene su propio «normal».","Cada lote se compara con su vecindario, no con la media global.","Bloqueo de lotes raros dentro de cada planta."],
+ ["","Retail","Tiendas con ventas raras para su tipo (centro comercial vs barrio).","Detecta la tienda de barrio que vende como una de centro comercial (o al revés).","Revisión de datos o de posibles fraudes en caja."],
+ ["","Redes","Equipos con tráfico extraño respecto a su grupo de trabajo.","El tráfico de un servidor se compara con el de servidores similares.","Alerta de equipo comprometido."]];
 
 EASY.apriori = {
  frase:"Lee miles de tickets y encuentra reglas como <b>«quien compra nachos, compra salsa»</b>.",
@@ -205,9 +205,9 @@ EASY.apriori = {
   "El lift es <b>simétrico</b>; la dirección la da la confianza.",
   "Asociación no es causalidad; valida las reglas en otro periodo."]};
 CASOS.apriori = [
- ["🛒","Supermercado","Qué productos colocar juntos y qué packs crear (tu notebook).","Reglas legibles con soporte, confianza y lift.","Packs y colocación que suben el ticket medio."],
- ["🍔","Restauración","Qué sugerir en caja según lo que ya pidió el cliente.","Reglas «hamburguesa doble → patatas grandes».","Sugerencias de venta cruzada del TPV."],
- ["🏥","Salud","Combinaciones de diagnósticos que aparecen juntas más de lo esperable.","Detecta comorbilidades frecuentes en historiales.","Protocolos de cribado conjunto."]];
+ ["","Supermercado","Qué productos colocar juntos y qué packs crear (tu notebook).","Reglas legibles con soporte, confianza y lift.","Packs y colocación que suben el ticket medio."],
+ ["","Restauración","Qué sugerir en caja según lo que ya pidió el cliente.","Reglas «hamburguesa doble → patatas grandes».","Sugerencias de venta cruzada del TPV."],
+ ["","Salud","Combinaciones de diagnósticos que aparecen juntas más de lo esperable.","Detecta comorbilidades frecuentes en historiales.","Protocolos de cribado conjunto."]];
 
 EASY.reco = {
  frase:"Si tú y Ana coincidís en 20 series, <b>lo que Ana vio y tú no</b> es tu recomendación.",
@@ -224,9 +224,9 @@ EASY.reco = {
   "Problema del <b>arranque en frío</b>: usuarios o productos nuevos sin historial.",
   "Vigila el sesgo de popularidad y valida con test A/B."]};
 CASOS.reco = [
- ["📺","Streaming","Dar visibilidad al catálogo largo, oculto tras los 50 títulos más populares.","Factores latentes con objetivo de relevancia y diversidad.","Más horas vistas de títulos fuera del top."],
- ["🛒","E-commerce","«Quien compró esto también compró…» personalizado por usuario.","Recomendaciones según patrones de compra de clientes parecidos.","Más venta cruzada en ficha y email."],
- ["📚","Formación online","Qué curso recomendar al terminar uno.","Patrones de usuarios con trayectorias similares.","Más alumnos que encadenan un segundo curso."]];
+ ["","Streaming","Dar visibilidad al catálogo largo, oculto tras los 50 títulos más populares.","Factores latentes con objetivo de relevancia y diversidad.","Más horas vistas de títulos fuera del top."],
+ ["","E-commerce","«Quien compró esto también compró…» personalizado por usuario.","Recomendaciones según patrones de compra de clientes parecidos.","Más venta cruzada en ficha y email."],
+ ["","Formación online","Qué curso recomendar al terminar uno.","Patrones de usuarios con trayectorias similares.","Más alumnos que encadenan un segundo curso."]];
 
 EASY.contentbased = {
  frase:"Recomienda <b>por parecido de ficha</b>: si te gustó una película de espacio y astronautas, otras con esas palabras.",
@@ -243,9 +243,9 @@ EASY.contentbased = {
   "TF-IDF + coseno: sencillo y explicable; los embeddings entienden mejor el significado.",
   "Riesgo de burbuja: «más de lo mismo»; inyecta diversidad."]};
 CASOS.contentbased = [
- ["🎬","Streaming","40 estrenos al mes que el colaborativo no puede recomendar aún (tu notebook).","Similitud por sinopsis, género y reparto desde el día del estreno.","Fila «Similares» útil desde el primer minuto."],
- ["📰","Medios","Noticias relacionadas al final de cada artículo.","Similitud entre textos de artículos.","Más páginas vistas por visita."],
- ["💼","Empleo","Ofertas parecidas a la que el candidato está mirando.","Similitud entre descripciones de puestos.","Más candidaturas por sesión."]];
+ ["","Streaming","40 estrenos al mes que el colaborativo no puede recomendar aún (tu notebook).","Similitud por sinopsis, género y reparto desde el día del estreno.","Fila «Similares» útil desde el primer minuto."],
+ ["","Medios","Noticias relacionadas al final de cada artículo.","Similitud entre textos de artículos.","Más páginas vistas por visita."],
+ ["","Empleo","Ofertas parecidas a la que el candidato está mirando.","Similitud entre descripciones de puestos.","Más candidaturas por sesión."]];
 
 EASY.topic = {
  frase:"Lee miles de textos y descubre <b>de qué temas se habla</b> sin que se los digas.",
@@ -262,6 +262,6 @@ EASY.topic = {
   "Necesita textos con varias frases y buen preprocesado en español.",
   "Elige el nº de temas por coherencia + lectura humana; hoy compite con BERTopic."]};
 CASOS.topic = [
- ["📝","Producto","120.000 respuestas abiertas de encuesta que nadie lee.","Temas nombrables y su evolución trimestral.","Prioridades del roadmap basadas en lo que dicen los clientes."],
- ["🎫","Soporte","¿Por qué contactan los clientes este mes?","Temas de tickets y su peso semanal.","Artículos de ayuda para los 3 temas que más crecen."],
- ["⚖️","Legal","Clasificar miles de sentencias por temática sin etiquetas.","Temas jurídicos descubiertos en el corpus.","Buscador temático del archivo."]];
+ ["","Producto","120.000 respuestas abiertas de encuesta que nadie lee.","Temas nombrables y su evolución trimestral.","Prioridades del roadmap basadas en lo que dicen los clientes."],
+ ["","Soporte","¿Por qué contactan los clientes este mes?","Temas de tickets y su peso semanal.","Artículos de ayuda para los 3 temas que más crecen."],
+ ["","Legal","Clasificar miles de sentencias por temática sin etiquetas.","Temas jurídicos descubiertos en el corpus.","Buscador temático del archivo."]];

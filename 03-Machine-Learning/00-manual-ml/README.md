@@ -1,4 +1,4 @@
-# Manual ML para dummies
+# Manual de Machine Learning
 
 Manual visual e interactivo de Machine Learning para analistas de datos: **63 modelos** explicados de lo intuitivo a lo técnico, con un **visual interactivo propio por modelo** (2D y 3D), **casos reales de negocio**, laboratorios, fundamentos, glosario y un asistente para elegir modelo.
 
@@ -26,10 +26,10 @@ La sección **Auditoría** del propio manual recoge qué se revisó y corrigió 
 ├── ml_manual_modelos.html   ← el manual (generado, autocontenido)
 ├── build.py                 ← une src/ en un único HTML
 └── src/
-    ├── template.html · body.html · styles.css   estructura y sistema de diseño (marca: #7a7bff, Segoe UI)
+    ├── template.html · body.html · styles.css   estructura y sistema de diseño (paleta azul del portfolio; Plus Jakarta Sans, Newsreader e IBM Plex Mono)
     ├── core.js        glosario, fundamentos, motor de laboratorios y visuales
     ├── viz-a…d.js     un visual interactivo por modelo (canvas 2D y three.js)
-    ├── easy-*.js      capa «para dummies» y casos de negocio por modelo
+    ├── easy-*.js      capa de explicación sencilla y casos de negocio por modelo
     ├── audit.js       auditoría y propuestas de mejora
     └── app.js         catálogo de modelos, fichas, rutas, asistente y buscador (Ctrl + K)
 ```

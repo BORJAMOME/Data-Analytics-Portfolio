@@ -38,10 +38,10 @@ function arrowHead(ctx, x, y, ang, s, col){
   ctx.lineTo(x - s * Math.cos(ang - 0.45), y - s * Math.sin(ang - 0.45));
   ctx.lineTo(x - s * Math.cos(ang + 0.45), y - s * Math.sin(ang + 0.45)); ctx.closePath(); ctx.fill();
 }
-/* botón ▶/⏸ que alterna */
+/* botón/que alterna */
 function playToggle(ctl, labelOn, onChange){
-  var on = false, b = ctlBtn(ctl, "▶ " + labelOn, function(){ set(!on); onChange(on); }, true);
-  function set(v){ on = v; b.innerHTML = on ? "⏸ Pausa" : "▶ " + labelOn; b.setAttribute("aria-pressed", on); }
+  var on = false, b = ctlBtn(ctl, "" + labelOn, function(){ set(!on); onChange(on); }, true);
+  function set(v){ on = v; b.innerHTML = on ? "Pausa" : "" + labelOn; b.setAttribute("aria-pressed", on); }
   return {set:set, get:function(){ return on; }};
 }
 function sigm(z){ return 1 / (1 + Math.exp(-z)); }
@@ -54,10 +54,10 @@ function hatch(ctx, x, y, w, h, col, gap){
 function fmtN(n){ return Math.round(n).toLocaleString("es-ES"); }
 
 /* ══ 1. MLP — PLAYGROUND ════════════════════════════════════════ */
-VIZ.push({id:"v-mlp", model:"mlp", g:"model", ic:"🧠", dim:"2D",
+VIZ.push({id:"v-mlp", model:"mlp", g:"model", ic:"", dim:"2D",
  t:"Playground de una red neuronal",
  q:"¿Por qué una red con capas ocultas separa lo que una recta no puede separar?",
- intro:"Una red neuronal pequeña (un <b>perceptrón multicapa</b>) se entrena <b>de verdad</b> aquí mismo para separar dos tipos de clientes (● morado y ● naranja) en un plano. Elige los datos, el número de capas y neuronas y la <b>activación</b> (la función que «dobla» la señal dentro de cada neurona) y pulsa ▶. Cada cuadradito de la red muestra lo que «ve» esa neurona en todo el plano.",
+ intro:"Una red neuronal pequeña (un <b>perceptrón multicapa</b>) se entrena <b>de verdad</b> aquí mismo para separar dos tipos de clientes (● azul y ● naranja) en un plano. Elige los datos, el número de capas y neuronas y la <b>activación</b> (la función que «dobla» la señal dentro de cada neurona) y pulsa. Cada cuadradito de la red muestra lo que «ve» esa neurona en todo el plano.",
  notice:["Con activación <b>lineal</b> la red, tenga las capas que tenga, equivale a una regresión logística: la frontera es <b>una recta</b> y el círculo no se separa nunca (la accuracy se queda cerca del 50-65%).",
    "Cambia a <b>ReLU</b> o <b>tanh</b> y la frontera se curva hasta encerrar el círculo: cada neurona oculta aporta un trozo de frontera (mira sus cuadraditos) y la salida los combina.",
    "En la <b>espiral</b>, 1 capa con 2-3 neuronas se queda corta; con <b>2 capas de 6-8</b> lo consigue. Si la pérdida de <b>test</b> sube mientras la de train baja, está memorizando (sobreajuste)."],
@@ -135,7 +135,7 @@ VIZ.push({id:"v-mlp", model:"mlp", g:"model", ic:"🧠", dim:"2D",
    var G = 56, off = document.createElement("canvas"); off.width = G; off.height = G; var octx = off.getContext("2d");
    var TG = 18, toff = document.createElement("canvas"); toff.width = TG; toff.height = TG; var tctx = toff.getContext("2d");
    var cA = rgbOf(C.c[0]), cB = rgbOf(C.c[1]), cCard = rgbOf(C.card);
-   function shadePix(img, k, v, strength){ /* v en [-1,1]: + morado, − naranja */
+   function shadePix(img, k, v, strength){ /* v en [-1,1]: + azul, − naranja */
      var col = v >= 0 ? cA : cB, t = Math.min(1, Math.abs(v)) * strength;
      img.data[k] = cCard[0] + (col[0] - cCard[0]) * t; img.data[k + 1] = cCard[1] + (col[1] - cCard[1]) * t;
      img.data[k + 2] = cCard[2] + (col[2] - cCard[2]) * t; img.data[k + 3] = 255;
@@ -229,7 +229,7 @@ VIZ.push({id:"v-mlp", model:"mlp", g:"model", ic:"🧠", dim:"2D",
      tx(ctx, "- - test", LB[0] + LB[2] - 46, LB[1] + 14, {s:11, w:600, c:C.c[1]});
      /* lectura */
      var h = hist[hist.length - 1] || {tr:NaN, te:NaN, acc:0, accTr:0}, msg;
-     if(ep < 60) msg = "Pulsa ▶ y mira cómo la frontera se va doblando época a época.";
+     if(ep < 60) msg = "Pulsa y mira cómo la frontera se va doblando época a época.";
      else if(act === "lin" && h.acc < 0.85) msg = "<b>Activación lineal:</b> apilar capas lineales sigue siendo una función lineal, así que la red entera es una <b>regresión logística</b> y su frontera es una recta. Por eso se atasca: cambia a ReLU o tanh.";
      else if(h.acc >= 0.95 && h.te > h.tr * 1.8 && h.te > 0.15) msg = "Acierta en test, pero la pérdida de test es bastante peor que la de train: empieza a memorizar los puntos de entrenamiento.";
      else if(h.acc >= 0.95) msg = "<b>Separado.</b> Las neuronas ocultas trazan trozos de frontera y la salida los combina en una forma curva que encierra cada clase.";
@@ -257,10 +257,10 @@ VIZ.push({id:"v-mlp", model:"mlp", g:"model", ic:"🧠", dim:"2D",
  }});
 
 /* ══ 2. CNN — CONVOLUCIÓN ANIMADA ═══════════════════════════════ */
-VIZ.push({id:"v-cnn", model:"cnn", g:"model", ic:"🖼️", dim:"2D",
+VIZ.push({id:"v-cnn", model:"cnn", g:"model", ic:"", dim:"2D",
  t:"Una convolución, celda a celda",
  q:"¿Qué hace exactamente un filtro de una red convolucional sobre una imagen?",
- intro:"A la izquierda, una imagen de 14×14 píxeles (0 = vacío, 1 = trazo; los grises valen 0,5). Un <b>filtro</b> de 3×3 números se desliza por ella: en cada posición multiplica sus 9 números por los 9 píxeles de debajo y <b>suma</b>. Ese número rellena una celda del <b>mapa de características</b> (12×12). Después el <b>max-pooling</b> resume cada bloque 2×2 en su máximo (6×6). Todo se calcula de verdad. Pulsa ▶ o arrastra sobre la imagen.",
+ intro:"A la izquierda, una imagen de 14×14 píxeles (0 = vacío, 1 = trazo; los grises valen 0,5). Un <b>filtro</b> de 3×3 números se desliza por ella: en cada posición multiplica sus 9 números por los 9 píxeles de debajo y <b>suma</b>. Ese número rellena una celda del <b>mapa de características</b> (12×12). Después el <b>max-pooling</b> resume cada bloque 2×2 en su máximo (6×6). Todo se calcula de verdad. Pulsa o arrastra sobre la imagen.",
  notice:["Con el filtro de <b>borde vertical</b> el mapa solo se «enciende» en el <b>lado izquierdo</b> de cada trazo, donde se pasa de vacío a tinta al avanzar hacia la derecha; en mitad del trazo (todo tinta) la respuesta es 0. Desmarca la ReLU y verás el lado derecho en negativo.",
    "El <b>borde horizontal</b> hace lo contrario: resalta el palo de arriba del 7. Cada filtro es un «detector» distinto; una CNN aprende cientos de ellos solos.",
    "El <b>max-pooling</b> reduce el mapa a la cuarta parte conservando «¿hay borde por aquí?»: por eso a la red le da igual que el 7 se mueva un píxel."],
@@ -352,7 +352,7 @@ VIZ.push({id:"v-cnn", model:"cnn", g:"model", ic:"🖼️", dim:"2D",
    var pt = playToggle(ctl, "Deslizar", function(on){ playing = on; if(on){ if(k >= 143) k = 0; startL(); } else stopIt(); });
    function startL(){ stopIt(); var last = 0; stopL = loop(function(t){ if(t - last < 110) return; last = t; if(k >= 143){ stopIt(); pt.set(false); return; } k++; sl.set(k); draw(); }); }
    function stopIt(){ if(stopL){ stopL(); stopL = null; } }
-   ctlBtn(ctl, "⏭ Completar", function(){ stopIt(); pt.set(false); k = 143; sl.set(k); draw(); });
+   ctlBtn(ctl, "Completar", function(){ stopIt(); pt.set(false); k = 143; sl.set(k); draw(); });
    var sl = ctlSlider(ctl, "Posición de la ventana", 0, 143, 1, 0, function(v){ return "fila " + (Math.floor(v / 12) + 1) + " · col. " + (v % 12 + 1); }, function(v){ stopIt(); pt.set(false); k = v; draw(); });
    ctlSeg(ctl, "Imagen", [["7", "Un 7"], ["sq", "Cuadrado"], ["x", "Una X"]], shape, function(v){ shape = v; compute(); draw(); });
    ctlSeg(ctl, "Filtro", [["v", "Borde vertical"], ["h", "Borde horizontal"], ["b", "Desenfoque"], ["s", "Realzar"]], fk, function(v){ fk = v; compute(); draw(); });
@@ -371,7 +371,7 @@ VIZ.push({id:"v-cnn", model:"cnn", g:"model", ic:"🖼️", dim:"2D",
  }});
 
 /* ══ 3. RNN frente a LSTM — MEMORIA ═════════════════════════════ */
-VIZ.push({id:"v-rnn", model:"rnn", g:"model", ic:"🔁", dim:"2D",
+VIZ.push({id:"v-rnn", model:"rnn", g:"model", ic:"", dim:"2D",
  t:"La memoria de una RNN frente a una LSTM",
  q:"¿Por qué una red recurrente simple «olvida» lo que pasó hace muchos pasos y una LSTM no?",
  intro:"Doce semanas de ventas entran en la red de una en una. La semana 1 tuvo una <b>promoción</b>: ¿cuánto de esa señal llega a la semana 12? Calculamos de verdad la sensibilidad |∂h<sub>t</sub>/∂h<sub>1</sub>| (cuánto cambiaría el estado de la semana t si cambiara el de la semana 1) para una <b>RNN</b> de una neurona (h<sub>t</sub> = tanh(w·h<sub>t−1</sub> + u·x<sub>t</sub>)) y para la celda de una <b>LSTM</b>, cuya puerta de olvido f decide qué fracción se conserva en cada paso.",
@@ -457,7 +457,7 @@ VIZ.push({id:"v-rnn", model:"rnn", g:"model", ic:"🔁", dim:"2D",
  }});
 
 /* ══ 4. TRANSFORMER — ATENCIÓN ══════════════════════════════════ */
-VIZ.push({id:"v-transformer", model:"transformer", g:"model", ic:"🔦", dim:"2D",
+VIZ.push({id:"v-transformer", model:"transformer", g:"model", ic:"", dim:"2D",
  t:"Atención: a quién mira cada palabra",
  q:"¿Cómo decide un transformer qué significa «banco» según la frase?",
  intro:"Cada palabra lleva una <b>pregunta</b> (q) y una <b>etiqueta</b> (k), dos vectores de 4 números. La atención compara la pregunta de una palabra con la etiqueta de todas las demás (producto escalar), divide por √d y aplica <b>softmax</b> para convertirlo en porcentajes que suman 100%. <b>Pasa el ratón o toca una palabra.</b> Los vectores los hemos diseñado a mano (pesos ilustrativos, en un modelo real se aprenden); el cálculo del softmax es real.",
@@ -556,7 +556,7 @@ VIZ.push({id:"v-transformer", model:"transformer", g:"model", ic:"🔦", dim:"2D
  }});
 
 /* ══ 5. AUTOENCODER — ANOMALÍAS POR ERROR DE RECONSTRUCCIÓN ═════ */
-VIZ.push({id:"v-autoenc", model:"autoenc", g:"model", ic:"🗜️", dim:"2D",
+VIZ.push({id:"v-autoenc", model:"autoenc", g:"model", ic:"", dim:"2D",
  t:"Autoencoder: lo que no sabe reconstruir es raro",
  q:"¿Cómo detecta anomalías una red que solo aprende a copiar su entrada?",
  intro:"Cada punto es una transacción descrita por 2 variables. Las normales (●) siguen un patrón: viven sobre una <b>curva</b>. Unas pocas (▲) no. Entrenamos <b>de verdad</b> un autoencoder 2→8→<b>1</b>→8→2: tiene que comprimir cada punto en <b>un solo número</b> y reconstruirlo. Solo puede aprender la curva, así que cada punto se «proyecta» sobre ella (segmento gris) y la longitud de ese segmento es el <b>error de reconstrucción</b>. Mueve el umbral para decidir qué se marca como anomalía.",
@@ -675,7 +675,7 @@ VIZ.push({id:"v-autoenc", model:"autoenc", g:"model", ic:"🗜️", dim:"2D",
  }});
 
 /* ══ 6. RBM — RECOMENDADOR DE PELÍCULAS ═════════════════════════ */
-VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"🎬", dim:"2D",
+VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"", dim:"2D",
  t:"Una RBM que recomienda películas",
  q:"¿Cómo «adivina» una máquina de Boltzmann restringida qué más te gustará?",
  intro:"Abajo, 6 películas (unidades <b>visibles</b>); arriba, 2 unidades <b>ocultas</b> que representan gustos. <b>Toca una película</b> para marcarla como «vista y me gustó». Cada oculta calcula P(h=1|v) = sigmoide(sesgo + suma de pesos de lo marcado). Con «Reconstruir» la red baja de los gustos a las películas, P(v=1|h), y sugiere las no vistas con probabilidad alta. Los pesos son fijos e ilustrativos (en una RBM real se aprenden); las probabilidades se calculan de verdad. Es una técnica <b>histórica</b>: hoy se usan factorización de matrices o redes más modernas.",
@@ -685,7 +685,7 @@ VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"🎬", dim:"2D",
  models:["rbm","reco","autoenc"],
  build:function(stage, ctl, read, C){
    var W = 760, H = 390, K = makeCanvas(stage, W, H, "Grafo bipartito de una máquina de Boltzmann restringida con 6 películas y 2 gustos ocultos"), ctx = K.ctx;
-   var MOV = [["💥", "Fuga a medianoche", 0], ["🚁", "Operación Halcón", 0], ["🏎️", "Al límite", 0], ["💌", "Cartas a Oporto", 1], ["🌹", "Un verano en Cádiz", 1], ["💃", "Baila conmigo", 1]];
+   var MOV = [["", "Fuga a medianoche", 0], ["", "Operación Halcón", 0], ["", "Al límite", 0], ["", "Cartas a Oporto", 1], ["", "Un verano en Cádiz", 1], ["", "Baila conmigo", 1]];
    var Wt = [[3.0, -1.4], [2.6, -1.0], [2.8, -1.2], [-1.2, 2.9], [-1.0, 2.7], [-1.4, 2.6]], bh = [-2.2, -2.2], av = [-1.0, -1.0, -1.0, -1.1, -0.9, -1.0];
    var HN = ["Gusto acción", "Gusto romance"], HC = [C.c[1], C.c[5]];
    var v = [1, 0, 0, 0, 0, 0], showRec = true, chain = null, steps = 0, rng = mulberry(17), last = "";
@@ -761,7 +761,7 @@ VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"🎬", dim:"2D",
      for(var i = 0; i < 6; i++) if(p[0] >= cardX(i) && p[0] <= cardX(i) + CW && p[1] >= CY && p[1] <= CY + CHt) on = true;
      K.cv.style.cursor = on ? "pointer" : "default"; });
    ctlBtn(ctl, "Reconstruir (sugerir)", function(){ showRec = true; draw(); }, true);
-   ctlBtn(ctl, "🎲 Paso de Gibbs (muestrear)", function(){
+   ctlBtn(ctl, "Paso de Gibbs (muestrear)", function(){
      var start = chain ? chain.v : v, P1 = ph(start), h = P1.map(function(p){ return rng() < p ? 1 : 0; });
      var P2 = pv(h), vs = P2.map(function(p){ return rng() < p ? 1 : 0; });
      chain = {h:h, v:vs}; steps++;
@@ -775,13 +775,13 @@ VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"🎬", dim:"2D",
  }});
 
 /* ══ 7. SOM — MAPA AUTOORGANIZADO DE COLORES ════════════════════ */
-VIZ.push({id:"v-som", model:"som", g:"model", ic:"🗺️", dim:"2D",
+VIZ.push({id:"v-som", model:"som", g:"model", ic:"", dim:"2D",
  t:"Un mapa autoorganizado de colores",
  q:"¿Cómo ordena un SOM datos de 3 dimensiones en un mapa plano?",
- intro:"Cada casilla de la rejilla 14×14 es una <b>neurona</b> con un color (3 números: rojo, verde, azul), al principio al azar. En cada iteración se elige un color de muestra, se busca la neurona más parecida (<b>BMU</b>, la ganadora) y se acerca ese color a ella <b>y a sus vecinas</b> dentro de un radio σ que se va encogiendo. Todo se calcula de verdad. Pulsa ▶.",
+ intro:"Cada casilla de la rejilla 14×14 es una <b>neurona</b> con un color (3 números: rojo, verde, azul), al principio al azar. En cada iteración se elige un color de muestra, se busca la neurona más parecida (<b>BMU</b>, la ganadora) y se acerca ese color a ella <b>y a sus vecinas</b> dentro de un radio σ que se va encogiendo. Todo se calcula de verdad. Pulsa.",
  notice:["Al principio σ es grande y toda la rejilla se mueve a la vez (orden global); al final σ es pequeño y solo se afinan detalles locales.",
    "Colores parecidos acaban en <b>zonas vecinas</b> del mapa (los rojos junto a naranjas y rosas): el SOM conserva la «topología», qué está cerca de qué.",
-   "En modo <b>U-Matrix</b> cada casilla muestra la distancia con sus vecinas: las zonas moradas intensas son <b>fronteras</b> entre grupos y las zonas tenues, el interior de cada grupo. Así se leen clusters en un SOM."],
+   "En modo <b>U-Matrix</b> cada casilla muestra la distancia con sus vecinas: las zonas azules intensas son <b>fronteras</b> entre grupos y las zonas tenues, el interior de cada grupo. Así se leen clusters en un SOM."],
  models:["som","kmeans","umap","tsne"],
  build:function(stage, ctl, read, C){
    var W = 760, H = 398, K = makeCanvas(stage, W, H, "Rejilla de neuronas de un mapa autoorganizado entrenándose con colores"), ctx = K.ctx;
@@ -822,7 +822,7 @@ VIZ.push({id:"v-som", model:"som", g:"model", ic:"🗺️", dim:"2D",
        ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.arc(x0, y0, sg * CS, 0, 6.283); ctx.stroke(); ctx.setLineDash([]);
        ctx.strokeStyle = C.ink; ctx.lineWidth = 2.5; ctx.strokeRect(GX + lastB.c * CS, GY + lastB.r * CS, CS, CS); ctx.restore(); }
      var ly = GY + N * CS + 20;
-     tx(ctx, view === "w" ? "● = neurona ganadora (BMU) de cada color de muestra · - - radio σ" : "morado intenso = frontera (vecinas muy distintas) · tenue = dentro de un grupo", GX, ly, {s:11, c:C.muted});
+     tx(ctx, view === "w" ? "● = neurona ganadora (BMU) de cada color de muestra · - - radio σ" : "azul intenso = frontera (vecinas muy distintas) · tenue = dentro de un grupo", GX, ly, {s:11, c:C.muted});
      /* panel derecho */
      var RX = 380;
      tx(ctx, "Colores de entrenamiento", RX, 26, {s:13, w:700, c:C.ink});
@@ -837,7 +837,7 @@ VIZ.push({id:"v-som", model:"som", g:"model", ic:"🗺️", dim:"2D",
      ctx.strokeStyle = C.c[0]; ctx.lineWidth = 2.2; ctx.beginPath(); qeHist.forEach(function(h, k){ var X = A.sx(h.it), Y = A.sy(h.qe); k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke();
      var q = qeHist[qeHist.length - 1].qe;
      read.innerHTML = '<span>Iteración <b>' + fmtN(it) + ' / ' + fmtN(T) + '</b></span><span>Radio σ <b>' + fmt(sig(), 2) + ' casillas</b></span><span>Learning rate <b>' + fmt(lrt(), 3) + '</b></span><span>Error de cuantización <b>' + fmt(q, 1) + '</b> (en unidades RGB, 0-441)</span>' +
-       '<span class="ldiag">' + (it === 0 ? "Neuronas al azar: un mapa de ruido. Pulsa ▶ para entrenar." : it < T * 0.25 ? "Fase de <b>ordenación</b>: con σ grande, cada actualización arrastra media rejilla y aparecen grandes zonas de color." :
+       '<span class="ldiag">' + (it === 0 ? "Neuronas al azar: un mapa de ruido. Pulsa para entrenar." : it < T * 0.25 ? "Fase de <b>ordenación</b>: con σ grande, cada actualización arrastra media rejilla y aparecen grandes zonas de color." :
          it < T ? "Fase de <b>ajuste fino</b>: σ ya es pequeño y cada neurona se especializa en su color sin desordenar el mapa." :
          "Entrenado: cada color tiene su zona y los parecidos son vecinos. Error de cuantización final: " + fmt(q, 1) + " (cada color de muestra tiene una neurona casi idéntica). Fíjate en la curva: al principio el error <b>sube</b>, porque σ grande arrastra a todas las neuronas hacia el color medio; después baja al ordenarse.") + '</span>';
    }
@@ -853,7 +853,7 @@ VIZ.push({id:"v-som", model:"som", g:"model", ic:"🗺️", dim:"2D",
  }});
 
 /* ══ 8. RED BAYESIANA — «EXPLAINING AWAY» ══════════════════════ */
-VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"🕸️", dim:"2D",
+VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"", dim:"2D",
  t:"Una red bayesiana que razona hacia atrás",
  q:"¿Cómo cambia lo que creemos sobre una causa cuando aparece otra explicación?",
  intro:"Cinco variables de sí/no unidas por flechas causa → efecto: la <b>lluvia</b> y las <b>obras</b> provocan <b>tráfico</b>, el tráfico provoca <b>retraso</b>, y la lluvia hace que se vendan <b>paraguas</b>. Cada tarjeta muestra P(sí) dada la evidencia. <b>Toca una tarjeta</b> para fijarla: desconocido → sí → no. La inferencia es <b>exacta</b>: se suman las 32 combinaciones posibles (enumeración).",
@@ -882,11 +882,11 @@ VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"🕸️", dim:"2D",
    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); box.appendChild(svg);
    /* nodos: L lluvia, O obras, T tráfico, R retraso, U paraguas */
    var N = [
-     {k:"L", n:"🌧️ Lluvia", pos:[1, 1], cpt:"P(sí) = 20%"},
-     {k:"O", n:"🚧 Obras", pos:[1, 3], cpt:"P(sí) = 10%"},
-     {k:"U", n:"☂️ Paraguas vendidos", pos:[2, 1], cpt:"Si llueve 90% · si no 20%"},
-     {k:"T", n:"🚗 Tráfico", pos:[2, 2], cpt:"Lluvia y obras 95% · solo lluvia 70% · solo obras 80% · ninguna 10%"},
-     {k:"R", n:"⏰ Retraso", pos:[3, 2], cpt:"Con tráfico 80% · sin tráfico 10%"}];
+     {k:"L", n:"Lluvia", pos:[1, 1], cpt:"P(sí) = 20%"},
+     {k:"O", n:"Obras", pos:[1, 3], cpt:"P(sí) = 10%"},
+     {k:"U", n:"Paraguas vendidos", pos:[2, 1], cpt:"Si llueve 90% · si no 20%"},
+     {k:"T", n:"Tráfico", pos:[2, 2], cpt:"Lluvia y obras 95% · solo lluvia 70% · solo obras 80% · ninguna 10%"},
+     {k:"R", n:"Retraso", pos:[3, 2], cpt:"Con tráfico 80% · sin tráfico 10%"}];
    var E = [["L", "U"], ["L", "T"], ["O", "T"], ["T", "R"]];
    var ev = {L:null, O:null, U:null, T:null, R:null}, prev = null, prevEv = null, post = null;
    var el = {};
@@ -953,8 +953,8 @@ VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"🕸️", dim:"2D",
      post = p;
      drawArrows();
    }
-   ctlBtn(ctl, "⏰ Llego tarde (Retraso = sí)", function(){ ev = {L:null, O:null, U:null, T:null, R:1}; update(); }, true);
-   ctlBtn(ctl, "🚧 …y además hay obras", function(){ ev = {L:null, O:1, U:null, T:null, R:1}; update(); });
+   ctlBtn(ctl, "Llego tarde (Retraso = sí)", function(){ ev = {L:null, O:null, U:null, T:null, R:1}; update(); }, true);
+   ctlBtn(ctl, "…y además hay obras", function(){ ev = {L:null, O:1, U:null, T:null, R:1}; update(); });
    ctlBtn(ctl, "↺ Limpiar evidencia", function(){ ev = {L:null, O:null, U:null, T:null, R:null}; update(); });
    ctlCheck(ctl, "Mostrar tablas de probabilidad", false, function(v){ box.classList.toggle("cpt", v); drawArrows(); });
    var ro = new ResizeObserver(function(){ drawArrows(); }); ro.observe(box);
@@ -963,7 +963,7 @@ VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"🕸️", dim:"2D",
  }});
 
 /* ══ 9. HMM — REGÍMENES DE MERCADO CON VITERBI ═════════════════ */
-VIZ.push({id:"v-hmm", model:"hmm", g:"model", ic:"📉", dim:"2D",
+VIZ.push({id:"v-hmm", model:"hmm", g:"model", ic:"", dim:"2D",
  t:"Regímenes ocultos: calma y estrés",
  q:"¿Cómo separa un modelo oculto de Markov los periodos tranquilos de los de crisis?",
  intro:"250 días de rendimientos de una cartera simulada. Por detrás hay un estado oculto: <b>calma</b> (volatilidad 0,7%) o <b>estrés</b> (2,2%), y cada día se sigue en el mismo estado con alta probabilidad. El algoritmo de <b>Viterbi</b> calcula de verdad la secuencia de estados más probable, combinando lo que dice cada día con la <b>persistencia</b> (probabilidad de seguir en el mismo estado). Las volatilidades se suponen conocidas (en la práctica las estima el algoritmo de Baum-Welch).",
@@ -1029,17 +1029,17 @@ VIZ.push({id:"v-hmm", model:"hmm", g:"model", ic:"📉", dim:"2D",
    ctlSeg(ctl, "Método", [["vit", "Viterbi (HMM)"], ["pp", "Punto a punto"]], method, function(v){ method = v; all(); });
    ctlSlider(ctl, "Persistencia: P(seguir en el mismo estado)", 0.5, 0.995, 0.005, pStay, function(v){ return fmt(v, 3); }, function(v){ pStay = v; all(); });
    ctlCheck(ctl, "Mostrar régimen real", showReal, function(v){ showReal = v; draw(); });
-   ctlBtn(ctl, "🎲 Otra serie", function(){ seed++; gen(); all(); });
+   ctlBtn(ctl, "Otra serie", function(){ seed++; gen(); all(); });
    gen(); all();
    return function(){};
  }});
 
 /* ══ 10. Q-LEARNING — ROBOT DE ALMACÉN ══════════════════════════ */
-VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
+VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"", dim:"2D",
  t:"Q-Learning: un robot aprende el almacén",
  q:"¿Cómo aprende un agente la mejor ruta solo a base de premios y castigos?",
- intro:"Un robot debe llegar a la estantería del pedido (📦 +10) sin pisar las zonas de carretillas (−10, fin del episodio); cada paso cuesta −1. No conoce el mapa: prueba, recibe recompensas y actualiza una tabla Q(estado, acción) con la regla de <b>Q-Learning</b>: Q ← Q + α·(r + γ·max Q(siguiente) − Q). Se ejecuta <b>de verdad</b>. La flecha de cada casilla es la mejor acción aprendida y el morado, su valor V = max Q.",
- notice:["Los primeros episodios son paseos largos y caóticos (recompensa muy negativa). El valor se propaga <b>hacia atrás</b> desde el 📦, casilla a casilla, episodio a episodio.",
+ intro:"Un robot debe llegar a la estantería del pedido (+10) sin pisar las zonas de carretillas (−10, fin del episodio); cada paso cuesta −1. No conoce el mapa: prueba, recibe recompensas y actualiza una tabla Q(estado, acción) con la regla de <b>Q-Learning</b>: Q ← Q + α·(r + γ·max Q(siguiente) − Q). Se ejecuta <b>de verdad</b>. La flecha de cada casilla es la mejor acción aprendida y el azul, su valor V = max Q.",
+ notice:["Los primeros episodios son paseos largos y caóticos (recompensa muy negativa). El valor se propaga <b>hacia atrás</b> desde el, casilla a casilla, episodio a episodio.",
    "Sube <b>ε</b> (exploración) y el robot sigue tropezando con las carretillas aunque ya sepa el camino: la curva se queda más abajo. Con ε muy bajo puede quedarse con una ruta peor por no explorar.",
    "Con <b>γ</b> bajo el robot es «cortoplacista»: la recompensa lejana casi no cuenta y las casillas lejanas al objetivo apenas cogen valor."],
  models:["qlearning","sarsa","dqn","bandit"],
@@ -1084,7 +1084,7 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
        if(ch === "F"){ ctx.fillStyle = hexA(C.neg, 0.12); ctx.fill(); hatch(ctx, x + 3, y + 3, CS - 6, CS - 6, hexA(C.neg, 0.45), 6); tx(ctx, "−10", x + CS / 2, y + CS / 2 + 5, {s:13, w:700, c:C.neg, a:"center"}); continue; }
        var t = vis[i] ? (Math.max.apply(null, Q[i]) - vmin) / Math.max(1e-9, vmax - vmin) : 0;
        ctx.fillStyle = vis[i] ? mixc(C.card, C.c[0], 0.08 + 0.72 * t) : C.card; ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.stroke();
-       if(ch === "G"){ tx(ctx, "📦", x + CS / 2, y + CS / 2 + 2, {s:20, a:"center"}); tx(ctx, "+10", x + CS / 2, y + CS - 5, {s:11, w:700, c:t > 0.6 ? C.card : C.ink, a:"center"}); continue; }
+       if(ch === "G"){ tx(ctx, "", x + CS / 2, y + CS / 2 + 2, {s:20, a:"center"}); tx(ctx, "+10", x + CS / 2, y + CS - 5, {s:11, w:700, c:t > 0.6 ? C.card : C.ink, a:"center"}); continue; }
        if(vis[i]){ var a = Q[i].indexOf(Math.max.apply(null, Q[i])), cx = x + CS / 2, cy = y + CS / 2, L = 11;
          var col = t > 0.6 ? C.card : hexA(C.ink, 0.75);
          ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx - DC[a] * L, cy - DR[a] * L); ctx.lineTo(cx + DC[a] * L, cy + DR[a] * L); ctx.stroke();
@@ -1098,7 +1098,7 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
      if(ep && ep.trail.length > 1){ ctx.strokeStyle = hexA(C.ink, 0.25); ctx.lineWidth = 2; ctx.beginPath();
        ep.trail.slice(-30).forEach(function(p, k){ var X = GX + p[1] * CS + CS / 2, Y = GY + p[0] * CS + CS / 2; k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke(); }
      tx(ctx, "S", GX + start[1] * CS + 6, GY + start[0] * CS + 14, {s:11, w:700, c:C.muted});
-     var rp = ep && !ep.done ? ep.s : start; tx(ctx, "🤖", GX + rp[1] * CS + CS / 2, GY + rp[0] * CS + CS / 2 + 8, {s:22, a:"center"});
+     var rp = ep && !ep.done ? ep.s : start; tx(ctx, "", GX + rp[1] * CS + CS / 2, GY + rp[0] * CS + CS / 2 + 8, {s:22, a:"center"});
      var ly = GY + NR * CS + 22;
      rr(ctx, GX, ly - 10, 12, 12, 3); ctx.fillStyle = C.c[0]; ctx.fill(); tx(ctx, "más valor (V = max Q)", GX + 17, ly, {s:11, c:C.text});
      ctx.strokeStyle = C.c[1]; ctx.lineWidth = 3; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(GX + 150, ly - 4); ctx.lineTo(GX + 176, ly - 4); ctx.stroke(); ctx.setLineDash([]);
@@ -1118,9 +1118,9 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
      /* lectura */
      var last = rewards.slice(-20), mean = last.length ? last.reduce(function(a, b){ return a + b; }, 0) / last.length : NaN;
      read.innerHTML = '<span>Episodios <b>' + n + '</b></span><span>Recompensa media (últimos 20) <b>' + (isNaN(mean) ? "—" : fmt(mean, 1)) + '</b></span><span>Ruta aprendida <b>' + (rt.ok ? (rt.path.length - 1) + " pasos" : "aún no llega") + '</b></span><span>Casillas exploradas <b>' + vis.filter(Boolean).length + '</b></span>' +
-       '<span class="ldiag">' + (n === 0 ? "El robot aún no sabe nada: todas las Q valen 0. Pulsa «1 episodio» para verle dar tumbos o ▶ para entrenar." :
-         !rt.ok ? "Todavía no hay una ruta completa: el valor del 📦 se está propagando hacia atrás. Sigue entrenando." :
-         rt.path.length - 1 <= 12 ? "La política voraz (seguir siempre la flecha) ya lleva al 📦 por una ruta mínima de " + (rt.path.length - 1) + " pasos esquivando las carretillas. " + (eps > 0.05 ? "La media no llega al óptimo porque con ε = " + fmt(eps, 2) + " el robot sigue explorando a veces." : "") :
+       '<span class="ldiag">' + (n === 0 ? "El robot aún no sabe nada: todas las Q valen 0. Pulsa «1 episodio» para verle dar tumbos o para entrenar." :
+         !rt.ok ? "Todavía no hay una ruta completa: el valor del se está propagando hacia atrás. Sigue entrenando." :
+         rt.path.length - 1 <= 12 ? "La política voraz (seguir siempre la flecha) ya lleva al por una ruta mínima de " + (rt.path.length - 1) + " pasos esquivando las carretillas. " + (eps > 0.05 ? "La media no llega al óptimo porque con ε = " + fmt(eps, 2) + " el robot sigue explorando a veces." : "") :
          "Llega, pero por una ruta de " + (rt.path.length - 1) + " pasos (la mínima es 12). Más episodios la irán acortando.") + '</span>';
    }
    function stopIt(){ if(stopL){ stopL(); stopL = null; } mode = null; }
@@ -1131,7 +1131,7 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
        draw(); }); }
    ctlBtn(ctl, "1 episodio", function(){ pt.set(false); animate("one"); });
    var pt = playToggle(ctl, "Entrenar", function(on){ if(on) animate("play"); else { stopIt(); draw(); } });
-   ctlBtn(ctl, "⏩ 100 episodios", function(){ stopIt(); pt.set(false); if(ep && !ep.done){ while(!ep.done) step(ep); } for(var k = 0; k < 100; k++) runEpisode(); ep = newEp(); draw(); });
+   ctlBtn(ctl, "100 episodios", function(){ stopIt(); pt.set(false); if(ep && !ep.done){ while(!ep.done) step(ep); } for(var k = 0; k < 100; k++) runEpisode(); ep = newEp(); draw(); });
    ctlBtn(ctl, "↺", function(){ stopIt(); pt.set(false); init(); draw(); });
    ctlSlider(ctl, "<span style=\"text-transform:none\">α</span> (ritmo de aprendizaje)", 0.05, 1, 0.05, alpha, function(v){ return fmt(v, 2); }, function(v){ alpha = v; });
    ctlSlider(ctl, "<span style=\"text-transform:none\">γ</span> (cuánto pesa el futuro)", 0.5, 0.99, 0.01, gamma, function(v){ return fmt(v, 2); }, function(v){ gamma = v; draw(); });
@@ -1141,7 +1141,7 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
  }});
 
 /* ══ 11. SARSA frente a Q-LEARNING — EL ACANTILADO ═════════════ */
-VIZ.push({id:"v-sarsa", model:"sarsa", g:"model", ic:"🧗", dim:"2D",
+VIZ.push({id:"v-sarsa", model:"sarsa", g:"model", ic:"", dim:"2D",
  t:"SARSA frente a Q-Learning en el acantilado",
  q:"¿Por qué SARSA aprende un camino más prudente que Q-Learning?",
  intro:"El clásico de Sutton y Barto: ir de S a G en una rejilla 4×12; cada paso cuesta −1 y caer al <b>acantilado</b> cuesta −100 (y vuelves a S). Los dos agentes exploran igual (ε-voraz: con probabilidad ε hacen algo al azar), pero aprenden distinto: <b>Q-Learning</b> actualiza pensando en la mejor acción siguiente (aunque luego explore) y <b>SARSA</b> en la acción que de verdad va a tomar. Se entrenan <b>de verdad</b> 8 veces cada uno (α = 0,5) y se promedian las curvas.",
@@ -1227,7 +1227,7 @@ VIZ.push({id:"v-sarsa", model:"sarsa", g:"model", ic:"🧗", dim:"2D",
  }});
 
 /* ══ 12. DQN — TABLA FRENTE A RED, REPLAY BUFFER Y RED OBJETIVO ═ */
-VIZ.push({id:"v-dqn", model:"dqn", g:"model", ic:"🕹️", dim:"2D",
+VIZ.push({id:"v-dqn", model:"dqn", g:"model", ic:"", dim:"2D",
  t:"DQN: de la tabla a la función que generaliza",
  q:"¿Por qué una red neuronal sustituye a la tabla Q cuando los estados son continuos?",
  intro:"Un carrito en un valle (el clásico <i>Mountain Car</i>, con su física real) tiene un estado <b>continuo</b>: posición y velocidad. A la izquierda, una tabla que trocea ese estado en 12×12 casillas: solo sabe algo de las casillas visitadas. A la derecha, un aproximador (una regresión con 49 funciones de base radial, el papel que hace la red en DQN) que <b>rellena todo el mapa</b>. Ambos aprenden de verdad del mismo <b>replay buffer</b> con minibatches al azar y una <b>red objetivo</b> congelada. Simplificación didáctica: aprendemos el valor V(s) de la conducta exploradora en vez de Q(s, a) para cada acción.",
@@ -1315,14 +1315,14 @@ VIZ.push({id:"v-dqn", model:"dqn", g:"model", ic:"🕹️", dim:"2D",
    function start(){ stop(); stopL = loop(function(){ for(var k = 0; k < 24; k++){ envStep(); train(); } draw(); if(upd >= 12000){ stop(); pt.set(false); } }); }
    function stop(){ if(stopL){ stopL(); stopL = null; } }
    var pt = playToggle(ctl, "Simular", function(on){ if(on) start(); else stop(); });
-   ctlBtn(ctl, "⏩ +2.000 pasos", function(){ for(var k = 0; k < 2000; k++){ envStep(); train(); } draw(); });
+   ctlBtn(ctl, "+2.000 pasos", function(){ for(var k = 0; k < 2000; k++){ envStep(); train(); } draw(); });
    ctlBtn(ctl, "↺ Reiniciar", function(){ init(); draw(); });
    init(); draw(); pt.set(true); start();
    return function(){ stop(); };
  }});
 
 /* ══ 13. PPO — EL OBJETIVO RECORTADO ═══════════════════════════ */
-VIZ.push({id:"v-ppo", model:"ppo", g:"model", ic:"✂️", dim:"2D",
+VIZ.push({id:"v-ppo", model:"ppo", g:"model", ic:"", dim:"2D",
  t:"PPO: aprender sin dar saltos",
  q:"¿Para qué sirve el «recorte» del objetivo de PPO?",
  intro:"PPO mejora una política (probabilidades de cada acción) mirando el <b>ratio</b> r = π<sub>nuevo</sub>/π<sub>viejo</sub>: cuánto más (o menos) probable es ahora una acción que antes. Su objetivo L<sup>CLIP</sup> = mín(r·A, recorte(r, 1−ε, 1+ε)·A) deja de premiar los cambios en cuanto r sale de la franja [1−ε, 1+ε]. A la derecha, una política de 3 acciones para un cliente; la acción «Descuento» tuvo una <b>ventaja</b> A grande. Cada iteración hace 10 pasos de gradiente reales sobre el mismo lote, <b>con</b> y <b>sin</b> recorte en paralelo.",
@@ -1399,7 +1399,7 @@ VIZ.push({id:"v-ppo", model:"ppo", g:"model", ic:"✂️", dim:"2D",
    }
    function stop(){ if(stopL){ stopL(); stopL = null; } }
    function run(){ stop(); queue = 5; var last = 0; stopL = loop(function(t){ if(t - last < 380) return; last = t; if(queue <= 0){ stop(); return; } iterate("c", true); iterate("u", false); iter++; queue--; draw(); }); }
-   ctlBtn(ctl, "▶ Aplicar 5 actualizaciones", run, true);
+   ctlBtn(ctl, "Aplicar 5 actualizaciones", run, true);
    ctlBtn(ctl, "↺ Reiniciar política", function(){ stop(); init(); draw(); });
    ctlSeg(ctl, "Ventaja de «Descuento»", [["1", "A > 0 (salió mejor)"], ["-1", "A < 0 (salió peor)"]], "1", function(v){ sgn = +v; stop(); init(); draw(); });
    ctlSlider(ctl, '<span style="text-transform:none">ε</span> del recorte', 0.05, 0.5, 0.05, eps, function(v){ return fmt(v, 2) + " (franja " + fmt(1 - v, 2) + " – " + fmt(1 + v, 2) + ")"; }, function(v){ eps = v; stop(); init(); draw(); });

@@ -98,10 +98,10 @@ function pill(ctx, s, x, y, C, o){
 }
 
 /* ── 1. RANDOM FOREST · la votación del bosque ─────────────────── */
-VIZ.push({id:"v-rf", model:"rf", g:"model", ic:"🌲", dim:"2D",
+VIZ.push({id:"v-rf", model:"rf", g:"model", ic:"", dim:"2D",
  t:"La votación del bosque",
  q:"¿Por qué muchos árboles mediocres votando aciertan más que uno solo?",
- intro:"Cada punto es un cliente de un banco: <b>ratio deuda/ingresos</b> (horizontal) y <b>antigüedad</b> (vertical). Naranja = impagó; morado = pagó. A la derecha ves 12 de los árboles: cada uno se entrena con una <b>muestra bootstrap</b> (sorteo con reemplazo) y en cada corte elige variable al azar. El panel grande es la <b>votación</b> de todos. Haz clic en él para colocar un cliente y mueve el número de árboles.",
+ intro:"Cada punto es un cliente de un banco: <b>ratio deuda/ingresos</b> (horizontal) y <b>antigüedad</b> (vertical). Naranja = impagó; azul = pagó. A la derecha ves 12 de los árboles: cada uno se entrena con una <b>muestra bootstrap</b> (sorteo con reemplazo) y en cada corte elige variable al azar. El panel grande es la <b>votación</b> de todos. Haz clic en él para colocar un cliente y mueve el número de árboles.",
  notice:["Cada miniatura es un árbol <b>caprichoso</b>: fronteras en escalera, distintas entre sí, con islas que en los demás no aparecen.",
    "La probabilidad del bosque es literalmente el <b>% de árboles que votan «impago»</b>: cerca de la frontera los votos se reparten (≈50%); lejos, son casi unánimes.",
    "La curva de acierto en test <b>sube deprisa y luego se aplana</b>: de 1 a 30 árboles se gana mucho; de 100 a 150, casi nada. Y añadir árboles no provoca sobreajuste."],
@@ -212,7 +212,7 @@ VIZ.push({id:"v-rf", model:"rf", g:"model", ic:"🌲", dim:"2D",
        T(ctx, pct(hi, 0), cb[0] - 6, cb[1] + 8, {s:11, c:C.muted, a:"right"});
        T(ctx, pct(lo, 0), cb[0] - 6, cb[1] + cb[3], {s:11, c:C.muted, a:"right"});
      }
-     if(built < NT) pill(ctx, "🌱 plantando árboles… " + built + "/" + NT, box[0] + box[2] / 2, box[1] + 18, C, {a:"center"});
+     if(built < NT) pill(ctx, "plantando árboles… " + built + "/" + NT, box[0] + box[2] / 2, box[1] + 18, C, {a:"center"});
      /* lectura */
      if(n){
        var p = v / n, aF = accN[n - 1];
@@ -234,13 +234,13 @@ VIZ.push({id:"v-rf", model:"rf", g:"model", ic:"🌲", dim:"2D",
      if(x >= 0 && x <= 1 && y >= 0 && y <= 1){ client = [x, y]; draw(); }
    });
    ctlSlider(ctl, "Número de árboles", 1, NT, 1, nUse, function(v){ return v + (v === 1 ? " árbol" : " árboles"); }, function(v){ nUse = v; draw(); });
-   ctlBtn(ctl, "🎲 Otros datos", function(){ seed++; gen(); miniImg = []; grow(); });
+   ctlBtn(ctl, "Otros datos", function(){ seed++; gen(); miniImg = []; grow(); });
    gen(); grow();
    return function(){ if(stopB) stopB(); };
  }});
 
 /* ── 2. EXTRA TREES · cortes al azar ──────────────────────────── */
-VIZ.push({id:"v-extratrees", model:"extratrees", g:"model", ic:"🎲", dim:"2D",
+VIZ.push({id:"v-extratrees", model:"extratrees", g:"model", ic:"", dim:"2D",
  t:"Cortes exhaustivos frente a cortes al azar",
  q:"¿Qué gana Extra Trees al sortear los cortes en vez de buscar el mejor?",
  intro:"<b>Arriba</b>, una sola variable (antigüedad del cliente) y la impureza Gini que quedaría tras <b>cada corte posible</b> (cuanto más baja, mejor separa «se va» de «se queda»). Random Forest prueba todos y se queda con el mínimo; Extra Trees <b>sortea</b> unos pocos umbrales y elige el mejor de ellos (en la realidad sortea uno por variable candidata; aquí, con una sola variable, sorteamos k). <b>Abajo</b>, dos bosques de 60 árboles entrenados de verdad sobre los mismos datos 2D, contando cuántos umbrales evalúa cada uno.",
@@ -380,14 +380,14 @@ VIZ.push({id:"v-extratrees", model:"extratrees", g:"model", ic:"🎲", dim:"2D",
      stopB = loop(function(){ chunk(); if(rf.length === NT){ accR = accOf(rf); accE = accOf(et); } draw(); return rf.length < NT; });
    }
    ctlSlider(ctl, "Umbrales sorteados por Extra Trees (k)", 1, 10, 1, k, function(v){ return v; }, function(v){ k = v; draw1(); draw(); });
-   ctlBtn(ctl, "🎲 Sortear cortes", function(){ cutSeed++; draw1(); draw(); }, true);
+   ctlBtn(ctl, "Sortear cortes", function(){ cutSeed++; draw1(); draw(); }, true);
    ctlBtn(ctl, "↺ Otros datos 2D", function(){ dataSeed++; gen2(); grow(); });
    gen1(); draw1(); gen2(); grow();
    return function(){ if(stopB) stopB(); };
  }});
 
 /* ── 3. XGBOOST · early stopping y la fórmula de la hoja ─────── */
-VIZ.push({id:"v-xgboost", model:"xgboost", g:"model", ic:"🚀", dim:"2D",
+VIZ.push({id:"v-xgboost", model:"xgboost", g:"model", ic:"", dim:"2D",
  t:"Early stopping y la fórmula de cada hoja",
  q:"¿Cuándo hay que dejar de añadir árboles y qué hacen λ y γ dentro de cada uno?",
  intro:"Boosting real con pérdida logística (la de clasificación): cada árbol nuevo se ajusta con el <b>gradiente G</b> (cuánto y hacia dónde se equivoca el modelo) y la <b>hessiana H</b> (cuánta seguridad tiene) de cada cliente. <b>Izquierda</b>: error en entrenamiento y en validación ronda a ronda; mueve el learning rate y la profundidad. <b>Derecha</b>: un árbol pequeño sobre 30 clientes con la fórmula de XGBoost; mueve <b>λ</b> y <b>γ</b>.",
@@ -572,7 +572,7 @@ VIZ.push({id:"v-xgboost", model:"xgboost", g:"model", ic:"🚀", dim:"2D",
      dashLine(ctx, bx, b[1], bx, b[1] + b[3], C.ink, 1.2, [4, 3]);
      dot(ctx, bx, by, 5, C.c[1], C.card);
      var right = bx < b[0] + b[2] - 150;
-     pill(ctx, "⏹ mejor ronda: " + bestR, bx + (right ? 8 : -8), b[1] + 38, C, {a:right ? "left" : "right"});
+     pill(ctx, "mejor ronda: " + bestR, bx + (right ? 8 : -8), b[1] + 38, C, {a:right ? "left" : "right"});
      var L = trL.length - 1, lx = Math.max(A.sx(L), b[0] + 110) - 6;
      T(ctx, "entrenamiento", lx, Math.min(A.sy(trL[L]) + 17, b[1] + b[3] - 5), {s:11, w:"600", c:C.c[0], a:"right"});
      T(ctx, "validación", lx, Math.min(A.sy(vaL[L]) - 8, b[1] + b[3] - 6), {s:11, w:"600", c:C.c[1], a:"right"});
@@ -594,10 +594,10 @@ VIZ.push({id:"v-xgboost", model:"xgboost", g:"model", ic:"🚀", dim:"2D",
  }});
 
 /* ── 4. LIGHTGBM · crecer por hojas e histogramas ─────────────── */
-VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"⚡", dim:"2D",
+VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"", dim:"2D",
  t:"Crecer por hojas y cortar por histogramas",
  q:"¿De dónde saca LightGBM su velocidad sin perder precisión?",
- intro:"<b>Arriba</b>, el mismo árbol crece de dos formas sobre 600 ventas sintéticas: <b>por niveles</b> (como XGBoost por defecto: completa cada piso antes de bajar) y <b>por hojas</b> (LightGBM: parte siempre la hoja con más <b>ganancia</b>, es decir, la que más reduce el error). Pulsa <b>▶ Paso</b>. <b>Abajo</b>, una variable con 1.000 valores agrupada en N cajas (bins): solo se prueban cortes entre cajas.",
+ intro:"<b>Arriba</b>, el mismo árbol crece de dos formas sobre 600 ventas sintéticas: <b>por niveles</b> (como XGBoost por defecto: completa cada piso antes de bajar) y <b>por hojas</b> (LightGBM: parte siempre la hoja con más <b>ganancia</b>, es decir, la que más reduce el error). Pulsa <b>Paso</b>. <b>Abajo</b>, una variable con 1.000 valores agrupada en N cajas (bins): solo se prueban cortes entre cajas.",
  notice:["Con el <b>mismo número de hojas</b>, el árbol por hojas explica más error: no gasta cortes en ramas donde ya no hay nada que ganar.",
    "El árbol por hojas sale <b>profundo y asimétrico</b>. Por eso en LightGBM se limita con num_leaves (y min_data_in_leaf), no solo con la profundidad.",
    "Con 255 cajas (el valor por defecto) evalúas ~4 veces menos cortes que con los 1.000 valores y el mejor corte es <b>prácticamente el mismo</b>; incluso con 16 cajas la pérdida es pequeña."],
@@ -718,11 +718,11 @@ VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"⚡", dim:"2D",
      read.innerHTML = '<span>Hojas <b>' + tf.leaves + '</b></span><span>Error explicado · por niveles <b>' + pct(tl.gain / SST, 1) + '</b> · por hojas <b>' + pct(tf.gain / SST, 1) + '</b></span>' +
        '<span>Profundidad · niveles <b>' + tl.depth + '</b> · hojas <b>' + tf.depth + '</b></span>' +
        '<span>Cortes a evaluar <b>' + B.cuts.length + '</b> en vez de <b>' + miles(nExact) + '</b></span><span>Ganancia perdida <b>' + (loss < 0.0005 ? "0%" : pct(loss, 2)) + '</b></span>' +
-       '<span class="ldiag">' + (step ? (tf.gain > tl.gain + 1e-9 ? "Con " + tf.leaves + " hojas, crecer por hojas explica <b class='lgood'>▲ " + fmt(100 * (tf.gain - tl.gain) / SST, 1) + " puntos más</b> de error. " : "Con tan pocas hojas, los dos árboles aún coinciden. ") : "Pulsa ▶ Paso para hacer crecer los árboles. ") +
+       '<span class="ldiag">' + (step ? (tf.gain > tl.gain + 1e-9 ? "Con " + tf.leaves + " hojas, crecer por hojas explica <b class='lgood'>▲ " + fmt(100 * (tf.gain - tl.gain) / SST, 1) + " puntos más</b> de error. " : "Con tan pocas hojas, los dos árboles aún coinciden. ") : "Pulsa Paso para hacer crecer los árboles. ") +
        'Con ' + bins + ' cajas evalúas <b>' + B.cuts.length + ' cortes en vez de ' + miles(nExact) + '</b> (' + fmt(nExact / B.cuts.length, 0) + ' veces menos) y el corte elegido ' + (loss < 0.01 ? 'es <b>casi idéntico</b>.' : 'pierde un <b>' + pct(loss, 1) + '</b> de ganancia.') + '</span>';
    }
    function stop(){ clearInterval(timer); timer = null; }
-   ctlBtn(ctl, "▶ Paso", function(){ stop(); if(step < MAXS){ step++; draw(); } }, true);
+   ctlBtn(ctl, "Paso", function(){ stop(); if(step < MAXS){ step++; draw(); } }, true);
    ctlBtn(ctl, "⏵ Reproducir", function(){ stop(); step = 0; draw(); timer = setInterval(function(){ if(step >= MAXS){ stop(); return; } step++; draw(); }, 900); });
    ctlBtn(ctl, "↺ Reiniciar", function(){ stop(); step = 0; draw(); });
    ctlSlider(ctl, "Número de cajas (bins)", 4, 255, 1, bins, function(v){ return v + " cajas → " + (v - 1) + " cortes"; }, function(v){ bins = v; draw(); });
@@ -731,10 +731,10 @@ VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"⚡", dim:"2D",
  }});
 
 /* ── 5. CATBOOST · ordered target statistics ──────────────────── */
-VIZ.push({id:"v-catboost", model:"catboost", g:"model", ic:"🐱", dim:"2D",
+VIZ.push({id:"v-catboost", model:"catboost", g:"model", ic:"", dim:"2D",
  t:"Codificar categorías sin hacer trampa",
  q:"¿Cómo convierte CatBoost una categoría en número sin «chivarle» la respuesta al modelo?",
- intro:"La tabla son 14 clientes en un <b>orden al azar</b>. Para cada uno, CatBoost calcula la tasa de bajas de su provincia usando <b>solo las filas anteriores</b> (más un valor previo para no partir de cero). La versión <b>ingenua</b> usa todas las filas, <b>incluida la suya</b>: así la respuesta se cuela en la variable. Pulsa ▶ y mira qué filas consulta cada cliente. A la derecha, un experimento real con 4.000 clientes.",
+ intro:"La tabla son 14 clientes en un <b>orden al azar</b>. Para cada uno, CatBoost calcula la tasa de bajas de su provincia usando <b>solo las filas anteriores</b> (más un valor previo para no partir de cero). La versión <b>ingenua</b> usa todas las filas, <b>incluida la suya</b>: así la respuesta se cuela en la variable. Pulsa y mira qué filas consulta cada cliente. A la derecha, un experimento real con 4.000 clientes.",
  notice:["Cada cliente solo «mira» a los de su provincia que están <b>por encima</b> en la tabla. El primero de cada provincia recibe el valor previo (la media global).",
    "Soria aparece una sola vez: la codificación ingenua es (su propio target + previo) / 2, así que <b>delata si se fue o no</b>. La ordenada le da solo el previo.",
    "Con una columna de IDs que es puro ruido, la codificación ingenua da un AUC de entrenamiento <b>altísimo</b> y en test ≈ 0,5: el modelo ha aprendido una fuga. La ordenada se queda en ≈ 0,5 en los dos, que es la verdad."],
@@ -755,7 +755,7 @@ VIZ.push({id:"v-catboost", model:"catboost", g:"model", ic:"🐱", dim:"2D",
      '.vbc td.n{text-align:right}.vbc th.n{text-align:right}' +
      '.vbc tr.cur td{background:color-mix(in srgb,var(--lab1) 22%,transparent);color:var(--ink);font-weight:600}' +
      '.vbc tr.look td{background:color-mix(in srgb,var(--lab1) 9%,transparent)}' +
-     '.vbc tr.look td:first-child::before{content:"👁 ";font-size:11px}' +
+     '.vbc tr.look td:first-child::before{content:"";font-size:11px}' +
      '.vbc tr.after td{opacity:.42}' +
      '.vbc .pv{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.vbc .pv i{width:9px;height:9px;border-radius:3px;display:inline-block}' +
      '.vbc .yv{font-weight:600}.vbc .ord{color:var(--ink);font-weight:600}.vbc .warn{color:var(--negative);font-weight:600}' +
@@ -791,14 +791,14 @@ VIZ.push({id:"v-catboost", model:"catboost", g:"model", ic:"🐱", dim:"2D",
        var b = BASE[ix], nv = naive(k), cls = k === cur ? "cur" : e && e.look.indexOf(k) > -1 ? "look" : cur >= 0 && k > cur ? "after" : "";
        return '<tr class="' + cls + '"><td>' + (k + 1) + '</td><td><span class="pv"><i style="background:' + C.c[1 + b[0]] + '"></i>' + PROV[b[0]] + '</span></td>' +
          '<td class="yv">' + (b[1] ? "sí" : "no") + '</td><td class="n ord">' + (k <= cur ? fmt(enc(k).v, 2) : "·") + '</td>' +
-         '<td class="n' + (nv.n === 1 ? ' warn' : '') + '">' + (nv.n === 1 ? "⚠ " : "") + fmt(nv.v, 2) + '</td></tr>';
+         '<td class="n' + (nv.n === 1 ? ' warn' : '') + '">' + (nv.n === 1 ? "" : "") + fmt(nv.v, 2) + '</td></tr>';
      }).join("");
      if(e){
        var b = BASE[order[cur]], nv = naive(cur);
        form.innerHTML = '<b>Fila ' + (cur + 1) + ' · ' + PROV[b[0]] + '</b>: antes hay <b>' + e.n + '</b> ' + (e.n === 1 ? "fila" : "filas") + ' de ' + PROV[b[0]] + ' y <b>' + e.s + '</b> se ' + (e.s === 1 ? "fue" : "fueron") +
          ' → <code>(' + e.s + ' + ' + A + '×' + fmt(prior, 2) + ') / (' + e.n + ' + ' + A + ')</code> = <b>' + fmt(e.v, 2) + '</b>' + (e.n === 0 ? " (primera de su provincia: solo el previo)" : "") +
          '<br>La ingenua usa las ' + nv.n + ' filas de ' + PROV[b[0]] + ', <b>incluida esta</b>: <code>(' + nv.s + ' + ' + fmt(prior, 2) + ') / (' + nv.n + ' + 1)</code> = ' + fmt(nv.v, 2) + '.';
-     } else form.innerHTML = 'Pulsa <b>▶ Reproducir</b> o <b>Paso</b>. Valor previo = media global de bajas = <b>' + fmt(prior, 2) + '</b>, con peso a = ' + A + '.';
+     } else form.innerHTML = 'Pulsa <b>Reproducir</b> o <b>Paso</b>. Valor previo = media global de bajas = <b>' + fmt(prior, 2) + '</b>, con peso a = ' + A + '.';
    }
    /* ── experimento con IDs de alta cardinalidad ── */
    var res;
@@ -827,26 +827,26 @@ VIZ.push({id:"v-catboost", model:"catboost", g:"model", ic:"🐱", dim:"2D",
        '<span>AUC ordenada · train <b>' + fmt(res.oTr, 3) + '</b> · test <b>' + fmt(res.oTe, 3) + '</b></span>' +
        '<span class="ldiag">La codificación ingenua promete un AUC de <b class="lbad">' + fmt(res.nTr, 2) + '</b> en entrenamiento con una columna que es puro ruido: es <b>fuga de información</b> (el target de cada fila está dentro de su propia variable). En test se desploma a ' + fmt(res.nTe, 2) + '. La ordenada dice la verdad desde el principio: ≈ 0,5 en los dos.</span>';
    }
-   function stop(){ clearInterval(timer); timer = null; if(playB) playB.innerHTML = "▶ Reproducir"; }
+   function stop(){ clearInterval(timer); timer = null; if(playB) playB.innerHTML = "Reproducir"; }
    function step(){ if(cur < order.length - 1){ cur++; render(); return true; } return false; }
-   var playB = ctlBtn(ctl, "▶ Reproducir", function(){
+   var playB = ctlBtn(ctl, "Reproducir", function(){
      if(timer){ stop(); return; }
      if(cur >= order.length - 1) cur = -1;
-     playB.innerHTML = "⏸ Pausa"; step();
+     playB.innerHTML = "Pausa"; step();
      timer = setInterval(function(){ if(!step()) stop(); }, 1300);
    }, true);
    ctlBtn(ctl, "Paso →", function(){ stop(); step(); });
-   ctlBtn(ctl, "🔀 Otro orden aleatorio", function(){ stop(); order = shuffle(++shufSeed); cur = -1; render(); });
-   ctlBtn(ctl, "🎲 Repetir experimento", function(){ expSeed++; experiment(); readout(); });
+   ctlBtn(ctl, "Otro orden aleatorio", function(){ stop(); order = shuffle(++shufSeed); cur = -1; render(); });
+   ctlBtn(ctl, "Repetir experimento", function(){ expSeed++; experiment(); readout(); });
    order = shuffle(shufSeed); render(); experiment(); readout();
    return stop;
  }});
 
 /* ── 6. ADABOOST · los pesos que crecen ───────────────────────── */
-VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"🔁", dim:"2D",
+VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"", dim:"2D",
  t:"Ronda a ronda: los errores pesan más",
  q:"¿Cómo consigue AdaBoost un buen modelo sumando reglas de un solo corte?",
- intro:"120 operaciones con tarjeta: naranja = fraude, morado = normal. Cada ronda, AdaBoost entrena un <b>tocón</b> (un árbol de un solo corte) dando más <b>peso</b> a los puntos que las rondas anteriores fallaron (el tamaño del punto es su peso). Cada tocón vota con fuerza <b>α</b>, mayor cuanto menos se equivoca. El fondo es el voto combinado. Mueve la ronda o pulsa ▶. Algoritmo real (AdaBoost discreto).",
+ intro:"120 operaciones con tarjeta: naranja = fraude, azul = normal. Cada ronda, AdaBoost entrena un <b>tocón</b> (un árbol de un solo corte) dando más <b>peso</b> a los puntos que las rondas anteriores fallaron (el tamaño del punto es su peso). Cada tocón vota con fuerza <b>α</b>, mayor cuanto menos se equivoca. El fondo es el voto combinado. Mueve la ronda o pulsa. Algoritmo real (AdaBoost discreto).",
  notice:["Los puntos que el tocón de la ronda falla (con aro) <b>crecen</b> en la siguiente: el próximo tocón se ve obligado a atenderlos.",
    "Ningún tocón por sí solo separa el círculo, pero la <b>suma ponderada</b> de muchos cortes rectos dibuja una frontera que lo rodea.",
    "Activa las etiquetas erróneas: AdaBoost se <b>obsesiona</b> con ellas. Unos pocos puntos (✕) acaban acaparando buena parte del peso total; por eso es sensible al ruido."],
@@ -965,12 +965,12 @@ VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"🔁", dim:"2D",
          t === 1 ? "Un tocón solo hace un corte recto: se equivoca mucho. Avanza rondas y mira cómo crecen los puntos fallados." :
          "α = ½·ln((1 − ε)/ε): con ε = " + pct(R.e, 0) + " el tocón vota con fuerza " + fmt(R.a, 2) + ". " + (R.err < .03 ? "El conjunto ya casi no falla en entrenamiento." : "La frontera combinada va rodeando el círculo poco a poco.")) + '</span>';
    }
-   function stop(){ clearInterval(timer); timer = null; if(pb) pb.innerHTML = "▶ Reproducir"; }
+   function stop(){ clearInterval(timer); timer = null; if(pb) pb.innerHTML = "Reproducir"; }
    var sl = ctlSlider(ctl, "Ronda t", 1, RMAX, 1, t, function(v){ return v + " de " + RMAX; }, function(v){ stop(); t = v; draw(); });
-   var pb = ctlBtn(ctl, "▶ Reproducir", function(){
+   var pb = ctlBtn(ctl, "Reproducir", function(){
      if(timer){ stop(); return; }
      if(t >= RMAX) t = 0;
-     pb.innerHTML = "⏸ Pausa";
+     pb.innerHTML = "Pausa";
      timer = setInterval(function(){ if(t >= RMAX){ stop(); return; } t++; sl.set(t); draw(); }, 650);
    }, true);
    ctlCheck(ctl, "Añadir 5% de etiquetas erróneas", noise, function(v){ noise = v; train(); draw(); });
@@ -979,7 +979,7 @@ VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"🔁", dim:"2D",
  }});
 
 /* ── 7. SVM LINEAL · margen y vectores de soporte ─────────────── */
-VIZ.push({id:"v-svmlin", model:"svmlin", g:"model", ic:"📏", dim:"2D",
+VIZ.push({id:"v-svmlin", model:"svmlin", g:"model", ic:"", dim:"2D",
  t:"El margen y sus vectores de soporte",
  q:"¿Por qué una SVM solo «escucha» a unos pocos puntos?",
  intro:"¿Compra el nuevo iPhone según <b>edad</b> y <b>salario</b>? La SVM busca la recta con el <b>margen</b> (la franja vacía entre las líneas discontinuas) más ancho posible. Los puntos rodeados son los <b>vectores de soporte</b>: los únicos que fijan la recta. Mueve <b>C</b> y <b>haz clic</b> en el gráfico para añadir clientes. Se resuelve de verdad (SVM de margen blando con el algoritmo SMO).",
@@ -1134,7 +1134,7 @@ VIZ.push({id:"v-svmlin", model:"svmlin", g:"model", ic:"📏", dim:"2D",
  }});
 
 /* ── 8. COX / SUPERVIVENCIA · Kaplan–Meier y censura ──────────── */
-VIZ.push({id:"v-cox", model:"cox", g:"model", ic:"⏳", dim:"2D",
+VIZ.push({id:"v-cox", model:"cox", g:"model", ic:"", dim:"2D",
  t:"Curvas de supervivencia y clientes censurados",
  q:"¿Cuánto tarda un cliente en darse de baja y qué pasa con los que todavía no se han ido?",
  intro:"300 clientes simulados de una operadora, la mitad <b>con permanencia</b> y la mitad <b>sin</b>. Cada curva de <b>Kaplan–Meier</b> dice qué % sigue activo a cada mes. Los <b>+</b> son clientes <b>censurados</b>: siguen activos (o dejamos de verlos), así que solo sabemos que aguantaron <i>al menos</i> hasta ahí. Elige el <b>hazard ratio</b> real (cuántas veces más riesgo tiene «sin permanencia») y el % de censura. A la derecha, 20 de esos clientes.",
@@ -1242,7 +1242,7 @@ VIZ.push({id:"v-cox", model:"cox", g:"model", ic:"⏳", dim:"2D",
  }});
 
 /* ── 9. UPLIFT · a quién mandar el cupón ──────────────────────── */
-VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
+VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"", dim:"2D",
  t:"A quién mandar el cupón",
  q:"¿Por qué ordenar por «probabilidad de compra» malgasta cupones y ordenar por uplift no?",
  intro:"Cada punto es un cliente (simulado): en horizontal, su probabilidad de comprar <b>sin cupón</b>; en vertical, <b>con cupón</b>. Sobre la diagonal, el cupón no cambia nada. A la derecha, las compras <b>extra</b> que consigues al enviar el cupón al top-k% según tres criterios: <b>propensión</b> (los que más compran con cupón), <b>uplift</b> (los que más cambian gracias al cupón) o al azar. Cada punto representa a 250 clientes de una base de 100.000.",
@@ -1350,7 +1350,7 @@ VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
  }});
 
 /* ── 10. INFERENCIA CAUSAL · Diff-in-Diff y propensity score ──── */
-VIZ.push({id:"v-propensity", model:"propensity", g:"model", ic:"⚖️", dim:"2D",
+VIZ.push({id:"v-propensity", model:"propensity", g:"model", ic:"", dim:"2D",
  t:"Diferencias en diferencias y emparejamiento",
  q:"¿Cómo se estima el efecto de una decisión cuando no hubo experimento?",
  intro:"Dos herramientas con datos simulados (sabemos el efecto real, así que podemos comprobar si aciertan). <b>Diff-in-Diff</b>: unas tiendas suben el precio en la semana 20 y otras no; el efecto es el cambio de las tratadas <b>menos</b> el cambio de las de control. <b>Propensity score</b>: los clientes que piden la tarjeta de fidelidad no se parecen a los que no; emparejamos a cada uno con el no-tratado de probabilidad más parecida (vecino más próximo 1:1) y comparamos.",
@@ -1488,10 +1488,10 @@ VIZ.push({id:"v-propensity", model:"propensity", g:"model", ic:"⚖️", dim:"2D
  }});
 
 /* ── 11. AUTOML · la carrera de modelos ───────────────────────── */
-VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
+VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"", dim:"2D",
  t:"La carrera de modelos",
  q:"¿Qué hace una herramienta de AutoML y cómo se lee su tabla de resultados?",
- intro:"Una herramienta de AutoML prueba muchos modelos con <b>validación cruzada</b> (5 particiones: cada punto es el AUC en una de ellas; la barra es la media y los bigotes ± 1 desviación) y los ordena. Los rápidos terminan antes: sube el <b>presupuesto de tiempo</b> o pulsa ▶. <b>Simulación didáctica</b>: los AUC y tiempos son inventados pero verosímiles para un problema de churn tabular.",
+ intro:"Una herramienta de AutoML prueba muchos modelos con <b>validación cruzada</b> (5 particiones: cada punto es el AUC en una de ellas; la barra es la media y los bigotes ± 1 desviación) y los ordena. Los rápidos terminan antes: sube el <b>presupuesto de tiempo</b> o pulsa. <b>Simulación didáctica</b>: los AUC y tiempos son inventados pero verosímiles para un problema de churn tabular.",
  notice:["El <b>baseline</b> (predecir siempre la clase mayoritaria) da AUC 0,5: cualquier modelo útil tiene que superarlo con holgura.",
    "Los primeros puestos suelen estar separados por <b>menos que su propia variabilidad</b> entre particiones: es un empate técnico, y entonces conviene el más simple, rápido o explicable.",
    "Activa la fuga: todos los modelos rozan 0,99. Un AUC «demasiado bueno» casi siempre es una variable que contiene la respuesta, no un modelo genial."],
@@ -1540,7 +1540,7 @@ VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
        f.forEach(function(v){ dot(ctx, sx(v), y, 2.6, C.card, C.ink); });
        T(ctx, fmt(mu, 3), Math.min(Math.max(sx(mu + s), sx(Math.max.apply(null, f))) + 8, box[0] + box[2] + 2), y + 4, {s:11, w:"700", c:C.ink});
        T(ctx, (m.t < 1 ? "<1" : m.t) + " s", box[0] + box[2] + 76, y + 4, {s:11, c:C.muted, a:"right"});
-       if(win) T(ctx, "🏆", 22, y + 5, {s:13});
+       if(win) T(ctx, "", 22, y + 5, {s:13});
        ctx.restore();
      });
      /* línea temporal del presupuesto */
@@ -1558,7 +1558,7 @@ VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
      var queue = models.filter(function(m){ return !m.ta; }).sort(function(a, b){ return a.t - b.t; }).map(function(m){ return m.name; });
      if(leak){} else if(queue.length) T(ctx, "En cola: " + queue.join(" · "), box[0], 420, {s:11, c:C.muted});
      else T(ctx, "Todos los modelos evaluados", box[0], 420, {s:11, c:C.muted});
-     if(leak) pill(ctx, "⚠ AUC ≈ 0,99 en todos: sospecha de FUGA · ¿hay una variable que solo se conoce después del churn?", box[0] - 160, 420, C, {c:C.neg, bd:C.neg, bg:hexA(C.neg, .1)});
+     if(leak) pill(ctx, "AUC ≈ 0,99 en todos: sospecha de FUGA · ¿hay una variable que solo se conoce después del churn?", box[0] - 160, 420, C, {c:C.neg, bd:C.neg, bg:hexA(C.neg, .1)});
    }
    function mmss(s){ s = Math.round(s); return Math.floor(s / 60) + " min " + (s % 60 < 10 ? "0" : "") + (s % 60) + " s"; }
    function readout(ranked){
@@ -1584,7 +1584,7 @@ VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
      readout(ranked);
    }
    var sl = ctlSlider(ctl, "Presupuesto de tiempo", 0, Math.ceil(TOT), 1, budget, function(v){ return mmss(v); }, function(v){ if(stopP){ stopP(); stopP = null; } budget = v; update(); });
-   ctlBtn(ctl, "▶ Lanzar la carrera", function(){
+   ctlBtn(ctl, "Lanzar la carrera", function(){
      if(stopP) stopP();
      var t0 = performance.now(); budget = 0;
      stopP = loop(function(now){ budget = Math.min(TOT, (now - t0) / 9000 * TOT); sl.set(Math.round(budget)); update(); return budget < TOT; });
@@ -1596,7 +1596,7 @@ VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
  }});
 
 /* ── 12. PYSPARK · plan perezoso, stages y shuffle ────────────── */
-VIZ.push({id:"v-pyspark", model:"pyspark", g:"model", ic:"⚡", dim:"2D",
+VIZ.push({id:"v-pyspark", model:"pyspark", g:"model", ic:"", dim:"2D",
  t:"Spark: plan perezoso, stages y shuffle",
  q:"¿Qué pasa de verdad cuando escribes df.filter(...).groupBy(...) en PySpark?",
  intro:"Un DataFrame de ventas partido en <b>6 particiones</b> repartidas entre <b>3 ejecutores</b> (cada cuadrado es un bloque de filas; el color y la letra, su tienda). Añade transformaciones: solo se <b>apuntan en el plan</b> (arriba). Nada se mueve hasta que pulsas una <b>acción</b> (count o write). Entonces verás qué trabajo es local y cuándo hay <b>shuffle</b> (datos viajando por la red). <b>Simulación didáctica</b>: los MB y segundos son ilustrativos.",
@@ -1810,8 +1810,8 @@ VIZ.push({id:"v-pyspark", model:"pyspark", g:"model", ic:"⚡", dim:"2D",
    btns.join = ctlBtn(ctl, "join(tiendas)", function(){ addOp("join"); });
    ctlCheck(ctl, "broadcast(tiendas)", bcast, function(v){ if(running) return; bcast = v; if(ran){ ran = null; caption = ""; fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); } draw(); });
    var actB = {};
-   actB.count = ctlBtn(ctl, "▶ count()", function(){ run("count"); }, true);
-   actB.write = ctlBtn(ctl, "▶ write.parquet()", function(){ run("write"); }, true);
+   actB.count = ctlBtn(ctl, "count()", function(){ run("count"); }, true);
+   actB.write = ctlBtn(ctl, "write.parquet()", function(){ run("write"); }, true);
    ctlBtn(ctl, "↺ Reiniciar", function(){ if(stopL) stopL(); running = false; plan = []; ran = null; caption = ""; stats = {mb:0, bc:0, stages:1, secs:0, count:null}; fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); setBtns(); draw(); });
    fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); setBtns(); draw();
    return function(){ if(stopL) stopL(); };

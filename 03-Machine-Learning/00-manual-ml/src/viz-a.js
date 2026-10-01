@@ -137,7 +137,7 @@ function stat(ctx, x, y, label, value, sub, C, col){
 function bar(ctx, x, y, w, h, col){ ctx.fillStyle = col; ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x, y, Math.max(0, w), h, Math.min(3, h / 2)); else ctx.rect(x, y, Math.max(0, w), h); ctx.fill(); }
 
 /* ══════════ 1. REGRESIÓN LINEAL SIMPLE ══════════ */
-VIZ.push({id:"v-linsimple", model:"linsimple", g:"model", ic:"📏", dim:"2D",
+VIZ.push({id:"v-linsimple", model:"linsimple", g:"model", ic:"", dim:"2D",
  t:"La recta de mínimos cuadrados",
  q:"¿Qué recta elige la regresión lineal entre todas las posibles, y por qué esa?",
  intro:"Cada punto es un mes: lo que invertiste en <b>publicidad</b> y lo que <b>vendiste</b>. Las líneas naranjas son los <b>residuos</b> (cuánto se equivoca la recta en cada mes). La regresión elige la recta que hace mínima la <b>suma de los residuos al cuadrado</b>. Activa «Ajusta tú» y arrastra las dos asas para intentar ganarle; haz clic en el gráfico para añadir meses.",
@@ -227,21 +227,21 @@ VIZ.push({id:"v-linsimple", model:"linsimple", g:"model", ic:"📏", dim:"2D",
    });
    K.cv.addEventListener("pointerup", function(){ drag = -1; });
    touchMode(K.cv);
-   ctlSeg(ctl, "Recta", [["opt", "Óptima (mínimos cuadrados)"], ["user", "✋ Ajusta tú"]], mode, function(v){ mode = v; draw(); });
+   ctlSeg(ctl, "Recta", [["opt", "Óptima (mínimos cuadrados)"], ["user", "Ajusta tú"]], mode, function(v){ mode = v; draw(); });
    ctlCheck(ctl, "Ver los cuadrados", sq, function(v){ sq = v; draw(); });
-   ctlBtn(ctl, "➕ Añadir un outlier", function(){ pts.push([31, 14 + 4 * (pts.length % 3)]); draw(); });
+   ctlBtn(ctl, "Añadir un outlier", function(){ pts.push([31, 14 + 4 * (pts.length % 3)]); draw(); });
    ctlBtn(ctl, "↺ Datos originales", function(){ reset(); draw(); });
    reset(); draw();
    return function(){};
  }});
 
 /* ══════════ 2. RIDGE: estabilidad con multicolinealidad ══════════ */
-VIZ.push({id:"v-ridge", model:"ridge", g:"model", ic:"🧷", dim:"2D",
+VIZ.push({id:"v-ridge", model:"ridge", g:"model", ic:"", dim:"2D",
  t:"Ridge estabiliza los coeficientes",
  q:"¿Por qué Ridge da coeficientes fiables cuando dos variables dicen casi lo mismo?",
- intro:"Queremos medir cuánto aporta a las ventas la inversión en <b>TV</b> y en <b>digital</b>, que se mueven casi juntas (correlación alta). Remuestreamos los mismos datos <b>60 veces</b> (bootstrap) y ajustamos cada vez: cada punto es una pareja de coeficientes estimada. Naranja = regresión normal (OLS); morado = Ridge.",
+ intro:"Queremos medir cuánto aporta a las ventas la inversión en <b>TV</b> y en <b>digital</b>, que se mueven casi juntas (correlación alta). Remuestreamos los mismos datos <b>60 veces</b> (bootstrap) y ajustamos cada vez: cada punto es una pareja de coeficientes estimada. Naranja = regresión normal (OLS); azul = Ridge.",
  notice:["Con correlación 0,95 la nube naranja es <b>enorme y alargada</b> sobre la diagonal: el modelo sabe cuánto suman los dos efectos, pero no cómo repartirlos. Algunos remuestreos dan incluso efectos <b>negativos</b> (zona rayada).",
-   "La nube morada (Ridge) es <b>compacta</b>: la penalización elige repartos razonables y la desviación típica cae mucho. Baja la correlación a 0,3 y verás que las dos nubes se parecen.",
+   "La nube azul (Ridge) es <b>compacta</b>: la penalización elige repartos razonables y la desviación típica cae mucho. Baja la correlación a 0,3 y verás que las dos nubes se parecen.",
    "Ridge no sale gratis: con α muy grande la nube se va hacia el (0, 0). Es el <b>sesgo</b> que pagas a cambio de menos varianza."],
  models:["ridge","linmult","lasso","elastic"],
  build:function(stage, ctl, read, C){
@@ -328,13 +328,13 @@ VIZ.push({id:"v-ridge", model:"ridge", g:"model", ic:"🧷", dim:"2D",
    ctlSlider(ctl, "Penalización α de Ridge (escala log)", -1, 3, 0.05, la, function(v){ var a = Math.pow(10, v); return fmt(a, a < 1 ? 2 : a < 10 ? 1 : 0); }, function(v){ la = v; solve(); draw(); });
    ctlSlider(ctl, "Correlación TV–digital", 0, 0.99, 0.01, rho, function(v){ return fmt(v, 2); }, function(v){ rho = v; gen(); solve(); draw(); });
    ctlSeg(ctl, "Mostrar", [["both", "Ambos"], ["ols", "OLS"], ["ridge", "Ridge"]], show, function(v){ show = v; draw(); });
-   ctlBtn(ctl, "🎲 Otros datos", function(){ seed++; gen(); solve(); draw(); });
+   ctlBtn(ctl, "Otros datos", function(){ seed++; gen(); solve(); draw(); });
    gen(); solve(); draw();
    return function(){};
  }});
 
 /* ══════════ 3. LASSO: camino de coeficientes ══════════ */
-VIZ.push({id:"v-lasso", model:"lasso", g:"model", ic:"✂️", dim:"2D",
+VIZ.push({id:"v-lasso", model:"lasso", g:"model", ic:"", dim:"2D",
  t:"El camino de Lasso",
  q:"¿Cómo decide Lasso qué variables se quedan y cuáles salen del modelo?",
  intro:"Queremos predecir las ventas semanales con <b>8 variables candidatas</b>, pero solo <b>3 importan de verdad</b> (★): precio, descuento y publicidad. Cada línea es el coeficiente de una variable (estandarizado: efecto de subirla una desviación típica) según la fuerza de la penalización <b>α</b>. Todo se calcula con <b>descenso por coordenadas</b>, el mismo algoritmo que usa scikit-learn.",
@@ -414,13 +414,13 @@ VIZ.push({id:"v-lasso", model:"lasso", g:"model", ic:"✂️", dim:"2D",
    gen();
    ctlSeg(ctl, "Penalización", [["lasso", "Lasso (L1)"], ["ridge", "Ridge (L2)"]], mode, function(v){ mode = v; draw(); });
    ctlSlider(ctl, "Fuerza α (posición en el eje)", 0, 1, 0.005, t, function(v){ var p = P[mode][Math.round(v * (P[mode].length - 1))]; var a = Math.pow(10, p.la); return "α = " + fmt(a, a < 1 ? 3 : 1); }, function(v){ t = v; draw(); });
-   ctlBtn(ctl, "🎲 Otros datos", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otros datos", function(){ seed++; gen(); draw(); });
    draw();
    return function(){};
  }});
 
 /* ══════════ 4. ELASTIC NET: grupos correlacionados ══════════ */
-VIZ.push({id:"v-elastic", model:"elastic", g:"model", ic:"🪢", dim:"2D",
+VIZ.push({id:"v-elastic", model:"elastic", g:"model", ic:"", dim:"2D",
  t:"Elastic Net y los grupos de variables",
  q:"¿Qué hace Lasso cuando varias variables miden casi lo mismo, y cómo lo arregla Elastic Net?",
  intro:"Hay <b>3 grupos</b> de variables casi idénticas (correlación ≈ 0,99 dentro de cada grupo): tres medidas del tráfico web, tres del precio y tres del clima, más 3 de ruido. Arriba, Lasso; abajo, Elastic Net con la mezcla <b>l1_ratio</b> que elijas (1 = Lasso puro, 0 = Ridge puro). Ambos se ajustan de verdad por descenso por coordenadas con la misma α.",
@@ -487,13 +487,13 @@ VIZ.push({id:"v-elastic", model:"elastic", g:"model", ic:"🪢", dim:"2D",
    }
    ctlSlider(ctl, "l1_ratio de Elastic Net (0 = Ridge, 1 = Lasso)", 0.05, 1, 0.05, l1, function(v){ return fmt(v, 2); }, function(v){ l1 = v; fit(); draw(); });
    ctlSlider(ctl, "Fuerza α (escala log)", -1.5, 0.2, 0.05, la, function(v){ return fmt(Math.pow(10, v), 3); }, function(v){ la = v; fit(); stats(); draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; fit(); draw(); }, true);
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; fit(); draw(); }, true);
    fit(); stats(); draw();
    return function(){};
  }});
 
 /* ══════════ 5. POISSON / GLM ══════════ */
-VIZ.push({id:"v-poisson", model:"poisson", g:"model", ic:"🔢", dim:"2D",
+VIZ.push({id:"v-poisson", model:"poisson", g:"model", ic:"", dim:"2D",
  t:"Contar con Poisson",
  q:"¿Por qué para predecir conteos (pedidos, llamadas, visitas) no basta una recta?",
  intro:"Una heladería cuenta <b>pedidos por hora</b>. A la izquierda, el histograma de 240 horas y la distribución de <b>Poisson(λ)</b> que tú eliges. A la derecha, pedidos según la <b>temperatura</b>: una recta normal frente a una regresión de Poisson ajustada de verdad (máxima verosimilitud por IRLS, el método de los GLM).",
@@ -566,16 +566,16 @@ VIZ.push({id:"v-poisson", model:"poisson", g:"model", ic:"🔢", dim:"2D",
    }
    ctlSlider(ctl, "λ (media de la Poisson)", 0.5, 12, 0.1, lam, function(v){ return fmt(v, 1); }, function(v){ lam = v; draw(); });
    ctlCheck(ctl, "Sobredispersión (varianza ≫ media)", over, function(v){ over = v; gen(); draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
    return function(){};
  }});
 
 /* ══════════ 6. REGRESIÓN CUANTÍLICA ══════════ */
-VIZ.push({id:"v-quantile", model:"quantile", g:"model", ic:"📦", dim:"2D",
+VIZ.push({id:"v-quantile", model:"quantile", g:"model", ic:"", dim:"2D",
  t:"Predecir un percentil, no la media",
  q:"¿Cuánto stock necesito para no quedarme corto 9 de cada 10 días?",
- intro:"Cada punto es un día: <b>visitas previstas</b> a la tienda online y <b>unidades vendidas</b>. Fíjate en que la dispersión crece con las visitas. La recta morada no predice la media sino el <b>cuantil τ</b>: ajustada de verdad minimizando la <b>pérdida pinball</b> (solución exacta, probando todas las rectas candidatas que pasan por dos días). La banda es P10–P90.",
+ intro:"Cada punto es un día: <b>visitas previstas</b> a la tienda online y <b>unidades vendidas</b>. Fíjate en que la dispersión crece con las visitas. La recta azul no predice la media sino el <b>cuantil τ</b>: ajustada de verdad minimizando la <b>pérdida pinball</b> (solución exacta, probando todas las rectas candidatas que pasan por dos días). La banda es P10–P90.",
  notice:["El % de días por debajo de la recta coincide con <b>τ</b> (la cobertura): con τ = 0,90 el 90% de los días la demanda cabe en tu stock.",
    "La banda P10–P90 se <b>ensancha</b> hacia la derecha: con más visitas la demanda es más incierta. Una regresión normal daría un margen igual en todas partes.",
    "La pérdida pinball es <b>asimétrica</b>: con τ alto, quedarse corto (▲ rojos, rotura de stock) cuesta mucho más que pasarse. Por eso la recta sube."],
@@ -644,13 +644,13 @@ VIZ.push({id:"v-quantile", model:"quantile", g:"model", ic:"📦", dim:"2D",
    }
    ctlSlider(ctl, "Cuantil τ", 0.05, 0.95, 0.05, tau, function(v){ return fmt(v, 2) + " (P" + Math.round(v * 100) + ")"; }, function(v){ tau = v; qt = qfit(tau); draw(); });
    ctlCheck(ctl, "Ver la media (regresión normal)", showO, function(v){ showO = v; draw(); });
-   ctlBtn(ctl, "🎲 Otros días", function(){ seed++; gen(); qt = qfit(tau); draw(); });
+   ctlBtn(ctl, "Otros días", function(){ seed++; gen(); qt = qfit(tau); draw(); });
    gen(); qt = qfit(tau); draw();
    return function(){};
  }});
 
 /* ══════════ 7. BAYESIAN RIDGE ══════════ */
-VIZ.push({id:"v-bayesridge", model:"bayesridge", g:"model", ic:"🌫️", dim:"2D",
+VIZ.push({id:"v-bayesridge", model:"bayesridge", g:"model", ic:"", dim:"2D",
  t:"Una recta con incertidumbre",
  q:"¿Cómo dice un modelo bayesiano «no estoy seguro», y cuándo deja de dudar?",
  intro:"Ventas de un producto nuevo en sus primeras semanas. En lugar de <b>una</b> recta, la regresión bayesiana da una <b>distribución de rectas posibles</b>: dibujamos 30 sacadas de esa distribución (la posterior), su media y la banda donde caería una semana nueva (±2σ). Cálculo exacto con fórmulas cerradas (prior gaussiano); simplificación: el ruido y la fuerza del prior se fijan en lugar de estimarlos.",
@@ -719,10 +719,10 @@ VIZ.push({id:"v-bayesridge", model:"bayesridge", g:"model", ic:"🌫️", dim:"2
  }});
 
 /* ══════════ 8. SVR: el tubo ε ══════════ */
-VIZ.push({id:"v-svr", model:"svr", g:"model", ic:"🧪", dim:"2D",
+VIZ.push({id:"v-svr", model:"svr", g:"model", ic:"", dim:"2D",
  t:"SVR y su tubo de tolerancia",
  q:"¿Qué errores ignora una SVR y cuáles le importan?",
- intro:"Consumo eléctrico según la temperatura. La SVR traza un <b>tubo de anchura ±ε</b> alrededor de su predicción: los errores dentro del tubo <b>no cuentan</b>. Solo los puntos fuera o en el borde (<b>vectores de soporte</b>, en morado) definen el modelo. Se resuelve de verdad por descenso por coordenadas en el problema dual (como LIBLINEAR); el modo «curvo» aproxima el kernel RBF con 80 características de Fourier aleatorias.",
+ intro:"Consumo eléctrico según la temperatura. La SVR traza un <b>tubo de anchura ±ε</b> alrededor de su predicción: los errores dentro del tubo <b>no cuentan</b>. Solo los puntos fuera o en el borde (<b>vectores de soporte</b>, en azul) definen el modelo. Se resuelve de verdad por descenso por coordenadas en el problema dual (como LIBLINEAR); el modo «curvo» aproxima el kernel RBF con 80 características de Fourier aleatorias.",
  notice:["Sube ε: el tubo se ensancha, caben más puntos dentro y el nº de <b>vectores de soporte baja</b>. Con ε enorme el modelo se vuelve casi plano: ya no le importa nada.",
    "C es el precio de salirse del tubo. Con C pequeño la curva es <b>rígida</b> y deja puntos fuera; con C grande se retuerce para atraparlos (riesgo de sobreajuste).",
    "Los dos puntos raros apenas tuercen la curva: la SVR penaliza el error de forma <b>lineal</b> (no al cuadrado), así que es más robusta a outliers que la regresión normal."],
@@ -794,7 +794,7 @@ VIZ.push({id:"v-svr", model:"svr", g:"model", ic:"🧪", dim:"2D",
  }});
 
 /* ══════════ 9. GRADIENT BOOSTING REGRESSOR ══════════ */
-VIZ.push({id:"v-gbr", model:"gbr", g:"model", ic:"🪜", dim:"2D",
+VIZ.push({id:"v-gbr", model:"gbr", g:"model", ic:"", dim:"2D",
  t:"Boosting árbol a árbol",
  q:"¿Cómo construye el gradient boosting una curva a base de árboles minúsculos?",
  intro:"Precio de viviendas según sus m². El boosting empieza prediciendo la media y, en cada <b>etapa</b>, entrena un árbol pequeñito sobre los <b>residuos</b> (lo que aún falla) y suma una fracción de él (la <b>tasa de aprendizaje</b>). Arriba, la predicción acumulada; abajo a la izquierda, los residuos y el árbol de esa etapa; abajo a la derecha, el error por etapa. Todo calculado de verdad.",
@@ -859,7 +859,7 @@ VIZ.push({id:"v-gbr", model:"gbr", g:"model", ic:"🪜", dim:"2D",
      legend(ctx, [["train", C.c[0], "line"], ["test", C.c[1], "line"]], bE[0] + bE[2] - 6, bE[1] + 16, C, true);
      read.innerHTML = '<span>Etapa <b>' + m + ' / ' + M + '</b></span><span>Tasa <b>' + fmt(lr, 2) + '</b></span><span>Profundidad del árbol <b>' + depth + '</b></span>' +
        '<span>RMSE train <b>' + fmt(S.eTr[m], 1) + '</b></span><span>RMSE test <b>' + fmt(S.eTe[m], 1) + '</b></span><span>Mejor etapa en test <b>' + best + '</b> (▲, ' + fmt(S.eTe[best], 1) + ')</span>' +
-       '<span class="ldiag">' + (m === 0 ? "Etapa 0: el modelo predice la <b>media</b> para todas las viviendas. Pulsa ▶ para ver cómo se suman los árboles."
+       '<span class="ldiag">' + (m === 0 ? "Etapa 0: el modelo predice la <b>media</b> para todas las viviendas. Pulsa para ver cómo se suman los árboles."
          : m > best + 25 && S.eTe[m] > S.eTe[best] * 1.03 ? "<b class='lbad'>Sobreajuste:</b> el train sigue bajando pero el test ya empeora; habría que parar hacia la etapa " + best + " (early stopping)."
          : m < best * 0.4 ? "<b class='lwarn'>Aún aprendiendo:</b> el error de test todavía baja; quedan patrones por capturar."
          : "<b class='lgood'>Zona buena:</b> cerca del mínimo de error en test.") + '</span>';
@@ -867,8 +867,8 @@ VIZ.push({id:"v-gbr", model:"gbr", g:"model", ic:"🪜", dim:"2D",
    function setM(v){ m = clamp(Math.round(v), 0, M); sl.set(m); draw(); }
    function tick(ts){ if(!play) return; if(ts - last > 70){ last = ts; if(m >= M){ toggle(); return; } setM(m + 1); } raf = requestAnimationFrame(tick); }
    var pb;
-   function toggle(){ play = !play; pb.innerHTML = play ? "⏸ Pausa" : "▶ Reproducir"; if(play){ if(m >= M) setM(0); last = 0; raf = requestAnimationFrame(tick); } else cancelAnimationFrame(raf); }
-   pb = ctlBtn(ctl, "▶ Reproducir", toggle, true);
+   function toggle(){ play = !play; pb.innerHTML = play ? "Pausa" : "Reproducir"; if(play){ if(m >= M) setM(0); last = 0; raf = requestAnimationFrame(tick); } else cancelAnimationFrame(raf); }
+   pb = ctlBtn(ctl, "Reproducir", toggle, true);
    sl = ctlSlider(ctl, "Etapa m (nº de árboles sumados)", 0, M, 1, m, function(v){ return v; }, function(v){ m = v; draw(); });
    ctlSeg(ctl, "Tasa de aprendizaje", [["0.05", "0,05"], ["0.1", "0,1"], ["0.3", "0,3"], ["1", "1,0"]], "0.1", function(v){ lr = +v; boost(); draw(); });
    ctlSeg(ctl, "Árbol", [["1", "Stump (prof. 1)"], ["2", "Prof. 2"]], "1", function(v){ depth = +v; boost(); draw(); });
@@ -877,7 +877,7 @@ VIZ.push({id:"v-gbr", model:"gbr", g:"model", ic:"🪜", dim:"2D",
  }});
 
 /* ══════════ 10. REGRESIÓN LOGÍSTICA ══════════ */
-VIZ.push({id:"v-logistica", model:"logistica", g:"model", ic:"📉", dim:"2D",
+VIZ.push({id:"v-logistica", model:"logistica", g:"model", ic:"", dim:"2D",
  t:"La curva S de la logística",
  q:"¿Cómo convierte la regresión logística horas de uso en una probabilidad de baja?",
  intro:"Cada punto es un cliente: sus <b>horas de uso semanal</b> y si se dio de <b>baja</b> (arriba, 1) o no (abajo, 0); los separamos un poco en vertical para que no se pisen. La curva da la probabilidad de baja. Mueve β₀ y β₁ a mano o pulsa <b>«Ajustar»</b> (máxima verosimilitud, por el método de Newton). Arrastra la línea discontinua del <b>umbral</b> y haz clic en un cliente para ver su probabilidad.",
@@ -955,7 +955,7 @@ VIZ.push({id:"v-logistica", model:"logistica", g:"model", ic:"📉", dim:"2D",
      K.cv.style.cursor = Math.abs(p[1] - A.sy(thr)) < 10 && p[0] > box[0] && p[0] < box[0] + box[2] + 14 ? "ns-resize" : "pointer"; });
    K.cv.addEventListener("pointerup", function(){ drag = false; });
    touchMode(K.cv);
-   ctlBtn(ctl, "✨ Ajustar (máxima verosimilitud)", function(){ animTo(mle[0], mle[1]); }, true);
+   ctlBtn(ctl, "Ajustar (máxima verosimilitud)", function(){ animTo(mle[0], mle[1]); }, true);
    s0 = ctlSlider(ctl, "β₀ (intercepto)", -4, 8, 0.01, b0, function(v){ return fmt(v, 2); }, function(v){ cancelAnimationFrame(raf); b0 = v; draw(); });
    s1 = ctlSlider(ctl, "β₁ (efecto de cada hora)", -1.5, 0.5, 0.001, b1, function(v){ return fmt(v, 3); }, function(v){ cancelAnimationFrame(raf); b1 = v; draw(); });
    sT = ctlSlider(ctl, "Umbral de decisión", 0.02, 0.98, 0.01, thr, function(v){ return fmt(v, 2); }, function(v){ thr = v; draw(); });
@@ -964,7 +964,7 @@ VIZ.push({id:"v-logistica", model:"logistica", g:"model", ic:"📉", dim:"2D",
  }});
 
 /* ══════════ 11. LDA: proyectar para separar ══════════ */
-VIZ.push({id:"v-lda", model:"lda", g:"model", ic:"🧭", dim:"2D",
+VIZ.push({id:"v-lda", model:"lda", g:"model", ic:"", dim:"2D",
  t:"LDA: el eje que mejor separa",
  q:"¿En qué dirección hay que mirar los datos para separar mejor dos clases?",
  intro:"Dos tipos de cliente (● y ■) con la misma forma alargada. <b>PCA</b> busca la dirección de <b>máxima varianza</b>; <b>LDA</b> busca la de <b>máxima separación</b> entre clases. Elige un eje y mira, a la derecha, cómo quedan los clientes al proyectarlos sobre él. Todo calculado de verdad (covarianza común, dirección Σ⁻¹·(μ₂ − μ₁)).",
@@ -1043,13 +1043,13 @@ VIZ.push({id:"v-lda", model:"lda", g:"model", ic:"🧭", dim:"2D",
    ctlSeg(ctl, "Eje de proyección", [["pca", "PCA (máx. varianza)"], ["lda", "LDA (máx. separación)"], ["tu", "Tú"]], axis, function(x){ axis = x; angSl.input.disabled = x !== "tu"; draw(); });
    angSl = ctlSlider(ctl, "Ángulo de tu eje (solo «Tú»)", 0, 180, 1, ang, function(x){ return x + "°"; }, function(x){ ang = x; if(axis === "tu") draw(); });
    angSl.input.disabled = true;
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
    return function(){};
  }});
 
 /* ══════════ 12. QDA: fronteras curvas ══════════ */
-VIZ.push({id:"v-qda", model:"qda", g:"model", ic:"🥚", dim:"2D",
+VIZ.push({id:"v-qda", model:"qda", g:"model", ic:"", dim:"2D",
  t:"QDA: cuando cada clase tiene su forma",
  q:"¿Qué gana QDA al permitir que cada clase tenga su propia dispersión?",
  intro:"Transacciones <b>normales</b> (●, muy parecidas entre sí) frente a <b>fraudes</b> (▲, muy dispersos). LDA supone que las dos clases tienen la <b>misma forma</b> y traza una recta; QDA estima una covarianza <b>por clase</b> y su frontera es una curva (aquí, cerrada alrededor de lo normal). El fondo muestra qué predice cada modelo en cada punto. Ajuste real; acierto medido en 3.000 transacciones de test.",
@@ -1104,13 +1104,13 @@ VIZ.push({id:"v-qda", model:"qda", g:"model", ic:"🥚", dim:"2D",
    }
    ctlSeg(ctl, "Ver", [["both", "QDA + recta LDA"], ["qda", "Solo QDA"], ["lda", "Solo LDA"]], view, function(v){ view = v; draw(); });
    ctlSlider(ctl, "Dispersión del fraude frente a lo normal", 1, 5, 0.25, ratio, function(v){ return "× " + fmt(v, 2); }, function(v){ ratio = v; gen(); draw(); });
-   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   ctlBtn(ctl, "Otra muestra", function(){ seed++; gen(); draw(); });
    gen(); draw();
    return function(){};
  }});
 
 /* ══════════ 13. NAIVE BAYES: filtro de spam ══════════ */
-VIZ.push({id:"v-nb", model:"nb", g:"model", ic:"📨", dim:"2D",
+VIZ.push({id:"v-nb", model:"nb", g:"model", ic:"", dim:"2D",
  t:"Un filtro de spam con Naive Bayes",
  q:"¿Cómo suma Naive Bayes las pistas de cada palabra para decidir si un correo es spam?",
  intro:"Haz clic en las <b>palabras subrayadas</b> del correo para activarlas o tacharlas. Cada palabra presente aporta una <b>evidencia</b>: el logaritmo de cuánto más frecuente es en spam que en correo normal (contado en 1.000 correos de entrenamiento inventados, con suavizado de Laplace). El modelo <b>suma</b> esas evidencias al punto de partida (el prior) y lo convierte en probabilidad. Simplificación: solo cuentan las palabras presentes.",
@@ -1158,7 +1158,7 @@ VIZ.push({id:"v-nb", model:"nb", g:"model", ic:"📨", dim:"2D",
      evh.innerHTML = '<div style="display:flex;justify-content:space-between;font-size:11px;color:' + C.muted + ';font-weight:600"><span>▼ hacia normal</span><span>evidencia (log)</span><span>hacia spam ▲</span></div>' + rows;
      var P = sgm(sum), spam = P >= 0.5, vc = spam ? C.neg : C.pos;
      meter.innerHTML = '<div style="display:flex;align-items:baseline;gap:12px;margin-top:10px;flex-wrap:wrap"><span style="font-size:38px;font-weight:800;color:' + vc + ';font-variant-numeric:tabular-nums;line-height:1.1">' + pct(P, 1) + '</span>' +
-       '<span style="font-size:14px;font-weight:700;color:' + C.ink + '">' + (spam ? "🚫 Va a la carpeta de spam" : "📥 Llega a la bandeja de entrada") + '</span></div>' +
+       '<span style="font-size:14px;font-weight:700;color:' + C.ink + '">' + (spam ? "Va a la carpeta de spam" : "Llega a la bandeja de entrada") + '</span></div>' +
        '<div style="font-size:12px;color:' + C.muted + ';margin-top:2px">P(spam | correo)</div>' +
        '<div style="position:relative;height:12px;border-radius:6px;background:' + C.bg + ';margin-top:10px;overflow:hidden"><i style="position:absolute;left:0;top:0;bottom:0;width:' + (100 * P) + '%;background:' + vc + ';border-radius:6px;transition:width .35s"></i></div>' +
        '<div style="position:relative;height:16px;font-size:11px;color:' + C.muted + '"><span style="position:absolute;left:50%;transform:translateX(-50%);top:2px">↑ umbral 50%</span></div>';
@@ -1176,7 +1176,7 @@ VIZ.push({id:"v-nb", model:"nb", g:"model", ic:"📨", dim:"2D",
  }});
 
 /* ══════════ 14. KNN: votan los vecinos ══════════ */
-VIZ.push({id:"v-knn", model:"knn", g:"model", ic:"🏘️", dim:"2D",
+VIZ.push({id:"v-knn", model:"knn", g:"model", ic:"", dim:"2D",
  t:"KNN: dime con quién andas",
  q:"¿Cómo clasifica KNN a un cliente nuevo, y qué cambia al variar K?",
  intro:"Tres tipos de cliente según su <b>gasto</b> y su <b>frecuencia de compra</b> (ya en la misma escala, imprescindible en KNN). Haz clic o arrastra en el gráfico para colocar un <b>cliente nuevo</b> (★): sus <b>K vecinos</b> más cercanos votan y gana la clase con más votos. Activa «Ver regiones» para colorear qué decidiría el modelo en cada punto.",
