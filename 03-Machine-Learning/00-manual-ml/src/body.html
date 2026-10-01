@@ -1,0 +1,126 @@
+<div class="wrap">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="appbar"><div class="appbar-in">
+    <button class="brand" data-mode="" aria-label="Ir al inicio"><span class="brand-mark" aria-hidden="true">ML</span><span class="brand-t">Manual ML <small>para dummies</small></span></button>
+    <nav class="topnav" id="topnav" aria-label="Secciones del manual">
+      <button class="tnb" data-mode="" aria-current="page"><span class="ti" aria-hidden="true">🏠</span><span class="tl">Inicio</span></button>
+      <button class="tnb" data-mode="fundamentos"><span class="ti" aria-hidden="true">📚</span><span class="tl">Fundamentos</span></button>
+      <button class="tnb" data-mode="explorar"><span class="ti" aria-hidden="true">🧠</span><span class="tl">Modelos</span></button>
+      <button class="tnb" data-mode="rutas"><span class="ti" aria-hidden="true">🗺️</span><span class="tl">Rutas</span></button>
+      <button class="tnb" data-mode="lab"><span class="ti" aria-hidden="true">🧪</span><span class="tl">Laboratorio</span></button>
+      <button class="tnb" data-mode="elegir"><span class="ti" aria-hidden="true">🌳</span><span class="tl">Elegir</span></button>
+      <button class="tnb" data-mode="auditoria"><span class="ti" aria-hidden="true">✅</span><span class="tl">Auditoría</span></button>
+    </nav>
+    <div class="appbar-r">
+      <button class="iconbtn" id="qkBtn" type="button" aria-label="Buscar un modelo o concepto"><span aria-hidden="true">🔍</span><span class="qk-l">Buscar</span><kbd>Ctrl K</kbd></button>
+      <button class="iconbtn themebtn" id="themeBtn" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">🌙</button>
+    </div>
+  </div></header>
+
+  <main id="main">
+  <!-- ══ HOME · «¿Qué quieres hacer hoy?» ══ -->
+  <section id="view-home"><div id="homeContent"></div></section>
+
+  <!-- ══ FUNDAMENTOS ══ -->
+  <section id="view-fundamentos" class="hidden"><div id="fundContent"></div></section>
+
+  <!-- ══ AUDITORÍA Y PROPUESTAS ══ -->
+  <section id="view-auditoria" class="hidden"><div id="audContent"></div></section>
+
+  <!-- ══ LABORATORIO VISUAL ══ -->
+  <section id="view-lab" class="hidden"><div id="labContent"></div></section>
+
+  <!-- ══ RUTAS DE APRENDIZAJE ══ -->
+  <section id="view-rutas" class="hidden">
+    <div class="modehead">
+      <div class="eyebrow">Rutas de aprendizaje</div><h2 class="th-title">Estudia en el orden correcto</h2>
+      <p class="th-sub">Cada bloque de negocio se estudia de <b>fundamentos a avanzado</b>, en el orden en que conviene aprenderlo. Pulsa un modelo para abrir su ficha; el «siguiente» dentro de la ficha sigue esta misma ruta.</p>
+    </div>
+    <div class="viewsw" id="rutaSw">
+      <button class="vb active" data-rview="blocks" aria-pressed="true">🧱 Bloques</button>
+      <button class="vb" data-rview="map" aria-pressed="false">🕸️ Mapa de conocimiento</button>
+    </div>
+    <div id="rutaBlocks"></div>
+    <div id="rutaMap" class="hidden"></div>
+  </section>
+
+  <!-- ══ ELEGIR UN MODELO (wizard) ══ -->
+  <section id="view-elegir" class="hidden">
+    <div class="modehead">
+      <div class="eyebrow">Elegir modelo</div><h2 class="th-title">Encuentra tu modelo respondiendo preguntas</h2>
+      <p class="th-sub">Responde una pregunta y avanzas a la siguiente <b>según tu respuesta</b>, hasta llegar al modelo (o modelos) recomendado. Los modelos en <b>verde</b> ya tienen notebook tuyo; pulsa cualquiera para abrir su ficha de estudio. Puedes volver atrás o reiniciar en cualquier momento.</p>
+    </div>
+    <section class="wiz">
+      <div class="wiz-path" id="wizPath"></div>
+      <div class="wiz-card" id="wizCard"></div>
+      <div class="wiz-actions">
+        <button class="wbtn ghost" id="wizBack">← Atrás</button>
+        <button class="wbtn ghost" id="wizReset">↺ Reiniciar</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ══ EXPLORAR Y COMPARAR ══ -->
+  <section id="view-explorar" class="hidden">
+    <div class="modehead">
+      <div class="eyebrow">Catálogo de modelos</div><h2 class="th-title">Los 63 modelos, de un vistazo</h2>
+      <p class="th-sub">Consulta puntual sobre el catálogo completo: busca, filtra, compara en tabla. Localiza tu problema en la caja <b>«¿Qué pregunta responde?»</b>: cuando tu caso suene como esa pregunta, ese es tu modelo.</p>
+    </div>
+
+    <div class="diagram">
+      <div class="dt">Empieza directamente por tu pregunta de negocio</div>
+      <div class="branches" id="branches"></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" type="text" placeholder="Buscar modelo, caso de uso o palabra clave…" aria-label="Buscar modelo">
+        <kbd class="kbd" aria-hidden="true">/</kbd>
+      </div>
+      <div class="viewsw" id="viewsw">
+        <button class="vb active" data-view="idx" aria-pressed="true">☰ Índice</button>
+        <button class="vb" data-view="cards" aria-pressed="false">▦ Fichas</button>
+      </div>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="filtergroups">
+      <div class="fgroup"><span class="fgl">Familia</span><div class="filters" id="filtersFam"></div></div>
+      <div class="fgroup"><span class="fgl">Estado</span><div class="filters" id="filtersStatus"></div></div>
+    </div>
+
+    <div class="legend">
+      <span><span class="ld" style="background:var(--positive)"></span>Con notebook propio</span>
+      <span><span class="ld" style="background:var(--navy-3)"></span>Estudiado, sin notebook</span>
+      <span><span class="ld" style="background:var(--navy-4);border:1px solid var(--line)"></span>Pendiente</span>
+      <span style="margin-left:6px">La familia (📐 Supervisado · 🧠 Deep Learning · 🧩 No Supervisado · 📈 Series · 🎲 Probabilístico · 🕹️ Refuerzo · 🛒 Asociación · ⚡ Acelerador) se distingue por icono, no por color</span>
+    </div>
+
+    <div id="indexView"></div>
+    <div id="sections" class="hidden"></div>
+    <div class="nomatch hidden" id="nm">Sin resultados. Prueba otra palabra o pulsa «Todos».</div>
+
+    <!-- ── TABLA COMPARATIVA ── -->
+    <section class="tblsec" id="tblsec">
+      <div class="tblhead">
+        <div>
+          <h2 class="th-title">Tabla comparativa</h2>
+          <p class="th-sub" style="margin-bottom:0">Los cuatro atributos de decisión, uno al lado del otro. <b>Pulsa cualquier cabecera para ordenar.</b> La tabla respeta el buscador y los filtros de arriba. Escala: <span class="sym s-f">●</span> muy favorable · <span class="sym s-m">◑</span> intermedio · <span class="sym s-p">○</span> poco favorable · <span class="sym s-na">—</span> no aplica.</p>
+        </div>
+      </div>
+      <div class="tblwrap">
+        <table><thead><tr id="thr"></tr></thead><tbody id="tbody"></tbody></table>
+      </div>
+      <p class="note"><b>Nota de honestidad:</b> los valores marcados con <b>*</b> no vienen de la tabla del temario — son mi estimación razonada para modelos que las diapositivas no cubren (supervivencia, causalidad, SOM, LOF, recomendadores, topic modeling, series temporales, refuerzo y aceleradores). Trátalos como orientación, no como dato de clase.</p>
+    </section>
+
+    <div class="stats" id="stats"></div>
+    <div class="foot">Los cuatro atributos comparables parten del temario (diapositivas 5–8) y se corrigieron en la auditoría de octubre de 2026 donde contradecían la propia ficha (ver «Auditoría»).<br>Fuente de los enlaces: <a href="https://github.com/BORJAMOME/Data-Analytics-Portfolio" target="_blank" rel="noopener">github.com/BORJAMOME/Data-Analytics-Portfolio</a></div>
+  </section>
+  </main>
+
+  <!-- ── VISTA DE ESTUDIO (se activa por hash #modelo/id) ── -->
+  <article id="detail" class="hidden" tabindex="-1"></article>
+</div>
+
