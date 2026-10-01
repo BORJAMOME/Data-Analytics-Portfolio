@@ -1007,7 +1007,7 @@ VIZ.push({id:"v-lof", model:"lof", g:"model", ic:"🏙️", dim:"2D",
      rows.forEach(function(rw, q){ var yy = y0 + 52 + q * 24; tx(ctx, rw[0], px0, yy, {s:12, c:C.muted}); tx(ctx, rw[1], px0 + 160, yy, {s:12, w:700, c:q === 3 && mode === "lof" ? C.c[0] : C.ink, a:"right"}); });
      /* barras: densidad propia frente a la de su barrio */
      var bb = y0 + 186, mxl = Math.max(lrd[sel], lrdN);
-     cap(ctx, "Densidad: punto vs. barrio", px0, bb, C);
+     cap(ctx, "Densidad local", px0, bb, C);
      ctx.fillStyle = hexA(C.ink, 0.65); rrect(ctx, px0, bb + 12, Math.max(3, 160 * lrd[sel] / mxl), 12, 4); ctx.fill();
      tx(ctx, "el punto", px0, bb + 40, {s:11, c:C.muted});
      ctx.fillStyle = C.c[0]; rrect(ctx, px0, bb + 50, Math.max(3, 160 * lrdN / mxl), 12, 4); ctx.fill();
@@ -1032,6 +1032,141 @@ VIZ.push({id:"v-lof", model:"lof", g:"model", ic:"🏙️", dim:"2D",
    ctlSlider(ctl, "k (vecinos)", 3, 20, 1, k, function(v){ return v; }, function(v){ k = v; compute(); draw(); });
    ctlBtn(ctl, "★ Elegir el punto ★", function(){ sel = STAR; draw(); });
    compute(); draw();
+ }});
+
+/* ── 7. APRIORI / MARKET BASKET ──────────────────────────────── */
+VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
+ t:"Cesta de la compra: soporte, confianza y lift",
+ q:"¿Cómo se mide si dos productos se compran juntos «de verdad» y cómo evita Apriori contar todas las combinaciones?",
+ intro:"24 tickets de un supermercado y 8 productos. En <b>Reglas</b>, elige un antecedente A y un consecuente B: se resaltan los tickets con A y con A y B a la vez, y se calculan las métricas de la regla A → B. En <b>Retícula</b>, sube el soporte mínimo y mira cómo Apriori <b>poda</b> combinaciones sin llegar a contarlas. Todo se calcula de verdad sobre los tickets.",
+ notice:["La <b>confianza no es simétrica</b>: «de los que compran nachos, cuántos compran salsa» no es lo mismo que «de los que compran salsa, cuántos compran nachos». El <b>lift</b> sí es simétrico: compara lo que se compran juntos con lo que cabría esperar por azar.",
+   "Lift &gt; 1: se compran juntos <b>más</b> de lo esperable (asociación); ≈ 1: independientes; &lt; 1: se evitan. Una confianza alta con lift ≈ 1 solo dice que B es muy popular.",
+   "En la retícula, si un producto no llega al soporte mínimo, <b>ninguna</b> combinación que lo contenga puede llegar (propiedad apriori): se tacha y se poda sin contarla. Así se ahorra la mayor parte del trabajo."],
+ models:["apriori","reco"],
+ build:function(stage, ctl, read, C){
+   var PR = ["Pan", "Leche", "Nachos", "Salsa", "Cerveza", "Pañales", "Café", "Galletas"];
+   var IC = ["🥖", "🥛", "🌽", "🌶️", "🍺", "👶", "☕", "🍪"];
+   var TK = ["PLF", "NSC", "PL", "CÑ", "NSC", "FG", "PLG", "NS", "CÑN", "PFG", "LFG", "NSCÑ", "PLFG", "C", "PL", "NSC", "ÑCL", "FG", "PLF", "NC", "SNP", "LG", "CÑ", "PF"];
+   var code = "PLNSCÑFG";
+   var T = TK.map(function(s){ return PR.map(function(_, j){ return s.indexOf(code[j]) > -1 ? 1 : 0; }); });
+   var NT = T.length, A = 2, B = 3, view = "rules", minsup = 4;
+   var cnt = function(items){ return T.filter(function(t){ return items.every(function(j){ return t[j]; }); }).length; };
+   /* vista 1: lienzo */
+   var wrap1 = document.createElement("div"); wrap1.style.width = "100%"; stage.appendChild(wrap1);
+   var K = makeCanvas(wrap1, 760, 440, "Matriz de tickets y productos, diagrama de Venn y métricas de la regla"), ctx = K.ctx, W = 760, H = 440;
+   /* vista 2: retícula en HTML */
+   var wrap2 = document.createElement("div"); wrap2.style.cssText = "width:100%;display:none"; stage.appendChild(wrap2);
+   var mx0 = 92, cw = 26, rh = 22, my0 = 40;
+   function drawRules(){
+     K.clear();
+     var nA = cnt([A]), nB = cnt([B]), nAB = cnt([A, B]);
+     cap(ctx, "24 tickets (columnas) × 8 productos (filas)", 16, 20, C);
+     /* columnas resaltadas */
+     T.forEach(function(t, i){
+       var x = mx0 + i * cw;
+       if(t[A] && t[B]){ ctx.fillStyle = hexA(C.c[0], 0.22); rrect(ctx, x + 1, my0 - 4, cw - 2, rh * 8 + 8, 6); ctx.fill(); }
+       else if(t[A]){ ctx.fillStyle = hexA(C.c[0], 0.08); rrect(ctx, x + 1, my0 - 4, cw - 2, rh * 8 + 8, 6); ctx.fill(); }
+       tx(ctx, String(i + 1), x + cw / 2, my0 + rh * 8 + 18, {s:11, c:t[A] && t[B] ? C.ink : C.muted, w:t[A] && t[B] ? 700 : 400, a:"center"});
+     });
+     PR.forEach(function(p, j){
+       var y = my0 + j * rh, on = j === A || j === B;
+       tx(ctx, p, mx0 - 10, y + rh / 2 + 4, {s:12, w:on ? 700 : 400, c:on ? C.ink : C.text, a:"right"});
+       if(on){ tx(ctx, j === A ? "A" : "B", 14, y + rh / 2 + 4, {s:11, w:700, c:j === A ? C.c[1] : C.c[2]}); }
+       T.forEach(function(t, i){
+         var x = mx0 + i * cw + cw / 2, yy = y + rh / 2;
+         if(t[j]){ var cc = j === A ? C.c[1] : j === B ? C.c[2] : hexA(C.ink, 0.35); ctx.fillStyle = cc; rrect(ctx, x - 7, yy - 7, 14, 14, 4); ctx.fill(); }
+         else { ctx.fillStyle = hexA(C.line, 0.9); ctx.fillRect(x - 1.5, yy - 1.5, 3, 3); }
+       });
+     });
+     tx(ctx, "ticket nº", mx0 - 10, my0 + rh * 8 + 18, {s:11, c:C.muted, a:"right"});
+     /* Venn proporcional */
+     var vy = 256, vb = [16, vy + 22, 330, 150];
+     cap(ctx, "Venn proporcional (área = nº de tickets)", 16, vy + 10, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; rrect(ctx, vb[0] + .5, vb[1] + .5, vb[2], vb[3], 8); ctx.stroke();
+     tx(ctx, "los 24 tickets", vb[0] + vb[2] - 8, vb[1] + 16, {s:11, c:C.muted, a:"right"});
+     var unit = (vb[2] * vb[3]) / NT * 0.62, rA = Math.sqrt(nA * unit / Math.PI), rB = Math.sqrt(nB * unit / Math.PI);
+     var inter = function(d){ if(d >= rA + rB) return 0; if(d <= Math.abs(rA - rB)) return Math.PI * Math.min(rA, rB) * Math.min(rA, rB);
+       var a1 = rA * rA * Math.acos((d * d + rA * rA - rB * rB) / (2 * d * rA)), a2 = rB * rB * Math.acos((d * d + rB * rB - rA * rA) / (2 * d * rB));
+       return a1 + a2 - 0.5 * Math.sqrt((-d + rA + rB) * (d + rA - rB) * (d - rA + rB) * (d + rA + rB)); };
+     var target = nAB * unit, lo = Math.abs(rA - rB), hi = rA + rB;
+     for(var it = 0; it < 50; it++){ var mid = (lo + hi) / 2; if(inter(mid) > target) lo = mid; else hi = mid; }
+     var d = nAB === 0 ? rA + rB + 6 : (lo + hi) / 2, cx = vb[0] + vb[2] / 2 - 10, cy = vb[1] + vb[3] / 2 + 6;
+     var xA = cx - d / 2, xB = cx + d / 2;
+     ctx.beginPath(); ctx.arc(xA, cy, rA, 0, 7); ctx.fillStyle = hexA(C.c[1], 0.28); ctx.fill(); ctx.strokeStyle = C.c[1]; ctx.lineWidth = 1.6; ctx.stroke();
+     ctx.beginPath(); ctx.arc(xB, cy, rB, 0, 7); ctx.fillStyle = hexA(C.c[2], 0.28); ctx.fill(); ctx.strokeStyle = C.c[2]; ctx.stroke();
+     tx(ctx, PR[A] + " (" + nA + ")", xA - rA - 6, cy - rA * 0.6, {s:12, w:700, c:C.ink, a:"right"});
+     tx(ctx, PR[B] + " (" + nB + ")", xB + rB + 6, cy - rB * 0.6, {s:12, w:700, c:C.ink});
+     if(nAB) tx(ctx, String(nAB), (Math.max(xA - rA, xB - rB) + Math.min(xA + rA, xB + rB)) / 2, cy + 5, {s:13, w:700, c:C.ink, a:"center"});
+     /* métricas */
+     var supAB = nAB / NT, cAB = nA ? nAB / nA : 0, cBA = nB ? nAB / nB : 0, lift = nA && nB ? nAB * NT / (nA * nB) : 0;
+     var mx = 400, mw = 230;
+     cap(ctx, "Métricas de la regla", mx, vy + 10, C);
+     var rows = [["Soporte(A y B)", supAB, nAB + "/" + NT], ["Confianza A → B", cAB, nAB + "/" + nA], ["Confianza B → A", cBA, nAB + "/" + nB]];
+     rows.forEach(function(rw, q){
+       var y = vy + 34 + q * 34;
+       tx(ctx, rw[0], mx, y, {s:12, c:C.text});
+       tx(ctx, pct(rw[1], 0) + "  (" + rw[2] + ")", mx + mw + 110, y, {s:12, w:700, c:C.ink, a:"right"});
+       ctx.fillStyle = hexA(C.line, 0.9); rrect(ctx, mx, y + 6, mw + 110, 7, 3.5); ctx.fill();
+       ctx.fillStyle = C.c[0]; rrect(ctx, mx, y + 6, Math.max(4, (mw + 110) * rw[1]), 7, 3.5); ctx.fill();
+     });
+     var y = vy + 34 + 3 * 34, lmax = 4, lx = function(v){ return mx + Math.min(v, lmax) / lmax * (mw + 110); };
+     tx(ctx, "Lift (simétrico)", mx, y, {s:12, c:C.text});
+     tx(ctx, fmt(lift, 2) + (lift > 1.15 ? "  ▲ asociados" : lift < 0.85 ? "  ▼ se evitan" : "  ≈ independientes"), mx + mw + 110, y, {s:12, w:700, c:lift > 1.15 ? C.pos : lift < 0.85 ? C.neg : C.ink, a:"right"});
+     ctx.fillStyle = hexA(C.line, 0.9); rrect(ctx, mx, y + 6, mw + 110, 7, 3.5); ctx.fill();
+     ctx.fillStyle = lift >= 1 ? C.pos : C.neg; var a1 = lx(Math.min(1, lift)), a2 = lx(Math.max(1, lift)); ctx.fillRect(a1, y + 6, Math.max(2, a2 - a1), 7);
+     seg(ctx, lx(1), y + 1, lx(1), y + 18, C.ink, 1.4, [3, 2]); tx(ctx, "1 = azar", lx(1), y + 30, {s:11, c:C.muted, a:"center"});
+     tx(ctx, "4+", mx + mw + 110, y + 30, {s:11, c:C.muted, a:"right"});
+     read.innerHTML = '<span>Tickets con ' + PR[A] + ' <b>' + nA + '</b></span><span>con ' + PR[B] + ' <b>' + nB + '</b></span><span>con los dos <b>' + nAB + '</b></span>' +
+       '<span>Confianza ' + PR[A] + ' → ' + PR[B] + ' <b>' + pct(cAB, 0) + '</b></span><span>' + PR[B] + ' → ' + PR[A] + ' <b>' + pct(cBA, 0) + '</b></span><span>Lift <b>' + fmt(lift, 2) + '</b></span>' +
+       '<span class="ldiag">' + (A === B ? "Elige dos productos distintos." :
+         "Si fueran independientes, esperaríamos " + fmt(nA * nB / NT, 1) + " tickets con los dos; hay <b>" + nAB + "</b>. Lift = " + nAB + " / " + fmt(nA * nB / NT, 1) + " = <b>" + fmt(lift, 2) + "</b>, " +
+         (lift > 1.15 ? "<b class='lgood'>▲ se compran juntos más de lo esperable</b>: candidato a promoción cruzada o a colocarlos cerca." : lift < 0.85 ? "<b class='lbad'>▼ se compran juntos menos de lo esperable</b>." : "prácticamente lo que daría el azar.") +
+         " Es el mismo número para A → B que para B → A; la confianza, no.") + '</span>';
+   }
+   /* retícula */
+   function combos(k){ var out = []; (function rec(st, cur){ if(cur.length === k){ out.push(cur.slice()); return; } for(var j = st; j < 8; j++){ cur.push(j); rec(j + 1, cur); cur.pop(); } })(0, []); return out; }
+   var LV = [combos(1), combos(2), combos(3)];
+   function drawLattice(){
+     var freq = {}, status = [], counted = 0, pruned = 0, key = function(c){ return c.join(","); };
+     LV.forEach(function(level, k){
+       status.push(level.map(function(c){
+         var subsOk = k === 0 || c.every(function(_, q){ var sub = c.slice(0, q).concat(c.slice(q + 1)); return freq[key(sub)]; });
+         if(!subsOk){ pruned++; return {c:c, st:"pruned"}; }
+         counted++; var n = cnt(c);
+         if(n >= minsup){ freq[key(c)] = true; return {c:c, st:"freq", n:n}; }
+         return {c:c, st:"infreq", n:n};
+       }));
+     });
+     var chipH = function(o){
+       var label = o.c.map(function(j){ return IC[j]; }).join(""), title = o.c.map(function(j){ return PR[j]; }).join(" + ");
+       var base = "display:inline-flex;align-items:center;gap:5px;padding:4px 9px;margin:3px;border-radius:9px;font-size:13px;line-height:1.3;";
+       if(o.st === "freq") return '<span title="' + title + '" style="' + base + 'background:' + hexA(C.c[0], 0.16) + ';border:1px solid ' + hexA(C.c[0], 0.75) + ';color:' + C.ink + '">' + label + ' <b style="font-size:11.5px">' + o.n + '</b></span>';
+       if(o.st === "infreq") return '<span title="' + title + ' (contado: no llega)" style="' + base + 'background:' + hexA(C.muted, 0.08) + ';border:1px solid ' + hexA(C.muted, 0.5) + ';color:' + C.muted + ';text-decoration:line-through">' + label + ' <span style="font-size:11.5px">' + o.n + '</span></span>';
+       return '<span title="' + title + ' (podado sin contar)" style="' + base + 'border:1px dashed ' + hexA(C.muted, 0.45) + ';opacity:.38;color:' + C.muted + '">' + label + '</span>';
+     };
+     var leg = '<div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:' + C.text + ';margin:2px 0 10px">' + PR.map(function(p, j){ return '<span>' + IC[j] + ' ' + p + '</span>'; }).join("") + '</div>';
+     var key2 = '<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:' + C.muted + ';margin-bottom:6px">' +
+       chipH({c:[0], st:"freq", n:"n"}).replace("🥖", "frecuente") + chipH({c:[0], st:"infreq", n:"n"}).replace("🥖", "contado, no llega") + chipH({c:[0], st:"pruned"}).replace("🥖", "podado sin contar") + '</div>';
+     wrap2.innerHTML = '<div style="background:' + C.card + ';border:.5px solid ' + C.line + ';border-radius:16px;padding:16px 18px;box-shadow:var(--shadow-1)">' + leg + key2 +
+       ["1 producto", "2 productos", "3 productos"].map(function(t, k){
+         var f = status[k].filter(function(o){ return o.st === "freq"; }).length;
+         return '<div style="margin-top:10px"><div class="lcl" style="margin-bottom:4px">' + t + ' · ' + LV[k].length + ' combinaciones · <span style="color:' + C.ink + '">' + f + ' frecuentes</span></div><div>' + status[k].map(chipH).join("") + '</div></div>';
+       }).join("") + '</div>';
+     var total = LV[0].length + LV[1].length + LV[2].length;
+     read.innerHTML = '<span>Soporte mínimo <b>' + minsup + ' tickets (' + pct(minsup / NT, 0) + ')</b></span><span>Combinaciones posibles <b>' + total + '</b></span><span>Contadas <b>' + counted + '</b></span><span>Podadas sin contar <b>' + pruned + '</b></span>' +
+       '<span class="ldiag">Apriori solo cuenta una combinación si <b>todas</b> sus partes ya eran frecuentes. Con este umbral se ahorra contar el <b>' + pct(pruned / total, 0) + '</b> de las combinaciones de 1 a 3 productos. En un supermercado real, con miles de productos, ese ahorro es lo que hace posible el cálculo.</span>';
+   }
+   function draw(){ if(view === "rules") drawRules(); else drawLattice(); }
+   ctlSeg(ctl, "Vista", [["rules", "Reglas A → B"], ["lat", "Retícula de itemsets"]], view, function(v){
+     view = v; wrap1.style.display = v === "rules" ? "" : "none"; wrap2.style.display = v === "rules" ? "none" : "";
+     var sw = stage.parentNode.querySelector(".labswipe"); if(sw) sw.style.visibility = v === "rules" ? "" : "hidden";
+     ruleCtl.forEach(function(e){ e.style.display = v === "rules" ? "" : "none"; }); supCtl.style.display = v === "rules" ? "none" : ""; draw(); });
+   var ruleCtl = [
+     ctlSeg(ctl, "Antecedente A (si compra…)", PR.map(function(p, j){ return [j, IC[j] + " " + p]; }), A, function(v){ A = +v; draw(); }),
+     ctlSeg(ctl, "Consecuente B (…¿compra también?)", PR.map(function(p, j){ return [j, IC[j] + " " + p]; }), B, function(v){ B = +v; draw(); })];
+   var supCtl = ctlSlider(ctl, "Soporte mínimo (nº de tickets)", 1, 10, 1, minsup, function(v){ return v + " de 24 · " + pct(v / NT, 0); }, function(v){ minsup = v; draw(); }).input.parentNode;
+   supCtl.style.display = "none";
+   draw();
  }});
 
 })();
