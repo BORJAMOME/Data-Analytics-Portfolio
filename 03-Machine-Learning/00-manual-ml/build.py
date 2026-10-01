@@ -77,4 +77,12 @@ if __name__ == "__main__":
     elif len(sys.argv) > 2 and sys.argv[1] == "--harness":
         harness(sys.argv[2])
     else:
-        build(os.path.join(HERE, "ml_manual_modelos.html"))
+        out = os.path.join(HERE, "ml_manual_modelos.html")
+        build(out)
+        # Copia para GitHub Pages (Settings > Pages > main /docs): https://borjamome.github.io/Data-Analytics-Portfolio/
+        docs = os.path.join(HERE, "..", "..", "docs")
+        os.makedirs(docs, exist_ok=True)
+        with open(out, encoding="utf-8") as f, open(os.path.join(docs, "index.html"), "w", encoding="utf-8") as g:
+            g.write(f.read())
+        open(os.path.join(docs, ".nojekyll"), "w").close()
+        print("Pages ->", os.path.normpath(os.path.join(docs, "index.html")))

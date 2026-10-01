@@ -2,7 +2,9 @@
 
 Manual visual e interactivo de Machine Learning para analistas de datos: **63 modelos** explicados de lo intuitivo a lo técnico, con un **visual interactivo propio por modelo** (2D y 3D), **casos reales de negocio**, laboratorios, fundamentos, glosario y un asistente para elegir modelo.
 
-**Abrir:** descarga [`ml_manual_modelos.html`](ml_manual_modelos.html) y ábrelo en el navegador. Es un único archivo; los visuales 3D cargan three.js desde CDN la primera vez.
+**Enlace web (GitHub Pages):** https://borjamome.github.io/Data-Analytics-Portfolio/ (se activa en *Settings → Pages → Branch: main, carpeta /docs*).
+
+**En local:** descarga [`ml_manual_modelos.html`](ml_manual_modelos.html) y ábrelo en el navegador. Es un único archivo; los visuales 3D cargan three.js desde CDN la primera vez.
 
 ## Cómo está organizada cada ficha
 
@@ -32,7 +34,7 @@ La sección **Auditoría** del propio manual recoge qué se revisó y corrigió 
     └── app.js         catálogo de modelos, fichas, rutas, asistente y buscador (Ctrl + K)
 ```
 
-Para regenerar el HTML tras editar `src/`:
+Para regenerar el HTML tras editar `src/` (actualiza también `docs/index.html`, que es lo que publica GitHub Pages):
 
 ```bash
 python3 build.py
