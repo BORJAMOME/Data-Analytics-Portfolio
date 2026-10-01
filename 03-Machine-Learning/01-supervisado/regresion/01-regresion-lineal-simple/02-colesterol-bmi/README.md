@@ -1,16 +1,16 @@
 # Regresión Lineal Simple — Predicción del colesterol
 
-¿Es posible estimar el nivel de colesterol de un paciente únicamente a partir de su Índice de Masa Corporal (BMI)? En este proyecto se analiza esta hipótesis mediante un modelo de regresión lineal simple entrenado con datos de 50 pacientes.
+¿Se puede estimar el colesterol de un paciente solo con su índice de masa corporal (BMI)? Lo pruebo con una regresión lineal simple sobre 50 pacientes.
 
-El modelo consigue explicar aproximadamente el **97 % de la variabilidad del colesterol** utilizando únicamente el BMI. Aunque se evaluaron modelos más complejos, se optó por el modelo simple por su buen equilibrio entre precisión, interpretabilidad y robustez.
+El BMI solo explica cerca del 97 % de la variación del colesterol. Probé modelos más complejos, pero me quedo con el simple porque es igual de preciso, se entiende mejor y es más estable. Eso sí, un resultado así en datos de salud es demasiado bueno para ser real, y lo comento más abajo.
 
 ---
 
 ## Contexto de negocio
 
-Un centro de salud desea disponer de una herramienta sencilla que permita realizar una estimación rápida del colesterol de un paciente a partir de una medición fácilmente obtenible como el **Índice de Masa Corporal (BMI)**.
+Un centro de salud quiere una herramienta sencilla para estimar rápido el colesterol de un paciente a partir de algo tan fácil de medir como el índice de masa corporal (BMI).
 
-El objetivo es comprobar si esta variable, por sí sola, proporciona suficiente capacidad predictiva para apoyar la toma de decisiones clínicas.
+La pregunta es si esa variable, sola, predice lo bastante bien como para ayudar en decisiones clínicas.
 
 ---
 
@@ -18,7 +18,7 @@ El objetivo es comprobar si esta variable, por sí sola, proporciona suficiente 
 
 **patient_health.csv**
 
-Contiene información de **50 pacientes**, incluyendo las siguientes variables:
+50 pacientes con estas variables:
 
 - Edad (`age`)
 - Índice de Masa Corporal (`bmi`)
@@ -48,26 +48,27 @@ Contiene información de **50 pacientes**, incluyendo las siguientes variables:
 
 ## Hallazgo principal
 
-El modelo de regresión lineal simple basado únicamente en el **BMI** obtiene un **R² ≈ 0.97**, explicando la mayor parte de la variabilidad del colesterol. Aunque los modelos múltiples alcanzan un R² ligeramente superior, presentan problemas graves de multicolinealidad. Por ello, se selecciona el modelo simple como solución final por ser más estable, interpretable y suficientemente preciso.
+La regresión simple con el BMI llega a un R² de 0,97. Los modelos múltiples suben un poco más, pero tienen una multicolinealidad muy grave, así que me quedo con el simple: es más estable, se interpreta mejor y ya es preciso de sobra.
 
 ---
 
 ## Resultados
 
 - **Variable predictora:** BMI
-- **R² (Train):** 0.9698
-- **R² (Test):** 0.9814
-- **MAE (Test):** 4.84 unidades de colesterol
-- **RMSE (Test):** 5.82 unidades de colesterol
-- **MAPE (Test):** 2.17 %
+- **R² (train):** 0,9698
+- **R² (test):** 0,9814
+- **MAE (test):** 4,84 unidades de colesterol
+- **RMSE (test):** 5,82 unidades de colesterol
+- **MAPE (test):** 2,17 %
 
 ---
 
 ## Conclusiones
 
-- El BMI es un predictor muy sólido del colesterol en este conjunto de datos.
-- El modelo generaliza correctamente y no presenta evidencias de sobreajuste.
-- Los modelos múltiples mejoran ligeramente la precisión, pero introducen problemas importantes de multicolinealidad.
-- En este caso, un modelo sencillo ofrece una excelente capacidad predictiva y una interpretación mucho más clara.
+- En estos datos, el BMI predice muy bien el colesterol.
+- El modelo generaliza bien y no hay señales de sobreajuste.
+- Los modelos múltiples ganan un poco de precisión a cambio de una multicolinealidad seria.
+- Aquí un modelo sencillo predice igual de bien y se explica mucho mejor.
+- **Pero no me fiaría de estas cifras fuera del ejercicio.** Todas las variables se correlacionan entre sí por encima de 0,94, algo que no pasa con pacientes reales. Tiene toda la pinta de ser un dataset sintético, y con datos clínicos reales el BMI explicaría bastante menos.
 
 

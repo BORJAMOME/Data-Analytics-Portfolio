@@ -1,12 +1,12 @@
 # SVM — Propensión de compra de iPhone
 
-Support Vector Classifier con kernels linear, polynomial y RBF: cuando la frontera entre comprar y no comprar no es una recta.
+Support Vector Classifier con kernel lineal, polinómico y RBF, para un caso en el que la frontera entre comprar y no comprar no es una recta.
 
 ---
 
 ## Contexto de negocio
 
-Un e-commerce de tecnología quiere anticipar qué clientes son propensos a comprar un iPhone a partir de sus ingresos y su fidelidad tecnológica. La frontera entre "compra" y "no compra" no es lineal — se compara el mismo problema con tres kernels distintos.
+Un e-commerce de tecnología quiere saber qué clientes tienen más papeletas de comprar un iPhone, usando sus ingresos y su fidelidad a la marca. Como la frontera entre comprar y no comprar no es lineal, pruebo el mismo problema con tres kernels.
 
 ## Dataset
 
@@ -14,14 +14,14 @@ Sintético (233 clientes): Score_Fidelidad, Ingresos_Mensuales y Compra_iPhone (
 
 ## Técnicas aplicadas
 
-- SVC con 3 kernels (linear, polynomial, RBF) + comparativa
-- Estandarización obligatoria para SVM
+- SVC con 3 kernels (lineal, polinómico y RBF) y comparación entre ellos
+- Estandarización, que en SVM no es opcional
 - `classification_report` (precision, recall, f1-score) para evaluar cada kernel
 - Visualización de la frontera de decisión sobre los datos originales
 
 ## Hallazgo clave
 
-> El kernel polinómico (grado 2) obtiene el mejor resultado, con un 98% de accuracy, seguido del RBF (97%) y el lineal (93%). Los kernels no lineales capturan mejor la combinación entre ingresos y fidelidad que separa a compradores de no compradores.
+> Gana el kernel polinómico de grado 2, con un 98% de accuracy, por delante del RBF (97%) y el lineal (93%). Los kernels no lineales recogen mejor cómo se combinan ingresos y fidelidad para separar a quien compra de quien no. Con 233 clientes sintéticos y dos variables, lo tomo como un ejercicio y no como un modelo para producción.
 
 
 

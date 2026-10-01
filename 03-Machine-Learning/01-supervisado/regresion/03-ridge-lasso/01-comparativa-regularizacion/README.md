@@ -1,16 +1,16 @@
 # Ridge y Lasso — Estimación del precio de viviendas
 
-Comparación de **Ridge y Lasso** para estimar el precio de viviendas y analizar cómo la regularización afecta a los coeficientes del modelo.
+Comparo Ridge y Lasso para estimar el precio de viviendas y ver qué hace la regularización con los coeficientes.
 
 ---
 
 ## Contexto de negocio
 
-Una inmobiliaria necesita estimar el precio de una vivienda a partir de sus características. Ridge y Lasso permiten controlar la complejidad del modelo y mejorar su capacidad de generalización.
+Una inmobiliaria quiere estimar el precio de una vivienda a partir de sus características. Ridge y Lasso frenan la complejidad del modelo para que generalice mejor.
 
 ## Dataset
 
-Dataset sintético inspirado en viviendas de una ciudad mediana española.
+Dataset sintético de 200 viviendas, inspirado en Vigo.
 
 **Variables:** metros, habitaciones, baños, edad, distancia al centro y garaje.
 
@@ -33,4 +33,6 @@ Dataset sintético inspirado en viviendas de una ciudad mediana española.
 
 ### Hallazgo clave
 
-> **Lasso obtiene el mejor resultado**, aunque la diferencia respecto a Ridge es muy pequeña (menos de 0,2 puntos de R²). Los metros son, con diferencia, la variable con mayor peso en el precio. Lasso mantiene las 6 variables, pero reduce y estabiliza sus coeficientes.
+> Lasso gana por muy poco: la diferencia con Ridge es de 0,2 puntos de R², que en la práctica es un empate. Los metros son, con diferencia, lo que más pesa en el precio. Lasso no elimina ninguna de las 6 variables; solo reduce sus coeficientes.
+>
+> Con 6 variables y 200 viviendas, la regularización tiene poco que hacer. Donde se nota de verdad es con decenas de variables correlacionadas.

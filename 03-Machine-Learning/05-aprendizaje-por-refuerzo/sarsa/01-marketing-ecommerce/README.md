@@ -2,11 +2,11 @@
 
 ## Contexto de negocio
 
-Una plataforma de e-commerce lanza campañas de marketing de forma homogénea a toda su base de clientes, sin distinguir entre un cliente activo que no necesita incentivos y un cliente en riesgo que necesita un descuento para no perderse. Las decisiones manuales son inconsistentes y no optimizan el valor a largo plazo del cliente.
+Un e-commerce manda las mismas campañas a todos sus clientes. Trata igual al cliente activo, que no necesita ningún incentivo, que al que está a punto de irse y a lo mejor volvería con un descuento. Cuando se decide a mano, cada uno hace una cosa y nadie piensa en el valor del cliente a largo plazo.
 
 ## Dataset
 
-Entorno simulado (MDP determinista) con 4 estados de ciclo de vida del cliente (Nuevo, Activo, Riesgo, Inactivo) y 4 acciones de marketing (Sin acción, Email, Descuento, Contactar). Las 16 transiciones y recompensas están definidas por la tabla del enunciado del ejercicio.
+Entorno simulado (un MDP determinista) con 4 fases del cliente (nuevo, activo, en riesgo, inactivo) y 4 acciones de marketing (nada, email, descuento, contacto directo). Las 16 transiciones y recompensas vienen de la tabla del enunciado.
 
 ## Técnicas aplicadas
 
@@ -17,7 +17,7 @@ Entorno simulado (MDP determinista) con 4 estados de ciclo de vida del cliente (
 
 ## Hallazgo clave
 
-El agente aprende la política óptima en los **4 estados**, verificada contra Q\*: email de bienvenida para nuevos, no intervención para activos, y descuento exclusivamente como herramienta de recuperación (riesgo e inactivos). La política SARSA mejora la recompensa acumulada un **+92%** frente a una política aleatoria. El principio descubierto: **los descuentos son para recuperar clientes, no para retener a los que ya compran**.
+El agente aprende la política óptima en los **4 estados**, y lo compruebo contra Q\*: email de bienvenida para los nuevos, no tocar a los activos y descuento solo para recuperar a los que están en riesgo o inactivos. Frente a elegir al azar, la recompensa acumulada sube un **92%**. La idea que se lleva uno: **los descuentos sirven para recuperar clientes, no para retener a los que ya compran**.
 
 
 ## Stack

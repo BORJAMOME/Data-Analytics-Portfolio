@@ -8,33 +8,34 @@ cerca en el lineal, qué combos promocionar y qué recomendar en caja o en la ap
 10.000 transacciones simuladas (`transaction_id`, `items`, `n_items`), 25 productos.
 
 ## Técnicas aplicadas
-- Cálculo manual de **support, confidence y lift** para pares de productos, para entender
+- **Support, confidence y lift** calculados a mano para pares de productos, para entender
   la matemática antes de usar una librería.
-- Algoritmo **Apriori** (`mlxtend`) sobre codificación one-hot (`TransactionEncoder`) para
-  encontrar conjuntos frecuentes de 3 o más productos — inabordable a mano por el número
-  de combinaciones posibles.
-- Visualización interactiva de las reglas filtradas (Support vs Confidence, tamaño = Lift)
-  con Plotly.
+- **Apriori** (`mlxtend`) sobre codificación one-hot (`TransactionEncoder`) para encontrar
+  conjuntos frecuentes de 3 o más productos, que a mano serían imposibles por la cantidad
+  de combinaciones.
+- Gráfico interactivo de las reglas filtradas con Plotly (support frente a confidence, con
+  el tamaño según el lift).
 
-## Bugs corregidos del notebook original
-El notebook de partida tenía dos errores reales que invalidaban los resultados, no solo
-problemas de formato:
-- **Conteo de pares silenciosamente incompleto:** el bucle que genera las combinaciones de
-  productos estaba desindentado fuera del bucle que recorre las transacciones, así que solo
-  se ejecutaba una vez con la última transacción procesada (devolvía 28 pares en vez de los
-  300 reales — todas las combinaciones de los 25 productos).
-- **Construcción rota del DataFrame de reglas:** `pd.DataFrame(rules.append)` pasaba el
-  propio método `.append` como dato en vez de la lista de reglas ya construida, lo que
-  lanzaba `ValueError: DataFrame constructor not properly called!`.
-
-Corregido, el conteo real da 300 pares y 6 reglas por encima de los umbrales de negocio
-(support ≥ 0.08, confidence ≥ 0.35, lift ≥ 1.15) — con **Pasta → Salsa de Tomate** (lift 1.94)
-como la asociación más fuerte del catálogo.
+## Dos errores del notebook de partida
+El notebook del que partí tenía dos fallos que invalidaban los resultados:
+- **El conteo de pares se quedaba corto sin avisar.** El bucle que genera las combinaciones
+  estaba fuera del bucle que recorre las transacciones por un problema de sangría, así que
+  solo se ejecutaba con la última transacción. Salían 28 pares en vez de los 300 que hay
+  (todas las combinaciones de 25 productos).
+- **El DataFrame de reglas no se construía.** `pd.DataFrame(rules.append)` pasaba el método
+  `.append` en vez de la lista de reglas, y saltaba
+  `ValueError: DataFrame constructor not properly called!`.
 
 ## Hallazgo clave
-Con Apriori aparecen 118 reglas que combinan 3 o más productos, algo que el enfoque manual
-de pares nunca podría detectar (p. ej. `{Pan, Pan_Tostado} → {Mantequilla}`, lift 2.16):
-el valor de Apriori está precisamente en escalar a combinaciones que a mano son inviables.
+De los 300 pares posibles, 8 pasan los umbrales de negocio (support ≥ 0,08, confidence ≥ 0,35,
+lift ≥ 1,15). La asociación más fuerte es **Pasta → Salsa de Tomate** (lift 1,94).
+
+Hay que mirar la dirección de cada regla. Si solo se comprueba en orden alfabético, se pierden
+dos reglas buenas, **Yogur → Fruta** y **Galletas → Café**.
+
+Con Apriori salen 118 reglas de 3 o más productos, y 49 superan el mismo umbral de confianza.
+La más fuerte es `{Pan, Pan_Tostado} → {Mantequilla}` (lift 2,16), que con pares nunca habría
+aparecido. Para eso sirve Apriori: para combinaciones que a mano no se pueden revisar.
 
 ## Stack
 `pandas` · `numpy` · `matplotlib` · `plotly` · `mlxtend`

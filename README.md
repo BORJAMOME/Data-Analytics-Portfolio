@@ -1,7 +1,6 @@
 # Data Analytics Portfolio
 
-Portfolio de proyectos de datos desarrollados durante el bootcamp de Data Analytics.
-SQL, Python, Machine Learning e Inteligencia Artificial aplicados a casos reales de negocio.
+Proyectos de datos que he hecho durante el bootcamp de Data Analytics: SQL, Python, Machine Learning e Inteligencia Artificial, siempre sobre un caso de negocio concreto.
 
 **Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
 
@@ -17,7 +16,7 @@ Data-Analytics-Portfolio/
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
 
-Cada carpeta principal tiene su propio README con la lista de proyectos, técnicas aplicadas y accesos directos.
+Cada carpeta tiene su propio README con la lista de proyectos y las técnicas que usa cada uno.
 
 ---
 
@@ -25,7 +24,7 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [01 · SQL](01-SQL/)
 
-**3 proyectos analíticos** con T-SQL y SQL Server: CTEs, Window Functions (ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD), subqueries correlacionadas, PERCENTILE_CONT, sumas acumuladas y ejercicio tipo entrevista técnica.
+3 proyectos con T-SQL y SQL Server: CTEs, Window Functions (ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD), subqueries correlacionadas, PERCENTILE_CONT, sumas acumuladas y un ejercicio tipo entrevista técnica.
 
 **Stack:** T-SQL, SQL Server Management Studio, AdventureWorks2025.
 
@@ -39,7 +38,7 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [02 · Python](02-Python/)
 
-**4 casos de negocio + 4 manuales de referencia.** Análisis exploratorio con storytelling completo (comercial, educación, seguros, restauración) y manuales pedagógicos de Pandas, NumPy y Matplotlib.
+4 análisis exploratorios sobre casos de negocio (comercial, educación, seguros y restauración) y 4 manuales de referencia de Pandas, NumPy y Matplotlib.
 
 **Stack:** pandas, numpy, matplotlib, seaborn.
 
@@ -47,11 +46,11 @@ Cada carpeta principal tiene su propio README con la lista de proyectos, técnic
 
 ### [03 · Machine Learning](03-Machine-Learning/)
 
-**41 casos prácticos** de ML organizados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, SOM), series temporales (ARIMA) y aprendizaje por refuerzo (SARSA).
+41 casos de ML ordenados por tipo de aprendizaje y familia de modelo: regresión, clasificación, clustering, PCA, t-SNE, redes neuronales (MLP, SOM), series temporales (ARIMA) y aprendizaje por refuerzo (SARSA).
 
 **Stack:** scikit-learn, TensorFlow/Keras, XGBoost, minisom, statsmodels, pmdarima.
 
-Cinco casos — con negocio, modelo y despliegue — tienen además una app interactiva en producción:
+Cinco de ellos los he llevado hasta el final y tienen una app interactiva publicada:
 
 | Proyecto | Qué se aprende | App en vivo |
 |----------|---------------|--------------|
@@ -64,7 +63,7 @@ Cinco casos — con negocio, modelo y despliegue — tienen además una app inte
 **[Ver los 41 proyectos →](03-Machine-Learning/)**
 
 ### [04 · IA & Big Data](04-IA-BigData/)
-Agentes de IA, sistemas de recomendación, APIs externas con visualización interactiva, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. La integración con LLMs (OpenAI, Anthropic, Groq, Ollama vía LangChain) está planificada como próxima incorporación.
+Agentes de IA, sistemas de recomendación, APIs externas con mapas interactivos, minería de datos, visión artificial y procesamiento distribuido con Apache Spark. Lo siguiente que quiero añadir es la integración con LLMs (OpenAI, Anthropic, Groq y Ollama vía LangChain).
 
 **Stack:** scikit-learn (TF-IDF, similitud coseno), ipyleaflet, mlxtend, ultralytics (YOLOv8), ByteTrack, PySpark (Spark SQL, MLlib).
 

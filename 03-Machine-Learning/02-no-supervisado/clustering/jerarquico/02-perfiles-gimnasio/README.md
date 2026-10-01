@@ -1,10 +1,10 @@
 # Clustering Jerárquico — Caso avanzado (gimnasio, 2 variables)
 
 ## Contexto de negocio
-Un gimnasio quiere identificar perfiles de miembros usando Antigüedad y Gasto Extra para diseñar ofertas de retención.
+Un gimnasio quiere encontrar perfiles de socio a partir de dos variables, la antigüedad y el gasto en extras, para diseñar ofertas de retención.
 
 ## Dataset
-`gym_clientes.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx`: 300 registros y 7 variables.
 
 ## Técnicas aplicadas
 - StandardScaler antes de clustering
@@ -13,6 +13,6 @@ Un gimnasio quiere identificar perfiles de miembros usando Antigüedad y Gasto E
 - Cross-check con variables Abandono y Satisfecho
 
 ## Hallazgo clave
-Los clusters de 2 variables ya capturan diferencias en tasas de abandono, validando que el comportamiento de gasto predice el riesgo.
+Con solo 2 variables los clusters ya muestran tasas de abandono distintas, así que el gasto en extras dice algo sobre el riesgo de baja.
 
 

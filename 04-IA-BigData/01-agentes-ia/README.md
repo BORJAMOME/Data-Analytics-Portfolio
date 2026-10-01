@@ -1,8 +1,9 @@
 # Agentes IA
 
-Progresión de agentes conversacionales: de un motor de reglas explícito, sin ningún
-modelo de lenguaje, hacia sistemas que incorporan similitud semántica y, más adelante,
-un LLM real — cada nivel sirve de línea base para medir cuánto aporta el siguiente.
+Una serie de agentes conversacionales que va de un motor de reglas, sin ningún modelo
+de lenguaje, a sistemas con similitud semántica y, más adelante, un LLM de verdad. Cada
+nivel sirve de referencia para medir cuánto aporta el siguiente. De momento solo está
+hecho el primero.
 
 ## Proyectos
 

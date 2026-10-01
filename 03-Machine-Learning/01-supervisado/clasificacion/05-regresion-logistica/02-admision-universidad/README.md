@@ -1,16 +1,16 @@
 # Regresión Logística — Admisión universitaria
 
-Con solo **dos variables** es posible construir un modelo que clasifica correctamente el **99% de los candidatos**. Este proyecto muestra cómo la Regresión Logística combina capacidad predictiva e interpretabilidad en un problema de clasificación binaria.
+Con solo dos variables, el modelo clasifica bien al 99% de los candidatos. Es un buen ejemplo de regresión logística que predice y a la vez se puede explicar, aunque con un resultado tan limpio hay que sospechar de los datos (lo comento abajo).
 
 ---
 
 ## Contexto de negocio
 
-Un departamento de admisiones universitarias recibe miles de solicitudes cada ciclo. El objetivo es construir un sistema de **scoring** que estime la probabilidad de admisión utilizando únicamente las **horas de estudio** y la **nota del examen de acceso**.
+Un departamento de admisiones recibe miles de solicitudes en cada convocatoria y quiere un scoring que estime la probabilidad de admisión solo con las horas de estudio y la nota del examen de acceso.
 
 ## Objetivo
 
-Entrenar un modelo de **Regresión Logística** con `statsmodels`, interpretar sus coeficientes mediante **Odds Ratio** e intervalos de confianza, y evaluar su capacidad predictiva.
+Ajustar una regresión logística con `statsmodels`, interpretar sus coeficientes con odds ratios e intervalos de confianza y evaluar cuánto acierta.
 
 ## Dataset
 
@@ -38,11 +38,13 @@ Entrenar un modelo de **Regresión Logística** con `statsmodels`, interpretar s
 
 ## Hallazgo clave
 
-El modelo alcanza una **accuracy del 99%** y un **AUC-ROC de 0.999**, mostrando una capacidad prácticamente perfecta para distinguir entre candidatos admitidos y no admitidos. La **nota del examen** es la variable con mayor impacto sobre la probabilidad de admisión, mientras que las horas de estudio pierden significación estadística al estar fuertemente correlacionadas con la nota obtenida.
+El modelo llega a un 99% de accuracy y un AUC-ROC de 0,999: separa casi a la perfección a admitidos y no admitidos. Lo que más pesa es la nota del examen. Las horas de estudio dejan de ser significativas porque están correlacionadas a 0,987 con la nota y dicen prácticamente lo mismo.
+
+Un resultado tan perfecto apunta a que la admisión se decide casi con un corte en la nota. statsmodels, de hecho, avisa de cuasi-separación.
 
 ## Lectura de negocio
 
-La probabilidad de admisión depende principalmente del **rendimiento en el examen**, que multiplica por **2,14** las probabilidades de ser admitido por cada punto adicional. Esto permite construir un sistema de scoring transparente, interpretable y fácilmente integrable en el proceso de admisiones.
+La probabilidad de admisión depende sobre todo del examen: cada punto más multiplica por 2,14 las odds de entrar. Con eso se puede montar un scoring transparente y fácil de meter en el proceso de admisiones.
 
 ## Librerías principales
 

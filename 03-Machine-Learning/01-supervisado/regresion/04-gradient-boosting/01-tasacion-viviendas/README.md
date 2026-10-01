@@ -1,16 +1,16 @@
 # Gradient Boosting Regressor — Tasación de viviendas
 
-Modelo de Gradient Boosting para estimar el precio de viviendas en Madrid, con búsqueda de hiperparámetros por GridSearchCV, feature importance y curva de aprendizaje.
+Gradient Boosting para estimar el precio de viviendas en Madrid, con hiperparámetros elegidos por GridSearchCV, importancia de variables y curva de aprendizaje.
 
 ---
 
 ## Contexto de negocio
 
-Una agencia inmobiliaria que opera en la zona centro de Madrid necesita estimaciones de precio rápidas y consistentes, sin depender únicamente del criterio manual del tasador.
+Una agencia inmobiliaria del centro de Madrid quiere estimar precios rápido y de forma coherente, sin depender solo del ojo del tasador.
 
 ## Dataset
 
-`Datos_Tasacion_Viviendas_Gradient_Boosting_regressor.xlsx` — 100 inmuebles con m², habitaciones, lat/lon, año de construcción, servicios cercanos y precio comercial.
+`Datos_Tasacion_Viviendas_Gradient_Boosting_regressor.xlsx`: 100 inmuebles con m², habitaciones, lat/lon, año de construcción, servicios cercanos y precio comercial.
 
 ## Técnicas aplicadas
 
@@ -30,5 +30,5 @@ Una agencia inmobiliaria que opera en la zona centro de Madrid necesita estimaci
 
 ## Hallazgo clave
 
-> Con solo 6 variables, el modelo explica ~92,5% de la variación del precio en test (MAPE ~10%). Los metros cuadrados y la latitud son las variables con más peso. El modelo muestra cierto overfitting (R² en train ~99,4% frente a ~92,5% en test): el resultado en test es la referencia real de rendimiento, no el de train.
+> Con solo 6 variables, el modelo explica cerca del 92,5% de la variación del precio en test, con un MAPE de alrededor del 10%. Lo que más pesa son los metros cuadrados y la latitud. Hay algo de overfitting (R² de ~99,4% en train frente a ~92,5% en test), así que la cifra que cuenta es la de test. Con 100 viviendas no esperaba mucho más.
 

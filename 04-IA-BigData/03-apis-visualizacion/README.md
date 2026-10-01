@@ -1,7 +1,7 @@
 # APIs & Visualización
 
-Integración con APIs externas (geocodificación, rutas, servicios web) y visualización
-interactiva de resultados con widgets de Jupyter — más allá del gráfico estático.
+Proyectos que tiran de APIs externas (geocodificación, rutas, servicios web) y enseñan el
+resultado con widgets interactivos de Jupyter en vez de con un gráfico estático.
 
 ## Proyectos
 

@@ -1,14 +1,14 @@
 # Big Data Distribuido
 
-Procesamiento de datos con **Apache Spark**: el motor que reparte datos y cómputo entre varias
-máquinas cuando un dataset deja de caber en la memoria de una sola. A diferencia del resto del
-portfolio —donde pandas y scikit-learn resuelven el problema sobre una máquina— aquí el objeto
-de estudio es el **motor**: cómo planifica, dónde mueve datos y qué patrones de código escalan
-de un portátil a un clúster sin cambiar una línea.
+Procesamiento de datos con **Apache Spark**, el motor que reparte datos y cálculo entre varias
+máquinas cuando un dataset ya no cabe en la memoria de una sola. En el resto del portfolio pandas
+y scikit-learn resuelven el problema en un solo ordenador. Aquí lo que estudio es el **motor**:
+cómo planifica, cuándo mueve datos de un sitio a otro y qué código pasa de un portátil a un
+clúster sin cambiar una línea.
 
-El criterio que atraviesa la categoría es **medir en lugar de asumir**: cada recomendación de
-rendimiento (esquema explícito, `cache`, funciones nativas frente a UDF, formato columnar) va
-acompañada de su medición, incluidas las que salen en contra de lo esperado.
+La regla que sigo en toda la categoría es **medir antes de afirmar**. Cada recomendación de
+rendimiento (esquema explícito, `cache`, funciones nativas frente a UDF, formato columnar) va con
+su medición, también cuando el resultado no es el que esperaba.
 
 ## Proyectos
 
@@ -20,10 +20,10 @@ acompañada de su medición, incluidas las que salen en contra de lo esperado.
 `pyspark` 3.5 (Spark SQL · Window functions · MLlib) · `pandas` · `pyarrow` · `matplotlib`
 
 ## Requisitos
-Spark corre sobre la **JVM**: hace falta un JDK 8, 11 o 17 instalado. En **Windows** se necesita
-además `winutils.exe` con `HADOOP_HOME` definido para la E/S de ficheros locales; en Linux,
-macOS, WSL2, Databricks o Microsoft Fabric no aplica. Cada caso detalla sus requisitos en su
-propio README.
+Spark funciona sobre la **JVM**, así que hace falta un JDK 8, 11 o 17. En **Windows** además
+hay que tener `winutils.exe` y `HADOOP_HOME` definido para leer y escribir ficheros locales; en
+Linux, macOS, WSL2, Databricks o Microsoft Fabric no hace falta. Cada caso explica sus requisitos
+en su propio README.
 
 ---
 

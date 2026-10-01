@@ -6,23 +6,25 @@ Un operador de telefonía quiere filtrar SMS de phishing y publicidad no deseada
 
 ## Dataset
 
-`sms_spam.xlsx` — 5.572 SMS reales en inglés (dataset público SMS Spam Collection), etiquetados como `ham` (4.825, 86,6%) o `spam` (747, 13,4%).
+`sms_spam.xlsx`: 5.572 SMS reales en inglés (dataset público SMS Spam Collection), etiquetados como `ham` (4.825, 86,6%) o `spam` (747, 13,4%).
 
 ## Técnicas aplicadas
 
-- Detección y eliminación de mensajes duplicados antes del split train/test (evita fuga de datos)
+- Eliminación de mensajes duplicados antes de dividir en train y test, para evitar fuga de datos
 - `CountVectorizer` + `MultinomialNB`, con matriz de confusión
-- Comparativa honesta contra `TfidfVectorizer` (no asumida, verificada)
-- Interpretabilidad: palabras más indicativas de spam/ham vía `feature_log_prob_`
+- Comparación con `TfidfVectorizer`, probándolo en vez de darlo por mejor
+- Interpretabilidad: palabras que más delatan el spam y el ham, con `feature_log_prob_`
 
 ## Hallazgo clave
 
-98,16% de accuracy y F1-score de 0,92 en spam con `CountVectorizer` — pero **TF-IDF empeora el modelo** (accuracy 95,26%, F1 spam 0,77): penaliza justo las palabras repetidas ("claim", "prize", "150p") que son la señal más fuerte de spam en este problema. El notebook original probaba el modelo con un SMS en español, que da una predicción prácticamente 50/50 — no porque el modelo falle, sino porque el vocabulario de entrenamiento es 100% inglés y esa entrada está fuera de su dominio de aplicación.
+Con `CountVectorizer` el modelo llega a un 98,16% de accuracy y un F1 de 0,92 en spam. Lo curioso es que TF-IDF lo empeora (95,26% de accuracy y F1 de 0,77 en spam), porque penaliza justo las palabras que más se repiten en el spam ("claim", "prize", "150p"), que son la mejor pista que hay.
 
-## Notas sobre el notebook original
+Un SMS en español da una predicción de casi 50/50. El modelo no está fallando: se ha entrenado solo en inglés y ese mensaje queda fuera de lo que conoce.
 
-- No eliminaba los 403 mensajes duplicados (7,2% del dataset) antes de dividir train/test — inflaba ligeramente la accuracy por fuga de datos. La cifra correcta tras deduplicar es 98,16%, no el 98,74% original.
-- El ejemplo de demostración (SMS en español) no es una prueba válida del modelo, que solo fue entrenado en inglés — se sustituyó por dos ejemplos en inglés que sí demuestran el comportamiento real.
+## Dos decisiones que cambian el resultado
+
+- Hay 403 mensajes duplicados (7,2% del dataset). Si no se quitan antes de dividir en train y test, se cuelan en los dos lados y la accuracy sube al 98,74%. Sin ellos se queda en 98,16%, que es la cifra buena.
+- Para probar el modelo con mensajes nuevos uso ejemplos en inglés. El de español lo mantengo solo para enseñar qué pasa fuera del idioma de entrenamiento.
 
 ## Stack
 

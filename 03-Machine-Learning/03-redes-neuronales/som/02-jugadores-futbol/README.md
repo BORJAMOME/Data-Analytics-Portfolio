@@ -3,8 +3,8 @@
 ## Contexto de negocio
 
 El departamento de scouting de un club analiza 800 jugadores para
-identificar arquetipos tácticos, detectar jugadores polivalentes
-y validar si las posiciones asignadas coinciden con los perfiles reales.
+encontrar arquetipos tácticos, detectar jugadores polivalentes y ver
+si la posición que tienen asignada encaja con su perfil.
 
 ## Dataset
 
@@ -25,8 +25,8 @@ y validar si las posiciones asignadas coinciden con los perfiles reales.
 
 ## Hallazgo clave
 
-El mapa SOM muestra 3 zonas claras correspondientes a las 3 posiciones,
-con zonas de transición donde se sitúan jugadores polivalentes. Los
-component planes revelan que Defensa/Físico y Tiro/Regate son los
-ejes principales de diferenciación.
+El mapa se divide en 3 zonas que coinciden con las 3 posiciones, y
+entre ellas hay zonas de transición donde caen los jugadores
+polivalentes. Por los component planes, lo que más separa a unos de
+otros es Defensa/Físico por un lado y Tiro/Regate por otro.
 

@@ -1,32 +1,25 @@
 # Python — Análisis Exploratorio y Fundamentos
 
-> Colección de casos de negocio y manuales de referencia desarrollados durante el **Bootcamp
-> de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). De pandas
-> puro a storytelling de negocio: cada caso empieza con una pregunta real y termina con
-> recomendaciones accionables, no con una tabla suelta.
+> Casos de negocio y manuales de referencia que hice durante el Bootcamp de Data Analytics
+> en [Neoland](https://www.neoland.es/) (mayo a julio de 2026). Cada caso arranca con una
+> pregunta concreta y acaba con recomendaciones que alguien podría poner en marcha.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
 ---
 
-## Por qué este repositorio es diferente
+## Cómo están hechos
 
-La mayoría de ejercicios de Python de bootcamp son un notebook con celdas de código y un
-`print()` al final. Aquí no.
+Los casos de análisis exploratorio siguen siempre el mismo orden. Primero el contexto de
+negocio, sin hablar todavía de código. Luego las preguntas que haría alguien de dirección.
+Después la limpieza, explicando cada decisión: por qué imputar en vez de eliminar, por qué
+rellenar con 0 y no con la media, qué hacer cuando toca dividir entre cero. Y al final,
+recomendaciones y las limitaciones del análisis, que casi siempre las hay.
 
-Cada caso de la carpeta de análisis exploratorio sigue la misma disciplina: contexto de
-negocio primero (sin mencionar código todavía), preguntas concretas que alguien de
-dirección haría de verdad, limpieza de datos justificada (no solo `dropna()` porque sí), y un
-cierre con recomendaciones accionables y limitaciones honestas del análisis.
-
-**Lo que encontrarás aquí:**
-
-- **4 casos de negocio** en sectores distintos: comercial, educación, seguros/salud y
-  restauración — todos con storytelling completo y visualización.
-- **4 manuales de referencia** (Matplotlib, NumPy, y 2 de Pandas) con formato pedagógico:
-  explicación → analogía → código → error común → aplicación profesional → ejercicio.
-- **Decisiones de limpieza siempre justificadas**: por qué imputar y no eliminar, por qué 0 y
-  no la media, qué hacer con una división entre cero.
+Hay 4 casos de sectores distintos (comercial, educación, seguros y restauración) y 4
+manuales de referencia: Matplotlib, NumPy y dos de Pandas. Los manuales siguen la misma
+pauta en cada concepto: explicación, analogía, código, error típico, uso profesional y
+ejercicio.
 
 ---
 
@@ -38,12 +31,12 @@ Python 3.10 · pandas · NumPy · Matplotlib · Seaborn
 
 ---
 
-## Highlights — 2 casos que recomiendo leer primero
+## Por dónde empezar
 
 | # | Caso | Por qué destaca |
 |---|---|---|
-| 1 | [Riesgo cardiovascular en una aseguradora](01-analisis-exploratorio/03-riesgo-salud-pacientes/) | Caso de negocio completo con argumentación (no solo cálculo) sobre si segmentar precios por riesgo es defendible, y con qué variables. |
-| 2 | [Hábitos y rendimiento académico](01-analisis-exploratorio/02-habitos-rendimiento-estudiantes/) | Panel de 6 visualizaciones (histogramas, scatter, heatmap, boxplot, pairplot) construido progresivamente a partir de la misma tabla de correlación. |
+| 1 | [Riesgo cardiovascular en una aseguradora](01-analisis-exploratorio/03-riesgo-salud-pacientes/) | Discute si tiene sentido fijar precios según el riesgo y con qué variables se podría defender. |
+| 2 | [Hábitos y rendimiento académico](01-analisis-exploratorio/02-habitos-rendimiento-estudiantes/) | 6 gráficos (histogramas, scatter, heatmap, boxplot, pairplot) que se van construyendo sobre la misma tabla de correlación. |
 
 ---
 

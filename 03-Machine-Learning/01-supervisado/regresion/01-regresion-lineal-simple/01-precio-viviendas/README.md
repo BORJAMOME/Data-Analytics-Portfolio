@@ -1,16 +1,16 @@
 # Regresión Lineal Simple — Precio de viviendas
 
-El modelo más simple de ML: una recta que predice precios inmobiliarios con diagnóstico completo de supuestos estadísticos.
+El modelo más sencillo del ML: una recta que predice el precio de una vivienda, revisando uno a uno los supuestos estadísticos.
 
 ---
 
 ## Contexto de negocio
 
-Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el precio a partir de la superficie como primer filtro antes de la tasación formal.
+Una inmobiliaria quiere tasar viviendas rápido. El modelo estima el precio a partir de la superficie y sirve como primer filtro antes de la tasación formal.
 
 ## Dataset
 
-`datos_regresion_casas.xlsx` — 100 viviendas con Metros_Cuadrados, Distancia_Centro_KM, Numero_Habitaciones y Precio_Miles_USD.
+`datos_regresion_casas.xlsx`: 100 viviendas con Metros_Cuadrados, Distancia_Centro_KM, Numero_Habitaciones y Precio_Miles_USD.
 
 ## Técnicas aplicadas
 
@@ -24,5 +24,5 @@ Una inmobiliaria necesita tasar viviendas rápidamente. Este modelo estima el pr
 
 ## Hallazgo clave
 
-> Con solo los metros cuadrados el modelo ya explica ~90% de la variabilidad del precio (R² = 0.899). Añadiendo la distancia al centro como segunda variable, el modelo ganador sube a R² = 0.980: cada m² adicional añade ~2.500 USD y cada km de distancia al centro resta ~4.000 USD, manteniendo la otra variable constante.
+> Solo con los metros cuadrados el modelo ya explica cerca del 90% de la variación del precio (R² = 0,899). Si se añade la distancia al centro, sube a R² = 0,980. Con la otra variable fija, cada m² más suma unos 2.500 USD y cada km más lejos del centro resta unos 4.000 USD.
 

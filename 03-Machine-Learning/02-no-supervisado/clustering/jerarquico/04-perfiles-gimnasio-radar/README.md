@@ -1,10 +1,10 @@
 # Clustering Jerárquico — Gimnasio con 4 variables y radar charts
 
 ## Contexto de negocio
-Un gimnasio quiere crear personas accionables de sus miembros usando 4 métricas de comportamiento, visualizadas con radar charts para comunicar los resultados a un público no técnico.
+Un gimnasio quiere perfiles de socio que se puedan usar en marketing, a partir de 4 métricas de comportamiento, y enseñarlos con radar charts para que los entienda alguien sin formación técnica.
 
 ## Dataset
-`gym_clientes.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx`: 300 registros y 7 variables.
 
 ## Técnicas aplicadas
 - 4 features: Antigüedad, Asistencias, Horas_Pico, Gasto_Extra
@@ -15,6 +15,6 @@ Un gimnasio quiere crear personas accionables de sus miembros usando 4 métricas
 - Cross-check con Abandono y Satisfecho
 
 ## Hallazgo clave
-Los radar charts revelan que cada cluster tiene un "shape" distinto — no solo difieren en una métrica sino en la combinación. Esto permite crear personas de marketing matizadas.
+En los radar charts cada cluster tiene una forma propia. No se distinguen por una sola métrica sino por cómo se combinan las cuatro, y eso da para perfiles de marketing con más matices que "gasta mucho" o "gasta poco".
 
 

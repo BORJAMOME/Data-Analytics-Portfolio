@@ -1,20 +1,18 @@
 # SQL — Análisis de datos con T-SQL
 
-> Proyectos de análisis de datos reales resueltos con T-SQL y SQL Server, desarrollados
-> durante el bootcamp de Data Analytics en [Neoland](https://www.neoland.es/).
-> Cada ejercicio prioriza la claridad del código, múltiples enfoques de solución y
-> la aplicación directa a problemas de negocio.
+> Proyectos de análisis resueltos con T-SQL y SQL Server durante el bootcamp de Data
+> Analytics en [Neoland](https://www.neoland.es/). He intentado que el código se lea
+> fácil y que cada consulta responda a una pregunta de negocio.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
 ---
 
-## Por qué este repositorio es diferente
+## Cómo está planteado
 
-No es una colección de ejercicios sueltos. Cada proyecto plantea un **caso de negocio real**,
-incluye la base de datos autocontenida (CREATE + INSERT) o usa AdventureWorks, y resuelve
-los ejercicios con múltiples enfoques cuando hay más de un camino válido. El código está
-comentado para que se pueda seguir como material de estudio.
+Cada proyecto parte de un caso de negocio. El de concesionarios trae su propia base de datos
+(CREATE + INSERT), otro usa AdventureWorks y el de la tienda necesita tener su base de datos creada. Cuando un ejercicio se puede resolver de más de una forma, pongo las
+dos. El código va comentado, así que también sirve como material de estudio.
 
 ## Stack
 

@@ -1,7 +1,7 @@
 # Clustering Jerárquico — Caso introductorio
 
 ## Contexto de negocio
-Un e-commerce quiere segmentar 30 usuarios por su comportamiento digital (clics y compras) para diseñar campañas de marketing diferenciadas.
+Un e-commerce quiere agrupar a 30 usuarios según sus clics y sus compras para hacer una campaña distinta para cada grupo.
 
 ## Dataset
 Sintético: 30 usuarios con 3 grupos naturales generados vía `make_blobs`.
@@ -13,5 +13,5 @@ Sintético: 30 usuarios con 3 grupos naturales generados vía `make_blobs`.
 - Scatter plot coloreado por cluster
 
 ## Hallazgo clave
-Ward produce los clusters más compactos y equilibrados.
+Ward da los clusters más compactos y equilibrados. Como los datos están generados con 3 grupos claros, aquí lo interesante es ver cómo cambia el dendrograma según el método de enlace, más que el resultado en sí.
 

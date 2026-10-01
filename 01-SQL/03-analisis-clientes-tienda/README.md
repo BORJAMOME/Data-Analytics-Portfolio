@@ -1,9 +1,8 @@
 # Análisis de clientes — Tienda de alimentación
 
-**Caso de negocio:** una tienda de alimentación con clientes, productos, categorías y
-proveedores necesita explotar sus datos transaccionales para segmentar clientes, clasificar
-productos, detectar patrones de compra y construir rankings cruzados por ciudad, categoría
-y proveedor.
+**Caso de negocio:** una tienda de alimentación tiene sus clientes, productos, categorías y
+proveedores en una base de datos y quiere sacarle partido: segmentar clientes, clasificar
+productos, ver patrones de compra y hacer rankings por ciudad, categoría y proveedor.
 
 ## Qué se aprende
 
@@ -18,15 +17,15 @@ y proveedor.
 - Combinaciones avanzadas: CTE + ranking, subquery + HAVING, CASE + agregación.
 - Casos reales: top 3 clientes por ciudad, producto más vendido por categoría, dashboard SQL.
 
-## Hallazgo clave
+## Qué incluye
 
-El archivo progresa en dificultad desde LEFT JOIN básicos hasta casos analíticos reales
-(top N por partición, evolución temporal, dashboard SQL), lo que lo convierte en una
-referencia de estudio completa para entrevistas técnicas de analista de datos.
+Los ejercicios empiezan por LEFT JOIN sencillos y acaban en casos analíticos de verdad:
+top N por partición, evolución temporal y un pequeño dashboard en SQL. Viene bien para
+repasar antes de una entrevista técnica.
 
 ## Archivos
 
-- `analisis_tienda.sql` — 40 ejercicios organizados en 8 bloques progresivos
+- `analisis_tienda.sql`: 40 ejercicios en 8 bloques de dificultad creciente
   (LEFT JOIN → Subqueries → CASE → CTEs → Window Functions → Casos reales)
 
 **Stack:** T-SQL · SQL Server Management Studio (SSMS)

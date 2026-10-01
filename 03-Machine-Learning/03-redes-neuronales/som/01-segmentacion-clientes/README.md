@@ -2,9 +2,9 @@
 
 ## Contexto de negocio
 
-Una cadena de retail quiere segmentar su base de 500 clientes para
-personalizar campañas de marketing, usando Self-Organizing Maps
-para descubrir la topología natural de los datos de comportamiento.
+Una cadena de retail quiere segmentar a sus 500 clientes para
+personalizar campañas. Uso un Self-Organizing Map para ver cómo se
+reparten y qué grupos quedan cerca unos de otros.
 
 ## Dataset
 
@@ -25,7 +25,8 @@ para descubrir la topología natural de los datos de comportamiento.
 
 ## Hallazgo clave
 
-El SOM revela la topología de los segmentos: los clientes de alto
-valor y los cazadores de descuentos ocupan regiones diferenciadas
-del mapa, con zonas de transición que K-Means no detecta.
+El SOM enseña cómo se colocan los segmentos entre sí. Los clientes
+de alto valor y los cazadores de descuentos quedan en zonas distintas
+del mapa, y entre medias hay zonas de transición que K-Means, por sí
+solo, no enseña.
 

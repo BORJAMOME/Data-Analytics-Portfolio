@@ -1,10 +1,10 @@
 # IA & Big Data
 
-Agentes de IA, sistemas de recomendación, APIs externas con visualización interactiva, minería
-de datos, visión artificial, aplicaciones interactivas y procesamiento distribuido con Spark —
-casos prácticos más allá del modelado clásico de `03-Machine-Learning`.
+Agentes de IA, sistemas de recomendación, APIs externas con mapas interactivos, minería de datos,
+visión artificial y procesamiento distribuido con Spark: casos que van más allá del modelado clásico
+de `03-Machine-Learning`.
 
-> 🎨 Los gráficos matplotlib/seaborn/Plotly de este bloque siguen el mismo sistema de color validado que `03-Machine-Learning` — ver [`../03-Machine-Learning/DISENO-VISUAL.md`](../03-Machine-Learning/DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
+> Los gráficos de este bloque usan el mismo sistema de color que `03-Machine-Learning`. Está en [`../03-Machine-Learning/DISENO-VISUAL.md`](../03-Machine-Learning/DISENO-VISUAL.md) y conviene leerlo antes de crear o tocar cualquier gráfico.
 
 **Stack implementado:** scikit-learn (TF-IDF, similitud coseno) · ipyleaflet · mlxtend · ultralytics (YOLOv8) · ByteTrack · PySpark (Spark SQL, MLlib)
 **Stack previsto** (para LLMs/chatbots y `05-Apps-Interactivas`, aún sin casos): LangChain · OpenAI API · Anthropic API · Groq · Ollama · Streamlit
@@ -13,7 +13,7 @@ casos prácticos más allá del modelado clásico de `03-Machine-Learning`.
 
 ## Estructura
 
-Los proyectos están organizados en 7 categorías (`05` es un placeholder aún sin casos):
+Hay 7 categorías; la `05` todavía no tiene casos:
 
 ```
 04-IA-BigData/
@@ -45,7 +45,7 @@ Los proyectos están organizados en 7 categorías (`05` es un placeholder aún s
 | [06 · Visión Artificial](06-vision-artificial/) | [Conteo de vehículos en vídeo](06-vision-artificial/02-conteo-vehiculos-video/) | YOLOv8 + ByteTrack, tracking de identidad entre frames, conteo por cruce de línea |
 | [07 · Big Data Distribuido](07-big-data-distribuido/) | [Pipeline de ventas distribuido con PySpark](07-big-data-distribuido/01-pipeline-ventas-pyspark/) | Esquema como contrato, Spark SQL, funciones de ventana, broadcast joins, planes de ejecución, particiones y caché, UDF vs nativo, Parquet, MLlib |
 
-La categoría `05-Apps-Interactivas` se irá completando próximamente.
+La categoría `05-Apps-Interactivas` todavía está vacía.
 
 ---
 

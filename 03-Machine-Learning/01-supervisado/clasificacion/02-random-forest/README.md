@@ -1,18 +1,18 @@
 # Random Forest - Predicción de la satisfacción de clientes en un gimnasio
 
-Un **Random Forest de 100 árboles** confirma el mismo patrón identificado por el Árbol de Decisión: la **frecuencia de asistencia** es el principal factor que explica la satisfacción de los clientes. Más que mejorar la precisión, este modelo aporta una mayor robustez al validar el resultado mediante un conjunto de árboles entrenados sobre muestras diferentes.
+Un Random Forest de 100 árboles llega a lo mismo que el árbol de decisión: lo que más explica la satisfacción es la frecuencia de asistencia. No acierta más. Lo que aporta es confianza, porque el mismo resultado sale de 100 árboles entrenados con muestras distintas.
 
 ---
 
 ## Contexto de negocio
 
-La dirección de una cadena de gimnasios quiere identificar de forma anticipada a los clientes con riesgo de insatisfacción utilizando únicamente los datos operativos disponibles.
+La dirección de una cadena de gimnasios quiere detectar a tiempo a los clientes descontentos usando solo los datos que ya tiene.
 
-Tras construir un Árbol de Decisión sencillo e interpretable, se evalúa si un modelo de tipo **Random Forest** es capaz de encontrar patrones adicionales o confirmar las conclusiones obtenidas con un único árbol.
+Después del árbol de decisión, la pregunta es si un Random Forest encuentra algo más o si confirma lo que dijo un único árbol.
 
 ## Objetivo
 
-Entrenar un **Random Forest**, seleccionar un número adecuado de árboles mediante validación cruzada, analizar la importancia de las variables utilizando dos métodos diferentes y evaluar el rendimiento del modelo.
+Entrenar un Random Forest, elegir el número de árboles con validación cruzada, medir la importancia de las variables con dos métodos distintos y evaluar el modelo.
 
 ## Dataset
 
@@ -31,7 +31,7 @@ Entrenar un **Random Forest**, seleccionar un número adecuado de árboles media
 
 - `Satisfecho` (clasificación binaria)
 
-La variable `Abandono` se excluye para evitar **data leakage**.
+`Abandono` se deja fuera para evitar data leakage.
 
 ## Técnicas aplicadas
 
@@ -49,9 +49,9 @@ La variable `Abandono` se excluye para evitar **data leakage**.
 
 ## Hallazgo clave
 
-> La **frecuencia de asistencia** vuelve a ser la variable más importante del modelo. Según la importancia Gini representa **el 51,9%** del poder predictivo y, mediante **Permutation Importance**, es la única variable cuya alteración reduce significativamente el rendimiento del modelo.
+> La frecuencia de asistencia vuelve a ser la variable más importante: el 51,9% según Gini. Con permutation importance es la única que, al desordenarla, hace caer el rendimiento de forma clara.
 
-> La validación cruzada muestra que el rendimiento se estabiliza alrededor de **100 árboles**, por lo que aumentar el tamaño del bosque apenas aporta mejoras.
+> En validación cruzada el rendimiento se estabiliza hacia los 100 árboles. Poner más apenas mejora nada.
 
 **Rendimiento del modelo**
 
@@ -60,11 +60,11 @@ La variable `Abandono` se excluye para evitar **data leakage**.
 
 ## Lectura de negocio
 
-El Random Forest confirma que la satisfacción de los clientes depende principalmente de la **regularidad con la que utilizan el gimnasio**.
+El Random Forest confirma que la satisfacción depende sobre todo de lo a menudo que el cliente va al gimnasio.
 
-Aunque el modelo incorpora cuatro variables, únicamente **Asistencias_Mes** demuestra tener una influencia realmente determinante sobre la predicción. Esto permite simplificar el seguimiento operativo y centrar las acciones de fidelización en promover una mayor frecuencia de asistencia.
+El modelo usa cuatro variables, pero solo `Asistencias_Mes` pesa de verdad en la predicción. Para operaciones, eso simplifica el seguimiento: basta con vigilar la asistencia y centrar la fidelización en que la gente vaya más.
 
-Además, la estabilidad observada en la curva de validación indica que **100 árboles ofrecen un equilibrio óptimo entre rendimiento y coste computacional**, sin necesidad de incrementar la complejidad del modelo.
+Con 100 árboles el modelo ya está estable, así que no compensa hacerlo más grande.
 
 
 ## Librerías principales
