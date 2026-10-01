@@ -544,6 +544,7 @@ VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
        tx(ctx, NM[j], mx2, my + 4.5, {s:12, w:700, c:C.ink, a:"center"});
      }
      ctx.restore();
+     ctx.fillStyle = hexA(C.card, 0.9); rrect(ctx, box[0] + 4, box[1] + box[3] - 24, 236, 19, 5); ctx.fill();
      tx(ctx, "elipses: 1σ (continua) y 2σ (discontinua)", box[0] + 10, box[1] + box[3] - 10, {s:11, c:C.muted});
      /* panel derecho: pertenencia del punto elegido */
      var px0 = 512, pw = 230;
@@ -561,13 +562,16 @@ VIZ.push({id:"v-gmm", model:"gmm", g:"model", ic:"🫧", dim:"2D",
      /* log-verosimilitud */
      var gb = [px0 + 34, 206, pw - 34, 150];
      cap(ctx, "Log-verosimilitud por iteración", px0, 188, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(gb[0] + .5, gb[1] + .5, gb[2], gb[3]);
+     tx(ctx, "iteración", gb[0] + gb[2] / 2, gb[1] + gb[3] + 16, {s:11, c:C.muted, a:"center"});
+     if(hist.length < 2){ tx(ctx, "aparecerá al iterar (pulsa ▶)", gb[0] + gb[2] / 2, gb[1] + gb[3] / 2 + 4, {s:11.5, c:C.muted, a:"center"}); }
+     else {
      var lo = Math.min.apply(null, hist), hi = Math.max.apply(null, hist); if(hi - lo < 1) lo = hi - 1;
      var gx = function(i){ return gb[0] + i / Math.max(10, hist.length - 1) * gb[2]; }, gy = function(v){ return gb[1] + gb[3] - (v - lo) / (hi - lo) * gb[3]; };
-     ctx.strokeStyle = C.line; ctx.strokeRect(gb[0] + .5, gb[1] + .5, gb[2], gb[3]);
      tx(ctx, fmt(hi, 0), gb[0] - 4, gb[1] + 10, {s:11, c:C.muted, a:"right"}); tx(ctx, fmt(lo, 0), gb[0] - 4, gb[1] + gb[3], {s:11, c:C.muted, a:"right"});
      pathXY(ctx, hist.map(function(_, i){ return gx(i); }), hist.map(gy)); stroke(ctx, C.c[0], 2.2);
      hist.forEach(function(v, i){ dot(ctx, gx(i), gy(v), 2.6, C.c[0]); });
-     tx(ctx, "iteración", gb[0] + gb[2] / 2, gb[1] + gb[3] + 16, {s:11, c:C.muted, a:"center"});
+     }
      /* lectura */
      var p = 3 * (2 + 3) + 2, bic = -2 * LL + p * Math.log(n);
      read.innerHTML = '<span>Iteración <b>' + it + '</b></span><span>Próximo paso <b>' + (conv ? "— (convergido)" : phase === "E" ? "E · repartir probabilidades" : "M · recolocar elipses") + '</b></span>' +
@@ -749,7 +753,7 @@ VIZ.push({id:"v-umap", model:"umap", g:"model", ic:"🌀", dim:"3D",
  t:"Desenrollar un rollo suizo (la idea de UMAP)",
  q:"¿Cómo puede un mapa 2D «desenrollar» datos que en 3D están enrollados?",
  intro:"Un <b>rollo suizo</b>: 900 puntos sobre una lámina enrollada, coloreados según su posición a lo largo de la lámina. Las líneas grises son el <b>grafo de vecinos</b> (cada punto unido a sus n_neighbors más cercanos). El mapa de la derecha arranca de una inicialización espectral del grafo y luego coloca los puntos tirando de los vecinos unidos y empujando a los demás. Es una <b>simplificación didáctica</b> del principio de UMAP: grafo difuso, curva de atracción/repulsión y muestreo negativo como en UMAP, pero sin sus atajos de rendimiento (vecinos aproximados, etc.).",
- notice:["Con <b>pocos vecinos</b> (3-4) el grafo se rompe en trozos y el mapa sale <b>fragmentado</b>: cada trozo se coloca por su cuenta.",
+ notice:["Con <b>muy pocos vecinos</b> (2-3) el grafo se rompe en trozos y el mapa sale <b>fragmentado</b>: cada trozo se coloca por su cuenta. Con 4-5 queda conectado por hilos finos y el mapa sale en hebras.",
    "Con <b>8-15 vecinos</b> el grafo sigue la lámina casi sin saltar entre capas y el mapa la <b>desenrolla</b>: los colores quedan en orden, como una alfombra extendida. Con 20 aparecen <b>atajos</b> entre capas y el mapa se retuerce.",
    "La «foto» de <b>PCA</b> solo puede proyectar en línea recta: <b>aplasta</b> las capas una encima de otra y mezcla colores. «Proyectar un punto nuevo» lo coloca en el mapa sin recalcularlo, como hace transform() en UMAP."],
  models:["umap","tsne","pca"],
@@ -945,7 +949,7 @@ VIZ.push({id:"v-umap", model:"umap", g:"model", ic:"🌀", dim:"3D",
        freshLines = new T.LineSegments(g, new T.LineBasicMaterial({color:C.ink})); S.scene.add(freshLines);
        settle = 0; readout();
      }
-     ctlSlider(ctl, "n_neighbors (vecinos en el grafo)", 3, 20, 1, kNN, function(v){ return v; }, function(v){ kNN = v; qU = null; graph(); readout(); settle = 0; });
+     ctlSlider(ctl, "n_neighbors (vecinos en el grafo)", 2, 20, 1, kNN, function(v){ return v; }, function(v){ kNN = v; qU = null; graph(); readout(); settle = 0; });
      ctlSeg(ctl, "Mapa 2D", [["umap", "Grafo de vecinos (UMAP)"], ["pca", "Foto PCA"]], view, function(v){ view = v; vw = null; settle = 0; });
      ctlBtn(ctl, "✚ Proyectar un punto nuevo", function(){
        if(epoch < EPOCHS){ readout(); read.querySelector(".ldiag").innerHTML = "Espera a que termine el mapa (época " + epoch + " de " + EPOCHS + ") para proyectar un punto nuevo."; return; }
@@ -1073,8 +1077,7 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
    var NT = T.length, A = 2, B = 3, view = "rules", minsup = 6;
    var cnt = function(items){ return T.filter(function(t){ return items.every(function(j){ return t[j]; }); }).length; };
    /* vista 1: lienzo */
-   var wrap1 = document.createElement("div"); wrap1.style.width = "100%"; stage.appendChild(wrap1);
-   var K = makeCanvas(wrap1, 760, 440, "Matriz de tickets y productos, diagrama de Venn y métricas de la regla"), ctx = K.ctx, W = 760, H = 440;
+   var K = makeCanvas(stage, 760, 440, "Matriz de tickets y productos, diagrama de Venn y métricas de la regla"), ctx = K.ctx, W = 760, H = 440, wrap1 = K.cv;
    /* vista 2: retícula en HTML */
    var wrap2 = document.createElement("div"); wrap2.style.cssText = "width:100%;display:none"; stage.appendChild(wrap2);
    var mx0 = 92, cw = 26, rh = 22, my0 = 40;
@@ -1179,8 +1182,8 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
    }
    function draw(){ if(view === "rules") drawRules(); else drawLattice(); }
    ctlSeg(ctl, "Vista", [["rules", "Reglas A → B"], ["lat", "Retícula de itemsets"]], view, function(v){
-     view = v; wrap1.style.display = v === "rules" ? "" : "none"; wrap2.style.display = v === "rules" ? "none" : "";
-     var sw = stage.parentNode.querySelector(".labswipe"); if(sw) sw.style.visibility = v === "rules" ? "" : "hidden";
+     view = v; wrap1.style.display = v === "rules" ? "" : "none"; stage.style.overflowX = v === "rules" ? "" : "visible"; wrap2.style.display = v === "rules" ? "none" : "";
+     var sw = stage.parentNode.querySelector(".labswipe"); if(sw) sw.style.display = v === "rules" ? "" : "none";
      ruleCtl.forEach(function(e){ e.style.display = v === "rules" ? "" : "none"; }); supCtl.style.display = v === "rules" ? "none" : ""; draw(); });
    var ruleCtl = [
      ctlSeg(ctl, "Antecedente A (si compra…)", PR.map(function(p, j){ return [j, IC[j] + " " + p]; }), A, function(v){ A = +v; draw(); }),
@@ -1194,10 +1197,10 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
 VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
  t:"Rellenar los huecos: factorización de matrices",
  q:"¿Cómo adivina un recomendador la nota que darías a una serie que no has visto?",
- intro:"Notas (1-5) de 8 usuarios a 8 series; los <b>?</b> son series que no han visto. Pulsa <b>▶ Factorizar</b>: se ejecuta de verdad una factorización matricial con 2 factores latentes (descenso de gradiente con regularización). El modelo aprende <b>2 números por usuario</b> (sus gustos) y <b>2 por serie</b> (su «perfil»), y su producto rellena los huecos. A la derecha, ese espacio de gustos. <b>Haz clic en un usuario</b> para ver sus 3 recomendaciones.",
+ intro:"Notas (1-5) de 8 usuarios a 8 series; los <b>?</b> son series que no han visto. Pulsa <b>▶ Factorizar</b>: se ejecuta de verdad una factorización matricial con 2 factores latentes (descenso de gradiente con regularización, más un sesgo por usuario y por serie). El modelo aprende <b>2 números por usuario</b> (sus gustos) y <b>2 por serie</b> (su «perfil»), y su producto rellena los huecos. A la derecha, ese espacio de gustos. <b>Haz clic en un usuario</b> para ver sus 3 recomendaciones.",
  notice:["Las celdas con borde discontinuo y número en cursiva son <b>predicciones</b>; las sólidas, notas reales. El modelo nunca ha visto los huecos: los deduce de usuarios con gustos parecidos.",
    "En el espacio latente, las series de acción y las de drama acaban en <b>zonas distintas</b>, y cada usuario se coloca cerca de lo que le gusta. Nadie le ha dicho al modelo qué es «acción»: lo descubre de las notas.",
-   "El <b>RMSE</b> en las celdas conocidas baja con las iteraciones, pero la regularización impide que llegue a 0: así el modelo no memoriza y predice mejor los huecos."],
+   "El <b>RMSE</b> en las celdas conocidas baja con las iteraciones. Con λ = 0 el modelo casi <b>memoriza</b> las notas (RMSE ≈ 0) y se fía demasiado de pocos datos; al subir λ, el RMSE en las conocidas sube un poco a cambio de predicciones más prudentes en los huecos."],
  models:["reco","contentbased","pca","apriori"],
  build:function(stage, ctl, read, C){
    var W = 760, H = 420, K = makeCanvas(stage, W, H, "Matriz de valoraciones con huecos y espacio latente de usuarios y series"), ctx = K.ctx;
@@ -1210,17 +1213,22 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
    var HOLES = [[1, 4, 6], [2, 5, 7], [0, 3, 6], [1, 2, 5, 7], [0, 6, 7], [3, 4, 6], [1, 3, 4], [0, 2, 5]];
    for(u = 0; u < 8; u++){ M.push([]); for(i = 0; i < 8; i++) M[u].push(HOLES[u].indexOf(i) < 0); }
    var mu = 0, nk = 0; for(u = 0; u < 8; u++) for(i = 0; i < 8; i++) if(M[u][i]){ mu += R[u][i]; nk++; } mu /= nk;
-   var Pu, Qi, it, hist, sel = 0, anim, MAXI = 400, lam = 0.06, lr = 0.06;
-   function reset(){ var g = mulberry(3); Pu = []; Qi = []; for(var q = 0; q < 8; q++){ Pu.push([0.1 * gauss(g), 0.1 * gauss(g)]); Qi.push([0.1 * gauss(g), 0.1 * gauss(g)]); } it = 0; hist = []; }
-   var pred = function(u, i){ return mu + Pu[u][0] * Qi[i][0] + Pu[u][1] * Qi[i][1]; };
+   var Pu, Qi, it, hist, sel = 0, anim, MAXI = 400, lam = 0.3, lr = 0.06;
+   function reset(){ var g = mulberry(3); Pu = []; Qi = []; Bu = []; Bi = []; for(var q = 0; q < 8; q++){ Pu.push([0.1 * gauss(g), 0.1 * gauss(g)]); Qi.push([0.1 * gauss(g), 0.1 * gauss(g)]); Bu.push(0); Bi.push(0); } it = 0; hist = []; }
+   var Bu, Bi;
+   var pred = function(u, i){ return mu + Bu[u] + Bi[i] + Pu[u][0] * Qi[i][0] + Pu[u][1] * Qi[i][1]; };
    function rmse(){ var s = 0; for(var u = 0; u < 8; u++) for(var i = 0; i < 8; i++) if(M[u][i]){ var e = R[u][i] - pred(u, i); s += e * e; } return Math.sqrt(s / nk); }
    function step(){ /* descenso de gradiente por lotes con regularización L2 */
-     var gP = Pu.map(function(){ return [0, 0]; }), gQ = Qi.map(function(){ return [0, 0]; });
+     var gP = Pu.map(function(){ return [0, 0]; }), gQ = Qi.map(function(){ return [0, 0]; }), gBu = [0, 0, 0, 0, 0, 0, 0, 0], gBi = [0, 0, 0, 0, 0, 0, 0, 0];
      for(var u = 0; u < 8; u++) for(var i = 0; i < 8; i++) if(M[u][i]){
        var e = R[u][i] - pred(u, i);
+       gBu[u] -= e; gBi[i] -= e;
        for(var f = 0; f < 2; f++){ gP[u][f] += -e * Qi[i][f]; gQ[i][f] += -e * Pu[u][f]; }
      }
-     for(u = 0; u < 8; u++) for(var f2 = 0; f2 < 2; f2++){ Pu[u][f2] -= lr * (gP[u][f2] + lam * Pu[u][f2]); Qi[u][f2] -= lr * (gQ[u][f2] + lam * Qi[u][f2]); }
+     for(u = 0; u < 8; u++){
+       Bu[u] -= lr * (gBu[u] + lam * Bu[u]); Bi[u] -= lr * (gBi[u] + lam * Bi[u]);
+       for(var f2 = 0; f2 < 2; f2++){ Pu[u][f2] -= lr * (gP[u][f2] + lam * Pu[u][f2]); Qi[u][f2] -= lr * (gQ[u][f2] + lam * Qi[u][f2]); }
+     }
      it++; hist.push(rmse());
    }
    var hx = 112, hy = 96, cw = 40, ch = 34;
@@ -1229,8 +1237,9 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      K.clear();
      var shown = it > 0;
      cap(ctx, "Notas de 1 a 5", 16, 20, C);
-     tx(ctx, "← acción", hx + 2, hy - 74, {s:11, c:C.muted}); tx(ctx, "drama →", hx + 8 * cw, hy - 74, {s:11, c:C.muted, a:"right"});
-     seg(ctx, hx + 4 * cw, hy - 84, hx + 4 * cw, hy - 4, hexA(C.line, 1), 1, [2, 3]);
+     var gy = hy + 8 * ch + 4;
+     [[0, "acción"], [4, "drama"]].forEach(function(g){ var x1 = hx + g[0] * cw + 4, x2 = hx + (g[0] + 4) * cw - 4; seg(ctx, x1, gy, x2, gy, C.muted, 1); seg(ctx, x1, gy - 4, x1, gy, C.muted, 1); seg(ctx, x2, gy - 4, x2, gy, C.muted, 1);
+       ctx.fillStyle = C.card; ctx.fillRect((x1 + x2) / 2 - 26, gy - 2, 52, 6); tx(ctx, g[1], (x1 + x2) / 2, gy + 4, {s:11, w:600, c:C.muted, a:"center"}); });
      /* cabeceras de columna giradas */
      SE.forEach(function(s, i){ ctx.save(); ctx.translate(hx + i * cw + cw / 2 + 4, hy - 8); ctx.rotate(-Math.PI / 4); tx(ctx, s, 0, 0, {s:12, c:C.text}); ctx.restore(); });
      var rc = shown ? recs(sel).map(function(x){ return x[0]; }) : [];
@@ -1256,7 +1265,7 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
          }
        }
      });
-     var ly0 = hy + 8 * ch + 12;
+     var ly0 = hy + 8 * ch + 20;
      ctx.fillStyle = hexA(C.c[0], 0.55); rrect(ctx, hx, ly0, 14, 12, 3); ctx.fill(); tx(ctx, "nota real", hx + 20, ly0 + 10, {s:11, c:C.muted});
      rrect(ctx, hx + 90, ly0, 14, 12, 3); stroke(ctx, hexA(C.c[0], 0.85), 1.2, [3, 2]); tx(ctx, "predicción", hx + 110, ly0 + 10, {s:11, c:C.muted, it:true});
      if(shown){ rrect(ctx, hx + 196, ly0, 14, 12, 3); stroke(ctx, C.c[1], 2); tx(ctx, "recomendadas a " + US[sel], hx + 216, ly0 + 10, {s:11, c:C.ink, w:600}); }
@@ -1301,7 +1310,7 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      pb.innerHTML = "⏸ Pausa"; anim.start();
    }, true);
    ctlBtn(ctl, "↺ Empezar de nuevo", function(){ anim.stop(); reset(); pb.innerHTML = "▶ Factorizar"; draw(); });
-   ctlSlider(ctl, "Regularización λ", 0, 0.5, 0.01, lam, function(v){ return fmt(v); }, function(v){ lam = v; if(it >= MAXI || !anim.on){ reset(); for(var q = 0; q < MAXI; q++) step(); pb.innerHTML = "↺ Repetir"; draw(); } });
+   ctlSlider(ctl, "Regularización λ", 0, 1, 0.05, lam, function(v){ return fmt(v); }, function(v){ lam = v; if(it >= MAXI || !anim.on){ reset(); for(var q = 0; q < MAXI; q++) step(); pb.innerHTML = "↺ Repetir"; draw(); } });
    K.cv.addEventListener("click", function(e){
      var p = K.pos(e), b = -1;
      if(p[0] < hx + 8 * cw && p[1] > hy && p[1] < hy + 8 * ch) b = Math.floor((p[1] - hy) / ch);
