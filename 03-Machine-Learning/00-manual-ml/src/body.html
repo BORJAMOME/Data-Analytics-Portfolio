@@ -1,19 +1,19 @@
 <div class="wrap">
   <a class="skip-link" href="#main">Saltar al contenido</a>
   <header class="appbar"><div class="appbar-in">
-    <button class="brand" data-mode="" aria-label="Ir al inicio"><span class="brand-mark" aria-hidden="true">ML</span><span class="brand-t">Manual ML <small>para dummies</small></span></button>
+    <button class="brand" data-mode="" aria-label="Ir al inicio"><span class="brand-t">Manual de Machine Learning</span></button>
     <nav class="topnav" id="topnav" aria-label="Secciones del manual">
-      <button class="tnb" data-mode="" aria-current="page"><span class="ti" aria-hidden="true">🏠</span><span class="tl">Inicio</span></button>
-      <button class="tnb" data-mode="fundamentos"><span class="ti" aria-hidden="true">📚</span><span class="tl">Fundamentos</span></button>
-      <button class="tnb" data-mode="explorar"><span class="ti" aria-hidden="true">🧠</span><span class="tl">Modelos</span></button>
-      <button class="tnb" data-mode="rutas"><span class="ti" aria-hidden="true">🗺️</span><span class="tl">Rutas</span></button>
-      <button class="tnb" data-mode="lab"><span class="ti" aria-hidden="true">🧪</span><span class="tl">Laboratorio</span></button>
-      <button class="tnb" data-mode="elegir"><span class="ti" aria-hidden="true">🌳</span><span class="tl">Elegir</span></button>
-      <button class="tnb" data-mode="auditoria"><span class="ti" aria-hidden="true">✅</span><span class="tl">Auditoría</span></button>
+      <button class="tnb" data-mode="" aria-current="page"><span class="tl">Inicio</span></button>
+      <button class="tnb" data-mode="fundamentos"><span class="tl">Fundamentos</span></button>
+      <button class="tnb" data-mode="explorar"><span class="tl">Modelos</span></button>
+      <button class="tnb" data-mode="rutas"><span class="tl">Rutas</span></button>
+      <button class="tnb" data-mode="lab"><span class="tl">Laboratorio</span></button>
+      <button class="tnb" data-mode="elegir"><span class="tl">Elegir</span></button>
+      <button class="tnb" data-mode="auditoria"><span class="tl">Auditoría</span></button>
     </nav>
     <div class="appbar-r">
-      <button class="iconbtn" id="qkBtn" type="button" aria-label="Buscar un modelo o concepto"><span aria-hidden="true">🔍</span><span class="qk-l">Buscar</span><kbd>Ctrl K</kbd></button>
-      <button class="iconbtn themebtn" id="themeBtn" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">🌙</button>
+      <button class="iconbtn" id="qkBtn" type="button" aria-label="Buscar un modelo o concepto"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="qk-l">Buscar</span><kbd>Ctrl K</kbd></button>
+      <button class="iconbtn themebtn" id="themeBtn" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">Oscuro</button>
     </div>
   </div></header>
 
@@ -37,8 +37,8 @@
       <p class="th-sub">Cada bloque de negocio se estudia de <b>fundamentos a avanzado</b>, en el orden en que conviene aprenderlo. Pulsa un modelo para abrir su ficha; el «siguiente» dentro de la ficha sigue esta misma ruta.</p>
     </div>
     <div class="viewsw" id="rutaSw">
-      <button class="vb active" data-rview="blocks" aria-pressed="true">🧱 Bloques</button>
-      <button class="vb" data-rview="map" aria-pressed="false">🕸️ Mapa de conocimiento</button>
+      <button class="vb active" data-rview="blocks" aria-pressed="true">Bloques</button>
+      <button class="vb" data-rview="map" aria-pressed="false">Mapa de conocimiento</button>
     </div>
     <div id="rutaBlocks"></div>
     <div id="rutaMap" class="hidden"></div>
@@ -55,7 +55,7 @@
       <div class="wiz-card" id="wizCard"></div>
       <div class="wiz-actions">
         <button class="wbtn ghost" id="wizBack">← Atrás</button>
-        <button class="wbtn ghost" id="wizReset">↺ Reiniciar</button>
+        <button class="wbtn ghost" id="wizReset">Reiniciar</button>
       </div>
     </section>
   </section>
@@ -79,8 +79,8 @@
         <kbd class="kbd" aria-hidden="true">/</kbd>
       </div>
       <div class="viewsw" id="viewsw">
-        <button class="vb active" data-view="idx" aria-pressed="true">☰ Índice</button>
-        <button class="vb" data-view="cards" aria-pressed="false">▦ Fichas</button>
+        <button class="vb active" data-view="idx" aria-pressed="true">Índice</button>
+        <button class="vb" data-view="cards" aria-pressed="false">Fichas</button>
       </div>
       <span class="count" id="count"></span>
     </div>
@@ -94,7 +94,7 @@
       <span><span class="ld" style="background:var(--positive)"></span>Con notebook propio</span>
       <span><span class="ld" style="background:var(--navy-3)"></span>Estudiado, sin notebook</span>
       <span><span class="ld" style="background:var(--navy-4);border:1px solid var(--line)"></span>Pendiente</span>
-      <span style="margin-left:6px">La familia (📐 Supervisado · 🧠 Deep Learning · 🧩 No Supervisado · 📈 Series · 🎲 Probabilístico · 🕹️ Refuerzo · 🛒 Asociación · ⚡ Acelerador) se distingue por icono, no por color</span>
+      <span style="margin-left:6px">Cada modelo indica su familia con una etiqueta de texto, no con color</span>
     </div>
 
     <div id="indexView"></div>

@@ -15,9 +15,9 @@ EASY.cox = {
   "HR &gt; 1 acelera el evento; HR &lt; 1 lo retrasa.",
   "Comprueba el supuesto de <b>riesgos proporcionales</b> (check_assumptions)."]};
 CASOS.cox = [
- ["📺","Suscripciones","Saber en qué mes de vida conviene lanzar la acción de retención.","Curvas de supervivencia por segmento y HR de cada factor (sin permanencia, pago con tarjeta…).","Campaña en el mes 6, justo antes del pico de bajas."],
- ["⚙️","Industria","¿Cuándo fallará cada máquina? Muchas aún no han fallado nunca.","Usa las máquinas sin fallo como censuradas; HR por condiciones de uso.","Calendario de mantenimiento por riesgo, no por fecha fija."],
- ["👔","RR. HH.","¿Cuánto tiempo se quedan los nuevos empleados y qué alarga su permanencia?","HR de factores como teletrabajo, mentor o salario relativo.","Política de onboarding que reduce la rotación del primer año."]];
+ ["","Suscripciones","Saber en qué mes de vida conviene lanzar la acción de retención.","Curvas de supervivencia por segmento y HR de cada factor (sin permanencia, pago con tarjeta…).","Campaña en el mes 6, justo antes del pico de bajas."],
+ ["","Industria","¿Cuándo fallará cada máquina? Muchas aún no han fallado nunca.","Usa las máquinas sin fallo como censuradas; HR por condiciones de uso.","Calendario de mantenimiento por riesgo, no por fecha fija."],
+ ["","RR. HH.","¿Cuánto tiempo se quedan los nuevos empleados y qué alarga su permanencia?","HR de factores como teletrabajo, mentor o salario relativo.","Política de onboarding que reduce la rotación del primer año."]];
 
 EASY.uplift = {
  frase:"No busca a quién le gusta la oferta, sino a quién <b>le hace cambiar de opinión</b>.",
@@ -34,9 +34,9 @@ EASY.uplift = {
   "Necesita un <b>grupo de control aleatorio</b>.",
   "Ojo a los «perros dormidos»: la acción les perjudica."]};
 CASOS.uplift = [
- ["🎟️","Retail","2 millones de cupones al trimestre: ¿a quién le hacen falta de verdad?","Modelo T-learner con la campaña anterior (tratados vs control aleatorio).","Mismas ventas incrementales con un 40% menos de cupones."],
- ["📞","Telecomunicaciones","Llamadas de retención que a algunos clientes les recuerdan que pueden irse.","Detecta los «perros dormidos» y los excluye de la lista.","Menos bajas provocadas por la propia campaña."],
- ["💊","Farmacia","¿Qué médicos cambian su prescripción tras la visita del delegado?","Uplift por médico estimado con un piloto aleatorizado.","Rutas de visita centradas en quien sí cambia."]];
+ ["","Retail","2 millones de cupones al trimestre: ¿a quién le hacen falta de verdad?","Modelo T-learner con la campaña anterior (tratados vs control aleatorio).","Mismas ventas incrementales con un 40% menos de cupones."],
+ ["","Telecomunicaciones","Llamadas de retención que a algunos clientes les recuerdan que pueden irse.","Detecta los «perros dormidos» y los excluye de la lista.","Menos bajas provocadas por la propia campaña."],
+ ["","Farmacia","¿Qué médicos cambian su prescripción tras la visita del delegado?","Uplift por médico estimado con un piloto aleatorizado.","Rutas de visita centradas en quien sí cambia."]];
 
 EASY.propensity = {
  frase:"Si no hiciste un experimento, <b>fabricas uno a posteriori</b> comparando con «gemelos» o con la evolución de otros.",
@@ -53,9 +53,9 @@ EASY.propensity = {
   "DiD exige <b>tendencias paralelas</b> previas: compruébalo con varios periodos.",
   "Si hay un factor no medido que influye en tratamiento y resultado, el efecto sale sesgado."]};
 CASOS.propensity = [
- ["🏷️","Precios","¿Cuánto volumen hizo perder la subida de precio aplicada en 40 tiendas?","Diff-in-Diff contra tiendas comparables emparejadas por propensión.","Decisión de extender o revertir la subida al resto de la red."],
- ["🎓","Formación interna","¿Rinden más los comerciales que hicieron el curso (voluntario)?","Emparejamiento por propensión para comparar con «gemelos» que no lo hicieron.","Saber si el curso merece hacerse obligatorio."],
- ["🏙️","Sector público","Efecto de una zona de bajas emisiones sobre las ventas del comercio local.","DiD frente a barrios similares sin restricción.","Evaluación de impacto con cifras para el pleno municipal."]];
+ ["","Precios","¿Cuánto volumen hizo perder la subida de precio aplicada en 40 tiendas?","Diff-in-Diff contra tiendas comparables emparejadas por propensión.","Decisión de extender o revertir la subida al resto de la red."],
+ ["","Formación interna","¿Rinden más los comerciales que hicieron el curso (voluntario)?","Emparejamiento por propensión para comparar con «gemelos» que no lo hicieron.","Saber si el curso merece hacerse obligatorio."],
+ ["","Sector público","Efecto de una zona de bajas emisiones sobre las ventas del comercio local.","DiD frente a barrios similares sin restricción.","Evaluación de impacto con cifras para el pleno municipal."]];
 
 EASY.mlp = {
  frase:"Capas de <b>pequeñas calculadoras conectadas</b> que aprenden solas qué combinaciones de datos importan.",
@@ -72,9 +72,9 @@ EASY.mlp = {
   "Estandariza, empieza pequeño y vigila la curva de <b>validación</b> (no la de train).",
   "En tablas, compara siempre con logística y boosting: muchas veces no gana."]};
 CASOS.mlp = [
- ["💳","Fintech","Scoring de solicitantes sin historial con 120 señales de comportamiento.","Captura interacciones complejas entre señales.","Solo se despliega si bate a la logística en PR-AUC (comparación documentada)."],
- ["⚡","Energía","Previsión de consumo eléctrico horario (tu notebook).","Aprende la relación no lineal con hora, temperatura y laborable.","Compra de energía ajustada al día siguiente."],
- ["🎬","Opiniones","Sentimiento de reseñas IMDB (tu notebook).","Red sobre vectores de texto que aprende combinaciones de palabras.","Panel de satisfacción actualizado a diario."]];
+ ["","Fintech","Scoring de solicitantes sin historial con 120 señales de comportamiento.","Captura interacciones complejas entre señales.","Solo se despliega si bate a la logística en PR-AUC (comparación documentada)."],
+ ["","Energía","Previsión de consumo eléctrico horario (tu notebook).","Aprende la relación no lineal con hora, temperatura y laborable.","Compra de energía ajustada al día siguiente."],
+ ["","Opiniones","Sentimiento de reseñas IMDB (tu notebook).","Red sobre vectores de texto que aprende combinaciones de palabras.","Panel de satisfacción actualizado a diario."]];
 
 EASY.cnn = {
  frase:"Una <b>lupa que recorre la imagen</b> buscando patrones pequeños y los va combinando en otros más grandes.",
@@ -91,9 +91,9 @@ EASY.cnn = {
   "En empresa casi nunca se entrena desde cero: <b>fine-tuning</b> de un modelo preentrenado.",
   "Valida con imágenes de otras tiendas, horas y cámaras: si no, el modelo engaña."]};
 CASOS.cnn = [
- ["🛒","Retail","Contar producto en el lineal con fotos del equipo de tienda.","Detector preentrenado (familia YOLO) ajustado con unos cientos de imágenes propias.","Alertas de rotura de lineal y de incumplimiento de planograma."],
- ["🚗","Movilidad","Contar vehículos en vídeo de autopista (tu notebook).","Detección + seguimiento de objetos fotograma a fotograma.","Datos de aforo sin sensores físicos."],
- ["🏭","Calidad","Detectar arañazos en piezas al final de la línea.","Clasificador de imágenes ajustado con ejemplos de defectos.","Inspección del 100% de piezas en lugar de un muestreo."]];
+ ["","Retail","Contar producto en el lineal con fotos del equipo de tienda.","Detector preentrenado (familia YOLO) ajustado con unos cientos de imágenes propias.","Alertas de rotura de lineal y de incumplimiento de planograma."],
+ ["","Movilidad","Contar vehículos en vídeo de autopista (tu notebook).","Detección + seguimiento de objetos fotograma a fotograma.","Datos de aforo sin sensores físicos."],
+ ["","Calidad","Detectar arañazos en piezas al final de la línea.","Clasificador de imágenes ajustado con ejemplos de defectos.","Inspección del 100% de piezas en lugar de un muestreo."]];
 
 EASY.rnn = {
  frase:"Lee los datos <b>en orden</b> y lleva una libreta de notas que actualiza a cada paso.",
@@ -110,9 +110,9 @@ EASY.rnn = {
   "La LSTM resuelve el <b>olvido</b> de la RNN simple con puertas.",
   "Hoy compite con Transformers y modelos fundacionales de series; compara con una línea base simple."]};
 CASOS.rnn = [
- ["⚙️","Industria","Anticipar fallos con 48 h de antelación a partir de la secuencia de sensores.","La LSTM capta degradaciones lentas que los agregados pierden.","Paradas preventivas planificadas."],
- ["🛍️","E-commerce","Predecir el siguiente producto que verá un usuario en su sesión.","Modela la secuencia de clics de la sesión.","Recomendaciones en tiempo real dentro de la visita."],
- ["🏦","Banca","Detectar fraude por la secuencia de operaciones de una tarjeta.","Aprende patrones temporales (pequeños cargos de prueba antes de uno grande).","Bloqueo antes del cargo grande."]];
+ ["","Industria","Anticipar fallos con 48 h de antelación a partir de la secuencia de sensores.","La LSTM capta degradaciones lentas que los agregados pierden.","Paradas preventivas planificadas."],
+ ["","E-commerce","Predecir el siguiente producto que verá un usuario en su sesión.","Modela la secuencia de clics de la sesión.","Recomendaciones en tiempo real dentro de la visita."],
+ ["","Banca","Detectar fraude por la secuencia de operaciones de una tarjeta.","Aprende patrones temporales (pequeños cargos de prueba antes de uno grande).","Bloqueo antes del cargo grande."]];
 
 EASY.transformer = {
  frase:"Lee toda la frase a la vez y, para cada palabra, decide <b>a qué otras palabras prestar atención</b>.",
@@ -129,9 +129,9 @@ EASY.transformer = {
   "Base de los LLM; en empresa se usa preentrenado (prompting o fine-tuning).",
   "Caro de servir: justifica la mejora frente a modelos simples."]};
 CASOS.transformer = [
- ["🧾","Seguros","Extraer campos estructurados de partes de siniestro escritos en texto libre.","Entiende «no se aprecia daño estructural» en vez de contar la palabra «daño».","Tramitación automática del 60% de partes."],
- ["💬","Atención al cliente","Clasificar la intención y el sentimiento de miles de chats.","Comprensión semántica real, incluso con ironía y faltas.","Priorización de conversaciones de clientes enfadados."],
- ["📚","Conocimiento interno","Asistente que responde con la documentación de la empresa (RAG).","Busca fragmentos relevantes y redacta la respuesta citándolos.","Menos consultas repetidas al equipo experto."]];
+ ["","Seguros","Extraer campos estructurados de partes de siniestro escritos en texto libre.","Entiende «no se aprecia daño estructural» en vez de contar la palabra «daño».","Tramitación automática del 60% de partes."],
+ ["","Atención al cliente","Clasificar la intención y el sentimiento de miles de chats.","Comprensión semántica real, incluso con ironía y faltas.","Priorización de conversaciones de clientes enfadados."],
+ ["","Conocimiento interno","Asistente que responde con la documentación de la empresa (RAG).","Busca fragmentos relevantes y redacta la respuesta citándolos.","Menos consultas repetidas al equipo experto."]];
 
 EASY.autoenc = {
  frase:"Aprende a <b>resumir y reconstruir</b> lo normal; lo que no sabe reconstruir es sospechoso.",
@@ -148,9 +148,9 @@ EASY.autoenc = {
   "Entrénalo <b>solo con datos normales</b>.",
   "Cuello de botella demasiado ancho = lo reconstruye todo (y no detecta nada)."]};
 CASOS.autoenc = [
- ["🌀","Energía","Comportamiento anómalo de una turbina con 200 señales correlacionadas.","Detecta combinaciones imposibles aunque cada señal esté en rango.","Avisos de mantenimiento con días de antelación."],
- ["💳","Pagos","Fraude de tipos nunca vistos, sin etiquetas.","Error de reconstrucción alto = operación que no se parece a nada normal.","Revisión de las 300 operaciones más raras del día."],
- ["🌐","Ciberseguridad","Tráfico de red anómalo en un servidor.","Aprende el patrón normal de cada servidor.","Alerta temprana de intrusiones."]];
+ ["","Energía","Comportamiento anómalo de una turbina con 200 señales correlacionadas.","Detecta combinaciones imposibles aunque cada señal esté en rango.","Avisos de mantenimiento con días de antelación."],
+ ["","Pagos","Fraude de tipos nunca vistos, sin etiquetas.","Error de reconstrucción alto = operación que no se parece a nada normal.","Revisión de las 300 operaciones más raras del día."],
+ ["","Ciberseguridad","Tráfico de red anómalo en un servidor.","Aprende el patrón normal de cada servidor.","Alerta temprana de intrusiones."]];
 
 EASY.rbm = {
  frase:"Una red de dos capas que descubre los <b>«gustos ocultos»</b> que explican lo que observas.",
@@ -167,9 +167,9 @@ EASY.rbm = {
   "Fue clave en el Netflix Prize y en el preentrenamiento de redes profundas.",
   "Hoy está en desuso: entiéndela como historia del campo."]};
 CASOS.rbm = [
- ["🎬","Streaming (histórico)","Netflix Prize (2006-2009): predecir valoraciones de películas.","Las RBM fueron uno de los modelos del ensemble ganador.","Mejora del RMSE sobre el sistema de Netflix."],
- ["🧠","Investigación","Preentrenar redes profundas capa a capa (Deep Belief Networks, 2006).","Inicializaba pesos cuando entrenar redes profundas desde cero fallaba.","Abrió la puerta al deep learning moderno."],
- ["🎓","Docencia","Explicar modelos generativos y de energía.","Ejemplo pequeño y visual de variables latentes.","Base para entender modelos generativos actuales."]];
+ ["","Streaming (histórico)","Netflix Prize (2006-2009): predecir valoraciones de películas.","Las RBM fueron uno de los modelos del ensemble ganador.","Mejora del RMSE sobre el sistema de Netflix."],
+ ["","Investigación","Preentrenar redes profundas capa a capa (Deep Belief Networks, 2006).","Inicializaba pesos cuando entrenar redes profundas desde cero fallaba.","Abrió la puerta al deep learning moderno."],
+ ["","Docencia","Explicar modelos generativos y de energía.","Ejemplo pequeño y visual de variables latentes.","Base para entender modelos generativos actuales."]];
 
 EASY.som = {
  frase:"Un <b>tablero de casillas</b> donde los perfiles parecidos acaban en casillas vecinas.",
@@ -186,6 +186,6 @@ EASY.som = {
   "Es una red <b>no supervisada de una capa</b> (no es deep learning).",
   "Estandariza; mira la U-Matrix para ver las fronteras entre grupos."]};
 CASOS.som = [
- ["⚽","Deporte","Encontrar jugadores con perfil parecido al objetivo en ligas más baratas (tu notebook).","El ojeador señala la casilla del jugador y mira quién cae al lado.","Lista corta de fichajes alternativos."],
- ["🛒","Retail","Segmentación de clientes que el equipo comercial pueda explorar (tu notebook).","Mapa con zonas de clientes coloreadas por gasto, frecuencia y canal.","Segmentos con fronteras visibles y fáciles de explicar."],
- ["📋","Encuestas","Agrupar miles de respuestas de satisfacción con 40 preguntas.","Mapa de perfiles de opinión con transiciones suaves entre zonas.","Plan de acción por zona del mapa."]];
+ ["","Deporte","Encontrar jugadores con perfil parecido al objetivo en ligas más baratas (tu notebook).","El ojeador señala la casilla del jugador y mira quién cae al lado.","Lista corta de fichajes alternativos."],
+ ["","Retail","Segmentación de clientes que el equipo comercial pueda explorar (tu notebook).","Mapa con zonas de clientes coloreadas por gasto, frecuencia y canal.","Segmentos con fronteras visibles y fáciles de explicar."],
+ ["","Encuestas","Agrupar miles de respuestas de satisfacción con 40 preguntas.","Mapa de perfiles de opinión con transiciones suaves entre zonas.","Plan de acción por zona del mapa."]];

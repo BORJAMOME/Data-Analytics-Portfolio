@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   CAPA «PARA DUMMIES» — por modelo
+   CAPA DE EXPLICACIÓN SENCILLA — por modelo
      frase = el modelo en una frase, sin jerga
      pasos = cómo funciona, en 3-5 pasos que podrías hacer a mano
      ej    = un ejemplo pequeño con números (HTML: tabla .mini)

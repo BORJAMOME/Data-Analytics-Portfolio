@@ -16,9 +16,9 @@ EASY.linsimple = {
   "Mide <b>asociación, no causa</b>: si subiste la publicidad en Navidad, la recta mezcla publicidad y Navidad.",
   "Mira siempre el gráfico de residuos: si dibujan una curva, una recta no es la herramienta."]};
 CASOS.linsimple = [
- ["🏪","Retail","¿Cuánto vende de más una tienda por cada metro cuadrado extra de sala?","Una recta ventas ~ m² sobre 120 tiendas da el «valor por metro» con su intervalo de confianza.","Priorizar ampliaciones donde el metro extra se paga en menos de 3 años."],
- ["⚡","Energía","Relación entre temperatura y consumo de climatización en oficinas.","Con datos diarios de verano, la pendiente dice cuántos kWh cuesta cada grado por encima de 24 °C.","Fijar la consigna de temperatura y estimar el ahorro de subirla 1 °C."],
- ["📞","Atención al cliente","¿Cuánto aumenta el tiempo de espera por cada 100 llamadas extra?","La recta espera ~ volumen permite traducir previsiones de volumen a minutos de espera.","Dimensionar cuántos agentes hacen falta para no superar 2 minutos."]];
+ ["","Retail","¿Cuánto vende de más una tienda por cada metro cuadrado extra de sala?","Una recta ventas ~ m² sobre 120 tiendas da el «valor por metro» con su intervalo de confianza.","Priorizar ampliaciones donde el metro extra se paga en menos de 3 años."],
+ ["","Energía","Relación entre temperatura y consumo de climatización en oficinas.","Con datos diarios de verano, la pendiente dice cuántos kWh cuesta cada grado por encima de 24 °C.","Fijar la consigna de temperatura y estimar el ahorro de subirla 1 °C."],
+ ["","Atención al cliente","¿Cuánto aumenta el tiempo de espera por cada 100 llamadas extra?","La recta espera ~ volumen permite traducir previsiones de volumen a minutos de espera.","Dimensionar cuántos agentes hacen falta para no superar 2 minutos."]];
 
 EASY.linmult = {
  frase:"La misma recta, pero con <b>varias causas a la vez</b>: cada variable recibe su propio «precio».",
@@ -37,9 +37,9 @@ EASY.linmult = {
   "Si dos variables cuentan lo mismo (m² y habitaciones), los coeficientes se vuelven inestables: revisa el VIF.",
   "R² siempre sube al añadir variables; compara modelos con el <b>R² ajustado</b> o con validación."]};
 CASOS.linmult = [
- ["📣","Marketing","¿Qué parte de las ventas se debe a TV, a buscadores y a redes, si se mueven a la vez?","Una regresión con los tres canales y la estacionalidad separa el efecto de cada uno «a igualdad de lo demás».","Reasignar presupuesto hacia el canal con más ventas por euro."],
- ["🏨","Hostelería","Fijar la tarifa de una habitación según día, antelación, ocupación y eventos.","Los coeficientes cuantifican cuánto suma cada factor (un congreso en la ciudad: +38 € por noche).","Tabla de precios dinámica explicable al equipo de recepción."],
- ["👥","RR. HH.","¿Existe brecha salarial una vez descontados puesto, antigüedad y formación?","El coeficiente de «género» con el resto de variables fijas mide la brecha ajustada.","Informe de igualdad retributiva con una cifra defendible."]];
+ ["","Marketing","¿Qué parte de las ventas se debe a TV, a buscadores y a redes, si se mueven a la vez?","Una regresión con los tres canales y la estacionalidad separa el efecto de cada uno «a igualdad de lo demás».","Reasignar presupuesto hacia el canal con más ventas por euro."],
+ ["","Hostelería","Fijar la tarifa de una habitación según día, antelación, ocupación y eventos.","Los coeficientes cuantifican cuánto suma cada factor (un congreso en la ciudad: +38 € por noche).","Tabla de precios dinámica explicable al equipo de recepción."],
+ ["","RR. HH.","¿Existe brecha salarial una vez descontados puesto, antigüedad y formación?","El coeficiente de «género» con el resto de variables fijas mide la brecha ajustada.","Informe de igualdad retributiva con una cifra defendible."]];
 
 EASY.ridge = {
  frase:"Una regresión lineal con <b>freno de mano</b>: no deja que ningún coeficiente se dispare.",
@@ -59,9 +59,9 @@ EASY.ridge = {
   "Imprescindible cuando hay variables muy correlacionadas: estabiliza la interpretación.",
   "Estandariza siempre antes y elige α con validación cruzada, nunca a ojo."]};
 CASOS.ridge = [
- ["📺","Marketing Mix","14 canales que se activan a la vez en campaña dan coeficientes absurdos con la lineal.","Ridge estabiliza el reparto de ventas entre canales correlacionados.","Plan de medios anual con un reparto que no cambia al añadir una semana de datos."],
- ["🏠","Inmobiliaria","Tasación con decenas de variables del barrio muy relacionadas (renta, paro, educación).","El freno L2 evita que el modelo sobrerreaccione a variables redundantes.","Error de tasación más estable en barrios con pocas ventas."],
- ["🧪","Industria química","Predecir la calidad de un lote con 50 sensores que se mueven juntos.","Ridge usa la información de todos los sensores sin que ninguno domine por casualidad.","Ajustes de proceso con menos falsas alarmas."]];
+ ["","Marketing Mix","14 canales que se activan a la vez en campaña dan coeficientes absurdos con la lineal.","Ridge estabiliza el reparto de ventas entre canales correlacionados.","Plan de medios anual con un reparto que no cambia al añadir una semana de datos."],
+ ["","Inmobiliaria","Tasación con decenas de variables del barrio muy relacionadas (renta, paro, educación).","El freno L2 evita que el modelo sobrerreaccione a variables redundantes.","Error de tasación más estable en barrios con pocas ventas."],
+ ["","Industria química","Predecir la calidad de un lote con 50 sensores que se mueven juntos.","Ridge usa la información de todos los sensores sin que ninguno domine por casualidad.","Ajustes de proceso con menos falsas alarmas."]];
 
 EASY.lasso = {
  frase:"Una regresión que <b>hace limpieza</b>: las variables que no aportan reciben un cero y desaparecen.",
@@ -79,9 +79,9 @@ EASY.lasso = {
   "Si varias variables son casi iguales, se queda con una <b>casi al azar</b>: no la presentes como «la importante».",
   "Estandariza antes; para grupos correlacionados, prueba Elastic Net."]};
 CASOS.lasso = [
- ["🏭","Industria","180 sensores por lote y el equipo de planta solo puede vigilar unos pocos.","Lasso deja 8 sensores con coeficiente distinto de cero.","Panel de planta con 8 alarmas en vez de 180."],
- ["📊","Finanzas","De 80 indicadores candidatos, ¿cuáles predicen el cobro a 90 días?","La regularización L1 se queda con un puñado de indicadores legibles.","Modelo de previsión de caja que cabe en una hoja de Excel."],
- ["🛒","E-commerce","¿Qué atributos de la ficha de producto mueven la conversión?","Con cientos de atributos codificados, Lasso aísla los pocos con efecto.","Lista corta de mejoras de ficha para el equipo de contenido."]];
+ ["","Industria","180 sensores por lote y el equipo de planta solo puede vigilar unos pocos.","Lasso deja 8 sensores con coeficiente distinto de cero.","Panel de planta con 8 alarmas en vez de 180."],
+ ["","Finanzas","De 80 indicadores candidatos, ¿cuáles predicen el cobro a 90 días?","La regularización L1 se queda con un puñado de indicadores legibles.","Modelo de previsión de caja que cabe en una hoja de Excel."],
+ ["","E-commerce","¿Qué atributos de la ficha de producto mueven la conversión?","Con cientos de atributos codificados, Lasso aísla los pocos con efecto.","Lista corta de mejoras de ficha para el equipo de contenido."]];
 
 EASY.elastic = {
  frase:"Un <b>mezclador entre Ridge y Lasso</b>: limpia variables como Lasso, pero sin abandonar a las que van en grupo.",
@@ -98,9 +98,9 @@ EASY.elastic = {
   "Brilla con <b>grupos de variables correlacionadas</b> y con más columnas que filas.",
   "Busca α y l1_ratio con validación cruzada: 0,5 no es «el término medio» automático."]};
 CASOS.elastic = [
- ["🏦","Banca","Modelo de pérdida esperada con 300 variables derivadas, muchas versiones del mismo concepto.","Conserva bloques completos de variables y la lista seleccionada no baila entre trimestres.","Modelo regulatorio estable que supera la auditoría."],
- ["🧬","Salud","Predecir respuesta a un fármaco con miles de marcadores genéticos y 200 pacientes.","Selecciona grupos de genes relacionados en lugar de uno al azar de cada grupo.","Lista de marcadores candidatos reproducible para el laboratorio."],
- ["📈","Marketing","Previsión de ventas con decenas de indicadores de búsqueda correlacionados (Google Trends).","Usa la familia de términos de búsqueda sin depender de uno concreto.","Previsión semanal más robusta ante cambios en un término."]];
+ ["","Banca","Modelo de pérdida esperada con 300 variables derivadas, muchas versiones del mismo concepto.","Conserva bloques completos de variables y la lista seleccionada no baila entre trimestres.","Modelo regulatorio estable que supera la auditoría."],
+ ["","Salud","Predecir respuesta a un fármaco con miles de marcadores genéticos y 200 pacientes.","Selecciona grupos de genes relacionados en lugar de uno al azar de cada grupo.","Lista de marcadores candidatos reproducible para el laboratorio."],
+ ["","Marketing","Previsión de ventas con decenas de indicadores de búsqueda correlacionados (Google Trends).","Usa la familia de términos de búsqueda sin depender de uno concreto.","Previsión semanal más robusta ante cambios en un término."]];
 
 EASY.poisson = {
  frase:"La regresión para <b>contar cosas</b>: pedidos por hora, siniestros al año, visitas al día.",
@@ -118,9 +118,9 @@ EASY.poisson = {
   "Coeficientes multiplicativos: e<sup>β</sup> − 1 = % de cambio.",
   "Si cada caso tiene distinta exposición (3 vs 12 meses), mete la exposición como <b>offset</b>."]};
 CASOS.poisson = [
- ["🚗","Seguros","¿Cuántos siniestros esperar por póliza para fijar la prima?","Frecuencia por Poisson con la exposición en años como offset (el estándar actuarial).","Prima = frecuencia × coste medio, explicable al supervisor."],
- ["🛵","Delivery","¿Cuántos pedidos entrarán cada hora en cada zona?","Poisson con hora, día, lluvia y partidos de fútbol como variables.","Número de repartidores por franja sin sobredimensionar."],
- ["🏥","Urgencias","¿Cuántos pacientes llegarán cada turno?","La tasa esperada por turno alimenta la planificación de personal.","Cuadrante de enfermería ajustado a la demanda real."]];
+ ["","Seguros","¿Cuántos siniestros esperar por póliza para fijar la prima?","Frecuencia por Poisson con la exposición en años como offset (el estándar actuarial).","Prima = frecuencia × coste medio, explicable al supervisor."],
+ ["","Delivery","¿Cuántos pedidos entrarán cada hora en cada zona?","Poisson con hora, día, lluvia y partidos de fútbol como variables.","Número de repartidores por franja sin sobredimensionar."],
+ ["","Urgencias","¿Cuántos pacientes llegarán cada turno?","La tasa esperada por turno alimenta la planificación de personal.","Cuadrante de enfermería ajustado a la demanda real."]];
 
 EASY.quantile = {
  frase:"En vez de predecir la media, predice <b>«la cifra que no superaré el 90% de los días»</b>.",
@@ -137,9 +137,9 @@ EASY.quantile = {
   "La pérdida es asimétrica (pinball loss): el τ que eliges sale del coste de quedarse corto.",
   "Comprueba la <b>cobertura real</b> y que P90 quede siempre por encima de P50."]};
 CASOS.quantile = [
- ["📦","Logística","Roturas de stock en productos de alta rotación y exceso en otros.","P95 de demanda por SKU para fijar el stock de seguridad.","Nivel de servicio del 95% con menos inventario inmovilizado."],
- ["🚚","Última milla","Prometer una hora de entrega que se cumpla de verdad.","P90 del tiempo de entrega según zona, hora y tráfico.","Ventana «llega antes de las 14:00» cumplida 9 de cada 10 veces."],
- ["☁️","Tecnología","¿Cuántos servidores reservar para los picos?","P99 de carga por hora en lugar de la carga media.","Capacidad suficiente sin pagar el doble «por si acaso»."]];
+ ["","Logística","Roturas de stock en productos de alta rotación y exceso en otros.","P95 de demanda por SKU para fijar el stock de seguridad.","Nivel de servicio del 95% con menos inventario inmovilizado."],
+ ["","Última milla","Prometer una hora de entrega que se cumpla de verdad.","P90 del tiempo de entrega según zona, hora y tráfico.","Ventana «llega antes de las 14:00» cumplida 9 de cada 10 veces."],
+ ["","Tecnología","¿Cuántos servidores reservar para los picos?","P99 de carga por hora en lugar de la carga media.","Capacidad suficiente sin pagar el doble «por si acaso»."]];
 
 EASY.bayesridge = {
  frase:"Una regresión que además del número te dice <b>cuánto se fía de él</b>.",
@@ -156,9 +156,9 @@ EASY.bayesridge = {
   "Brilla con <b>pocos datos</b>, cuando decidir con un número sin rango es peligroso.",
   "La barra solo refleja la duda del modelo, no la de que el modelo esté mal planteado."]};
 CASOS.bayesridge = [
- ["💊","Farmacia","Estimar el rendimiento de una síntesis con 60 experimentos de una semana cada uno.","Cada predicción viene con su intervalo; se priorizan pruebas donde la duda es mayor.","Menos semanas de laboratorio para llegar a producción."],
- ["🏬","Retail","Previsión de ventas para una tienda recién abierta con 8 semanas de historia.","El prior (tiendas parecidas) estabiliza la previsión y el intervalo comunica la duda.","Objetivos comerciales realistas para la nueva tienda."],
- ["📣","Marketing","Medir el retorno de un canal nuevo con pocas semanas de datos.","El intervalo de credibilidad dice si el retorno es claramente positivo o aún incierto.","Decidir si escalar el canal o seguir probando."]];
+ ["","Farmacia","Estimar el rendimiento de una síntesis con 60 experimentos de una semana cada uno.","Cada predicción viene con su intervalo; se priorizan pruebas donde la duda es mayor.","Menos semanas de laboratorio para llegar a producción."],
+ ["","Retail","Previsión de ventas para una tienda recién abierta con 8 semanas de historia.","El prior (tiendas parecidas) estabiliza la previsión y el intervalo comunica la duda.","Objetivos comerciales realistas para la nueva tienda."],
+ ["","Marketing","Medir el retorno de un canal nuevo con pocas semanas de datos.","El intervalo de credibilidad dice si el retorno es claramente positivo o aún incierto.","Decidir si escalar el canal o seguir probando."]];
 
 EASY.gp = {
  frase:"Un modelo que dibuja <b>todas las curvas posibles</b> que encajan con tus pocos puntos y te dice dónde duda.",
@@ -175,9 +175,9 @@ EASY.gp = {
   "No escala: el coste crece con el cubo del nº de filas (miles como máximo).",
   "Es el motor clásico de la optimización bayesiana de experimentos e hiperparámetros."]};
 CASOS.gp = [
- ["🏭","Industria","Ajustar 6 parámetros de una línea donde cada prueba para 4 horas.","Optimización bayesiana: el GP propone la siguiente prueba más informativa.","Óptimo encontrado en 25 pruebas en vez de 100."],
- ["🤖","Ciencia de datos","Elegir hiperparámetros de un modelo caro de entrenar.","El GP modela el AUC según los hiperparámetros y sugiere la siguiente combinación.","Mejor modelo con un tercio de las horas de GPU."],
- ["🌱","Agricultura","Mapa de humedad del suelo a partir de 30 sondas en una finca.","Interpola entre sondas (kriging) y marca las zonas con más incertidumbre.","Dónde instalar las siguientes sondas y dónde regar."]];
+ ["","Industria","Ajustar 6 parámetros de una línea donde cada prueba para 4 horas.","Optimización bayesiana: el GP propone la siguiente prueba más informativa.","Óptimo encontrado en 25 pruebas en vez de 100."],
+ ["","Ciencia de datos","Elegir hiperparámetros de un modelo caro de entrenar.","El GP modela el AUC según los hiperparámetros y sugiere la siguiente combinación.","Mejor modelo con un tercio de las horas de GPU."],
+ ["","Agricultura","Mapa de humedad del suelo a partir de 30 sondas en una finca.","Interpola entre sondas (kriging) y marca las zonas con más incertidumbre.","Dónde instalar las siguientes sondas y dónde regar."]];
 
 EASY.svr = {
  frase:"Una regresión que pone un <b>tubo de tolerancia</b> alrededor de la predicción y solo se preocupa de lo que se sale.",
@@ -194,9 +194,9 @@ EASY.svr = {
   "Buen nicho: <b>pocas filas y muchísimas columnas</b> (espectros, sensores).",
   "Estandariza siempre y no lo uses con decenas de miles de filas: entrena lento."]};
 CASOS.svr = [
- ["🔬","Química","Predecir la concentración de un principio activo a partir de 900 longitudes de onda.","SVR con kernel aguanta muchas más columnas que filas.","Liberar lotes sin ensayo destructivo."],
- ["🍷","Alimentación","Estimar el grado de maduración de la uva con un espectrómetro de mano.","El tubo ε ignora el ruido del aparato y se centra en desviaciones relevantes.","Fecha de vendimia por parcela."],
- ["⚙️","Mantenimiento","Vida útil restante de un rodamiento a partir de vibraciones.","Regresión no lineal robusta con pocas curvas de degradación históricas.","Planificar cambios antes de la avería."]];
+ ["","Química","Predecir la concentración de un principio activo a partir de 900 longitudes de onda.","SVR con kernel aguanta muchas más columnas que filas.","Liberar lotes sin ensayo destructivo."],
+ ["","Alimentación","Estimar el grado de maduración de la uva con un espectrómetro de mano.","El tubo ε ignora el ruido del aparato y se centra en desviaciones relevantes.","Fecha de vendimia por parcela."],
+ ["","Mantenimiento","Vida útil restante de un rodamiento a partir de vibraciones.","Regresión no lineal robusta con pocas curvas de degradación históricas.","Planificar cambios antes de la avería."]];
 
 EASY.gbr = {
  frase:"Un <b>equipo en cadena</b> de árboles pequeños: cada uno corrige lo que falló el anterior.",
@@ -213,6 +213,6 @@ EASY.gbr = {
   "Learning rate pequeño + muchos árboles + early stopping = la receta estable.",
   "Máxima precisión en tablas; para explicar el porqué, usa SHAP."]};
 CASOS.gbr = [
- ["⚡","Energía","Prever el consumo horario de mañana para comprar en el mercado eléctrico.","Captura la forma en U consumo-temperatura y los efectos de festivos.","Menos desvíos pagados a precio de penalización."],
- ["🏠","Inmobiliaria","Tasación automática con relaciones no lineales (planta, vistas, ascensor).","Cada árbol corrige errores en los segmentos donde la lineal fallaba.","Error mediano de tasación por debajo del 8%."],
- ["🛍️","Retail","Estimar las ventas de un producto nuevo según atributos y tienda.","Aprende interacciones (talla × clima × región) sin especificarlas a mano.","Reparto inicial de stock por tienda más ajustado."]];
+ ["","Energía","Prever el consumo horario de mañana para comprar en el mercado eléctrico.","Captura la forma en U consumo-temperatura y los efectos de festivos.","Menos desvíos pagados a precio de penalización."],
+ ["","Inmobiliaria","Tasación automática con relaciones no lineales (planta, vistas, ascensor).","Cada árbol corrige errores en los segmentos donde la lineal fallaba.","Error mediano de tasación por debajo del 8%."],
+ ["","Retail","Estimar las ventas de un producto nuevo según atributos y tienda.","Aprende interacciones (talla × clima × región) sin especificarlas a mano.","Reparto inicial de stock por tienda más ajustado."]];

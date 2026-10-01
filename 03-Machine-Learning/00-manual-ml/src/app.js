@@ -16,36 +16,36 @@ var SC = {
   na:["N/A","na",-1]
 };
 
-/* La familia ya no se distingue por color (gobernanza de marca: el morado
+/* La familia ya no se distingue por color (gobernanza de marca: el azul
    es el único color de datos) — se distingue por icono + etiqueta, siempre
    los dos juntos para no depender nunca de un solo canal visual. */
 var FAM = {
-  sup   : {l:"Supervisado",         ic:"📐"},
-  dl    : {l:"Deep Learning",       ic:"🧠"},
-  unsup : {l:"No Supervisado",      ic:"🧩"},
-  ts    : {l:"Series Temporales",   ic:"📈"},
-  prob  : {l:"Probabilístico",      ic:"🎲"},
-  rl    : {l:"Refuerzo",            ic:"🕹️"},
-  asoc  : {l:"Reglas de Asociación",ic:"🛒"},
-  tool  : {l:"Acelerador",          ic:"⚡"}
+  sup   : {l:"Supervisado",         ic:""},
+  dl    : {l:"Deep Learning",       ic:""},
+  unsup : {l:"No Supervisado",      ic:""},
+  ts    : {l:"Series Temporales",   ic:""},
+  prob  : {l:"Probabilístico",      ic:""},
+  rl    : {l:"Refuerzo",            ic:""},
+  asoc  : {l:"Reglas de Asociación",ic:""},
+  tool  : {l:"Acelerador",          ic:""}
 };
 
 var SECS = [
-  {b:"num", ic:"📊", t:"Supervisado — Regresión",                       s:"Predecir un número continuo"},
-  {b:"cat", ic:"🎯", t:"Supervisado — Clasificación",                   s:"Predecir una categoría o un sí/no"},
-  {b:"sup", ic:"⏳", t:"Supervisado — Análisis de supervivencia",       s:"No si ocurre, sino cuándo ocurre"},
-  {b:"cau", ic:"🧪", t:"Inferencia causal — Uplift",                    s:"Medir el efecto real de una acción"},
-  {b:"net", ic:"🧠", t:"Deep Learning y redes neuronales",              s:"Patrones complejos y datos no estructurados"},
-  {b:"grp", ic:"👥", t:"No Supervisado — Clustering",                   s:"Agrupar casos parecidos"},
-  {b:"dim", ic:"🗜️", t:"No Supervisado — Reducción de dimensionalidad", s:"Resumir o visualizar muchas variables"},
-  {b:"ano", ic:"🚨", t:"No Supervisado — Detección de anomalías",       s:"Encontrar lo raro"},
-  {b:"aso", ic:"🛒", t:"Reglas de asociación",                          s:"Qué se compra junto con qué"},
-  {b:"rec", ic:"⭐", t:"Sistemas de recomendación",                     s:"Qué ofrecer a cada cliente"},
-  {b:"txt", ic:"📝", t:"Texto — Topic modeling",                        s:"De qué hablan mis documentos"},
-  {b:"prb", ic:"🎲", t:"Modelos probabilísticos",                       s:"Dependencias, secuencias y estados ocultos"},
-  {b:"rl",  ic:"🕹️", t:"Aprendizaje por Refuerzo",                      s:"Un agente decide y aprende de la recompensa"},
-  {b:"fut", ic:"📈", t:"Series temporales — Forecasting",               s:"Prever la evolución en el tiempo"},
-  {b:"aut", ic:"⚡", t:"Aceleradores — AutoML",                         s:"Prototipar un baseline muy rápido"}
+  {b:"num", ic:"", t:"Supervisado — Regresión",                       s:"Predecir un número continuo"},
+  {b:"cat", ic:"", t:"Supervisado — Clasificación",                   s:"Predecir una categoría o un sí/no"},
+  {b:"sup", ic:"", t:"Supervisado — Análisis de supervivencia",       s:"No si ocurre, sino cuándo ocurre"},
+  {b:"cau", ic:"", t:"Inferencia causal — Uplift",                    s:"Medir el efecto real de una acción"},
+  {b:"net", ic:"", t:"Deep Learning y redes neuronales",              s:"Patrones complejos y datos no estructurados"},
+  {b:"grp", ic:"", t:"No Supervisado — Clustering",                   s:"Agrupar casos parecidos"},
+  {b:"dim", ic:"", t:"No Supervisado — Reducción de dimensionalidad", s:"Resumir o visualizar muchas variables"},
+  {b:"ano", ic:"", t:"No Supervisado — Detección de anomalías",       s:"Encontrar lo raro"},
+  {b:"aso", ic:"", t:"Reglas de asociación",                          s:"Qué se compra junto con qué"},
+  {b:"rec", ic:"", t:"Sistemas de recomendación",                     s:"Qué ofrecer a cada cliente"},
+  {b:"txt", ic:"", t:"Texto — Topic modeling",                        s:"De qué hablan mis documentos"},
+  {b:"prb", ic:"", t:"Modelos probabilísticos",                       s:"Dependencias, secuencias y estados ocultos"},
+  {b:"rl",  ic:"", t:"Aprendizaje por Refuerzo",                      s:"Un agente decide y aprende de la recompensa"},
+  {b:"fut", ic:"", t:"Series temporales — Forecasting",               s:"Prever la evolución en el tiempo"},
+  {b:"aut", ic:"", t:"Aceleradores — AutoML",                         s:"Prototipar un baseline muy rápido"}
 ];
 
 /* st: nb = notebook propio · std = estudiado sin notebook · pend = pendiente
@@ -2474,7 +2474,7 @@ MODELS.forEach(function(m){
 
 /* ── branch buttons ── */
 document.getElementById("branches").innerHTML = SECS.map(function(s){
-  return '<button class="branch" data-filter="'+s.b+'">'+s.ic+' '+s.s+'</button>';
+  return '<button class="branch" data-filter="'+s.b+'">'+s.s+'</button>';
 }).join("");
 
 /* ── filter buttons — familia y estado son dos dimensiones distintas,
@@ -2494,7 +2494,7 @@ document.getElementById("filtersStatus").innerHTML = FILTERS_ST.map(function(f){
 function cardHtml(m){
   var cls = m.st==="pend" ? " pending" : m.st==="std" ? " studied" : "";
   var h = '<article class="card'+cls+'" data-id="'+m.id+'">';
-  h += '<div class="ctop"><span class="tb">'+FAM[m.f].ic+' '+FAM[m.f].l+'</span><span class="st '+ST[m.st].c+'">'+ST[m.st].l+'</span></div>';
+  h += '<div class="ctop"><span class="tb">'+FAM[m.f].l+'</span><span class="st '+ST[m.st].c+'">'+ST[m.st].l+'</span></div>';
   h += '<h3 class="mn">'+m.n+'</h3>';
   h += '<div class="qbox"><span class="qmark">?</span>'+m.q+'</div>';
   h += '<div class="exp">'+m.e+'</div>';
@@ -2511,7 +2511,7 @@ function cardHtml(m){
   h += '<div class="f h"><dt>Interpretabilidad</dt><dd><span class="ib '+ibClass(m.a[3])+'">'+m.a[3][0]+'</span></dd></div>';
   h += '<div class="f"><dt>Cuándo NO usarlo</dt><dd>'+m.no+'</dd></div>';
   h += '<div class="f"><dt>Decisión de negocio · KPI</dt><dd>'+m.biz+'</dd></div>';
-  if(m.warn) h += '<div class="f"><dt>⚠ Matiz importante</dt><dd>'+m.warn+'</dd></div>';
+  if(m.warn) h += '<div class="f"><dt>Matiz importante</dt><dd>'+m.warn+'</dd></div>';
   h += '</dl>';
   h += '<div class="cfoot"><span class="cxl">Complejidad</span><div class="cx">'+dots(m.cx)+'</div></div>';
   return h+'</article>';
@@ -2520,7 +2520,7 @@ document.getElementById("sections").innerHTML = SECS.map(function(s){
   var ms = MODELS.filter(function(m){return m.b===s.b;});
   if(!ms.length) return "";
   return '<section class="sec" data-branch="'+s.b+'">'+
-    '<h2 class="sh"><span class="shi">'+s.ic+'</span>'+s.t+
+    '<h2 class="sh">'+s.t+
     '<span class="shs">· '+s.s+' · '+ms.length+' modelos</span></h2>'+
     '<div class="grid">'+ms.map(cardHtml).join("")+'</div></section>';
 }).join("");
@@ -2551,7 +2551,7 @@ function renderTable(list){
   document.getElementById("tbody").innerHTML = arr.map(function(m){
     return '<tr class="'+(m.st==="pend"?"pend":"")+'">'+
       '<td class="tm">'+m.n+'</td>'+
-      '<td class="tf">'+FAM[m.f].ic+' '+FAM[m.f].l+'</td>'+
+      '<td class="tf">'+FAM[m.f].l+'</td>'+
       '<td class="tf"><span class="tdot" style="background:'+ST[m.st].dot+'"></span>'+ST[m.st].l.slice(2)+'</td>'+
       m.a.map(function(v){return '<td>'+symHtml(v,m.est)+'</td>';}).join("")+
       '<td class="tf">'+m.cx+'/5</td>'+
@@ -2723,20 +2723,20 @@ function routeBlocks(){
 function routeRow(m){
   var s = PSTATE[getProg(m.id).status];
   return '<button class="idxrow" data-go="'+m.id+'">'+
-    '<span class="i">'+FAM[m.f].ic+'</span><span class="nm2">'+m.n+'</span>'+
+    '<span class="nm2">'+m.n+'</span>'+
     '<span class="qq">'+m.q+'</span>'+
     '<span class="stt" style="color:'+PCOLOR[getProg(m.id).status]+'">'+s.l+'</span>'+
     '<span class="go">Estudiar →</span></button>';
 }
 function renderRutas(){
   var intro = '<div class="macro" id="rutaMacro">' + MACRO.map(function(x){
-    return '<div class="mc"><div class="mt">'+FAM[x.f].ic+' '+x.t+'</div><div class="md">'+x.d+'</div><div class="me">'+x.e+'</div></div>';
+    return '<div class="mc"><div class="mt">'+x.t+'</div><div class="md">'+x.d+'</div><div class="me">'+x.e+'</div></div>';
   }).join("") + '</div>';
   var data = routeBlocks();
   var body = data.map(function(d){
     var s = d.sec;
     var done = d.blocks.reduce(function(a,b){return a+b.models.filter(function(m){return isDone(m.id);}).length;},0);
-    return '<div class="route-sec"><div class="idxh"><span>'+s.ic+' '+s.t+'</span>'+
+    return '<div class="route-sec"><div class="idxh"><span>'+s.t+'</span>'+
       '<span class="c">· '+s.s+' · '+done+'/'+d.total+' entendidos</span></div>'+
       d.blocks.map(function(b){
         return '<div class="route-block"><div class="rb-label">'+b.label+'</div>'+
@@ -2750,7 +2750,7 @@ function renderRutaMap(){
   document.getElementById("rutaMap").innerHTML = '<div class="kmap">' + data.map(function(d){
     var s = d.sec;
     var pct = Math.round(d.blocks.reduce(function(a,b){return a+b.models.filter(function(m){return isDone(m.id);}).length;},0) / d.total * 100);
-    return '<details class="kmnode"><summary>'+s.ic+' <b>'+s.t+'</b><span class="kmpct">'+pct+'%</span></summary>'+
+    return '<details class="kmnode"><summary><b>'+s.t+'</b><span class="kmpct">'+pct+'%</span></summary>'+
       '<div class="kmbody">'+ d.blocks.map(function(b){
         return '<details class="kmnode2"><summary>'+b.label+' <span class="kmn">('+b.models.length+')</span></summary>'+
           '<div class="kmleaf">'+b.models.map(function(m){
@@ -2786,13 +2786,13 @@ function renderHome(){
 
   var h = '<section class="hero"><div>'+
     '<div class="eyebrow">Manual visual · edición octubre 2026</div>'+
-    '<h1>Machine Learning <em>explicado para humanos</em></h1>'+
+    '<h1>Manual de <em>Machine Learning</em></h1>'+
     '<p class="lead">'+MODELS.length+' modelos contados como te los contaría un compañero senior: primero la intuición y un ejemplo con números, luego el visual interactivo, después el caso de negocio y, solo al final, la fórmula. Pensado para analistas de datos que quieren <b>entender</b>, no memorizar.</p>'+
     '<div class="hero-cta">'+
       (last && byId[last.id]
         ? '<button class="btn primary" data-go="'+last.id+'">Continuar: '+byId[last.id].n+' →</button>'
         : '<button class="btn primary" data-go="'+first.id+'">Empezar por el primer modelo →</button>')+
-      '<button class="btn" data-mode="elegir">🌳 Tengo un problema: ¿qué modelo uso?</button></div>'+
+      '<button class="btn" data-mode="elegir">Tengo un problema: ¿qué modelo uso?</button></div>'+
     '<div class="hero-stats">'+
       '<div class="hs"><div class="n">'+MODELS.length+'</div><div class="l">modelos</div></div>'+
       '<div class="hs"><div class="n">'+(nViz + LABS.length)+'</div><div class="l">visuales 2D/3D</div></div>'+
@@ -2805,7 +2805,7 @@ function renderHome(){
   if(last && byId[last.id]){
     var m = byId[last.id];
     h += '<div class="continue-card"><div><div class="cc-eyebrow">Continúa donde lo dejaste</div>'+
-      '<div class="cc-name">'+FAM[m.f].ic+' '+m.n+'</div><div class="cc-q">'+m.q+'</div>'+
+      '<div class="cc-name">'+m.n+'</div><div class="cc-q">'+m.q+'</div>'+
       '<div class="cc-bar"><div class="cc-fill" style="width:'+Math.round(doneN/MODELS.length*100)+'%"></div></div>'+
       '<div class="cc-meta">'+doneN+' de '+MODELS.length+' modelos entendidos o dominados</div></div>'+
       '<button class="wbtn solid" data-go="'+m.id+'">Seguir estudiando →</button></div>';
@@ -2820,15 +2820,15 @@ function renderHome(){
     '</div>';
 
   var modes = [
-    {mode:"fundamentos", ic:"📚", t:"Fundamentos", d:"Lo que necesitas ANTES de los modelos: sobreajuste, métricas, fugas de información, validación… en sencillo.", stat:FUND_COUNT()+" conceptos · plan de 12 semanas"},
-    {mode:"explorar", ic:"🧠", t:"Catálogo de modelos", d:"Busca, filtra por familia y compara en tabla los "+MODELS.length+" modelos.", stat:nbCount+" con notebook propio en el portfolio"},
-    {mode:"rutas", ic:"🗺️", t:"Rutas de aprendizaje", d:"Cada bloque de negocio, de lo básico a lo avanzado, en el orden en que conviene estudiarlo.", stat:"Progreso guardado en tu navegador"},
-    {mode:"lab", ic:"🧪", t:"Laboratorio visual", d:"Todos los experimentos interactivos juntos: el kernel en 3D, el umbral, K-Means paso a paso…", stat:(nViz + LABS.length)+" visuales"},
-    {mode:"elegir", ic:"🌳", t:"Elegir un modelo", d:"Responde preguntas sobre tu problema y llega a los modelos recomendados, con el porqué.", stat:"Árbol de "+(window.WIZ_STATS?WIZ_STATS.q:"")+" preguntas"},
-    {mode:"auditoria", ic:"✅", t:"Auditoría y mejoras", d:"Qué se revisó y corrigió en esta edición y qué mejoras se proponen para la siguiente.", stat:"Revisión técnica de octubre de 2026"}
+    {mode:"fundamentos", ic:"", t:"Fundamentos", d:"Lo que necesitas ANTES de los modelos: sobreajuste, métricas, fugas de información, validación… en sencillo.", stat:FUND_COUNT()+" conceptos · plan de 12 semanas"},
+    {mode:"explorar", ic:"", t:"Catálogo de modelos", d:"Busca, filtra por familia y compara en tabla los "+MODELS.length+" modelos.", stat:nbCount+" con notebook propio en el portfolio"},
+    {mode:"rutas", ic:"", t:"Rutas de aprendizaje", d:"Cada bloque de negocio, de lo básico a lo avanzado, en el orden en que conviene estudiarlo.", stat:"Progreso guardado en tu navegador"},
+    {mode:"lab", ic:"", t:"Laboratorio visual", d:"Todos los experimentos interactivos juntos: el kernel en 3D, el umbral, K-Means paso a paso…", stat:(nViz + LABS.length)+" visuales"},
+    {mode:"elegir", ic:"", t:"Elegir un modelo", d:"Responde preguntas sobre tu problema y llega a los modelos recomendados, con el porqué.", stat:"Árbol de "+(window.WIZ_STATS?WIZ_STATS.q:"")+" preguntas"},
+    {mode:"auditoria", ic:"", t:"Auditoría y mejoras", d:"Qué se revisó y corrigió en esta edición y qué mejoras se proponen para la siguiente.", stat:"Revisión técnica de octubre de 2026"}
   ];
   h += '<div class="section-h"><h2>¿Qué quieres hacer hoy?</h2></div><div class="mode-grid">' + modes.map(function(x){
-    return '<button class="mode-card" data-mode="'+x.mode+'"><div class="mc-ic">'+x.ic+'</div><div class="mc-t">'+x.t+'</div>'+
+    return '<button class="mode-card" data-mode="'+x.mode+'"><div class="mc-t">'+x.t+'</div>'+
       '<div class="mc-d">'+x.d+'</div><div class="mc-stat">'+x.stat+' →</div></button>';
   }).join("") + '</div>';
 
@@ -2836,10 +2836,10 @@ function renderHome(){
     SECS.map(function(s){
       var n = MODELS.filter(function(m){ return m.b === s.b; }).length;
       var firstM = MODELS.filter(function(m){ return m.b === s.b; }).sort(function(a,b){ return a.cx-b.cx; })[0];
-      return '<button class="fam" data-go="'+firstM.id+'"><span class="fi">'+s.ic+'</span><span class="fn">'+s.s+'</span><span class="fc">'+s.t.replace(/^.*— /,"")+' · '+n+' modelos</span></button>';
+      return '<button class="fam" data-go="'+firstM.id+'"><span class="fn">'+s.s+'</span><span class="fc">'+s.t.replace(/^.*— /,"")+' · '+n+' modelos</span></button>';
     }).join("")+'</div>';
 
-  h += '<footer class="sitefoot"><span>Manual ML para dummies · Borja Mora Méndez · 2026</span><span>Notebooks: <a href="https://github.com/BORJAMOME/Data-Analytics-Portfolio" target="_blank" rel="noopener">BORJAMOME/Data-Analytics-Portfolio</a></span></footer>';
+  h += '<footer class="sitefoot"><span>Manual de Machine Learning · Borja Mora Méndez · 2026</span><span>Notebooks: <a href="https://github.com/BORJAMOME/Data-Analytics-Portfolio" target="_blank" rel="noopener">BORJAMOME/Data-Analytics-Portfolio</a></span></footer>';
   host.innerHTML = h;
   heroAnim();
 }
@@ -2924,11 +2924,11 @@ function renderIndex(list){
   SECS.forEach(function(s){
     var ms = list.filter(function(m){ return m.b === s.b; });
     if(!ms.length) return;
-    html += '<div class="idxsec"><div class="idxh"><span>'+s.ic+' '+s.t+'</span>'+
+    html += '<div class="idxsec"><div class="idxh"><span>'+s.t+'</span>'+
             '<span class="c">· '+s.s+' · '+ms.length+'</span></div><div class="idxlist">';
     html += ms.map(function(m){
       return '<button class="idxrow'+(m.st==="pend"?" pend":"")+'" data-go="'+m.id+'">'+
-        '<span class="i">'+FAM[m.f].ic+'</span>'+
+        ''+
         '<span class="nm2">'+m.n+'</span>'+
         '<span class="qq">'+m.q+'</span>'+
         '<span class="stt '+ST[m.st].c+'" style="color:'+(m.st==="nb"?"var(--positive)":m.st==="std"?"var(--navy-3)":"var(--navy-4)")+'">'+ST[m.st].l+'</span>'+
@@ -2966,7 +2966,7 @@ function chap(id, n, k, titulo){
 function blk(id, ic, titulo, cuerpo, opt){
   opt = opt || {};
   return '<div class="blk'+(opt.wide ? " wide" : "")+'" id="'+id+'" data-toc="'+titulo+'">'+
-    '<h3><span class="hi" aria-hidden="true">'+ic+'</span>'+titulo+(opt.hs ? '<span class="hs">'+opt.hs+'</span>' : '')+'</h3>'+cuerpo+'</div>';
+    '<h3>'+titulo+(opt.hs ? '<span class="hs">'+opt.hs+'</span>' : '')+'</h3>'+cuerpo+'</div>';
 }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
@@ -2990,10 +2990,10 @@ function renderDetail(id){
   var h = "";
 
   /* ── cabecera ── */
-  h += '<div class="dcrumb"><button class="dback" id="dback">← Volver</button><span class="sep">/</span><span>'+FAM[m.f].ic+' '+FAM[m.f].l+'</span><span class="sep">/</span><span>'+sec.t+'</span></div>';
+  h += '<div class="dcrumb"><button class="dback" id="dback">← Volver</button><span class="sep">/</span><span>'+FAM[m.f].l+'</span><span class="sep">/</span><span>'+sec.t+'</span></div>';
   h += '<header class="dhero"><div>';
   h += '<h1>'+m.n+'</h1>';
-  h += '<div class="dmeta"><span class="tb">'+FAM[m.f].ic+' '+FAM[m.f].l+'</span>'+
+  h += '<div class="dmeta"><span class="tb">'+FAM[m.f].l+'</span>'+
        '<span class="st '+ST[m.st].c+'">'+ST[m.st].l+'</span>'+
        '<span class="pg chip" style="color:'+PCOLOR[pg.status]+'">'+PSTATE[pg.status].l+'</span>'+
        '<span class="cxbox"><span class="cxl">Dificultad</span><span class="cx">'+dots(m.cx)+'</span></span></div>';
@@ -3009,13 +3009,13 @@ function renderDetail(id){
 
   /* 1 · ENTIÉNDELO */
   b += chap("ch1", 1, "Capítulo 1", "Entiéndelo");
-  if(E.frase) b += blk("b-frase", "🎯", "En una frase", '<p class="oneliner">'+E.frase+'</p>');
-  if(m.sim) b += blk("b-sencillo", "💡", "Explicado como a un amigo",
+  if(E.frase) b += blk("b-frase", "", "En una frase", '<p class="oneliner">'+E.frase+'</p>');
+  if(m.sim) b += blk("b-sencillo", "", "Explicado como a un amigo",
       '<div class="call analog"><div class="cb"><div class="ck">Analogía y ejemplo</div><div class="dbody">'+m.sim+'</div></div></div>');
-  if(E.pasos && E.pasos.length) b += blk("b-pasos", "🪜", "Cómo funciona, paso a paso",
+  if(E.pasos && E.pasos.length) b += blk("b-pasos", "", "Cómo funciona, paso a paso",
       '<ol class="pasos">'+E.pasos.map(function(p){ return '<li>'+p+'</li>'; }).join("")+'</ol>');
-  if(E.ej) b += blk("b-ejemplo", "🔢", "Un ejemplo con números", '<div class="mini"><div class="dbody">'+E.ej+'</div></div>');
-  b += blk("b-idea", "🔑", "La idea clave (versión técnica corta)", '<div class="dbody">'+m.e+'</div>');
+  if(E.ej) b += blk("b-ejemplo", "", "Un ejemplo con números", '<div class="mini"><div class="dbody">'+E.ej+'</div></div>');
+  b += blk("b-idea", "", "La idea clave (versión técnica corta)", '<div class="dbody">'+m.e+'</div>');
   b += '</section>';
 
   /* 2 · MÍRALO */
@@ -3025,10 +3025,10 @@ function renderDetail(id){
   var tabs = (own ? [own] : []).concat(labsFor);
   if(tabs.length){
     b += chap("ch2", 2, "Capítulo 2", "Míralo en acción");
-    b += blk("b-visual", "👀", "Visualízalo e interactúa",
+    b += blk("b-visual", "", "Visualízalo e interactúa",
       '<p class="dbody" style="margin-bottom:18px;max-width:var(--read)">Toca los controles y fíjate en «Qué debes notar». Ver el modelo moverse vale más que diez definiciones.</p>'+
       (tabs.length > 1 ? '<div class="labpick">'+tabs.map(function(L,k){
-        return '<button class="labtab'+(k===0?" on":"")+'" data-labtab="'+L.id+'">'+(k===0 && own ? '<span class="own">Visual</span>' : '')+L.ic+' '+L.t+' <span class="labdim">'+L.dim+'</span></button>';
+        return '<button class="labtab'+(k===0?" on":"")+'" data-labtab="'+L.id+'">'+(k===0 && own ? '<span class="own">Visual</span>' : '')+L.t+' <span class="labdim">'+L.dim+'</span></button>';
       }).join("")+'</div>' : '')+
       '<div class="vizframe"><div class="labinline" id="labInline"></div></div>', {wide:true, hs: own ? own.dim : ""});
     b += '</section>';
@@ -3037,24 +3037,24 @@ function renderDetail(id){
   /* 3 · ÚSALO */
   b += chap("ch3", 3, "Capítulo 3", "Úsalo en una empresa");
   var casosHtml = CS.map(function(c){
-    return '<article class="caso"><div class="cs1"><span class="cico" aria-hidden="true">'+c[0]+'</span><span class="csec">'+c[1]+'</span></div>'+
+    return '<article class="caso"><div class="cs1"><span class="csec">'+c[1]+'</span></div>'+
       '<div class="cq">'+c[2]+'</div><div><div class="ck2">Cómo ayuda el modelo</div><div class="cd">'+c[3]+'</div></div>'+
       '<div class="ckpi">'+c[4]+'</div></article>';
   }).join("");
   if(m.caso){
-    casosHtml = '<article class="caso main"><div class="cs1"><span class="cico" aria-hidden="true">⭐</span><span class="csec">Caso a fondo · '+m.caso.sector+'</span></div>'+
+    casosHtml = '<article class="caso main"><div class="cs1"><span class="csec">Caso a fondo · '+m.caso.sector+'</span></div>'+
       '<div class="cq">'+m.caso.sit+'</div><div class="cd"><b>Decisión:</b> '+m.caso.decision+' · <b>Métrica:</b> '+m.caso.metrica+'</div>'+
       '<div class="ckpi">'+m.caso.impacto+'</div></article>' + casosHtml;
   }
-  if(casosHtml) b += blk("b-casos", "🏢", "Casos reales de negocio", '<div class="casos">'+casosHtml+'</div>', {wide:true, hs: (CS.length + (m.caso ? 1 : 0))+' casos'});
-  b += blk("b-cuando", "🧭", "¿Cuándo sí y cuándo no?",
+  if(casosHtml) b += blk("b-casos", "", "Casos reales de negocio", '<div class="casos">'+casosHtml+'</div>', {wide:true, hs: (CS.length + (m.caso ? 1 : 0))+' casos'});
+  b += blk("b-cuando", "", "¿Cuándo sí y cuándo no?",
     '<div class="yesno"><div class="y"><div class="ck">✓ Úsalo cuando…</div><div class="dbody">'+m.k+'<br><br><b>Decisión que habilita:</b> '+m.biz+'</div></div>'+
     '<div class="n"><div class="ck">✕ Mejor no si…</div><div class="dbody">'+m.no+'</div></div></div>'+
-    (m.warn ? '<div class="call warn" style="margin-top:12px"><div class="cb"><div class="ck">⚠ Ojo</div><div class="dbody">'+m.warn+'</div></div></div>' : ''));
-  b += blk("b-metricas", "📏", "Cómo se mide si funciona",
+    (m.warn ? '<div class="call warn" style="margin-top:12px"><div class="cb"><div class="ck">Ojo</div><div class="dbody">'+m.warn+'</div></div></div>' : ''));
+  b += blk("b-metricas", "", "Cómo se mide si funciona",
     '<div class="metrics">'+String(m.m).split("·").map(function(x){ return '<span>'+x.trim()+'</span>'; }).join("")+'</div>'+
     '<p class="dbody" style="margin-top:14px;font-size:15px;color:var(--muted)">Ejemplo típico: '+m.ex+'</p>');
-  if(m.nb && m.nb.length) b += blk("b-practica", "🧑‍💻", "Practícalo con tus notebooks",
+  if(m.nb && m.nb.length) b += blk("b-practica", "", "Practícalo con tus notebooks",
     '<div class="nbs">'+m.nb.map(function(x){ return '<a class="nbl" href="'+nbUrl(x)+'" target="_blank" rel="noopener">'+ICO+x[0]+'</a>'; }).join("")+'</div>');
   b += '</section>';
 
@@ -3066,23 +3066,23 @@ function renderDetail(id){
       if(m.cod) fxBody += '<details class="codebox"><summary>Ver el código en Python</summary><pre class="dcode">'+m.cod
           .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
           .replace(/&amp;lt;/g,"&lt;").replace(/&amp;gt;/g,"&gt;")+'</pre></details>';
-      b += blk("b-fx", "⚙️", "La fórmula y el código", fxBody + '</div>');
+      b += blk("b-fx", "", "La fórmula y el código", fxBody + '</div>');
     }
-    if(m.rel && m.rel.length) b += blk("b-rel", "🔗", "Con qué se confunde (y en qué se diferencia)",
+    if(m.rel && m.rel.length) b += blk("b-rel", "", "Con qué se confunde (y en qué se diferencia)",
       '<div class="drel">'+m.rel.map(function(r){
         var o = byId[r[0]];
-        return '<button class="drelb" data-go="'+r[0]+'"><div class="rn">'+FAM[o.f].ic+' '+o.n+' →</div><div class="rd">'+r[1]+'</div></button>';
+        return '<button class="drelb" data-go="'+r[0]+'"><div class="rn">'+o.n+' →</div><div class="rd">'+r[1]+'</div></button>';
       }).join("")+'</div>', {wide:true});
     b += '</section>';
   }
 
   /* 5 · PONTE A PRUEBA */
   b += chap("ch5", 5, "Capítulo 5", "Ponte a prueba");
-  if(E.rec && E.rec.length) b += blk("b-recuerda", "🧠", "Lo que tienes que recordar",
+  if(E.rec && E.rec.length) b += blk("b-recuerda", "", "Lo que tienes que recordar",
     '<div class="recall"><div class="ck">Si mañana te lo preguntan en una entrevista</div><ul>'+E.rec.map(function(x){ return '<li><span>'+x+'</span></li>'; }).join("")+'</ul></div>');
   if(m.chk){
     var canMaster = pg.status==="entendido" || pg.status==="dominado";
-    b += blk("b-chk", "❓", "Comprueba si lo has entendido",
+    b += blk("b-chk", "", "Comprueba si lo has entendido",
       '<div class="dchk"><div class="cq">'+m.chk.q+'</div>'+
       '<details id="chkDetails"><summary>Ver la respuesta</summary><div class="ca">'+m.chk.a+'</div>'+
       '<div class="progress-actions">'+
@@ -3111,7 +3111,7 @@ function renderDetail(id){
   if(m.y2026) deep += '<div class="dsub">Estado del arte · octubre de 2026</div><div class="d26"><span class="lb">Dónde está hoy</span>'+m.y2026+'</div>';
   if(deep){
     b += chap("ch6", 6, "Capítulo 6 · opcional", "Nivel profesional");
-    b += blk("b-pro", "🔍", "Para cuando ya lo tengas claro",
+    b += blk("b-pro", "", "Para cuando ya lo tengas claro",
       '<details class="deepen"><summary>Caso completo, hiperparámetros, trampas y estado del arte</summary><div class="deepen-body">'+deep+'</div></details>', {wide:true});
     b += '</section>';
   }
@@ -3469,7 +3469,7 @@ document.addEventListener("keydown", function(e){
   function chip(id){
     var m=byId[id]; if(!m) return '<i class="wm off">'+id+'</i>';
     var cl = m.st==="nb" ? "on" : m.st==="std" ? "mid" : "off";
-    return '<button class="wm '+cl+'" data-go="'+id+'">'+FAM[m.f].ic+' '+m.n+(m.st==="nb" ? ' · notebook' : '')+' →</button>';
+    return '<button class="wm '+cl+'" data-go="'+id+'">'+m.n+(m.st==="nb" ? ' · notebook' : '')+' →</button>';
   }
   function renderPath(){
     var html='<span class="pchip pc0">¿Necesito ML?</span>';
@@ -3520,7 +3520,7 @@ document.addEventListener("keydown", function(e){
       .concat([].concat.apply([], FUND.map(function(B){ return B.items.map(function(c){
         return {ic:c.ic, n:c.t, d:"Fundamentos · "+c.f, h:"fundamentos/"+c.id, k:sinAcentos((c.t+" "+c.f).toLowerCase())}; }); })))
       .concat(LABS.map(function(L){ return {ic:L.ic, n:L.t, d:"Laboratorio · "+plain(L.q), h:"lab/"+L.id, k:sinAcentos((L.t+" "+L.q).toLowerCase())}; }))
-      .concat([{ic:"✅", n:"Auditoría y propuestas de mejora", d:"Qué se corrigió en esta edición", h:"auditoria", k:"auditoria errores correcciones mejoras propuestas"}]);
+      .concat([{ic:"", n:"Auditoría y propuestas de mejora", d:"Qué se corrigió en esta edición", h:"auditoria", k:"auditoria errores correcciones mejoras propuestas"}]);
   }
   function close(){ if(box){ box.remove(); box = null; } }
   function go(it){ close(); location.hash = it.h; }
@@ -3530,7 +3530,7 @@ document.addEventListener("keydown", function(e){
     sel = 0;
     var host = box.querySelector(".qk-res");
     host.innerHTML = res.length ? res.map(function(it, i){
-      return '<button class="qk-it'+(i===0?" on":"")+'" data-i="'+i+'"><span class="qi">'+it.ic+'</span><span class="qt"><span class="qn">'+it.n+'</span><span class="qd">'+it.d+'</span></span></button>';
+      return '<button class="qk-it'+(i===0?" on":"")+'" data-i="'+i+'"><span class="qt"><span class="qn">'+it.n+'</span><span class="qd">'+it.d+'</span></span></button>';
     }).join("") : '<div class="qk-empty">Nada con «'+esc(q)+'». Prueba con otra palabra (p. ej. «churn», «clusters», «previsión»).</div>';
   }
   function open(){
