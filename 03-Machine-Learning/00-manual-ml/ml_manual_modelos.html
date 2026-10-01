@@ -6380,10 +6380,10 @@ VIZ.push({id:"v-rbm", model:"rbm", g:"model", ic:"🎬", dim:"2D",
        var x = cardX(i), on = v[i] === 1, sug = showRec && !on && V1[i] > 0.5;
        rr(ctx, x, CY, CW, CHt, 12); ctx.fillStyle = on ? C.soft : C.card; ctx.fill();
        ctx.strokeStyle = on ? C.c[0] : sug ? C.c[4] : C.line; ctx.lineWidth = on || sug ? 2 : 1; ctx.setLineDash(sug ? [5, 3] : []); ctx.stroke(); ctx.setLineDash([]);
-       ctx.fillStyle = HC[m[2]]; ctx.fillRect(x + 12, CY + 10, 18, 4);
+       ctx.fillStyle = HC[m[2]]; ctx.fillRect(x + 12, CY + 10, 12, 4);
        tx(ctx, m[0], x + 12, CY + 37, {s:16});
        if(on) tx(ctx, "✓ vista", x + CW - 10, CY + 17, {s:11, w:700, c:C.c[0], a:"right"});
-       else if(sug) tx(ctx, "★ sugerida", x + CW - 8, CY + 17, {s:11, w:700, c:C.c[4], a:"right"});
+       else if(sug) tx(ctx, "★ sugerida", x + CW - 6, CY + 17, {s:11, w:700, c:C.c[4], a:"right"});
        wrap(m[1], CW - 20).forEach(function(l, k){ tx(ctx, l, x + 12, CY + 54 + k * 15, {s:12, w:600, c:C.ink}); });
        if(showRec){
          var by = CY + CHt + 12; rr(ctx, x, by, CW, 8, 4); ctx.fillStyle = hexA(C.line, 0.9); ctx.fill();
