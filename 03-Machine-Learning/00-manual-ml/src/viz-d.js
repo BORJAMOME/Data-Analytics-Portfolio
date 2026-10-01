@@ -70,6 +70,27 @@ function swatch(col, shape){
   var r = shape === 1 ? "2px" : "50%";
   return '<i style="display:inline-block;width:10px;height:10px;border-radius:' + r + ';background:' + col + ';margin-right:5px;vertical-align:-1px"></i>';
 }
+/* etiquetas sin solapes: prueba varias posiciones alrededor de cada punto */
+function placeLabels(ctx, items, bounds){
+  var placed = [], pts = items.map(function(it){ return [it.x - 6, it.y - 6, 12, 12]; });
+  var hit = function(a, b){ return a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3]; };
+  items.forEach(function(it, q){
+    ctx.font = (it.w ? it.w + " " : "") + (it.s || 11) + "px " + LABFONT;
+    var w = ctx.measureText(it.text).width, h = (it.s || 11) + 2;
+    var cand = [[9, -h / 2], [-9 - w, -h / 2], [-w / 2, -h - 7], [-w / 2, 7], [9, -h - 4], [9, 4], [-9 - w, -h - 4], [-9 - w, 4]];
+    var best = null, bestScore = Infinity;
+    cand.forEach(function(c, ci){
+      var rc = [it.x + c[0], it.y + c[1], w, h], sc = ci * 0.01;
+      placed.forEach(function(p){ if(hit(rc, p)) sc += 10; });
+      pts.forEach(function(p, pi){ if(pi !== q && hit(rc, p)) sc += 3; });
+      if(bounds && (rc[0] < bounds[0] || rc[1] < bounds[1] || rc[0] + w > bounds[0] + bounds[2] || rc[1] + h > bounds[1] + bounds[3])) sc += 50;
+      if(sc < bestScore){ bestScore = sc; best = rc; }
+    });
+    placed.push(best);
+    if(it.halo){ ctx.save(); ctx.lineJoin = "round"; ctx.lineWidth = 4; ctx.strokeStyle = it.halo; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic"; ctx.strokeText(it.text, best[0], best[1] + h - 3); ctx.restore(); }
+    tx(ctx, it.text, best[0], best[1] + h - 3, {s:it.s || 11, w:it.w, c:it.c});
+  });
+}
 /* bucle de animación cancelable */
 function animator(step){
   var raf = 0, on = false;
@@ -1208,8 +1229,10 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      K.clear();
      var shown = it > 0;
      cap(ctx, "Notas de 1 a 5", 16, 20, C);
+     tx(ctx, "← acción", hx + 2, hy - 74, {s:11, c:C.muted}); tx(ctx, "drama →", hx + 8 * cw, hy - 74, {s:11, c:C.muted, a:"right"});
+     seg(ctx, hx + 4 * cw, hy - 84, hx + 4 * cw, hy - 4, hexA(C.line, 1), 1, [2, 3]);
      /* cabeceras de columna giradas */
-     SE.forEach(function(s, i){ ctx.save(); ctx.translate(hx + i * cw + cw / 2 + 4, hy - 8); ctx.rotate(-Math.PI / 4); tx(ctx, s, 0, 0, {s:12, w:i < 4 ? 600 : 400, c:C.text}); ctx.restore(); });
+     SE.forEach(function(s, i){ ctx.save(); ctx.translate(hx + i * cw + cw / 2 + 4, hy - 8); ctx.rotate(-Math.PI / 4); tx(ctx, s, 0, 0, {s:12, c:C.text}); ctx.restore(); });
      var rc = shown ? recs(sel).map(function(x){ return x[0]; }) : [];
      US.forEach(function(name, u){
        var y = hy + u * ch;
@@ -1228,14 +1251,15 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
            var vv = Math.max(1, Math.min(5, val));
            ctx.fillStyle = hexA(C.c[0], 0.05 + 0.4 * (vv - 1) / 4); rrect(ctx, cx, cy, w, h, 6); ctx.fill();
            rrect(ctx, cx, cy, w, h, 6); stroke(ctx, hexA(C.c[0], 0.85), 1.3, [3, 3]);
-           tx(ctx, fmt(val, 1), x + cw / 2, y + ch / 2 + 5, {s:12, w:600, it:true, c:C.ink, a:"center"});
+           tx(ctx, fmt(vv, 1), x + cw / 2, y + ch / 2 + 5, {s:12, w:600, it:true, c:C.ink, a:"center"});
            if(u === sel && rc.indexOf(i) > -1){ rrect(ctx, cx - 2, cy - 2, w + 4, h + 4, 8); stroke(ctx, C.c[1], 2.2); }
          }
        }
      });
-     tx(ctx, "▒ nota real", hx, hy + 8 * ch + 20, {s:11, c:C.muted});
-     tx(ctx, "┅ predicción", hx + 90, hy + 8 * ch + 20, {s:11, c:C.muted});
-     if(shown) tx(ctx, "▢ recomendada a " + US[sel], hx + 196, hy + 8 * ch + 20, {s:11, c:C.c[1], w:600});
+     var ly0 = hy + 8 * ch + 12;
+     ctx.fillStyle = hexA(C.c[0], 0.55); rrect(ctx, hx, ly0, 14, 12, 3); ctx.fill(); tx(ctx, "nota real", hx + 20, ly0 + 10, {s:11, c:C.muted});
+     rrect(ctx, hx + 90, ly0, 14, 12, 3); stroke(ctx, hexA(C.c[0], 0.85), 1.2, [3, 2]); tx(ctx, "predicción", hx + 110, ly0 + 10, {s:11, c:C.muted, it:true});
+     if(shown){ rrect(ctx, hx + 196, ly0, 14, 12, 3); stroke(ctx, C.c[1], 2); tx(ctx, "recomendadas a " + US[sel], hx + 216, ly0 + 10, {s:11, c:C.ink, w:600}); }
      /* espacio latente */
      var lb = [478, 34, 264, 270];
      cap(ctx, "Espacio latente (2 factores)", lb[0], 20, C);
@@ -1244,9 +1268,11 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      var lx = function(v){ return lb[0] + lb[2] / 2 + v / (m * 1.25) * lb[2] / 2; }, ly = function(v){ return lb[1] + lb[3] / 2 - v / (m * 1.25) * lb[3] / 2; };
      seg(ctx, lb[0], ly(0), lb[0] + lb[2], ly(0), hexA(C.line, 1), 1); seg(ctx, lx(0), lb[1], lx(0), lb[1] + lb[3], hexA(C.line, 1), 1);
      ctx.save(); ctx.beginPath(); ctx.rect(lb[0], lb[1], lb[2], lb[3]); ctx.clip();
-     Qi.forEach(function(q, i){ mark(ctx, 1, lx(q[0]), ly(q[1]), 5, C.c[1], C.card, 1); tx(ctx, SE[i], lx(q[0]) + 8, ly(q[1]) + 4, {s:11, c:C.text}); });
-     Pu.forEach(function(p, u){ dot(ctx, lx(p[0]), ly(p[1]), u === sel ? 7 : 5, C.c[0], u === sel ? C.ink : C.card); tx(ctx, US[u], lx(p[0]) + 9, ly(p[1]) - 6, {s:11, w:u === sel ? 700 : 500, c:C.ink}); });
+     var labs = [];
+     Qi.forEach(function(q, i){ mark(ctx, 1, lx(q[0]), ly(q[1]), 5, C.c[1], C.card, 1); labs.push({x:lx(q[0]), y:ly(q[1]), text:SE[i], s:11, c:C.text}); });
+     Pu.forEach(function(p, u){ dot(ctx, lx(p[0]), ly(p[1]), u === sel ? 7 : 5, C.c[0], u === sel ? C.ink : C.card); labs.push({x:lx(p[0]), y:ly(p[1]), text:US[u], s:11, w:u === sel ? 700 : 600, c:C.ink}); });
      ctx.restore();
+     placeLabels(ctx, labs, lb);
      dot(ctx, lb[0] + 8, lb[1] + lb[3] + 16, 4.5, C.c[0]); tx(ctx, "usuario", lb[0] + 16, lb[1] + lb[3] + 20, {s:11, c:C.muted});
      mark(ctx, 1, lb[0] + 80, lb[1] + lb[3] + 16, 4.5, C.c[1]); tx(ctx, "serie", lb[0] + 88, lb[1] + lb[3] + 20, {s:11, c:C.muted});
      /* RMSE */
@@ -1261,7 +1287,7 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
      /* lectura */
      var rr = shown ? recs(sel) : [];
      read.innerHTML = '<span>Iteración <b>' + it + ' / ' + MAXI + '</b></span><span>RMSE (celdas conocidas) <b>' + (hist.length ? fmt(hist[hist.length - 1], 3) : "—") + '</b></span><span>Usuario <b>' + US[sel] + '</b></span>' +
-       '<span class="ldiag">' + (shown ? "Recomendaciones para <b>" + US[sel] + "</b>: " + rr.map(function(x, q){ return (q + 1) + ". <b>" + SE[x[0]] + "</b> (" + fmt(Math.max(1, Math.min(5, x[1])), 1) + ")"; }).join(" · ") +
+       '<span class="ldiag">' + (shown ? "Recomendaciones para <b>" + US[sel] + "</b>: " + rr.map(function(x, q){ var v = Math.max(1, Math.min(5, x[1])); return (q + 1) + ". <b>" + SE[x[0]] + "</b> (" + fmt(v, 1) + (v >= 3.5 ? " ✓ le encajará" : v < 3 ? " ✗ poco probable" : " · quizá") + ")"; }).join(" · ") +
          ". El RMSE dice que, en las notas que sí conocemos, el modelo se equivoca de media unas " + fmt(hist[hist.length - 1], 2) + " estrellas." : "Pulsa <b>▶ Factorizar</b>: verás cómo los <b>?</b> se convierten en predicciones mientras el error baja.") + '</span>';
    }
    anim = animator(function(){
@@ -1288,6 +1314,662 @@ VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
    K.cv.style.cursor = "pointer";
    reset(); draw();
    return function(){ anim.stop(); };
+ }});
+
+/* ── 9. RECOMENDADOR BASADO EN CONTENIDO (TF-IDF + COSENO) ──── */
+VIZ.push({id:"v-contentbased", model:"contentbased", g:"model", ic:"🎬", dim:"2D",
+ t:"Parecidas por lo que cuentan (TF-IDF y coseno)",
+ q:"¿Cómo decide un recomendador que dos películas se parecen solo leyendo su sinopsis?",
+ intro:"10 películas inventadas con su sinopsis. Cada sinopsis se convierte en un vector <b>TF-IDF</b> (cuánto pesa cada palabra: mucho si es frecuente en esa sinopsis y rara en las demás) y se compara con las otras con la <b>similitud del coseno</b> (el ángulo entre vectores). Todo se calcula de verdad. Elige una película (o haz clic en una barra).",
+ notice:["Las palabras de <b>mayor peso</b> son las raras y específicas («espacial», «detective»); las que salen en casi todas las sinopsis pesan poco aunque se repitan.",
+   "En el plano, flechas que apuntan en direcciones <b>parecidas</b> = películas parecidas. Es una proyección 2D aproximada (PCA) de vectores con muchas más dimensiones: el ángulo real es el de las barras.",
+   "Caso trampa: <b>Boda en Sevilla</b> (comedia) y <b>El velo negro</b> (drama oscuro) comparten «boda», «familiar», «Sevilla» y «novia», así que salen muy similares aunque el <b>tono</b> no tenga nada que ver. TF-IDF mide palabras, no intenciones."],
+ models:["contentbased","reco","knn","pca"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Similitud del coseno entre sinopsis y flechas TF-IDF proyectadas"), ctx = K.ctx;
+   var F = [
+     ["Órbita roja", "Una astronauta queda atrapada en una estación espacial y lucha por volver a la Tierra mientras falla el oxígeno."],
+     ["Planeta silencio", "Una tripulación espacial explora un planeta helado y descubre una señal que amenaza la nave y la Tierra."],
+     ["La última misión", "Un piloto veterano acepta una misión espacial imposible para salvar la estación y a su tripulación."],
+     ["Boda en Sevilla", "Una boda familiar en Sevilla se convierte en un caos divertido cuando la novia invita a su ex. Risas y enredos."],
+     ["El velo negro", "Una boda familiar en Sevilla termina en tragedia: la novia desaparece y la familia guarda un secreto oscuro."],
+     ["Cocina de abuela", "Una chef recupera las recetas de su abuela y abre un restaurante familiar en un pueblo. Comedia tierna y divertida."],
+     ["Risas en la oficina", "Unos compañeros de oficina organizan una fiesta sorpresa para su jefa que acaba en enredos y muchas risas."],
+     ["Sombras del puerto", "Una detective investiga una desaparición en el puerto y descubre un secreto oscuro que implica a su familia."],
+     ["Caso cerrado", "Un detective retirado reabre un caso de desaparición y persigue a un asesino que guarda un secreto."],
+     ["Mareas", "Un pescador y su hija luchan por salvar el negocio familiar mientras el pueblo cambia. Drama sobre familia y tradición."]];
+   var STOP = "una un unos unas en y la el las los a de del al se que su sus por para con mientras cuando sobre es lo le ex".split(" ");
+   var norm = function(w){ return w.normalize("NFD").replace(/[̀-ͯ]/g, ""); };
+   var surface = {}, docs = F.map(function(f){
+     return f[1].toLowerCase().replace(/[.,:;«»]/g, " ").split(/\s+/).filter(function(w){ return w && STOP.indexOf(norm(w)) < 0; })
+       .map(function(w){ var k = norm(w); if(!surface[k]) surface[k] = w; return k; });
+   });
+   var vocab = []; docs.forEach(function(d){ d.forEach(function(w){ if(vocab.indexOf(w) < 0) vocab.push(w); }); });
+   var N = F.length, V = vocab.length;
+   var df = vocab.map(function(w){ return docs.filter(function(d){ return d.indexOf(w) > -1; }).length; });
+   var idf = df.map(function(x){ return Math.log((1 + N) / (1 + x)) + 1; }); /* como scikit-learn (smooth_idf) */
+   var X = docs.map(function(d){
+     var v = vocab.map(function(w, j){ return d.filter(function(x){ return x === w; }).length * idf[j]; });
+     var nr = Math.sqrt(sum(v.map(function(x){ return x * x; }))); return v.map(function(x){ return x / nr; });
+   });
+   var cos = function(a, b){ var s = 0; for(var j = 0; j < V; j++) s += X[a][j] * X[b][j]; return s; };
+   /* proyección 2D sin centrar (vía la matriz de Gram 10×10) para que las flechas salgan del origen */
+   var G = X.map(function(_, a){ return X.map(function(_, b){ return cos(a, b); }); });
+   var EG = jacobiEig(G).sort(function(a, b){ return b.val - a.val; });
+   var P2 = X.map(function(_, a){ return [EG[0].vec[a] * Math.sqrt(EG[0].val), EG[1].vec[a] * Math.sqrt(EG[1].val)]; });
+   if(sum(P2.map(function(p){ return p[0]; })) < 0) P2 = P2.map(function(p){ return [-p[0], p[1]]; });
+   var sel = 3;
+   var bx0 = 16, by0 = 56, bw = 360, rowh = 31;
+   var pb = [426, 40, 318, 340];
+   var order = function(){ return F.map(function(_, b){ return b; }).filter(function(b){ return b !== sel; }).sort(function(a, b){ return cos(sel, b) - cos(sel, a); }); };
+   function topWords(a, k){ return vocab.map(function(w, j){ return [w, X[a][j]]; }).filter(function(x){ return x[1] > 0; }).sort(function(p, q){ return q[1] - p[1]; }).slice(0, k); }
+   function draw(){
+     K.clear();
+     var ord = order(), best = ord[0];
+     cap(ctx, "Similitud con «" + F[sel][0] + "»", bx0, 22, C);
+     tx(ctx, "coseno: 0 = nada en común · 1 = mismas palabras y pesos", bx0, 40, {s:11, c:C.muted});
+     ord.forEach(function(b, q){
+       var y = by0 + q * rowh, v = cos(sel, b), top = q < 5;
+       tx(ctx, F[b][0], bx0, y + 15, {s:12, w:top ? 700 : 400, c:top ? C.ink : C.muted});
+       ctx.fillStyle = hexA(C.line, 0.9); rrect(ctx, bx0 + 138, y + 5, bw - 186, 12, 6); ctx.fill();
+       ctx.fillStyle = top ? C.c[0] : hexA(C.c[0], 0.35); rrect(ctx, bx0 + 138, y + 5, Math.max(4, (bw - 186) * v), 12, 6); ctx.fill();
+       tx(ctx, fmt(v, 2), bx0 + bw, y + 15, {s:12, w:700, c:top ? C.ink : C.muted, a:"right"});
+       if((sel === 3 && b === 4) || (sel === 4 && b === 3)) tx(ctx, "⚠ trampa", bx0 + 138 + (bw - 186) * v + 8, y + 15, {s:11, w:700, c:C.c[4]});
+     });
+     tx(ctx, "en negrita: top-5 recomendadas", bx0, by0 + 9 * rowh + 14, {s:11, c:C.muted});
+     /* plano con flechas */
+     cap(ctx, "Flechas TF-IDF (proyección 2D)", pb[0], 22, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(pb[0] + .5, pb[1] + .5, pb[2], pb[3]);
+     var mx = 1e-9, y0 = 0, y1 = 0; P2.forEach(function(p){ mx = Math.max(mx, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); });
+     var sc = Math.min((pb[2] - 130) / mx, (pb[3] - 56) / (y1 - y0 || 1)), o = [pb[0] + 30, pb[1] + 28 + y1 * sc];
+     var X0 = function(p){ return o[0] + p[0] * sc; }, Y0 = function(p){ return o[1] - p[1] * sc; };
+     seg(ctx, pb[0], o[1], pb[0] + pb[2], o[1], hexA(C.line, 1), 1); seg(ctx, o[0], pb[1], o[0], pb[1] + pb[3], hexA(C.line, 1), 1);
+     var labs = [];
+     ord.slice().reverse().forEach(function(b){
+       var top = ord.indexOf(b) < 5;
+       arrow(ctx, o[0], o[1], X0(P2[b]), Y0(P2[b]), top ? hexA(C.c[0], 0.75) : hexA(C.muted, 0.45), top ? 1.8 : 1.2, 7);
+     });
+     arrow(ctx, o[0], o[1], X0(P2[sel]), Y0(P2[sel]), C.c[1], 3, 10);
+     /* ángulo entre la elegida y la más parecida */
+     var a1 = Math.atan2(-(Y0(P2[sel]) - o[1]), X0(P2[sel]) - o[0]), a2 = Math.atan2(-(Y0(P2[best]) - o[1]), X0(P2[best]) - o[0]);
+     ctx.beginPath(); ctx.arc(o[0], o[1], 26, -Math.max(a1, a2), -Math.min(a1, a2)); stroke(ctx, C.c[1], 1.6);
+     F.forEach(function(f, b){ labs.push({x:X0(P2[b]), y:Y0(P2[b]), text:f[0], s:11, w:b === sel ? 700 : ord.indexOf(b) < 5 ? 600 : 400, c:b === sel ? C.ink : ord.indexOf(b) < 5 ? C.text : C.muted}); });
+     placeLabels(ctx, labs.map(function(l){ l.halo = C.card; return l; }), pb);
+     /* lectura: palabras de mayor peso */
+     var tw = topWords(sel, 6), tb = topWords(best, 6), shared = tw.map(function(x){ return x[0]; }).filter(function(w){ return X[best][vocab.indexOf(w)] > 0; });
+     var ch = function(list){ return list.map(function(x){ var sh = shared.indexOf(x[0]) > -1 || (X[sel][vocab.indexOf(x[0])] > 0 && X[best][vocab.indexOf(x[0])] > 0); return chip(surface[x[0]] + " " + fmt(x[1], 2), sh ? C.c[1] : C.c[0], C, sh); }).join(""); };
+     var trap = sel === 3 || sel === 4;
+     read.innerHTML = '<span style="flex-basis:100%"><b>' + F[sel][0] + '</b>: «' + F[sel][1] + '»</span>' +
+       '<span style="flex-basis:100%">Palabras con más peso: ' + ch(tw) + '</span>' +
+       '<span style="flex-basis:100%">Más parecida, <b>' + F[best][0] + '</b> (coseno ' + fmt(cos(sel, best), 2) + '): ' + ch(tb) + '</span>' +
+       '<span class="ldiag">' + (trap ? "<b class='lwarn'>⚠ Caso trampa</b>: comparten «boda», «familiar», «Sevilla» y «novia», pero una es una comedia de enredos y la otra un drama con desaparición. A un fan de la comedia le recomendaríamos un drama oscuro. Solución en la práctica: añadir género y tono como variables, o usar <i>embeddings</i> que capten el sentido de la frase." :
+         "Las palabras resaltadas (borde naranja) aparecen en las dos sinopsis: son las que empujan la similitud hacia arriba. Una palabra que sale en casi todas tendría un IDF bajo y apenas contaría.") + '</span>';
+   }
+   ctlSeg(ctl, "Película elegida", F.map(function(f, b){ return [b, f[0]]; }), sel, function(v){ sel = +v; draw(); });
+   K.cv.addEventListener("click", function(e){
+     var p = K.pos(e);
+     if(p[0] < bx0 + bw && p[1] > by0 && p[1] < by0 + 9 * rowh){ var q = Math.floor((p[1] - by0) / rowh), b = order()[q];
+       sel = b; [].forEach.call(ctl.querySelectorAll(".segs button"), function(x){ var on = +x.dataset.v === sel; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); }); draw(); }
+   });
+   K.cv.style.cursor = "pointer";
+   draw();
+ }});
+
+/* ── 10. TOPIC MODELING: LDA CON MUESTREO DE GIBBS ───────────── */
+VIZ.push({id:"v-topic", model:"topic", g:"model", ic:"🏷️", dim:"2D",
+ t:"LDA: temas que emergen de las reseñas",
+ q:"¿Cómo descubre LDA de qué hablan unas reseñas sin que nadie le diga los temas?",
+ intro:"24 reseñas cortas de una tienda online. LDA supone que cada reseña es una <b>mezcla de temas</b> y cada tema, una <b>bolsa de palabras</b> con distintas probabilidades. Aquí se ejecuta de verdad con <b>muestreo de Gibbs colapsado</b>: cada palabra empieza con un tema al azar y, en cada iteración, se reasigna según lo que «dicen» su reseña y el resto de reseñas. Pulsa ▶ y haz clic en una reseña.",
+ notice:["Al principio las barras de cada reseña son un <b>revoltijo</b> de colores; tras unas decenas de iteraciones casi todas quedan dominadas por un solo tema, y las reseñas mixtas («buen precio pero llegó tarde») conservan dos colores.",
+   "Los temas no tienen nombre: el modelo solo da <b>listas de palabras</b>. Que uno sea «envío», otro «precio» y otro «atención al cliente» lo decides tú leyendo sus palabras top.",
+   "Con 2 temas, dos de los asuntos reales se funden; con 4, uno se parte en dos o aparece un tema «cajón de sastre». Elegir el nº de temas es, como en clustering, una decisión con criterio de negocio."],
+ models:["topic","contentbased","nb","gmm"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Mezcla de temas por reseña y palabras más probables de cada tema"), ctx = K.ctx;
+   var REV = [
+     "El paquete llegó tarde, con tres días de retraso, y el mensajero ni avisó.",
+     "Envío rápido: la caja llegó en dos días y bien protegida.",
+     "La entrega se retrasó una semana; el seguimiento del paquete no funcionaba.",
+     "El mensajero dejó la caja abierta y el paquete llegó tarde.",
+     "Entrega rapidísima, menos de dos días. Envío impecable.",
+     "Retraso tras retraso: el envío tardó días y nadie sabía dónde estaba el paquete.",
+     "La caja llegó aplastada y la entrega fue tarde.",
+     "Buen precio, pero el envío tardó días y el paquete llegó con retraso.",
+     "Precio caro para la calidad que tiene. No vale lo que cuesta.",
+     "Muy barato y con descuento: calidad sorprendente por ese precio.",
+     "Aproveché la oferta, buen descuento; merece la pena por el precio.",
+     "Demasiado caro. En otras tiendas el mismo producto tiene mejor precio.",
+     "Calidad baja; ni con la oferta vale el dinero que pagué.",
+     "Precio justo y buena calidad. Un descuento más y sería perfecto.",
+     "Barato, buena oferta, pero la calidad del material deja que desear.",
+     "La atención fue amable, pero el producto es caro para su calidad.",
+     "Atención al cliente excelente: respuesta rápida y muy amable.",
+     "Tuve un problema con la devolución y el servicio de atención no daba respuesta.",
+     "El chat de atención al cliente resolvió mi problema en minutos. Trato amable.",
+     "Pedí una devolución y el servicio fue lento; nadie daba una solución.",
+     "Servicio de atención impecable, trato cercano y solución inmediata.",
+     "El chat no daba respuesta y el problema con el cliente sigue sin solución.",
+     "Me atendieron con un trato amable y la devolución fue sencilla.",
+     "La devolución tardó días, pero la atención del servicio fue amable."];
+   var VOC = ["paquete", "llegó", "tarde", "días", "retraso", "mensajero", "envío", "caja", "entrega", "rápido",
+              "precio", "caro", "barato", "oferta", "descuento", "calidad", "dinero", "vale", "pena", "tiendas",
+              "atención", "cliente", "servicio", "amable", "respuesta", "devolución", "chat", "problema", "solución", "trato"];
+   var ALIAS = {"retrasó":"retraso", "rapidísima":"rápido", "rápida":"rápido", "tardó":"tarde", "atendieron":"atención", "cuesta":"precio", "pagué":"dinero"};
+   var norm = function(w){ return w.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+   var VN = VOC.map(norm);
+   /* cada reseña: lista de piezas {txt, w (índice de vocabulario o -1)} */
+   var D = REV.map(function(s){ return s.split(/(\s+)/).map(function(piece){
+     var core = piece.replace(/[.,:;]/g, ""), k = norm(core), al = ALIAS[core.toLowerCase()];
+     var w = VN.indexOf(al ? norm(al) : k), m = piece.match(/^(.*?)([.,:;]*)$/); return {txt:m[1], tail:m[2], w:w};
+   }); });
+   var docs = D.map(function(d){ return d.filter(function(p){ return p.w >= 0; }).map(function(p){ return p.w; }); });
+   var V = VOC.length, ND = docs.length, Kt = 3, alpha = 0.3, beta = 0.05, Z, ndk, nkw, nk, it, seed = 1, sel = 7, timer = null, MAXI = 150;
+   function reset(){
+     var rg = mulberry(seed * 977); Z = []; ndk = []; nkw = []; nk = new Array(Kt).fill(0);
+     for(var k = 0; k < Kt; k++) nkw.push(new Array(V).fill(0));
+     docs.forEach(function(d, i){ ndk.push(new Array(Kt).fill(0)); Z.push(d.map(function(w){ var k = Math.floor(rg() * Kt); ndk[i][k]++; nkw[k][w]++; nk[k]++; return k; })); });
+     it = 0; rgS = mulberry(seed * 31 + 7);
+   }
+   var rgS;
+   function sweep(){
+     var p = new Array(Kt);
+     docs.forEach(function(d, i){ d.forEach(function(w, q){
+       var k = Z[i][q]; ndk[i][k]--; nkw[k][w]--; nk[k]--;
+       var tot = 0; for(var t = 0; t < Kt; t++){ p[t] = (ndk[i][t] + alpha) * (nkw[t][w] + beta) / (nk[t] + V * beta); tot += p[t]; }
+       var u = rgS() * tot, acc = 0, nkk = Kt - 1; for(t = 0; t < Kt; t++){ acc += p[t]; if(u <= acc){ nkk = t; break; } }
+       Z[i][q] = nkk; ndk[i][nkk]++; nkw[nkk][w]++; nk[nkk]++;
+     }); });
+     it++;
+   }
+   var theta = function(i){ var n = docs[i].length; return ndk[i].map(function(c){ return (c + alpha) / (n + Kt * alpha); }); };
+   var phi = function(k){ return nkw[k].map(function(c){ return (c + beta) / (nk[k] + V * beta); }); };
+   function topw(k, m){ var f = phi(k); return f.map(function(v, w){ return [w, v]; }).sort(function(a, b){ return b[1] - a[1]; }).slice(0, m); }
+   var CL = [C.c[1], C.c[2], C.c[0], C.c[4]];
+   var bx = 44, bw = 28, by = 44, bh = 150;
+   function draw(){
+     K.clear();
+     cap(ctx, "Mezcla de temas de cada reseña", bx - 28, 22, C);
+     for(var i = 0; i < ND; i++){
+       var th = theta(i), y = by + bh, x = bx + i * bw;
+       if(i === sel){ ctx.fillStyle = hexA(C.ink, 0.08); rrect(ctx, x - 2, by - 6, bw, bh + 30, 6); ctx.fill(); }
+       for(var k = 0; k < Kt; k++){ var hgt = th[k] * bh; ctx.fillStyle = CL[k]; ctx.fillRect(x + 2, y - hgt, bw - 8, hgt); y -= hgt; }
+       tx(ctx, String(i + 1), x + bw / 2 - 2, by + bh + 16, {s:11, w:i === sel ? 700 : 400, c:i === sel ? C.ink : C.muted, a:"center"});
+     }
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; seg(ctx, bx - 4, by + bh + .5, bx + ND * bw - 2, by + bh + .5, C.line, 1);
+     tx(ctx, "100%", bx - 8, by + 9, {s:11, c:C.muted, a:"right"}); tx(ctx, "0", bx - 8, by + bh, {s:11, c:C.muted, a:"right"});
+     tx(ctx, "reseña nº (clic para leerla)", bx + ND * bw - 2, by + bh + 32, {s:11, c:C.muted, a:"right"});
+     /* palabras top por tema */
+     var cw = (W - 2 * 16 - (Kt - 1) * 14) / Kt, ty = 252;
+     for(k = 0; k < Kt; k++){
+       var x0 = 16 + k * (cw + 14), tw = topw(k, 6), mx = tw[0][1];
+       ctx.fillStyle = CL[k]; rrect(ctx, x0, ty - 12, 12, 12, 3); ctx.fill();
+       tx(ctx, "Tema " + (k + 1), x0 + 18, ty - 1, {s:12.5, w:700, c:C.ink});
+       tx(ctx, Math.round(nk[k]) + " palabras", x0 + cw, ty - 1, {s:11, c:C.muted, a:"right"});
+       tw.forEach(function(p, q){
+         var yy = ty + 14 + q * 24;
+         tx(ctx, VOC[p[0]], x0, yy + 11, {s:12, c:C.text});
+         ctx.fillStyle = hexA(CL[k], 0.2); rrect(ctx, x0 + 82, yy + 2, cw - 120, 11, 4); ctx.fill();
+         ctx.fillStyle = CL[k]; rrect(ctx, x0 + 82, yy + 2, Math.max(3, (cw - 120) * p[1] / mx), 11, 4); ctx.fill();
+         tx(ctx, pct(p[1], 0), x0 + cw, yy + 11, {s:11, w:600, c:C.ink, a:"right"});
+       });
+     }
+     /* lectura: la reseña coloreada */
+     var q = 0, html = D[sel].map(function(p){
+       if(p.w < 0) return p.txt + p.tail;
+       var k = Z[sel][q++];
+       return '<span style="background:' + hexA(CL[k], 0.22) + ';border-bottom:2px solid ' + CL[k] + ';border-radius:3px;padding:0 2px">' + p.txt + '<sub style="font-size:10px;color:' + C.muted + '">' + (k + 1) + '</sub></span>' + p.tail;
+     }).join("");
+     var th2 = theta(sel);
+     read.innerHTML = '<span>Iteración <b>' + it + ' / ' + MAXI + '</b></span><span>Temas <b>' + Kt + '</b></span>' +
+       '<span>Reseña ' + (sel + 1) + ' <b>' + th2.map(function(v, k){ return "T" + (k + 1) + " " + pct(v, 0); }).join(" · ") + '</b></span>' +
+       '<span style="flex-basis:100%;font-size:15px;line-height:1.9">«' + html + '»</span>' +
+       '<span class="ldiag">' + (it === 0 ? "Ahora cada palabra tiene un tema <b>al azar</b> (el subíndice). Pulsa ▶: en cada iteración, cada palabra se reasigna al tema que más abunda en su reseña y en el que esa palabra es más típica." :
+         "Palabras top: " + Array.apply(null, {length:Kt}).map(function(_, k){ return "<b>T" + (k + 1) + "</b> " + topw(k, 3).map(function(p){ return VOC[p[0]]; }).join(", "); }).join(" · ") + ". Ponerles nombre (envío, precio, atención) es trabajo tuyo.") + '</span>';
+   }
+   function run(){
+     clearInterval(timer); if(it >= MAXI){ seed++; reset(); }
+     pbtn.innerHTML = "⏸ Pausa";
+     timer = setInterval(function(){ sweep(); draw(); if(it >= MAXI){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; } }, it < 40 ? 90 : 60);
+   }
+   var pbtn = ctlBtn(ctl, "▶ Iterar", function(){ if(pbtn.innerHTML.indexOf("Pausa") > -1){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; } else run(); }, true);
+   ctlBtn(ctl, "⏭ Una iteración", function(){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; sweep(); draw(); });
+   ctlBtn(ctl, "↺ Reiniciar al azar", function(){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; seed++; reset(); draw(); });
+   ctlSeg(ctl, "Nº de temas", [[2, "2"], [3, "3"], [4, "4"]], Kt, function(v){ clearInterval(timer); pbtn.innerHTML = "▶ Iterar"; Kt = +v; reset(); draw(); });
+   K.cv.addEventListener("click", function(e){
+     var p = K.pos(e); if(p[1] > by - 8 && p[1] < by + bh + 22 && p[0] > bx - 2 && p[0] < bx + ND * bw){ sel = Math.max(0, Math.min(ND - 1, Math.floor((p[0] - bx + 2) / bw))); draw(); }
+   });
+   K.cv.style.cursor = "pointer";
+   reset(); draw();
+   return function(){ clearInterval(timer); };
+ }});
+
+/* ── 11. ARIMA: SIMULADOR ARMA CON ACF Y PACF ────────────────── */
+VIZ.push({id:"v-arima", model:"arima", g:"model", ic:"〰️", dim:"2D",
+ t:"La huella de un ARIMA: ACF y PACF",
+ q:"¿Cómo se reconoce en la ACF y la PACF si una serie es AR, MA o necesita diferenciarse?",
+ intro:"Genera una serie con un proceso <b>ARMA</b>: φ (parte AR) dice cuánto se parece cada valor al anterior; θ (parte MA) cuánto arrastra el «golpe» aleatorio de ayer. Con <b>d = 1</b> se integra (suma acumulada): un paseo aleatorio con tendencia. Abajo, la <b>ACF</b> (correlación con el retardo k) y la <b>PACF</b> (la misma correlación descontando los retardos intermedios), con sus bandas ±1,96/√n calculadas de verdad.",
+ notice:["<b>AR(1)</b> (θ = 0): la PACF tiene una sola barra fuera de la banda (lag 1) y la ACF <b>decae poco a poco</b>. Es la huella clásica para elegir p = 1.",
+   "<b>MA(1)</b> (φ = 0): al revés, la <b>ACF se corta</b> tras el lag 1 y la PACF decae (alternando signo si θ &gt; 0). Así se elige q.",
+   "Con <b>d = 1</b>, la ACF de la serie original baja <b>muy despacio</b> (casi 1 en todos los lags): no es estacionaria. Mira la de la serie diferenciada: vuelve a mostrar la huella ARMA."],
+ models:["arima","sarima","sarimax","hw"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Serie ARMA simulada con su ACF y PACF"), ctx = K.ctx;
+   var phi = 0.7, th = 0, d = 0, seed = 4, which = "orig", n = 200, L = 20, x = [], y = [];
+   function gen(){
+     var r = mulberry(seed * 101), e = [], z = [], prevE = 0, prevZ = 0;
+     for(var t = 0; t < n + 60; t++){ var et = gauss(r), zt = phi * prevZ + et + th * prevE; prevE = et; prevZ = zt; if(t >= 60) z.push(zt); }
+     x = z; y = [];
+     if(d){ var acc = 0; z.forEach(function(v){ acc += v + 0.12; y.push(acc); }); } else y = z.slice();
+   }
+   function stems(box, vals, title, band, col){
+     var x0 = box[0], w = box[2], yc = box[1] + box[3] / 2, hs = box[3] / 2 - 6;
+     cap(ctx, title, x0, box[1] - 8, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(x0 + .5, box[1] + .5, w, box[3]);
+     ctx.fillStyle = hexA(C.c[0], 0.1); ctx.fillRect(x0 + 1, yc - band * hs, w - 2, 2 * band * hs);
+     seg(ctx, x0, yc - band * hs, x0 + w, yc - band * hs, hexA(C.c[0], 0.6), 1, [4, 3]); seg(ctx, x0, yc + band * hs, x0 + w, yc + band * hs, hexA(C.c[0], 0.6), 1, [4, 3]);
+     seg(ctx, x0, yc, x0 + w, yc, C.muted, 1);
+     tx(ctx, "1", x0 - 5, yc - hs + 4, {s:11, c:C.muted, a:"right"}); tx(ctx, "0", x0 - 5, yc + 4, {s:11, c:C.muted, a:"right"}); tx(ctx, "−1", x0 - 5, yc + hs + 4, {s:11, c:C.muted, a:"right"});
+     for(var k = 1; k <= L; k++){
+       var xx = x0 + (k - 0.5) / L * w, v = vals[k], out = Math.abs(v) > band;
+       seg(ctx, xx, yc, xx, yc - v * hs, out ? col : hexA(C.muted, 0.7), out ? 3 : 2);
+       dot(ctx, xx, yc - v * hs, out ? 3.6 : 2.6, out ? col : C.muted);
+       if(k === 1 || k % 5 === 0) tx(ctx, String(k), xx, box[1] + box[3] + 14, {s:11, c:C.muted, a:"center"});
+     }
+     tx(ctx, "retardo (lag)", x0 + w / 2, box[1] + box[3] + 28, {s:11, c:C.muted, a:"center"});
+   }
+   function line(box, arr, col, label){
+     var lo = Math.min.apply(null, arr), hi = Math.max.apply(null, arr), pad = (hi - lo) * 0.08 || 1;
+     lo -= pad; hi += pad;
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(box[0] + .5, box[1] + .5, box[2], box[3]);
+     if(lo < 0 && hi > 0){ var y0 = box[1] + box[3] - (0 - lo) / (hi - lo) * box[3]; seg(ctx, box[0], y0, box[0] + box[2], y0, hexA(C.muted, 0.5), 1, [3, 3]); }
+     pathXY(ctx, arr.map(function(_, t){ return box[0] + t / (arr.length - 1) * box[2]; }), arr.map(function(v){ return box[1] + box[3] - (v - lo) / (hi - lo) * box[3]; }));
+     stroke(ctx, col, 1.6);
+     tx(ctx, label, box[0] + 8, box[1] + 15, {s:11.5, w:600, c:C.text});
+   }
+   function cut(vals, band){ /* menor q tal que, después de q, como mucho 1 lag (de 10) se sale de la banda */
+     for(var q = 0; q <= 6; q++){ var c = 0; for(var k = q + 1; k <= 10; k++) if(Math.abs(vals[k]) > band) c++; if(c <= 1 && Math.abs(vals[q + 1]) <= band) return q; }
+     return 7;
+   }
+   function draw(){
+     K.clear();
+     var top = [52, 22, 690, 150];
+     if(d){
+       line([52, 22, 690, 70], y, C.c[0], "serie observada (integrada, d = 1)");
+       line([52, 102, 690, 70], x, C.c[1], "serie diferenciada: y(t) − y(t−1)");
+     } else line(top, y, C.c[0], "serie simulada (d = 0)");
+     var s = d && which === "orig" ? y : x, a = acfOf(s, L), p = pacfOf(a, L), band = 1.96 / Math.sqrt(s.length);
+     var lbl = d ? (which === "orig" ? " · serie original" : " · serie diferenciada") : "";
+     stems([52, 216, 316, 160], a, "ACF" + lbl, band, C.c[0]);
+     stems([424, 216, 316, 160], p, "PACF" + lbl, band, C.c[1]);
+     /* diagnóstico */
+     var qa = cut(a, band), qp = cut(p, band), msg;
+     if(d && which === "orig" && a[10] > 0.5) msg = "La ACF <b>decae muy despacio</b> (lag 10 = " + fmt(a[10], 2) + "): la serie no es estacionaria, tiene tendencia o memoria infinita. <b>Diferénciala (d = 1)</b> y vuelve a mirar: elige «serie diferenciada».";
+     else if(qa === 0 && qp === 0) msg = "Ninguna barra sale claramente de la banda: parece <b>ruido blanco</b>. No hay nada que modelar con AR ni MA (ARIMA(0," + d + ",0)).";
+     else if(qp <= 3 && qa > qp + 1) msg = "La <b>PACF se corta en el lag " + qp + "</b> y la ACF decae poco a poco → <b>AR(" + qp + ")</b>. Propuesta: ARIMA(" + qp + "," + d + ",0).";
+     else if(qa <= 3 && qp > qa + 1) msg = "La <b>ACF se corta en el lag " + qa + "</b> y la PACF decae poco a poco → <b>MA(" + qa + ")</b>. Propuesta: ARIMA(0," + d + "," + qa + ").";
+     else if(qa === qp && qa <= 1) msg = "Solo el lag 1 destaca en ambas: es un efecto débil, compatible con <b>AR(1) o MA(1)</b>. Ajusta los dos y compara con AIC.";
+     else msg = "Ni la ACF ni la PACF se cortan limpiamente: ambas decaen → <b>ARMA</b> (mezcla), por ejemplo ARIMA(1," + d + ",1). Aquí la ACF/PACF orientan y el AIC decide.";
+     read.innerHTML = '<span>Verdad simulada <b>φ = ' + fmt(phi, 2) + ' · θ = ' + fmt(th, 2) + ' · d = ' + d + '</b></span><span>Banda ±1,96/√n <b>±' + fmt(band, 3) + '</b></span>' +
+       '<span>Lags fuera de banda (1-10) <b>ACF ' + a.slice(1, 11).filter(function(v){ return Math.abs(v) > band; }).length + ' · PACF ' + p.slice(1, 11).filter(function(v){ return Math.abs(v) > band; }).length + '</b></span>' +
+       '<span class="ldiag">' + msg + '</span>';
+   }
+   var sP, sT, segW;
+   ctlSeg(ctl, "Ejemplo", [["ar", "AR(1)"], ["ma", "MA(1)"], ["arma", "ARMA(1,1)"], ["wn", "Ruido blanco"]], "ar", function(v){
+     var pr = {ar:[0.7, 0], ma:[0, 0.8], arma:[0.6, 0.5], wn:[0, 0]}[v]; phi = pr[0]; th = pr[1]; sP.set(phi); sT.set(th); gen(); draw(); });
+   sP = ctlSlider(ctl, "φ (parte AR)", -0.9, 0.9, 0.05, phi, function(v){ return fmt(v); }, function(v){ phi = v; gen(); draw(); });
+   sT = ctlSlider(ctl, "θ (parte MA)", -0.9, 0.9, 0.05, th, function(v){ return fmt(v); }, function(v){ th = v; gen(); draw(); });
+   ctlCheck(ctl, "d = 1 (integrar: paseo con tendencia)", false, function(v){ d = v ? 1 : 0; segW.style.display = d ? "" : "none"; gen(); draw(); });
+   segW = ctlSeg(ctl, "ACF/PACF de", [["orig", "Serie original"], ["diff", "Serie diferenciada"]], which, function(v){ which = v; draw(); });
+   segW.style.display = "none";
+   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   gen(); draw();
+ }});
+
+/* ── 12. SARIMA: LA ESTACIONALIDAD ANUAL ─────────────────────── */
+VIZ.push({id:"v-sarima", model:"sarima", g:"model", ic:"📅", dim:"2D",
+ t:"La «S» de SARIMA: patrones que se repiten cada año",
+ q:"¿Cómo se ve la estacionalidad y cuánto mejora el pronóstico un modelo que la tiene en cuenta?",
+ intro:"Seis años de ventas mensuales (inventadas) con tendencia y un patrón anual. Tres vistas: el <b>gráfico estacional</b> (una línea por año), la <b>ACF</b> con su pico en el retardo 12 y un <b>pronóstico de 12 meses</b> que el modelo no ha visto (validación hacia delante), comparando un modelo <b>sin</b> parte estacional con otro <b>con</b> ella. Los dos se ajustan de verdad por mínimos cuadrados; son versiones simplificadas de ARIMA y SARIMA.",
+ notice:["En el gráfico estacional, todas las líneas tienen la <b>misma forma</b> (meses flojos en invierno, subida hasta el verano y repunte en diciembre) y cada año va un poco más arriba: eso es estacionalidad más tendencia.",
+   "En la ACF, la barra del <b>lag 12</b> (y la del 24) sobresale: lo que pasó hace exactamente un año es lo que más se parece a hoy.",
+   "El modelo sin parte estacional (AR(1) sobre la serie diferenciada) pronostica casi una línea recta y no ve ni el verano ni diciembre; el que usa y(t−12) sigue la forma del año. Compara los <b>MAE</b>."],
+ models:["sarima","arima","hw","prophet","sarimax"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 400, K = makeCanvas(stage, W, H, "Serie mensual con estacionalidad anual: gráfico estacional, ACF y pronóstico"), ctx = K.ctx;
+   var MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"], Y0 = 2020;
+   var view = "season", amp = 30, seed = 2, y = [];
+   function gen(){
+     var r = mulberry(seed * 37), e = 0; y = [];
+     for(var t = 0; t < 72; t++){ var m = t % 12; e = 0.3 * e + 3.5 * gauss(r);
+       y.push(220 + 1.1 * t + amp * Math.sin(2 * Math.PI * (m - 3) / 12) * 0.8 + (m === 11 ? amp * 1.1 : 0) + (m === 10 ? amp * 0.35 : 0) + e); }
+   }
+   function fits(){
+     var tr = y.slice(0, 60), te = y.slice(60);
+     /* A: AR(1) sobre la serie diferenciada: Δy(t) = c + φ·Δy(t−1) */
+     var dy = []; for(var t = 1; t < 60; t++) dy.push(tr[t] - tr[t - 1]);
+     var XA = [], yA = []; for(t = 1; t < dy.length; t++){ XA.push([1, dy[t - 1]]); yA.push(dy[t]); }
+     var bA = lsq(XA, yA), fa = [], last = tr[59], ld = dy[dy.length - 1];
+     for(var h = 0; h < 12; h++){ ld = bA[0] + bA[1] * ld; last += ld; fa.push(last); }
+     /* B: AR estacional: y(t) = c + a·y(t−1) + b·y(t−12) */
+     var XB = [], yB = []; for(t = 12; t < 60; t++){ XB.push([1, tr[t - 1], tr[t - 12]]); yB.push(tr[t]); }
+     var bB = lsq(XB, yB), fb = [], ext = tr.slice();
+     for(h = 0; h < 12; h++){ var tt = 60 + h, v = bB[0] + bB[1] * ext[tt - 1] + bB[2] * ext[tt - 12]; ext.push(v); fb.push(v); }
+     var mae = function(f){ return mean(f.map(function(v, i){ return Math.abs(v - te[i]); })); };
+     return {fa:fa, fb:fb, bA:bA, bB:bB, maeA:mae(fa), maeB:mae(fb)};
+   }
+   function draw(){
+     K.clear();
+     var F = fits(), lo = Math.min.apply(null, y.concat(F.fa, F.fb)) - 10, hi = Math.max.apply(null, y.concat(F.fa, F.fb)) + 10;
+     if(view === "season"){
+       var box = [60, 30, 600, 320];
+       var A = axes(ctx, box, [0, 11], [lo, hi], C, {yl:"ventas (miles de €)", yt:[Math.ceil(lo / 50) * 50, Math.floor(hi / 50) * 50]});
+       MES.forEach(function(m, i){ tx(ctx, m, A.sx(i), box[1] + box[3] + 16, {s:11, c:C.muted, a:"center"}); });
+       cap(ctx, "Gráfico estacional · una línea por año", box[0], 18, C);
+       var labs = [];
+       for(var yr = 0; yr < 6; yr++){
+         var seg12 = y.slice(yr * 12, yr * 12 + 12), al = 0.3 + 0.7 * yr / 5;
+         pathXY(ctx, seg12.map(function(_, i){ return A.sx(i); }), seg12.map(A.sy)); stroke(ctx, hexA(C.c[0], al), yr === 5 ? 2.8 : 1.8);
+         seg12.forEach(function(v, i){ dot(ctx, A.sx(i), A.sy(v), 2.4, hexA(C.c[0], al)); });
+         labs.push([A.sy(seg12[11]), String(Y0 + yr), al]);
+       }
+       labs.sort(function(a, b){ return a[0] - b[0]; });
+       for(var q = 1; q < labs.length; q++) if(labs[q][0] - labs[q - 1][0] < 14) labs[q][0] = labs[q - 1][0] + 14;
+       labs.forEach(function(l){ tx(ctx, l[1], box[0] + box[2] + 10, l[0] + 4, {s:12, w:700, c:hexA(C.c[0], Math.max(0.55, l[2]))}); });
+       var dec = mean([0, 1, 2, 3, 4, 5].map(function(k){ return y[k * 12 + 11] - mean(y.slice(k * 12, k * 12 + 12)); })), apr = mean([0, 1, 2, 3, 4, 5].map(function(k){ return y[k * 12 + 3] - mean(y.slice(k * 12, k * 12 + 12)); }));
+       read.innerHTML = '<span>Diciembre frente a la media de su año <b>+' + fmt(dec, 0) + '</b></span><span>Abril frente a la media <b>' + fmt(apr, 0).replace("-", "−") + '</b></span><span>Crecimiento interanual medio <b>+' + fmt(mean([1, 2, 3, 4, 5].map(function(k){ return mean(y.slice(k * 12, k * 12 + 12)) - mean(y.slice(k * 12 - 12, k * 12)); })), 1) + '</b></span>' +
+         '<span class="ldiag">Las seis líneas comparten forma: el patrón se repite cada <b>12 meses</b>. Un modelo que no mire «el mismo mes del año pasado» tendrá que adivinar ese pico cada diciembre.</span>';
+     } else if(view === "acf"){
+       var L = 36, a = acfOf(y, L), band = 1.96 / Math.sqrt(y.length), bx = [60, 34, 660, 300], yc = bx[1] + bx[3] / 2, hs = bx[3] / 2 - 8;
+       cap(ctx, "ACF de la serie (72 meses)", bx[0], 18, C);
+       ctx.strokeStyle = C.line; ctx.strokeRect(bx[0] + .5, bx[1] + .5, bx[2], bx[3]);
+       ctx.fillStyle = hexA(C.c[0], 0.1); ctx.fillRect(bx[0] + 1, yc - band * hs, bx[2] - 2, 2 * band * hs);
+       seg(ctx, bx[0], yc, bx[0] + bx[2], yc, C.muted, 1);
+       tx(ctx, "1", bx[0] - 6, yc - hs + 4, {s:11, c:C.muted, a:"right"}); tx(ctx, "0", bx[0] - 6, yc + 4, {s:11, c:C.muted, a:"right"}); tx(ctx, "−1", bx[0] - 6, yc + hs + 4, {s:11, c:C.muted, a:"right"});
+       for(var k = 1; k <= L; k++){
+         var xx = bx[0] + (k - 0.5) / L * bx[2], v = a[k], s12 = k % 12 === 0;
+         seg(ctx, xx, yc, xx, yc - v * hs, s12 ? C.c[1] : Math.abs(v) > band ? C.c[0] : hexA(C.muted, 0.7), s12 ? 4 : 2.4);
+         dot(ctx, xx, yc - v * hs, s12 ? 4.5 : 2.8, s12 ? C.c[1] : Math.abs(v) > band ? C.c[0] : C.muted);
+         if(s12) tx(ctx, "lag " + k, xx, yc - v * hs - 12, {s:12, w:700, c:C.ink, a:"center"});
+         if(k % 6 === 0 || k === 1) tx(ctx, String(k), xx, bx[1] + bx[3] + 16, {s:11, c:C.muted, a:"center"});
+       }
+       tx(ctx, "retardo en meses (lag)", bx[0] + bx[2] / 2, bx[1] + bx[3] + 32, {s:11, c:C.muted, a:"center"});
+       read.innerHTML = '<span>ACF lag 1 <b>' + fmt(a[1], 2) + '</b></span><span>lag 6 <b>' + fmt(a[6], 2) + '</b></span><span>lag 12 <b>' + fmt(a[12], 2) + '</b></span><span>lag 24 <b>' + fmt(a[24], 2) + '</b></span><span>Banda <b>±' + fmt(band, 2) + '</b></span>' +
+         '<span class="ldiag">Picos en <b>12 y 24</b> (y valles en 6 y 18, medio año desfasado): la firma de una estacionalidad anual. En SARIMA eso se traduce en una parte estacional con periodo <b>s = 12</b>.</span>';
+     } else {
+       var box2 = [60, 30, 660, 300];
+       var A2 = axes(ctx, box2, [0, 71], [lo, hi], C, {yl:"ventas (miles de €)", yt:[Math.ceil(lo / 50) * 50, Math.floor(hi / 50) * 50]});
+       for(var yy = 0; yy < 6; yy++) tx(ctx, String(Y0 + yy), A2.sx(yy * 12 + 5.5), box2[1] + box2[3] + 16, {s:11, c:C.muted, a:"center"});
+       ctx.fillStyle = hexA(C.c[2], 0.08); ctx.fillRect(A2.sx(59.5), box2[1], A2.sx(71) - A2.sx(59.5), box2[3]);
+       tx(ctx, "test: 12 meses no vistos", A2.sx(60) + 6, box2[1] + 16, {s:11, c:C.muted});
+       cap(ctx, "Pronóstico a 12 meses", box2[0], 18, C);
+       var ln = function(arr, off, col, lw, dash){ pathXY(ctx, arr.map(function(_, i){ return A2.sx(i + off); }), arr.map(A2.sy)); stroke(ctx, col, lw, dash); };
+       ln(y.slice(0, 60), 0, C.c[0], 2);
+       ln(y.slice(59), 59, C.muted, 2, [5, 4]);
+       if(show !== "b") ln([y[59]].concat(F.fa), 59, C.c[4], 2.4);
+       if(show !== "a") ln([y[59]].concat(F.fb), 59, C.c[1], 2.8);
+       var lg = [[C.c[0], "entrenamiento", []], [C.muted, "real (test)", [5, 4]], [C.c[4], "sin estacional · MAE " + fmt(F.maeA, 1), []], [C.c[1], "con estacional · MAE " + fmt(F.maeB, 1), []]];
+       lg.forEach(function(l, q){ var lx = box2[0] + 14, ly = box2[1] + 38 + q * 18; seg(ctx, lx, ly - 4, lx + 22, ly - 4, l[0], 2.6, l[2]); tx(ctx, l[1], lx + 30, ly, {s:12, c:C.text}); });
+       var gain = 1 - F.maeB / F.maeA;
+       read.innerHTML = '<table class="cmx"><tr><th>Modelo</th><th>Ecuación ajustada</th><th>MAE último año</th></tr>' +
+         '<tr><th>Sin estacional</th><td style="font-size:12.5px;font-weight:500">Δy(t) = ' + fmt(F.bA[0], 2) + ' + ' + fmt(F.bA[1], 2) + '·Δy(t−1)</td><td class="' + (F.maeA > F.maeB ? "ko" : "ok") + '">' + fmt(F.maeA, 1) + '</td></tr>' +
+         '<tr><th>Con estacional</th><td style="font-size:12.5px;font-weight:500">y(t) = ' + fmt(F.bB[0], 1) + ' + ' + fmt(F.bB[1], 2) + '·y(t−1) + ' + fmt(F.bB[2], 2) + '·y(t−12)</td><td class="' + (F.maeB <= F.maeA ? "ok" : "ko") + '">' + fmt(F.maeB, 1) + '</td></tr></table>' +
+         '<span class="ldiag" style="flex-basis:auto;flex:1 1 240px">' + (gain > 0 ? "Mirar «hace 12 meses» reduce el error un <b>" + pct(gain, 0) + "</b>. El coeficiente de y(t−12) es " + fmt(F.bB[2], 2) + ": buena parte de cada mes se explica por el mismo mes del año anterior." : "Con tan poca estacionalidad, el término y(t−12) no aporta: el modelo sencillo basta.") + ' MAE en miles de €: «de media, el pronóstico se desvía tanto al mes».</span>';
+     }
+   }
+   var show = "both";
+   var sv = ctlSeg(ctl, "Vista", [["season", "Gráfico estacional"], ["acf", "ACF (lag 12)"], ["fc", "Pronóstico"]], view, function(v){ view = v; showSeg.style.display = v === "fc" ? "" : "none"; draw(); });
+   var showSeg = ctlSeg(ctl, "Pronósticos", [["both", "Los dos"], ["a", "Sin estacional"], ["b", "Con estacional"]], show, function(v){ show = v; draw(); });
+   showSeg.style.display = "none";
+   ctlSlider(ctl, "Fuerza de la estacionalidad", 0, 50, 1, amp, function(v){ return v; }, function(v){ amp = v; gen(); draw(); });
+   ctlBtn(ctl, "🎲 Otra muestra", function(){ seed++; gen(); draw(); });
+   gen(); draw();
+ }});
+
+/* ── 13. SARIMAX: VARIABLES EXTERNAS Y ESCENARIOS ────────────── */
+VIZ.push({id:"v-sarimax", model:"sarimax", g:"model", ic:"🌡️", dim:"2D",
+ t:"La «X» de SARIMAX: promociones y temperatura",
+ q:"¿Cómo se usan variables externas (exógenas) para pronosticar, y qué pasa con su futuro?",
+ intro:"Dos años de ventas semanales (se dibuja el último) de bebidas frías con dos variables externas: <b>semanas de promoción</b> y <b>temperatura</b>. Se ajusta de verdad una <b>regresión con errores AR(1)</b> (estimada por mínimos cuadrados con el método de Cochrane-Orcutt), que es una versión simplificada de SARIMAX. Mueve los deslizadores para plantear <b>escenarios</b> para las próximas 12 semanas: el pronóstico se recalcula y se descompone en base + efecto promo + efecto temperatura.",
+ notice:["Cada semana de promoción suma lo que dice su coeficiente (≈ 80 unidades): en el pronóstico aparece como un <b>escalón naranja</b> justo en las semanas promocionadas.",
+   "Unas semanas más calurosas de lo normal (+°C) <b>suben</b> la banda verde; más frescas la vuelven negativa (▼, se resta). El efecto temperatura es el coeficiente por °C multiplicado por la diferencia con la temperatura media.",
+   "El modelo <b>no sabe</b> qué promociones harás ni qué tiempo hará: tú le das esos valores futuros. Si los inventas mal, el pronóstico estará mal aunque el modelo sea perfecto."],
+ models:["sarimax","sarima","arima","linmult","prophet"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Ventas semanales con promociones y temperatura, y pronóstico por escenarios"), ctx = K.ctx;
+   var NH = 104, NF = 12, r = mulberry(61), y = [], promo = [], temp = [], u = 0;
+   for(var t = 0; t < NH; t++){
+     var tc = 17 + 9 * Math.sin(2 * Math.PI * (t - 97) / 52) + 1.6 * gauss(r);
+     var pr = (t % 9 === 3 || t % 13 === 7) ? 1 : 0;
+     u = 0.6 * u + 14 * gauss(r);
+     temp.push(tc); promo.push(pr); y.push(420 + 1.1 * t + 82 * pr + 7 * (tc - 17) + u);
+   }
+   /* Cochrane-Orcutt: OLS → rho de los residuos → cuasi-diferencias → OLS … */
+   var X = y.map(function(_, t){ return [1, t, promo[t], temp[t]]; }), beta = lsq(X, y), rho = 0;
+   for(var it = 0; it < 15; it++){
+     var e = y.map(function(v, t){ return v - (beta[0] + beta[1] * t + beta[2] * promo[t] + beta[3] * temp[t]); });
+     var a = 0, b = 0; for(t = 1; t < NH; t++){ a += e[t] * e[t - 1]; b += e[t - 1] * e[t - 1]; } rho = a / b;
+     var Xs = [], ys = []; for(t = 1; t < NH; t++){ Xs.push(X[t].map(function(v, j){ return v - rho * X[t - 1][j]; })); ys.push(y[t] - rho * y[t - 1]); }
+     beta = lsq(Xs, ys); /* la columna constante también se cuasi-diferencia (1 − ρ): beta[0] ya es el intercepto original */
+   }
+   var eT = y[NH - 1] - (beta[0] + beta[1] * (NH - 1) + beta[2] * promo[NH - 1] + beta[3] * temp[NH - 1]);
+   var Tbar = mean(temp);
+   /* temperatura «normal» para las semanas futuras: armónico anual ajustado al histórico */
+   var XT = temp.map(function(_, t){ return [1, Math.sin(2 * Math.PI * t / 52), Math.cos(2 * Math.PI * t / 52)]; }), bT = lsq(XT, temp);
+   var climT = function(t){ return bT[0] + bT[1] * Math.sin(2 * Math.PI * t / 52) + bT[2] * Math.cos(2 * Math.PI * t / 52); };
+   var nP = 3, dT = 0;
+   function scenario(){
+     var pf = new Array(NF).fill(0); for(var q = 0; q < nP; q++) pf[Math.min(NF - 1, Math.round((q + 0.5) * NF / nP - 0.5))] = 1;
+     var out = [];
+     for(var h = 1; h <= NF; h++){
+       var t = NH - 1 + h, Tf = climT(t) + dT;
+       var base = beta[0] + beta[1] * t + beta[3] * Tbar + Math.pow(rho, h) * eT;
+       out.push({t:t, base:base, pe:beta[2] * pf[h - 1], te:beta[3] * (Tf - Tbar), T:Tf, p:pf[h - 1]});
+     }
+     return out;
+   }
+   function draw(){
+     K.clear();
+     var S = scenario(), all = y.concat(S.map(function(s){ return s.base + s.pe + Math.max(0, s.te); }), S.map(function(s){ return s.base + Math.min(0, s.te); }));
+     var lo = Math.floor((Math.min.apply(null, all) - 20) / 50) * 50, hi = Math.ceil((Math.max.apply(null, all) + 20) / 50) * 50;
+     var mb = [62, 50, 676, 220], tb = [62, 316, 676, 70], xr = [NH - 52, NH + NF - 1], H0 = NH - 52;
+     var A = axes(ctx, mb, xr, [lo, hi], C, {yl:"unidades/semana", yt:[lo, (lo + hi) / 2, hi]});
+     var sx = A.sx, sy = A.sy;
+     cap(ctx, "Ventas semanales (último año) y pronóstico de 12 semanas", mb[0], 16, C);
+     ctx.fillStyle = hexA(C.c[0], 0.06); ctx.fillRect(sx(NH - 0.5), mb[1], sx(xr[1]) - sx(NH - 0.5), mb[3]);
+     tx(ctx, "escenario (12 semanas)", (sx(NH - 0.5) + sx(xr[1])) / 2, mb[1] + mb[3] - 10, {s:11, w:600, c:C.muted, a:"center"});
+     /* histórico */
+     var hs = y.slice(H0); pathXY(ctx, hs.map(function(_, q){ return sx(q + H0); }), hs.map(sy)); stroke(ctx, hexA(C.c[0], 0.85), 1.8);
+     promo.forEach(function(p, t){ if(p && t >= H0) mark(ctx, 2, sx(t), sy(y[t]) - 9, 3.6, C.c[1]); });
+     /* pronóstico apilado */
+     var xs = [sx(NH - 1)].concat(S.map(function(s){ return sx(s.t); }));
+     var b0 = [y[NH - 1]].concat(S.map(function(s){ return s.base; }));
+     var b1 = [y[NH - 1]].concat(S.map(function(s){ return s.base + s.pe; }));
+     var b2 = [y[NH - 1]].concat(S.map(function(s){ return s.base + s.pe + s.te; }));
+     var band = function(lo2, hi2, col){ ctx.beginPath(); xs.forEach(function(x, i){ if(i) ctx.lineTo(x, sy(hi2[i])); else ctx.moveTo(x, sy(hi2[i])); }); for(var i = xs.length - 1; i >= 0; i--) ctx.lineTo(xs[i], sy(lo2[i])); ctx.closePath(); ctx.fillStyle = col; ctx.fill(); };
+     band(b0.map(function(){ return lo; }), b0, hexA(C.c[0], 0.16));
+     band(b0, b1, hexA(C.c[1], 0.55));
+     band(b1, b2, hexA(C.c[2], dT >= 0 ? 0.55 : 0.3));
+     pathXY(ctx, xs, b0.map(sy)); stroke(ctx, C.c[0], 1.6, [4, 3]);
+     pathXY(ctx, xs, b2.map(sy)); stroke(ctx, C.ink, 2.4);
+     /* leyenda */
+     var lg = [[hexA(C.c[0], 0.35), "base (tendencia + inercia AR)"], [hexA(C.c[1], 0.7), "efecto promo"], [hexA(C.c[2], 0.7), "efecto temperatura"], [C.ink, "pronóstico total"]];
+     var lx = mb[0];
+     lg.forEach(function(l){ ctx.fillStyle = l[0]; rrect(ctx, lx, 31, 14, 10, 3); ctx.fill(); lx += 20 + tx(ctx, l[1], lx + 20, 40, {s:11.5, c:C.text}) + 18; });
+     mark(ctx, 2, lx + 5, 36, 3.6, C.c[1]); tx(ctx, "promoción", lx + 13, 40, {s:11.5, c:C.text});
+     /* panel de temperatura */
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(tb[0] + .5, tb[1] + .5, tb[2], tb[3]);
+     cap(ctx, "Temperatura (°C) · histórico y escenario", tb[0], tb[1] - 8, C);
+     var tl = 0, th2 = 35, ty = function(v){ return tb[1] + tb[3] - (v - tl) / (th2 - tl) * tb[3]; };
+     seg(ctx, tb[0], ty(Tbar), tb[0] + tb[2], ty(Tbar), hexA(C.muted, 0.6), 1, [3, 3]);
+     tx(ctx, "media " + fmt(Tbar, 1) + " °C", tb[0] + 6, ty(Tbar) - 4, {s:11, c:C.muted});
+     var th = temp.slice(H0); pathXY(ctx, th.map(function(_, q){ return sx(q + H0); }), th.map(ty)); stroke(ctx, hexA(C.c[2], 0.9), 1.4);
+     pathXY(ctx, S.map(function(s){ return sx(s.t); }), S.map(function(s){ return ty(climT(s.t)); })); stroke(ctx, hexA(C.muted, 0.8), 1.2, [2, 3]);
+     pathXY(ctx, S.map(function(s){ return sx(s.t); }), S.map(function(s){ return ty(s.T); })); stroke(ctx, C.c[2], 2.4);
+     [0, 10, 20, 30].forEach(function(v){ tx(ctx, String(v), tb[0] - 6, ty(v) + 4, {s:11, c:C.muted, a:"right"}); });
+     tx(ctx, "últimas 52 semanas", sx(H0 + 26), tb[1] + tb[3] + 16, {s:11, c:C.muted, a:"center"});
+     tx(ctx, "+12 sem.", sx(NH + 5.5), tb[1] + tb[3] + 16, {s:11, c:C.muted, a:"center"});
+     /* lectura */
+     var tot = function(f){ return sum(S.map(f)); };
+     var TB = tot(function(s){ return s.base; }), TP = tot(function(s){ return s.pe; }), TT = tot(function(s){ return s.te; });
+     read.innerHTML = '<span>Promo <b>+' + fmt(beta[2], 0) + ' ud./semana</b></span><span>Temperatura <b>' + (beta[3] >= 0 ? "+" : "") + fmt(beta[3], 1) + ' ud. por °C</b></span><span>Tendencia <b>+' + fmt(beta[1], 2) + ' ud./semana</b></span><span>ρ (AR(1) del error) <b>' + fmt(rho, 2) + '</b></span>' +
+       '<span style="flex-basis:100%">Próximas 12 semanas: <b>' + fmt(TB + TP + TT, 0) + ' ud.</b> = base ' + fmt(TB, 0) + ' + promo ' + fmt(TP, 0) + ' ' + (TT >= 0 ? "+ temperatura " + fmt(TT, 0) + " ▲" : "− temperatura " + fmt(-TT, 0) + " ▼") + '</span>' +
+       '<span class="ldiag"><b class="lwarn">⚠ Ojo con el futuro de las exógenas</b>: para pronosticar con SARIMAX hay que <b>conocer o fijar</b> sus valores futuros. Las promociones las decides tú (bien); la temperatura hay que tomarla de una previsión meteorológica o plantear escenarios (como aquí). Un error en esa previsión se traslada tal cual al pronóstico de ventas.</span>';
+   }
+   ctlSlider(ctl, "Semanas con promoción (de las próximas 12)", 0, 12, 1, nP, function(v){ return v; }, function(v){ nP = v; draw(); });
+   ctlSlider(ctl, "Temperatura frente a lo normal", -6, 6, 0.5, dT, function(v){ return (v > 0 ? "+" : v < 0 ? "−" : "") + fmt(Math.abs(v), 1) + " °C"; }, function(v){ dT = v; draw(); });
+   draw();
+ }});
+
+/* ── 14. PROPHET: DESCOMPOSICIÓN ADITIVA ─────────────────────── */
+VIZ.push({id:"v-prophet", model:"prophet", g:"model", ic:"🔮", dim:"2D",
+ t:"Prophet por piezas: tendencia, semanas, años y festivos",
+ q:"¿Cómo descompone Prophet una serie diaria y por qué la flexibilidad de la tendencia cambia tanto el pronóstico?",
+ intro:"Tres años de <b>pedidos diarios</b> (inventados) de una tienda online. Se ajusta de verdad un modelo aditivo como el de Prophet: <b>tendencia lineal por tramos</b> con 25 posibles puntos de cambio, <b>estacionalidad semanal y anual</b> (series de Fourier) y <b>festivos</b>, por mínimos cuadrados con regularización (la de los puntos de cambio, tipo Laplace como en Prophet, resuelta por mínimos cuadrados reponderados). Los <b>últimos 90 días</b> no se usan para ajustar: son la validación.",
+ notice:["Con <b>changepoint_prior_scale</b> bajo, la tendencia casi no puede doblarse (una recta); alto, se dobla en muchos puntos y su <b>último tramo</b> manda en la extrapolación: el pronóstico puede dispararse o hundirse.",
+   "Los paneles de abajo son las piezas que se suman: el patrón <b>semanal</b> (más pedidos en fin de semana), el <b>anual</b> (valle en verano, subida en otoño-invierno) y los <b>festivos</b> (Black Friday, Navidad, rebajas).",
+   "Desmarca «festivos» y mira el MAPE: el modelo deja de anticipar el pico de <b>Black Friday</b> que cae dentro de los 90 días de validación."],
+ models:["prophet","sarima","hw","sarimax","linsimple"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 440, K = makeCanvas(stage, W, H, "Serie diaria descompuesta en tendencia, estacionalidad semanal, anual y festivos"), ctx = K.ctx;
+   var ND = 1095, NV = 90, NT = ND - NV, D0 = Date.UTC(2023, 0, 1), DAY = 86400000;
+   var date = function(d){ return new Date(D0 + d * DAY); };
+   var MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+   /* festivos: Black Friday (último viernes de noviembre), Navidad (22-24 dic), rebajas (7 ene) */
+   var HOL = [[], [], []], HN = ["Black Friday", "Navidad", "Rebajas"];
+   for(var d = 0; d < ND; d++){
+     var dt = date(d), m = dt.getUTCMonth(), dd = dt.getUTCDate(), wd = dt.getUTCDay();
+     if(m === 10 && wd === 5 && dd + 7 > 30) HOL[0].push(d);
+     if(m === 11 && dd >= 22 && dd <= 24) HOL[1].push(d);
+     if(m === 0 && dd === 7) HOL[2].push(d);
+   }
+   var isH = function(k, d){ return HOL[k].indexOf(d) > -1 ? 1 : 0; };
+   var r = mulberry(29), y = [];
+   for(d = 0; d < ND; d++){
+     var tr = 180 + 0.09 * d + (d > 420 ? 0.16 * (d - 420) : 0) - (d > 820 ? 0.2 * (d - 820) : 0);
+     wd = date(d).getUTCDay();
+     var wk = [-8, -4, -2, 0, 6, 22, 18][wd];
+     var doy = 2 * Math.PI * d / 365.25, yr = 22 * Math.cos(doy - 0.5) + 9 * Math.cos(2 * doy + 0.8) - 6 * Math.sin(doy);
+     var hol = 140 * isH(0, d) + 45 * isH(1, d) + 55 * isH(2, d);
+     y.push(Math.max(5, tr + wk + yr + hol + 10 * gauss(r)));
+   }
+   var ymax = Math.max.apply(null, y.slice(0, NT)), ys = y.map(function(v){ return v / ymax; });
+   var NCP = 25, CP = []; for(var j = 0; j < NCP; j++) CP.push(Math.round((j + 1) * 0.8 * NT / (NCP + 1)));
+   var cols = {wk:6, yr:20, hol:3};
+   function feats(d){
+     var t = d / (NT - 1), f = [1, t];
+     CP.forEach(function(s){ f.push(Math.max(0, t - s / (NT - 1))); });
+     for(var k = 1; k <= 3; k++){ f.push(Math.sin(2 * Math.PI * k * d / 7)); f.push(Math.cos(2 * Math.PI * k * d / 7)); }
+     for(k = 1; k <= 10; k++){ f.push(Math.sin(2 * Math.PI * k * d / 365.25)); f.push(Math.cos(2 * Math.PI * k * d / 365.25)); }
+     f.push(isH(0, d), isH(1, d), isH(2, d));
+     return f;
+   }
+   var F = []; for(d = 0; d < ND; d++) F.push(feats(d));
+   var P = F[0].length, iT = 2 + NCP, iW = iT, iY = iW + 6, iH = iY + 20;
+   /* X'X y X'y una sola vez: la regularización solo toca la diagonal */
+   var XtX = [], Xty = new Array(P).fill(0);
+   for(var a = 0; a < P; a++) XtX.push(new Array(P).fill(0));
+   for(d = 0; d < NT; d++){ var f = F[d]; for(a = 0; a < P; a++){ if(!f[a]) continue; Xty[a] += f[a] * ys[d]; for(var b = a; b < P; b++) XtX[a][b] += f[a] * f[b]; } }
+   for(a = 0; a < P; a++) for(b = 0; b < a; b++) XtX[a][b] = XtX[b][a];
+   var TAUS = [0.001, 0.005, 0.01, 0.05, 0.1, 0.5], ti = 3, use = {wk:true, yr:true, hol:true}, sigma2 = null;
+   function solve(pen){ var A = XtX.map(function(row, i){ var rr = row.slice(); rr[i] += pen[i]; return rr; }); return solveLin(A, Xty.slice()); }
+   function fit(){
+     var tau = TAUS[ti], pen = new Array(P).fill(0), beta, off = function(i){ return (i >= iW && i < iY && !use.wk) || (i >= iY && i < iH && !use.yr) || (i >= iH && !use.hol); };
+     if(sigma2 === null){ /* ruido estimado con un ajuste casi libre */
+       var p0 = new Array(P).fill(1e-6); beta = solve(p0); var ss = 0; for(var d2 = 0; d2 < NT; d2++){ var e = ys[d2] - dotp(F[d2], beta); ss += e * e; } sigma2 = ss / (NT - P);
+     }
+     for(var i = 0; i < P; i++){ pen[i] = off(i) ? 1e9 : (i >= iW ? sigma2 / 100 : (i >= 2 ? sigma2 / tau / 0.01 : 1e-9)); }
+     for(var it = 0; it < 25; it++){ /* IRLS: |δ| ≈ δ² / |δ anterior| */
+       beta = solve(pen);
+       for(i = 2; i < iT; i++) pen[i] = sigma2 / tau / Math.max(Math.abs(beta[i]), 1e-5);
+     }
+     return beta;
+   }
+   var dotp = function(f, bt){ var s = 0; for(var i = 0; i < f.length; i++) s += f[i] * bt[i]; return s; };
+   var part = function(f, bt, i0, i1){ var s = 0; for(var i = i0; i < i1; i++) s += f[i] * bt[i]; return s * ymax; };
+   var beta, comp, fan = [];
+   function compute(){
+     var keep = ti; fan = [];
+     for(var q = 0; q < TAUS.length; q++){ ti = q; var bq = fit(); fan.push(F.map(function(f){ return part(f, bq, 0, iT); })); }
+     ti = keep;
+     beta = fit();
+     comp = F.map(function(f){ return {tr:part(f, beta, 0, iT), wk:part(f, beta, iW, iY), yr:part(f, beta, iY, iH), hol:part(f, beta, iH, P)}; });
+     comp.forEach(function(c){ c.yh = c.tr + c.wk + c.yr + c.hol; });
+   }
+   function draw(){
+     K.clear();
+     var mb = [56, 24, 690, 150], X = function(d){ return mb[0] + d / (ND - 1) * mb[2]; };
+     var lo = Math.floor(Math.min.apply(null, y) / 50) * 50, hi = Math.ceil(Math.max.apply(null, y.concat(comp.map(function(c){ return c.yh; }))) / 50) * 50;
+     var Y = function(v){ return mb[1] + mb[3] - (v - lo) / (hi - lo) * mb[3]; };
+     cap(ctx, "Pedidos diarios · ajuste y pronóstico de 90 días", mb[0], 14, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(mb[0] + .5, mb[1] + .5, mb[2], mb[3]);
+     [lo, (lo + hi) / 2, hi].forEach(function(v){ tx(ctx, fmt(v, 0), mb[0] - 6, Y(v) + 4, {s:11, c:C.muted, a:"right"}); });
+     ctx.fillStyle = hexA(C.c[2], 0.09); ctx.fillRect(X(NT - 0.5), mb[1], X(ND - 1) - X(NT - 0.5), mb[3]);
+     tx(ctx, "validación", (X(NT) + X(ND - 1)) / 2, mb[1] + 14, {s:11, w:600, c:C.muted, a:"center"});
+     for(d = 0; d < ND; d++){ ctx.fillStyle = d < NT ? hexA(C.ink, 0.28) : hexA(C.ink, 0.55); ctx.fillRect(X(d) - 0.6, Y(y[d]) - 0.6, 1.4, 1.4); }
+     pathXY(ctx, comp.slice(0, NT).map(function(_, d2){ return X(d2); }), comp.slice(0, NT).map(function(c){ return Y(c.yh); })); stroke(ctx, hexA(C.c[0], 0.9), 1.2);
+     pathXY(ctx, comp.slice(NT - 1).map(function(_, q){ return X(NT - 1 + q); }), comp.slice(NT - 1).map(function(c){ return Y(c.yh); })); stroke(ctx, C.c[1], 1.8);
+     for(var yy = 0; yy < 3; yy++){ var dj = Math.round(yy * 365.25); tx(ctx, String(2023 + yy), X(dj + 182), mb[1] + mb[3] + 14, {s:11, c:C.muted, a:"center"}); seg(ctx, X(dj), mb[1] + mb[3], X(dj), mb[1] + mb[3] + 4, C.muted, 1); }
+     var lgx = mb[0] + 10;
+     ctx.fillStyle = hexA(C.ink, 0.45); ctx.fillRect(lgx, mb[1] + 12, 4, 4); lgx += 10 + tx(ctx, "pedidos reales", lgx + 8, mb[1] + 17, {s:11, c:C.text}) + 16;
+     seg(ctx, lgx, mb[1] + 13, lgx + 16, mb[1] + 13, C.c[0], 2); lgx += 22 + tx(ctx, "ajuste", lgx + 22, mb[1] + 17, {s:11, c:C.text}) + 16;
+     seg(ctx, lgx, mb[1] + 13, lgx + 16, mb[1] + 13, C.c[1], 2.4); tx(ctx, "pronóstico", lgx + 22, mb[1] + 17, {s:11, c:C.text});
+     /* tendencia */
+     var tb = [56, 206, 690, 64], tl = Math.min.apply(null, comp.map(function(c){ return c.tr; })), th = Math.max.apply(null, fan.map(function(fr){ return Math.max.apply(null, fr); }).concat([comp[ND - 1].tr]));
+     tl = Math.min(tl, Math.min.apply(null, fan.map(function(fr){ return fr[ND - 1]; })));
+     var TY = function(v){ return tb[1] + tb[3] - (v - tl) / (th - tl || 1) * (tb[3] - 6) - 3; };
+     cap(ctx, "Tendencia · rombos = puntos de cambio usados · gris = otras flexibilidades", tb[0], tb[1] - 8, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(tb[0] + .5, tb[1] + .5, tb[2], tb[3]);
+     ctx.fillStyle = hexA(C.c[2], 0.09); ctx.fillRect(X(NT - 0.5), tb[1], X(ND - 1) - X(NT - 0.5), tb[3]);
+     var used = 0, mxd = 0; for(j = 0; j < NCP; j++) mxd = Math.max(mxd, Math.abs(beta[2 + j]));
+     CP.forEach(function(s, q){ var dl = beta[2 + q]; if(Math.abs(dl) > 0.004){ used++; seg(ctx, X(s), tb[1], X(s), tb[1] + tb[3], hexA(C.ink, 0.25), 1, [2, 3]); mark(ctx, 3, X(s), TY(comp[s].tr), 4, dl > 0 ? C.pos : C.neg, C.card, 1); }
+       else { ctx.fillStyle = hexA(C.muted, 0.5); ctx.fillRect(X(s) - 0.5, tb[1] + tb[3] - 4, 1, 4); } });
+     fan.forEach(function(fr, q){ if(q === ti) return; pathXY(ctx, fr.slice(NT - 200).map(function(_, k){ return X(NT - 200 + k); }), fr.slice(NT - 200).map(TY)); stroke(ctx, hexA(C.muted, 0.55), 1, [3, 2]); });
+     pathXY(ctx, comp.map(function(_, d2){ return X(d2); }), comp.map(function(c){ return TY(c.tr); })); stroke(ctx, C.c[0], 2.2);
+     pathXY(ctx, comp.slice(NT - 1).map(function(_, q){ return X(NT - 1 + q); }), comp.slice(NT - 1).map(function(c){ return TY(c.tr); })); stroke(ctx, C.c[1], 2.4);
+     tx(ctx, fmt(tl, 0), tb[0] - 6, tb[1] + tb[3], {s:11, c:C.muted, a:"right"}); tx(ctx, fmt(th, 0), tb[0] - 6, tb[1] + 10, {s:11, c:C.muted, a:"right"});
+     /* fila de componentes */
+     var rb = 314, rh = 92;
+     var panel = function(bx, title, on){ cap(ctx, title, bx[0], bx[1] - 8, C); ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(bx[0] + .5, bx[1] + .5, bx[2], bx[3]); if(!on){ tx(ctx, "desactivado", bx[0] + bx[2] / 2, bx[1] + bx[3] / 2 + 4, {s:12, c:C.muted, a:"center"}); } return on; };
+     var wb = [56, rb, 190, rh];
+     if(panel(wb, "Semanal", use.wk)){
+       var WD = ["L", "M", "X", "J", "V", "S", "D"], wv = [1, 2, 3, 4, 5, 6, 0].map(function(w){ for(var q = 0; q < 7; q++) if(date(q).getUTCDay() === w) return comp[q].wk; });
+       var wl = Math.min.apply(null, wv.concat([0])), wh = Math.max.apply(null, wv.concat([0])), WY = function(v){ return wb[1] + wb[3] - 16 - (v - wl) / (wh - wl || 1) * (wb[3] - 26); };
+       seg(ctx, wb[0], WY(0), wb[0] + wb[2], WY(0), hexA(C.muted, 0.6), 1, [3, 3]);
+       wv.forEach(function(v, q){ var x = wb[0] + 14 + q * (wb[2] - 28) / 6; ctx.fillStyle = v >= 0 ? hexA(C.c[0], 0.8) : hexA(C.c[0], 0.35); ctx.fillRect(x - 7, Math.min(WY(v), WY(0)), 14, Math.abs(WY(v) - WY(0))); tx(ctx, WD[q], x, wb[1] + wb[3] - 3, {s:11, c:C.muted, a:"center"}); });
+       tx(ctx, (wh >= 0 ? "+" : "") + fmt(wh, 0), wb[0] + wb[2] - 4, wb[1] + 12, {s:11, w:600, c:C.ink, a:"right"});
+     }
+     var yb = [276, rb, 250, rh];
+     if(panel(yb, "Anual", use.yr)){
+       var yv = []; for(var q = 0; q < 366; q++) yv.push(comp[q].yr);
+       var yl = Math.min.apply(null, yv), yh = Math.max.apply(null, yv), YY = function(v){ return yb[1] + yb[3] - 16 - (v - yl) / (yh - yl || 1) * (yb[3] - 24); };
+       seg(ctx, yb[0], YY(0), yb[0] + yb[2], YY(0), hexA(C.muted, 0.6), 1, [3, 3]);
+       pathXY(ctx, yv.map(function(_, q){ return yb[0] + 4 + q / 365 * (yb[2] - 8); }), yv.map(YY)); stroke(ctx, C.c[0], 2);
+       [0, 3, 6, 9].forEach(function(mm){ tx(ctx, MES[mm], yb[0] + 4 + (mm * 30.4 + 15) / 365 * (yb[2] - 8), yb[1] + yb[3] - 3, {s:11, c:C.muted, a:"center"}); });
+     }
+     var hb = [556, rb, 190, rh];
+     if(panel(hb, "Festivos", use.hol)){
+       var hv = [0, 1, 2].map(function(k){ return beta[iH + k] * ymax; }), hm = Math.max.apply(null, hv.concat([1]));
+       hv.forEach(function(v, k){ var yy2 = hb[1] + 18 + k * 25; tx(ctx, HN[k], hb[0] + 8, yy2 + 4, {s:11, c:C.text});
+         ctx.fillStyle = C.c[1]; rrect(ctx, hb[0] + 90, yy2 - 5, Math.max(3, (hb[2] - 130) * Math.max(0, v) / hm), 10, 3); ctx.fill();
+         tx(ctx, "+" + fmt(v, 0), hb[0] + hb[2] - 6, yy2 + 4, {s:11, w:600, c:C.ink, a:"right"}); });
+     }
+     /* lectura */
+     var mape = 0, mae = 0; for(d = NT; d < ND; d++){ mape += Math.abs(y[d] - comp[d].yh) / y[d]; mae += Math.abs(y[d] - comp[d].yh); } mape /= NV; mae /= NV;
+     var slope = (comp[ND - 1].tr - comp[NT - 1].tr) / NV;
+     read.innerHTML = '<span>MAPE validación (90 días) <b>' + pct(mape, 1) + '</b></span><span>MAE <b>' + fmt(mae, 1) + ' pedidos/día</b></span>' +
+       '<span>Puntos de cambio usados <b>' + used + ' de ' + NCP + '</b></span><span>Pendiente final de la tendencia <b>' + (slope >= 0 ? "+" : "") + fmt(slope, 2) + ' pedidos/día</b></span>' +
+       '<span class="ldiag">' + (TAUS[ti] <= 0.005 ? "Tendencia muy rígida: casi una recta. No puede seguir la aceleración de 2024 ni el frenazo de 2025, y extrapola la pendiente media." :
+         TAUS[ti] >= 0.5 ? "Tendencia muy flexible: se dobla en muchos sitios y persigue el ruido. El pronóstico depende del <b>último tramo</b>, que puede ser casualidad." :
+         "Flexibilidad intermedia (0,05 es el valor por defecto de Prophet): la tendencia capta los cambios grandes sin perseguir el ruido.") +
+       (!use.hol ? " Sin festivos, el pico de <b>Black Friday</b> en validación se escapa: compara el MAPE." : "") + ' El MAPE dice cuánto se desvía de media el pronóstico, en % de los pedidos reales.</span>';
+   }
+   var tmo = 0;
+   ctlSlider(ctl, "changepoint_prior_scale (flexibilidad de la tendencia)", 0, TAUS.length - 1, 1, ti, function(v){ return String(TAUS[v]).replace(".", ","); }, function(v){ ti = v; clearTimeout(tmo); tmo = setTimeout(function(){ compute(); draw(); }, 30); });
+   ctlCheck(ctl, "Estacionalidad semanal", true, function(v){ use.wk = v; compute(); draw(); });
+   ctlCheck(ctl, "Estacionalidad anual", true, function(v){ use.yr = v; compute(); draw(); });
+   ctlCheck(ctl, "Festivos", true, function(v){ use.hol = v; compute(); draw(); });
+   compute(); draw();
+   return function(){ clearTimeout(tmo); };
  }});
 
 })();

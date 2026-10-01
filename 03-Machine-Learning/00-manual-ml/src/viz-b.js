@@ -559,7 +559,7 @@ VIZ.push({id:"v-xgboost", model:"xgboost", g:"model", ic:"🚀", dim:"2D",
      K.clear();
      var b = [62, 44, 322, 290], ymax = Math.max(vaL[0], trL[0]) * 1.05, ymin = 0;
      var lo = Math.min.apply(null, trL), vmin = vaL[bestR];
-     ymin = Math.max(0, Math.min(lo, vmin) - 0.05);
+     ymin = 0;
      head(ctx, "(a) Error (log-loss) ronda a ronda", b[0] - 40, 24, C);
      var A = axes(ctx, b, [0, R], [ymin, ymax], C, {xl:"rondas (árboles añadidos)", xt:[0, 100, 200, 300]});
      [ymin, (ymin + ymax) / 2, ymax].forEach(function(v){ T(ctx, fmt(v, 2), b[0] - 6, A.sy(v) + 4, {s:11, c:C.muted, a:"right"}); });
@@ -604,7 +604,7 @@ VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"⚡", dim:"2D",
  models:["lightgbm","xgboost","catboost","gbr"],
  build:function(stage, ctl, read, C){
    var W = 760, H = 440, K = makeCanvas(stage, W, H, "Crecimiento por niveles frente a por hojas y búsqueda de cortes con histogramas"), ctx = K.ctx;
-   var MAXS = 9, step = 0, bins = 32, timer = null;
+   var MAXS = 9, step = 3, bins = 32, timer = null;
    /* ── datos de regresión: ventas con interacciones anidadas ── */
    var r = mulberry(7), X = [], Y = [];
    for(var i = 0; i < 600; i++){
@@ -666,7 +666,7 @@ VIZ.push({id:"v-lightgbm", model:"lightgbm", g:"model", ic:"⚡", dim:"2D",
      rr(ctx, bx0, by - 4, bw, 10, 5); ctx.fillStyle = C.line; ctx.fill();
      if(frac > 0){ rr(ctx, bx0, by - 4, Math.max(10, bw * frac), 10, 5); ctx.fillStyle = col; ctx.fill(); }
      T(ctx, pct(frac, 1), box[0] + box[2], by + 5, {s:12, w:"700", c:C.ink, a:"right"});
-     T(ctx, tr.leaves + " hojas · profundidad " + tr.depth, box[0] + box[2], box[1] - 10, {s:11, c:C.muted, a:"right"});
+     T(ctx, tr.leaves + (tr.leaves === 1 ? " hoja" : " hojas") + " · profundidad " + tr.depth, box[0] + box[2], box[1] - 10, {s:11, c:C.muted, a:"right"});
    }
    /* ── (b) histograma: importe de ticket con 1.000 valores ── */
    var r2 = mulberry(24), V = [], VY = [];
@@ -853,7 +853,7 @@ VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"🔁", dim:"2D",
  models:["adaboost","xgboost","gbr","arbol"],
  build:function(stage, ctl, read, C){
    var W = 760, H = 430, K = makeCanvas(stage, W, H, "AdaBoost: pesos de los puntos, tocón de la ronda, alfas y error"), ctx = K.ctx;
-   var RMAX = 40, t = 1, noise = false, P, Yb, flip, rounds, timer = null, G = 64;
+   var RMAX = 40, t = 6, noise = false, P, Yb, flip, rounds, timer = null, G = 64;
    function gen(){
      var r = mulberry(9); P = []; Yb = []; flip = [];
      for(var i = 0; i < 120; i++){
@@ -868,9 +868,9 @@ VIZ.push({id:"v-adaboost", model:"adaboost", g:"model", ic:"🔁", dim:"2D",
        var srt = P.map(function(_, i){ return i; }).sort(function(a, b){ return P[a][f] - P[b][f]; });
        var wPosL = 0, wNegL = 0, wPos = 0, wNeg = 0;
        srt.forEach(function(i){ if(Yb[i] > 0) wPos += w[i]; else wNeg += w[i]; });
-       for(var k = 0; k <= n; k++){
+       for(var k = 0; k < n; k++){
          if(k > 0){ var i = srt[k - 1]; if(Yb[i] > 0) wPosL += w[i]; else wNegL += w[i]; }
-         if(k > 0 && k < n && P[srt[k - 1]][f] === P[srt[k]][f]) continue;
+         if(k < 4 || k > n - 4 || P[srt[k - 1]][f] === P[srt[k]][f]) continue;
          var th = k === 0 ? P[srt[0]][f] - .01 : k === n ? P[srt[n - 1]][f] + .01 : (P[srt[k - 1]][f] + P[srt[k]][f]) / 2;
          /* polaridad s: predice s si x>th, −s si no */
          var eP = wPosL + (wNeg - wNegL), eN = wNegL + (wPos - wPosL);
@@ -991,9 +991,10 @@ VIZ.push({id:"v-svmlin", model:"svmlin", g:"model", ic:"📏", dim:"2D",
    var W = 760, H = 420, K = makeCanvas(stage, W, H, "SVM lineal con margen, vectores de soporte y pesos alfa"), ctx = K.ctx;
    var logC = 0, addCls = 1, base = [], extra = [], sol = null, shown = null, anim = null, msg = "";
    var r = mulberry(31);
-   for(var i = 0; i < 44; i++){
-     var a = gauss(r) * .95, s = gauss(r) * .95, sc = 1.1 * a + 1.4 * s + .28 * gauss(r);
-     base.push({x:[a, s], y:sc > .15 ? 1 : -1});
+   while(base.length < 40){
+     var a = gauss(r) * .95, s = gauss(r) * .95, sc0 = 1.1 * a + 1.4 * s - .15, sc = sc0 + .3 * gauss(r);
+     if(Math.abs(sc0) < .7 && r() > .12) continue;
+     base.push({x:[a, s], y:sc > 0 ? 1 : -1});
    }
    var box = [64, 30, 420, 340], xr = [-2.6, 2.6], yr = [-2.6, 2.6];
    var sx = function(v){ return box[0] + (v - xr[0]) / (xr[1] - xr[0]) * box[2]; }, sy = function(v){ return box[1] + box[3] - (v - yr[0]) / (yr[1] - yr[0]) * box[3]; };
@@ -1297,11 +1298,11 @@ VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
        mark(ctx, x0 + 11, y, 3.6, L[2], C.c[L[2] + 1], null);
        T(ctx, s, x0 + 21, y + 4, {s:11, w:"700", c:C.ink});
      });
-     T(ctx, "sin efecto", sx(.62), sy(.62) - 8, {s:11, c:C.ink, a:"right"});
+     T(ctx, "sin efecto", sx(.56) - 8, sy(.56) - 4, {s:11, c:C.ink, a:"right"});
      [0, .5, 1].forEach(function(v){ T(ctx, pct(v, 0), sx(v), b[1] + b[3] + 14, {s:11, c:C.muted, a:"center"}); T(ctx, pct(v, 0), b[0] - 6, sy(v) + 4, {s:11, c:C.muted, a:"right"}); });
      T(ctx, "P(compra) sin cupón →", b[0] + b[2] / 2, b[1] + b[3] + 30, {s:11, c:C.muted, a:"center"});
      ctx.save(); ctx.translate(b[0] - 40, b[1] + b[3] / 2); ctx.rotate(-Math.PI / 2); T(ctx, "P(compra) con cupón →", 0, 0, {s:11, c:C.muted, a:"center"}); ctx.restore();
-     T(ctx, "◯ = recibe cupón (top " + pct(k, 0) + " por uplift)", b[0] + b[2], b[1] + b[3] + 30, {s:11, c:C.muted, a:"right"});
+     T(ctx, "◯ = recibe cupón (top " + pct(k, 0) + " por uplift)", b[0] + b[2], b[1] + b[3] + 48, {s:11, c:C.muted, a:"right"});
      /* curvas de ganancia incremental */
      var q = [470, 40, 270, 180], ymax = Math.max.apply(null, cU) * 1.08, ymin = Math.min(0, Math.min.apply(null, cP));
      var qx = function(f){ return q[0] + f * q[2]; }, qy = function(v){ return q[1] + q[3] - (v - ymin) / (ymax - ymin) * q[3]; };
@@ -1313,12 +1314,12 @@ VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
      path(ctx, cU.map(function(v, i){ return [qx(i / P.length), qy(v)]; }), C.c[0], 2.6);
      dashLine(ctx, qx(k), q[1], qx(k), q[1] + q[3], C.ink, 1.2, [2, 3]);
      [[cU, C.c[0]], [cP, C.c[1]]].forEach(function(o){ dot(ctx, qx(k), qy(o[0][n]), 4.2, o[1], C.card); });
-     T(ctx, "uplift", qx(.97), qy(cU[Math.round(.97 * P.length)]) - 8, {s:11, w:"700", c:C.c[0], a:"right"});
-     T(ctx, "propensión", qx(.6), qy(cP[Math.round(.6 * P.length)]) + 16, {s:11, w:"700", c:C.c[1], a:"center"});
-     T(ctx, "al azar", qx(.97), qy(tot * .97) + 15, {s:11, w:"600", c:C.muted, a:"right"});
+     T(ctx, "uplift", qx(.8), qy(cU[Math.round(.8 * P.length)]) - 10, {s:11, w:"700", c:C.c[0], a:"right"});
+     T(ctx, "propensión", qx(.62), qy(cP[Math.round(.62 * P.length)]) + 20, {s:11, w:"700", c:C.c[1], a:"center"});
+     T(ctx, "al azar", qx(.72), qy(tot * .72) + 20, {s:11, w:"600", c:C.muted, a:"right"});
      ["0%", "50%", "100%"].forEach(function(s, i){ T(ctx, s, qx(i / 2), q[1] + q[3] + 14, {s:11, c:C.muted, a:"center"}); });
      T(ctx, "% de la base que recibe cupón", q[0] + q[2] / 2, q[1] + q[3] + 28, {s:11, c:C.muted, a:"center"});
-     T(ctx, miles(ymax * SC / 1.08), q[0] - 4, q[1] + 10, {s:11, c:C.muted, a:"right"});
+     T(ctx, miles(ymax * SC / 1.08), q[0] - 4, q[1] + 10, {s:11, c:C.muted, a:"right"}); T(ctx, "compras", q[0] - 4, q[1] + 24, {s:11, c:C.muted, a:"right"});
      T(ctx, "0", q[0] - 4, qy(0) + 4, {s:11, c:C.muted, a:"right"});
      /* beneficio */
      var res = [["Uplift", profit(ordU, n), C.c[0]], ["Propensión", profit(ordP, n), C.c[1]], ["Al azar", profitRand(n), C.muted]];
@@ -1346,6 +1347,474 @@ VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
    ctlSlider(ctl, "Coste del cupón (descuento)", 2, 30, 1, cost, function(v){ return v + " €"; }, function(v){ cost = v; draw(); });
    ctlSlider(ctl, "Margen de una compra", 10, 120, 5, margin, function(v){ return v + " €"; }, function(v){ margin = v; draw(); });
    draw();
+ }});
+
+/* ── 10. INFERENCIA CAUSAL · Diff-in-Diff y propensity score ──── */
+VIZ.push({id:"v-propensity", model:"propensity", g:"model", ic:"⚖️", dim:"2D",
+ t:"Diferencias en diferencias y emparejamiento",
+ q:"¿Cómo se estima el efecto de una decisión cuando no hubo experimento?",
+ intro:"Dos herramientas con datos simulados (sabemos el efecto real, así que podemos comprobar si aciertan). <b>Diff-in-Diff</b>: unas tiendas suben el precio en la semana 20 y otras no; el efecto es el cambio de las tratadas <b>menos</b> el cambio de las de control. <b>Propensity score</b>: los clientes que piden la tarjeta de fidelidad no se parecen a los que no; emparejamos a cada uno con el no-tratado de probabilidad más parecida (vecino más próximo 1:1) y comparamos.",
+ notice:["En DiD, el contrafactual (discontinuo) es «lo que habrían vendido las tratadas sin subir precio»: su nivel de antes más la evolución del control.",
+   "Si las tendencias <b>no son paralelas</b>, DiD atribuye a la subida de precio una diferencia de tendencia que ya existía: el estimador queda <b>sesgado</b>.",
+   "Con propensity score, antes de emparejar los tratados se amontonan en scores altos y los no tratados en bajos (diferencia estandarizada grande); después de emparejar los dos histogramas son casi espejos y la diferencia baja de 0,1 (regla habitual de «buen balance»)."],
+ models:["propensity","uplift","logistica","linmult"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Diferencias en diferencias con contrafactual, o histogramas de propensity score antes y después de emparejar"), ctx = K.ctx;
+   var view = "did", eff = -12, nonpar = false, sel = 1.5;
+   var sub = document.createElement("div"); sub.style.display = "contents";
+   ctlSeg(ctl, "Vista", [["did", "Diff-in-Diff"], ["ps", "Propensity score"]], view, function(v){ view = v; controls(); draw(); });
+   ctl.appendChild(sub);
+   /* ── (a) DiD ── */
+   var NW = 40, T0 = 20, nz = (function(){ var r = mulberry(8), o = []; for(var i = 0; i < NW * 2; i++) o.push(gauss(r) * 1.6); return o; })();
+   function series(){
+     var c = [], t = [], tcf = [];
+     for(var w = 0; w < NW; w++){
+       var common = 100 + .4 * w + 6 * Math.sin(TAU * w / 13), drift = nonpar ? .7 * (w - T0) : 0;
+       c.push(common + nz[w]); tcf.push(common + 16 + drift + nz[NW + w]); t.push(tcf[w] + (w >= T0 ? eff : 0));
+     }
+     return {c:c, t:t, tcf:tcf};
+   }
+   var mean = function(a, i0, i1){ var s = 0; for(var i = i0; i < i1; i++) s += a[i]; return s / (i1 - i0); };
+   function drawDiD(){
+     var S = series(), b = [62, 40, 664, 290], all = S.c.concat(S.t, S.tcf), lo = Math.floor(Math.min.apply(null, all) / 10) * 10 - 5, hi = Math.ceil(Math.max.apply(null, all) / 10) * 10 + 5;
+     head(ctx, "Ventas semanales medias por tienda (unidades)", b[0], 22, C);
+     var A = axes(ctx, b, [0, NW - 1], [lo, hi], C, {xl:"semana", xt:[0, 10, 20, 30, 39]});
+     for(var v = Math.ceil(lo / 20) * 20; v <= hi; v += 20) T(ctx, String(v), b[0] - 6, A.sy(v) + 4, {s:11, c:C.muted, a:"right"});
+     ctx.fillStyle = hexA(C.ink, .04); ctx.fillRect(A.sx(T0 - .5), b[1] + 1, b[0] + b[2] - A.sx(T0 - .5) - 1, b[3] - 2);
+     dashLine(ctx, A.sx(T0 - .5), b[1], A.sx(T0 - .5), b[1] + b[3], C.ink, 1.2, [3, 3]);
+     pill(ctx, "semana 20: suben el precio", A.sx(T0 - .5) + 8, b[1] + 14, C, {});
+     var cPre = mean(S.c, 0, T0), cPost = mean(S.c, T0, NW), tPre = mean(S.t, 0, T0), tPost = mean(S.t, T0, NW);
+     var cf = []; for(var w = T0; w < NW; w++) cf.push([A.sx(w), A.sy(tPre + S.c[w] - cPre)]);
+     if(nonpar) path(ctx, S.tcf.slice(T0).map(function(y, i){ return [A.sx(T0 + i), A.sy(y)]; }), C.muted, 1.6, [1, 4]);
+     path(ctx, [[A.sx(T0 - 1), A.sy(S.t[T0 - 1])]].concat(cf), C.c[1], 1.8, [6, 5]);
+     path(ctx, S.c.map(function(y, w){ return [A.sx(w), A.sy(y)]; }), C.c[0], 2.4);
+     path(ctx, S.t.map(function(y, w){ return [A.sx(w), A.sy(y)]; }), C.c[1], 2.4);
+     /* medias por periodo */
+     [[cPre, 0, T0, C.c[0]], [cPost, T0, NW, C.c[0]], [tPre, 0, T0, C.c[1]], [tPost, T0, NW, C.c[1]]].forEach(function(m){ path(ctx, [[A.sx(m[1]), A.sy(m[0])], [A.sx(m[2] - 1), A.sy(m[0])]], hexA(m[3], .55), 1.2, [2, 2]); });
+     var did = (tPost - tPre) - (cPost - cPre), cfm = tPre + cPost - cPre, ax = A.sx(33);
+     arrow(ctx, ax, A.sy(cfm), ax, A.sy(tPost), C.ink, 2, 9);
+     var up = tPost > cfm;
+     pill(ctx, "DiD = " + sgn(did, 1) + " uds/semana", ax - 12, (A.sy(cfm) + A.sy(tPost)) / 2, C, {bd:C.ink, a:"right"});
+     /* leyenda */
+     var lx = b[0], ly = 404;
+     [[C.c[1], "tratadas (suben precio)", null], [C.c[0], "control", null], [C.c[1], "contrafactual supuesto", [6, 5]]].concat(nonpar ? [[C.muted, "contrafactual real", [1, 4]]] : []).forEach(function(L){
+       path(ctx, [[lx, ly - 4], [lx + 22, ly - 4]], L[0], 2.2, L[2]); T(ctx, L[1], lx + 28, ly, {s:11, c:C.text}); lx += 28 + TW(ctx, L[1], 11) + 24;
+     });
+     var bias = did - eff;
+     read.innerHTML = '<span>Tratadas · antes <b>' + fmt(tPre, 1) + '</b> → después <b>' + fmt(tPost, 1) + '</b></span><span>Control · antes <b>' + fmt(cPre, 1) + '</b> → después <b>' + fmt(cPost, 1) + '</b></span>' +
+       '<span>DiD <b>' + sgn(did, 1) + '</b></span><span>Efecto real <b>' + sgn(eff, 1) + '</b></span><span>Sesgo <b>' + sgn(bias, 1) + '</b></span>' +
+       '<span class="ldiag">DiD = (' + fmt(tPost, 1) + ' − ' + fmt(tPre, 1) + ') − (' + fmt(cPost, 1) + ' − ' + fmt(cPre, 1) + ') = <b>' + sgn(did, 1) + '</b> unidades por tienda y semana. ' +
+       (Math.abs(bias) > 3 ? "<b class='lbad'>Sesgado</b>: las tratadas ya crecían más deprisa que el control antes de la subida, y DiD se lo atribuye al precio (sesgo " + sgn(bias, 1) + ")." : "<b class='lgood'>Tendencias paralelas</b>: el estimador acierta el efecto real salvo ruido.") + '</span>';
+   }
+   /* ── (b) propensity score ── */
+   var N = 600, base = (function(){ var r = mulberry(21), o = []; for(var i = 0; i < N; i++) o.push({x1:gauss(r), x2:gauss(r), u:r(), e:gauss(r)}); return o; })();
+   function logit(X, Y){ /* regresión logística por Newton (IRLS) */
+     var bt = [0, 0, 0];
+     for(var it = 0; it < 25; it++){
+       var g = [0, 0, 0], Hm = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+       X.forEach(function(x, i){ var z = [1, x[0], x[1]], p = sig(bt[0] + bt[1] * x[0] + bt[2] * x[1]), w = p * (1 - p);
+         for(var a = 0; a < 3; a++){ g[a] += (Y[i] - p) * z[a]; for(var c = 0; c < 3; c++) Hm[a][c] += w * z[a] * z[c]; } });
+       var d = solveLin(Hm, g); bt = bt.map(function(v, a){ return v + d[a]; });
+       if(Math.abs(d[0]) + Math.abs(d[1]) + Math.abs(d[2]) < 1e-8) break;
+     }
+     return X.map(function(x){ return sig(bt[0] + bt[1] * x[0] + bt[2] * x[1]); });
+   }
+   function smd(a, b){ var ma = mean(a, 0, a.length), mb = mean(b, 0, b.length), va = 0, vb = 0; a.forEach(function(v){ va += (v - ma) * (v - ma); }); b.forEach(function(v){ vb += (v - mb) * (v - mb); }); va /= a.length - 1; vb /= b.length - 1; return (ma - mb) / Math.sqrt((va + vb) / 2); }
+   function psCalc(){
+     var T = base.map(function(d){ return d.u < sig(-.4 + sel * (.9 * d.x2 + .6 * d.x1)) ? 1 : 0; });
+     var Y = base.map(function(d, i){ return 50 + 9 * d.x2 + 5 * d.x1 + 5 * T[i] + 5 * d.e; });
+     var ps = logit(base.map(function(d){ return [d.x1, d.x2]; }), T);
+     var tr = [], co = []; T.forEach(function(t, i){ (t ? tr : co).push(i); });
+     /* 1:1 vecino más próximo sin reemplazo, caliper 0,05 */
+     var used = new Uint8Array(N), pairs = [];
+     tr.slice().sort(function(a, b){ return ps[b] - ps[a]; }).forEach(function(i){
+       var best = -1, bd = .05; co.forEach(function(j){ if(!used[j]){ var d = Math.abs(ps[i] - ps[j]); if(d < bd){ bd = d; best = j; } } });
+       if(best >= 0){ used[best] = 1; pairs.push([i, best]); }
+     });
+     var mt = pairs.map(function(p){ return p[0]; }), mc = pairs.map(function(p){ return p[1]; });
+     var get = function(ix, f){ return ix.map(f); };
+     return {ps:ps, tr:tr, co:co, mt:mt, mc:mc,
+       smdB:smd(get(tr, function(i){ return base[i].x2; }), get(co, function(i){ return base[i].x2; })),
+       smdA:mt.length > 1 ? smd(get(mt, function(i){ return base[i].x2; }), get(mc, function(i){ return base[i].x2; })) : 0,
+       naive:mean(get(tr, function(i){ return Y[i]; }), 0, tr.length) - mean(get(co, function(i){ return Y[i]; }), 0, co.length),
+       att:mt.length ? mean(get(mt, function(i){ return Y[i]; }), 0, mt.length) - mean(get(mc, function(i){ return Y[i]; }), 0, mc.length) : 0};
+   }
+   function mirror(b, ps, A, Bc, title){
+     var NB = 20, ha = new Array(NB).fill(0), hb = new Array(NB).fill(0);
+     A.forEach(function(i){ ha[Math.min(NB - 1, Math.floor(ps[i] * NB))]++; }); Bc.forEach(function(i){ hb[Math.min(NB - 1, Math.floor(ps[i] * NB))]++; });
+     var mx = Math.max(Math.max.apply(null, ha), Math.max.apply(null, hb), 1), mid = b[1] + b[3] / 2, bw = b[2] / NB;
+     head(ctx, title, b[0], b[1] - 12, C);
+     for(var k = 0; k < NB; k++){
+       var h1 = ha[k] / mx * (b[3] / 2 - 22), h2 = hb[k] / mx * (b[3] / 2 - 22);
+       ctx.fillStyle = hexA(C.c[1], .8); ctx.fillRect(b[0] + k * bw + 1, mid - h1, bw - 2, h1);
+       ctx.fillStyle = hexA(C.c[0], .8); ctx.fillRect(b[0] + k * bw + 1, mid, bw - 2, h2);
+     }
+     ctx.strokeStyle = C.ink; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(b[0], mid + .5); ctx.lineTo(b[0] + b[2], mid + .5); ctx.stroke();
+     T(ctx, "▲ tratados (" + A.length + ")", b[0] + 4, b[1] + 10, {s:11, w:"600", c:C.c[1]});
+     T(ctx, "▼ no tratados (" + Bc.length + ")", b[0] + 4, b[1] + b[3] - 2, {s:11, w:"600", c:C.c[0]});
+     ["0", "0,5", "1"].forEach(function(s, i){ T(ctx, s, b[0] + i * b[2] / 2, b[1] + b[3] + 14, {s:11, c:C.muted, a:"center"}); });
+     T(ctx, "propensity score", b[0] + b[2] / 2, b[1] + b[3] + 28, {s:11, c:C.muted, a:"center"});
+   }
+   function smdBar(x, y, w, v){
+     T(ctx, "Diferencia estandarizada en gasto previo", x, y, {s:11, c:C.muted});
+     var bx = x, by = y + 8, sc = w / 1.5, av = Math.min(Math.abs(v), 1.5);
+     rr(ctx, bx, by, w, 10, 5); ctx.fillStyle = C.line; ctx.fill();
+     rr(ctx, bx, by, Math.max(10, av * sc), 10, 5); ctx.fillStyle = av > .1 ? C.neg : C.pos; ctx.fill();
+     dashLine(ctx, bx + .1 * sc, by - 4, bx + .1 * sc, by + 14, C.ink, 1.2, [2, 2]);
+     T(ctx, fmt(v, 2) + (Math.abs(v) > .1 ? "  ✕ desequilibrado" : "  ✓ equilibrado"), bx + w, by + 28, {s:12, w:"700", c:Math.abs(v) > .1 ? C.neg : C.pos, a:"right"});
+     T(ctx, "0,1", bx + .1 * sc, by + 28, {s:11, c:C.muted, a:"center"});
+   }
+   function drawPS(){
+     var R = psCalc();
+     mirror([62, 52, 300, 236], R.ps, R.tr, R.co, "Antes de emparejar");
+     mirror([428, 52, 300, 236], R.ps, R.mt, R.mc, "Después de emparejar 1:1");
+     smdBar(62, 346, 300, R.smdB); smdBar(428, 346, 300, R.smdA);
+     read.innerHTML = '<span>Tratados <b>' + R.tr.length + '</b> · emparejados <b>' + R.mt.length + '</b></span><span>Dif. estandarizada · antes <b>' + fmt(R.smdB, 2) + '</b> · después <b>' + fmt(R.smdA, 2) + '</b></span>' +
+       '<span>Efecto ingenuo <b>' + sgn(R.naive, 1) + ' €</b></span><span>Efecto emparejado <b>' + sgn(R.att, 1) + ' €</b></span><span>Efecto real <b>▲ +5,0 €</b></span>' +
+       '<span class="ldiag">' + (sel < .2 ? "Sin sesgo de selección, tratados y no tratados ya se parecen y la comparación directa vale." :
+         "Quien pide la tarjeta ya gastaba más: comparar a pelo da <b class='lbad'>" + sgn(R.naive, 1) + " €</b>, casi todo efecto de quién es el cliente, no de la tarjeta. Emparejando por propensity score el gasto previo se equilibra y la estimación baja a <b>" + sgn(R.att, 1) + " €</b>, cerca del efecto real (+5 €)." + (R.mt.length < R.tr.length * .7 ? " Ojo: " + (R.tr.length - R.mt.length) + " tratados no encuentran pareja parecida y se descartan." : "")) + '</span>';
+   }
+   function draw(){ K.clear(); if(view === "did") drawDiD(); else drawPS(); }
+   function controls(){
+     sub.innerHTML = "";
+     if(view === "did"){
+       ctlSlider(sub, "Efecto real de la subida de precio", -25, 10, 1, eff, function(v){ return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v) + " uds/semana"; }, function(v){ eff = v; draw(); });
+       ctlCheck(sub, "Tendencias NO paralelas", nonpar, function(v){ nonpar = v; draw(); });
+     } else {
+       ctlSlider(sub, "Fuerza del sesgo de selección", 0, 2.5, .1, sel, function(v){ return v < .2 ? "nula" : v < 1 ? "moderada" : v < 1.8 ? "fuerte" : "muy fuerte"; }, function(v){ sel = v; draw(); });
+     }
+   }
+   controls(); draw();
+ }});
+
+/* ── 11. AUTOML · la carrera de modelos ───────────────────────── */
+VIZ.push({id:"v-automl", model:"automl", g:"model", ic:"🏁", dim:"2D",
+ t:"La carrera de modelos",
+ q:"¿Qué hace una herramienta de AutoML y cómo se lee su tabla de resultados?",
+ intro:"Una herramienta de AutoML prueba muchos modelos con <b>validación cruzada</b> (5 particiones: cada punto es el AUC en una de ellas; la barra es la media y los bigotes ± 1 desviación) y los ordena. Los rápidos terminan antes: sube el <b>presupuesto de tiempo</b> o pulsa ▶. <b>Simulación didáctica</b>: los AUC y tiempos son inventados pero verosímiles para un problema de churn tabular.",
+ notice:["El <b>baseline</b> (predecir siempre la clase mayoritaria) da AUC 0,5: cualquier modelo útil tiene que superarlo con holgura.",
+   "Los primeros puestos suelen estar separados por <b>menos que su propia variabilidad</b> entre particiones: es un empate técnico, y entonces conviene el más simple, rápido o explicable.",
+   "Activa la fuga: todos los modelos rozan 0,99. Un AUC «demasiado bueno» casi siempre es una variable que contiene la respuesta, no un modelo genial."],
+ models:["automl","xgboost","lightgbm","rf","logistica"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 430, K = makeCanvas(stage, W, H, "Carrera de modelos de AutoML con AUC de validación cruzada"), ctx = K.ctx;
+   var M = [["Clase mayoritaria", .2, .5, 0], ["Regresión logística", 3, .842, .012], ["Árbol de decisión", 4, .781, .021], ["KNN", 9, .803, .017],
+     ["Extra Trees", 22, .861, .011], ["LightGBM", 28, .874, .010], ["Random Forest", 40, .866, .012], ["XGBoost", 65, .871, .011], ["SVM", 95, .848, .013], ["Red neuronal (MLP)", 140, .857, .016]];
+   var budget = 120, leak = false, stopA = null, stopP = null, TOT = 0;
+   M.forEach(function(m){ TOT += m[1]; });
+   var r = mulberry(14), models = M.map(function(m, i){
+     var f = []; for(var k = 0; k < 5; k++) f.push(gauss(r));
+     var mu = f.reduce(function(a, b){ return a + b; }) / 5; f = f.map(function(v){ return v - mu; });
+     var sd = Math.sqrt(f.reduce(function(a, b){ return a + b * b; }, 0) / 4) || 1;
+     return {name:m[0], t:m[1], base:m[2], sd:m[3], z:f.map(function(v){ return v / sd; }), y:0, a:0, leakAuc:i ? .985 + .008 * r() : .5};
+   });
+   function folds(m){ var mu = leak ? m.leakAuc : m.base, s = leak && m.sd ? .002 : m.sd; return m.z.map(function(z){ return clamp(mu + s * z, 0, 1); }); }
+   function done(){ var acc = 0, out = []; models.slice().sort(function(a, b){ return a.t - b.t; }).forEach(function(m){ acc += m.t; if(acc <= budget + 1e-9) out.push(m); }); return out; }
+   var box = [176, 44, 440, 312], xr = [.45, 1], sx = function(v){ return box[0] + (v - xr[0]) / (xr[1] - xr[0]) * box[2]; };
+   function layout(){
+     var D = done(), ranked = D.map(function(m){ var f = folds(m); return {m:m, mean:f.reduce(function(a, b){ return a + b; }) / 5}; }).sort(function(a, b){ return b.mean - a.mean; });
+     var rh = box[3] / M.length;
+     models.forEach(function(m){ m.ty = box[1] + box[3] + 40; m.ta = 0; });
+     ranked.forEach(function(o, k){ o.m.ty = box[1] + k * rh + rh / 2; o.m.ta = 1; });
+     return ranked;
+   }
+   function draw(ranked){
+     K.clear();
+     head(ctx, "AUC en validación cruzada (5 particiones)", box[0] - 160, 22, C);
+     T(ctx, "tiempo", box[0] + box[2] + 76, 22, {s:11, w:"600", c:C.muted, a:"right"});
+     /* rejilla */
+     [.5, .6, .7, .8, .9, 1].forEach(function(v){
+       ctx.strokeStyle = hexA(C.line, v === .5 ? 1 : .7); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sx(v) + .5, box[1] - 6); ctx.lineTo(sx(v) + .5, box[1] + box[3]); ctx.stroke();
+       T(ctx, fmt(v, 1), sx(v), box[1] + box[3] + 14, {s:11, c:C.muted, a:"center"});
+     });
+     T(ctx, "0,5 = azar", sx(.5) + 4, box[1] - 10, {s:11, c:C.muted});
+     var rh = box[3] / M.length, best = ranked[0];
+     models.forEach(function(m){
+       if(m.a < .02) return;
+       var y = m.y, f = folds(m), mu = f.reduce(function(a, b){ return a + b; }) / 5, s = Math.sqrt(f.reduce(function(a, b){ return a + (b - mu) * (b - mu); }, 0) / 4), win = best && best.m === m;
+       ctx.save(); ctx.globalAlpha = m.a;
+       if(win){ rr(ctx, 8, y - rh / 2 + 2, W - 16, rh - 4, 8); ctx.fillStyle = hexA(C.c[0], .1); ctx.fill(); }
+       T(ctx, m.name, box[0] - 12, y + 4, {s:12, w:win ? "700" : "500", c:C.ink, a:"right"});
+       rr(ctx, sx(.45), y - 7, Math.max(2, sx(mu) - sx(.45)), 14, 4); ctx.fillStyle = m.t < .5 ? hexA(C.muted, .45) : leak ? hexA(C.neg, win ? .6 : .35) : win ? C.c[0] : hexA(C.c[0], .45); ctx.fill();
+       if(s > 0){ ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(sx(mu - s), y); ctx.lineTo(sx(mu + s), y); ctx.moveTo(sx(mu - s), y - 5); ctx.lineTo(sx(mu - s), y + 5); ctx.moveTo(sx(mu + s), y - 5); ctx.lineTo(sx(mu + s), y + 5); ctx.stroke(); }
+       f.forEach(function(v){ dot(ctx, sx(v), y, 2.6, C.card, C.ink); });
+       T(ctx, fmt(mu, 3), Math.min(Math.max(sx(mu + s), sx(Math.max.apply(null, f))) + 8, box[0] + box[2] + 2), y + 4, {s:11, w:"700", c:C.ink});
+       T(ctx, (m.t < 1 ? "<1" : m.t) + " s", box[0] + box[2] + 76, y + 4, {s:11, c:C.muted, a:"right"});
+       if(win) T(ctx, "🏆", 22, y + 5, {s:13});
+       ctx.restore();
+     });
+     /* línea temporal del presupuesto */
+     var tb = [box[0], 392, box[2], 10], acc = 0;
+     T(ctx, "presupuesto", box[0] - 12, tb[1] + 9, {s:11, w:"600", c:C.muted, a:"right"});
+     rr(ctx, tb[0], tb[1], tb[2], tb[3], 5); ctx.fillStyle = C.line; ctx.fill();
+     models.slice().sort(function(a, b){ return a.t - b.t; }).forEach(function(m, k){
+       var x0 = tb[0] + acc / TOT * tb[2], w = m.t / TOT * tb[2]; acc += m.t;
+       ctx.fillStyle = acc <= budget + 1e-9 ? (k % 2 ? hexA(C.c[0], .75) : hexA(C.c[0], .5)) : hexA(C.muted, .18);
+       ctx.fillRect(x0 + .5, tb[1] + 1, Math.max(.5, w - 1), tb[3] - 2);
+     });
+     var bx = tb[0] + Math.min(budget, TOT) / TOT * tb[2];
+     ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(bx, tb[1] - 2); ctx.lineTo(bx - 5, tb[1] - 9); ctx.lineTo(bx + 5, tb[1] - 9); ctx.closePath(); ctx.fill();
+     T(ctx, mmss(budget), tb[0] + tb[2] + 76, tb[1] + 9, {s:11, w:"700", c:C.ink, a:"right"});
+     var queue = models.filter(function(m){ return !m.ta; }).sort(function(a, b){ return a.t - b.t; }).map(function(m){ return m.name; });
+     if(leak){} else if(queue.length) T(ctx, "En cola: " + queue.join(" · "), box[0], 420, {s:11, c:C.muted});
+     else T(ctx, "Todos los modelos evaluados", box[0], 420, {s:11, c:C.muted});
+     if(leak) pill(ctx, "⚠ AUC ≈ 0,99 en todos: sospecha de FUGA · ¿hay una variable que solo se conoce después del churn?", box[0] - 160, 420, C, {c:C.neg, bd:C.neg, bg:hexA(C.neg, .1)});
+   }
+   function mmss(s){ s = Math.round(s); return Math.floor(s / 60) + " min " + (s % 60 < 10 ? "0" : "") + (s % 60) + " s"; }
+   function readout(ranked){
+     if(!ranked.length || ranked.length === 1 && ranked[0].m.t < .5){ read.innerHTML = '<span>Modelos evaluados <b>' + ranked.length + '</b></span><span class="ldiag">Con este presupuesto solo da tiempo al baseline. Sube el tiempo.</span>'; return; }
+     var a = ranked[0], b = ranked[1], fa = folds(a.m), fb = b ? folds(b.m) : null;
+     var sdv = function(f, mu){ return Math.sqrt(f.reduce(function(s, v){ return s + (v - mu) * (v - mu); }, 0) / 4); };
+     var d = b ? a.mean - b.mean : 0, noise = b ? Math.sqrt(Math.pow(sdv(fa, a.mean), 2) + Math.pow(sdv(fb, b.mean), 2)) : 0;
+     read.innerHTML = '<span>Modelos evaluados <b>' + ranked.length + ' de ' + M.length + '</b></span><span>Tiempo usado <b>' + mmss(done().reduce(function(s, m){ return s + m.t; }, 0)) + '</b></span>' +
+       '<span>Ganador <b>' + a.m.name + '</b> · AUC <b>' + fmt(a.mean, 3) + '</b></span>' + (b ? '<span>2.º <b>' + b.m.name + '</b> · a <b>' + fmt(d, 3) + '</b></span>' : '') +
+       '<span class="ldiag">' + (leak ? "<b class='lbad'>No te lo creas.</b> Con fuga, el ranking no significa nada: todos «aciertan» porque la respuesta está en los datos. Revisa qué variables existían de verdad en el momento de predecir." :
+         !b ? "Solo hay un modelo útil evaluado: aún no hay carrera." :
+         d < noise ? "La ventaja de " + a.m.name + " (" + fmt(d, 3) + ") es <b>menor que el ruido</b> entre particiones (±" + fmt(noise, 3) + "): <b>empate técnico</b> con " + b.m.name + ". Elige por sencillez, velocidad o explicabilidad." :
+         "La ventaja de " + a.m.name + " (" + fmt(d, 3) + ") supera el ruido entre particiones (±" + fmt(noise, 3) + "): es una diferencia razonablemente fiable.") + '</span>';
+   }
+   function update(){
+     var ranked = layout();
+     if(stopA) stopA();
+     stopA = loop(function(){
+       var moving = false;
+       models.forEach(function(m){ var dy = m.ty - m.y, da = m.ta - m.a; if(Math.abs(dy) > .3 || Math.abs(da) > .01) moving = true; m.y += dy * .18; m.a += da * .18; });
+       draw(ranked); return moving;
+     });
+     readout(ranked);
+   }
+   var sl = ctlSlider(ctl, "Presupuesto de tiempo", 0, Math.ceil(TOT), 1, budget, function(v){ return mmss(v); }, function(v){ if(stopP){ stopP(); stopP = null; } budget = v; update(); });
+   ctlBtn(ctl, "▶ Lanzar la carrera", function(){
+     if(stopP) stopP();
+     var t0 = performance.now(); budget = 0;
+     stopP = loop(function(now){ budget = Math.min(TOT, (now - t0) / 9000 * TOT); sl.set(Math.round(budget)); update(); return budget < TOT; });
+   }, true);
+   ctlCheck(ctl, "Con fuga de información", leak, function(v){ leak = v; update(); });
+   models.forEach(function(m){ m.y = box[1] + box[3] + 40; });
+   update();
+   return function(){ if(stopA) stopA(); if(stopP) stopP(); };
+ }});
+
+/* ── 12. PYSPARK · plan perezoso, stages y shuffle ────────────── */
+VIZ.push({id:"v-pyspark", model:"pyspark", g:"model", ic:"⚡", dim:"2D",
+ t:"Spark: plan perezoso, stages y shuffle",
+ q:"¿Qué pasa de verdad cuando escribes df.filter(...).groupBy(...) en PySpark?",
+ intro:"Un DataFrame de ventas partido en <b>6 particiones</b> repartidas entre <b>3 ejecutores</b> (cada cuadrado es un bloque de filas; el color y la letra, su tienda). Añade transformaciones: solo se <b>apuntan en el plan</b> (arriba). Nada se mueve hasta que pulsas una <b>acción</b> (count o write). Entonces verás qué trabajo es local y cuándo hay <b>shuffle</b> (datos viajando por la red). <b>Simulación didáctica</b>: los MB y segundos son ilustrativos.",
+ notice:["Las transformaciones son <b>perezosas</b>: pulsar filter o groupBy no mueve ni un dato; solo amplía el plan. El trabajo empieza con la acción.",
+   "filter y select son <b>narrow</b>: cada partición trabaja sola. groupBy y join (sin broadcast) necesitan <b>shuffle</b>: cortan el plan en un stage nuevo y mueven datos por la red.",
+   "Con <b>broadcast</b>, la tabla pequeña se copia a cada ejecutor y el join no mueve los datos grandes: compara los MB movidos con y sin la casilla."],
+ models:["pyspark","automl"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 396, K = makeCanvas(stage, W, H, "Driver, tres ejecutores con particiones, plan DAG y shuffle animado"), ctx = K.ctx;
+   var ST = ["M", "B", "V", "S"], SN = ["Madrid", "Barcelona", "Valencia", "Sevilla"], HASH = [0, 1, 2, 0];
+   var EX = [[176, 96], [366, 96], [556, 96]], EW = 182, EH = 158, SQ = 16, STEP = 18;
+   var DRV = [16, 96, 144, 158], STO = [176, 274, 562, 34];
+   var plan = [], bcast = true, rows = [], flyers = [], phases = [], ph = -1, t0 = 0, running = false, ran = null, stopL = null;
+   var stats = {mb:0, bc:0, stages:1, secs:0, rowsOut:0, count:null, written:0}, caption = "", btns = {};
+   var src = (function(){ var r = mulberry(17), o = []; for(var p = 0; p < 6; p++) for(var k = 0; k < 12; k++) o.push({s:Math.floor(r() * 4), amt:5 + Math.round(r() * 55), p:p}); return o; })();
+   function slotPos(e, slot, i){ return [EX[e][0] + 10 + slot * 86 + (i % 4) * STEP, EX[e][1] + 34 + Math.floor(i / 4) * STEP]; }
+   function fresh(){
+     rows = src.map(function(d, i){ var e = Math.floor(d.p / 2), sl = d.p % 2; return {id:i, s:d.s, amt:d.amt, e:e, sl:sl, w:1, n:1, tag:false, agg:false, a:0, x:0, y:0}; });
+     relayout(rows); rows.forEach(function(r){ r.x = r.tx; r.y = r.ty; r.a = 0; r.ta = 0; });
+     flyers = [];
+   }
+   function relayout(list){ /* coloca cada fila en su ejecutor/partición */
+     var cnt = {};
+     list.forEach(function(r){ if(r.dead) return; var key = r.e + "_" + r.sl, i = cnt[key] || 0; cnt[key] = i + 1; var p = slotPos(r.e, r.sl, i); r.tx = p[0]; r.ty = p[1]; });
+   }
+   function rowMB(){ return plan.indexOf("select") > -1 && executedSelect ? 4 : 10; }
+   var executedSelect = false;
+   /* ── construcción de fases al lanzar una acción ── */
+   function build(action){
+     fresh(); executedSelect = false;
+     stats = {mb:0, bc:0, stages:1, secs:0, rowsOut:0, count:null, written:0};
+     phases = [];
+     var stg = 1;
+     phases.push({cap:"Stage 1 · cada ejecutor lee sus 2 particiones del disco (trabajo local)", dur:900, secs:1.2, start:function(){ rows.forEach(function(r){ r.ta = 1; }); }});
+     plan.forEach(function(op){
+       if(op === "filter") phases.push({cap:"filter(importe > 20): cada partición descarta sus filas sin moverlas (narrow)", dur:900, secs:.3,
+         start:function(){ rows.forEach(function(r){ if(!r.agg && r.amt <= 20){ r.ta = 0; r.kill = true; } }); },
+         end:function(){ rows = rows.filter(function(r){ return !r.kill; }); relayoutNow(); }});
+       if(op === "select") phases.push({cap:"select(tienda, importe): menos columnas, cada fila «adelgaza» en su sitio (narrow)", dur:700, secs:.2,
+         start:function(){ rows.forEach(function(r){ r.tw = .75; }); executedSelect = true; }});
+       if(op === "group"){
+         phases.push({cap:"groupBy(tienda).sum(): primero, suma parcial dentro de cada partición (aún local)", dur:900, secs:.3,
+           start:function(){ var first = {}; rows.forEach(function(r){ var k = r.e + "_" + r.sl + "_" + r.s; if(!first[k]){ first[k] = r; } else { r.tx = first[k].tx; r.ty = first[k].ty; r.merge = first[k]; } }); },
+           end:function(){ rows.forEach(function(r){ if(r.merge){ r.merge.n += r.n; r.merge.amt += r.amt; r.merge.agg = true; } }); rows = rows.filter(function(r){ return !r.merge; }); rows.forEach(function(r){ r.agg = true; }); relayoutNow(); }});
+         stg++;
+         (function(sn){
+           phases.push({cap:"SHUFFLE → Stage " + sn + ": cada suma parcial viaja al ejecutor de su tienda", dur:1500, shuffle:true,
+             start:function(){ var mv = 0; rows.forEach(function(r){ if(r.e !== HASH[r.s]){ mv++; } r.e = HASH[r.s]; r.sl = r.s === 3 ? 1 : 0; }); relayout(rows); var mb = mv * .5; stats.mb += mb; stats.stages = sn; this.secs = .8 + mb * .01; }});
+         })(stg);
+         phases.push({cap:"Suma final por tienda: una fila por tienda", dur:800, secs:.2,
+           start:function(){ var first = {}; rows.forEach(function(r){ if(!first[r.s]) first[r.s] = r; else { r.tx = first[r.s].tx; r.ty = first[r.s].ty; r.merge = first[r.s]; } }); },
+           end:function(){ rows.forEach(function(r){ if(r.merge){ r.merge.n += r.n; r.merge.amt += r.amt; } }); rows = rows.filter(function(r){ return !r.merge; }); relayoutNow(); }});
+       }
+       if(op === "join"){
+         if(bcast) phases.push({cap:"join con broadcast: la tabla «tiendas» (1 MB) se copia a cada ejecutor; los datos grandes NO se mueven", dur:1300, secs:.25,
+           start:function(){ flyers = [0, 1, 2].map(function(e){ return {x0:DRV[0] + 40, y0:DRV[1] + 112, x1:EX[e][0] + EW - 40, y1:EX[e][1] + 10, kind:"tab"}; }); stats.bc += 3; },
+           end:function(){ flyers = []; rows.forEach(function(r){ r.tag = true; }); }});
+         else {
+           stg++;
+           (function(sn){
+             phases.push({cap:"SHUFFLE → Stage " + sn + ": sin broadcast, los datos grandes se reparten por tienda (sort-merge join)", dur:1700, shuffle:true,
+               start:function(){
+                 var mv = 0, alt = [0, 0, 0]; rows.forEach(function(r){ if(r.e !== HASH[r.s]) mv++; r.e = HASH[r.s]; r.sl = alt[r.e]++ % 2; }); relayout(rows);
+                 flyers = ST.map(function(_, s){ return {x0:DRV[0] + 40, y0:DRV[1] + 112, x1:EX[HASH[s]][0] + EW - 40, y1:EX[HASH[s]][1] + 10, kind:"one", s:s}; });
+                 var mb = mv * (rows[0] && rows[0].agg ? .5 : (executedSelect ? 4 : 10)) + 1; stats.mb += mb; stats.stages = sn; this.secs = .8 + mb * .01;
+               },
+               end:function(){ flyers = []; rows.forEach(function(r){ r.tag = true; }); }});
+           })(stg);
+         }
+       }
+     });
+     if(action === "count") phases.push({cap:"count(): cada ejecutor cuenta sus filas y solo envía un número al driver", dur:1100, secs:.2,
+       start:function(){ flyers = [0, 1, 2].map(function(e){ var n = rows.filter(function(r){ return r.e === e; }).length; return {x0:EX[e][0] + EW / 2, y0:EX[e][1] + 20, x1:DRV[0] + DRV[2] / 2, y1:DRV[1] + 70, kind:"num", n:n}; }); },
+       end:function(){ flyers = []; stats.count = rows.length; }});
+     else phases.push({cap:"write.parquet(): cada partición escribe su propio fichero, en paralelo", dur:1300, secs:.9,
+       start:function(){ var parts = {}; rows.forEach(function(r){ parts[r.e + "_" + r.sl] = 1; }); stats.written = Object.keys(parts).length;
+         rows.forEach(function(r){ r.tx = STO[0] + 20 + (r.e * 2 + r.sl) * 90 + (r.id % 4) * 6; r.ty = STO[1] + 9; r.ta = .9; }); }});
+     stats.rowsOut = 0;
+   }
+   function relayoutNow(){ relayout(rows); rows.forEach(function(r){ r.x = r.tx; r.y = r.ty; }); }
+   function startPhase(){
+     var P = phases[ph]; caption = P.cap;
+     rows.forEach(function(r){ r.fx = r.x; r.fy = r.y; r.fa = r.a; r.fw = r.w; if(r.ta === undefined) r.ta = r.a; if(r.tw === undefined) r.tw = r.w; r.tx = r.x; r.ty = r.y; });
+     P.start.call(P);
+     stats.secs += P.secs || 0;
+     t0 = performance.now();
+   }
+   function run(action){
+     if(running) return;
+     build(action); running = true; ran = action; ph = 0; startPhase(); setBtns();
+     if(stopL) stopL();
+     stopL = loop(function(now){
+       var P = phases[ph], k = ease((now - t0) / P.dur);
+       rows.forEach(function(r){ r.x = lerp(r.fx, r.tx, k); r.y = lerp(r.fy, r.ty, k); r.a = lerp(r.fa, r.ta, k); r.w = lerp(r.fw, r.tw, k); });
+       flyers.forEach(function(f){ f.k = k; });
+       if(k >= 1){
+         if(P.end) P.end();
+         ph++;
+         if(ph >= phases.length){ running = false; caption = (ran === "count" ? "Hecho: count() = " + stats.count + " filas. " : "Hecho: " + stats.written + " ficheros Parquet escritos. ") + "Si añades otra transformación, la próxima acción recalculará todo desde el origen."; draw(); setBtns(); return false; }
+         startPhase();
+       }
+       draw(); return true;
+     });
+   }
+   /* ── dibujo ── */
+   function block(x, y, s, a, w, agg, tag, n){
+     if(a < .02) return;
+     ctx.save(); ctx.globalAlpha = a;
+     var ww = SQ * w;
+     rr(ctx, x, y, ww, SQ, 3); ctx.fillStyle = C.c[1 + s]; ctx.fill();
+     if(agg){ ctx.strokeStyle = C.ink; ctx.lineWidth = 1.6; ctx.stroke(); }
+     if(tag){ ctx.fillStyle = C.ink; ctx.fillRect(x + 2, y + SQ - 4, ww - 4, 2); }
+     if(w > .7) T(ctx, ST[s], x + ww / 2, y + SQ / 2 + .5, {s:11, w:"700", c:"#fff", a:"center", b:"middle"});
+     ctx.restore();
+   }
+   function node(x, y, label, done, shuffle, isAct){
+     var w = TW(ctx, label, 11, "600") + 18;
+     rr(ctx, x, y - 11, w, 22, 11);
+     ctx.fillStyle = done ? (isAct ? C.c[0] : C.soft) : C.card; ctx.fill();
+     ctx.save(); if(!done) ctx.setLineDash([3, 3]); ctx.strokeStyle = shuffle ? C.neg : isAct ? C.c[0] : C.muted; ctx.lineWidth = 1.2; ctx.stroke(); ctx.restore();
+     T(ctx, label, x + 9, y + 4, {s:11, w:"600", c:done && isAct ? "#fff" : C.ink});
+     return w;
+   }
+   function draw(){
+     K.clear();
+     /* plan (DAG) */
+     head(ctx, "Plan lógico (DAG) · " + (running || ran ? "ejecutando / ejecutado" : "nada ejecutado todavía"), 16, 22, C);
+     var labels = [["read.parquet", false, false]];
+     plan.forEach(function(op){
+       labels.push(op === "filter" ? ["filter", false, false] : op === "select" ? ["select", false, false] :
+         op === "group" ? ["groupBy.sum", true, false] : [bcast ? "join (broadcast)" : "join", !bcast, false]);
+     });
+     if(ran) labels.push([ran === "count" ? "count()" : "write()", false, true]);
+     var x = 16, y = 52, stage = 1, doneUpTo = running ? phaseOp() : ran ? 99 : -1;
+     T(ctx, "Stage 1", x, y - 17, {s:11, w:"700", c:C.muted});
+     labels.forEach(function(L, i){
+       var sh = L[1];
+       if(sh){ stage++; dashLine(ctx, x + 2, y - 26, x + 2, y + 14, C.neg, 1.2, [3, 3]); T(ctx, "Stage " + stage + " ⇄", x + 8, y - 17, {s:11, w:"700", c:C.neg}); x += 8; }
+       var w = node(x, y, L[0], i <= doneUpTo, sh, L[2]);
+       x += w;
+       if(i < labels.length - 1){ arrow(ctx, x + 3, y, x + 15, y, C.muted, 1.2, 5); x += 18; }
+     });
+     if(!plan.length && !ran) T(ctx, "← añade transformaciones", x + 12, y + 4, {s:11, c:C.muted});
+     /* driver */
+     rr(ctx, DRV[0], DRV[1], DRV[2], DRV[3], 10); ctx.fillStyle = C.soft; ctx.fill(); ctx.strokeStyle = hexA(C.c[0], .5); ctx.lineWidth = 1; ctx.stroke();
+     T(ctx, "Driver", DRV[0] + 10, DRV[1] + 20, {s:12, w:"700", c:C.ink});
+     T(ctx, "planifica y recoge", DRV[0] + 10, DRV[1] + 36, {s:11, c:C.muted});
+     if(stats.count !== null){ T(ctx, "count() = " + stats.count, DRV[0] + 10, DRV[1] + 64, {s:13, w:"700", c:C.c[0]}); }
+     else T(ctx, plan.length + (plan.length === 1 ? " transformación" : " transformaciones"), DRV[0] + 10, DRV[1] + 64, {s:11, c:C.text});
+     T(ctx, "tabla «tiendas»", DRV[0] + 10, DRV[1] + 100, {s:11, c:C.muted});
+     ST.forEach(function(_, s){ block(DRV[0] + 10 + s * 18, DRV[1] + 108, s, 1, .6, false, false); });
+     T(ctx, "4 filas · 1 MB", DRV[0] + 10, DRV[1] + 144, {s:11, c:C.muted});
+     /* ejecutores */
+     EX.forEach(function(p, e){
+       rr(ctx, p[0], p[1], EW, EH, 10); ctx.fillStyle = C.card; ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.stroke();
+       T(ctx, "Ejecutor " + (e + 1), p[0] + 10, p[1] + 20, {s:12, w:"700", c:C.ink});
+       if(!ran && !running) T(ctx, "(aún en disco)", p[0] + 82, p[1] + 20, {s:11, c:C.muted});
+       [0, 1].forEach(function(sl){ rr(ctx, p[0] + 6 + sl * 86, p[1] + 29, 80, EH - 36, 6); ctx.strokeStyle = hexA(C.line, .9); ctx.setLineDash([2, 3]); ctx.stroke(); ctx.setLineDash([]); });
+       [0, 1].forEach(function(sl){ T(ctx, "P" + (e * 2 + 1 + sl), p[0] + 12 + sl * 86, p[1] + EH - 12, {s:11, c:C.muted}); });
+     });
+     /* almacenamiento */
+     rr(ctx, STO[0], STO[1], STO[2], STO[3], 8); ctx.fillStyle = hexA(C.muted, .08); ctx.fill(); ctx.strokeStyle = C.line; ctx.stroke();
+     T(ctx, "Almacenamiento (Parquet)", STO[0] - 10, STO[1] + 21, {s:11, w:"600", c:C.muted, a:"right"});
+     /* filas */
+     rows.forEach(function(r){ block(r.x, r.y, r.s, r.a, r.w, r.agg, r.tag, r.n); });
+     if(rows.length <= 4 && !running && ran) rows.forEach(function(r){ if(r.agg && r.y < STO[1]) T(ctx, "Σ " + miles(r.amt) + " €", r.x, r.y + SQ + 14, {s:11, w:"600", c:C.ink}); });
+     /* viajeros */
+     flyers.forEach(function(f){
+       var k = f.k || 0, xx = lerp(f.x0, f.x1, k), yy = lerp(f.y0, f.y1, k) - Math.sin(Math.PI * k) * 30;
+       if(f.kind === "tab"){ for(var s = 0; s < 4; s++) block(xx + s * 11, yy, s, 1, .55, false, false); }
+       else if(f.kind === "one") block(xx, yy, f.s, 1, .55, false, false);
+       else pill(ctx, String(f.n), xx, yy, C, {a:"center", bd:C.c[0]});
+     });
+     /* leyenda y estado */
+     var lx = 16;
+     ST.forEach(function(s, i){ rr(ctx, lx, 330, 12, 12, 3); ctx.fillStyle = C.c[1 + i]; ctx.fill(); T(ctx, s + " = " + SN[i], lx + 17, 340, {s:11, c:C.text}); lx += 30 + TW(ctx, s + " = " + SN[i], 11); });
+     T(ctx, "▬ = ya tiene la región (join) · borde = suma", lx + 6, 340, {s:11, c:C.muted});
+     var capt = caption || (plan.length ? "Plan anotado (" + plan.length + (plan.length === 1 ? " transformación" : " transformaciones") + "): nada se ha movido. Pulsa una acción." : "Añade transformaciones o lanza una acción.");
+     var sh = /SHUFFLE/.test(capt);
+     pill(ctx, capt, 16, 370, C, {c:sh ? C.neg : C.ink, bd:sh ? C.neg : C.line, s:11});
+     readout();
+   }
+   function phaseOp(){ /* índice de nodo del DAG ya alcanzado durante la ejecución */
+     var c = 0; for(var i = 0; i < ph && i < phases.length; i++) c++;
+     var map = [0], idx = 0; plan.forEach(function(op){ idx++; map.push(idx); if(op === "group") { map.push(idx); map.push(idx); } });
+     map.push(idx + 1);
+     return map[Math.min(ph, map.length - 1)];
+   }
+   var lastRead = "";
+   function readout(){
+     var html = '<span>Transformaciones en el plan <b>' + plan.length + '</b></span><span>Stages <b>' + (ran ? stats.stages : 1 + plan.filter(function(o){ return o === "group" || (o === "join" && !bcast); }).length) + '</b></span>' +
+       '<span>MB movidos en shuffle <b>' + (ran ? fmt(stats.mb, 1) : "—") + '</b></span><span>MB enviados por broadcast <b>' + (ran ? stats.bc : "—") + '</b></span><span>Tiempo simulado <b>' + (ran ? "≈ " + fmt(stats.secs, 1) + " s" : "—") + '</b></span>' +
+       '<span class="ldiag">' + (!ran ? "Mientras no lances una acción, Spark solo construye el plan (evaluación perezosa): ni lee el disco." :
+         stats.mb > 100 ? "<b class='lbad'>Shuffle caro</b>: " + fmt(stats.mb, 0) + " MB cruzando la red. Con broadcast, la tabla pequeña viaja a cada ejecutor y los datos grandes se quedan donde están." :
+         plan.indexOf("group") > -1 ? "El groupBy hace una <b>suma parcial</b> antes del shuffle, así que solo viajan unas pocas filas resumidas (" + fmt(stats.mb, 1) + " MB), no el DataFrame entero." :
+         "Todo ha sido <b>trabajo local</b>: ningún dato ha cruzado la red.") + '</span>';
+     if(html !== lastRead){ lastRead = html; read.innerHTML = html; }
+   }
+   function setBtns(){
+     Object.keys(btns).forEach(function(k){ var used = plan.indexOf(k) > -1; btns[k].disabled = running || used; btns[k].style.opacity = running || used ? .45 : 1; });
+     ["count", "write"].forEach(function(k){ actB[k].disabled = running; actB[k].style.opacity = running ? .45 : 1; });
+   }
+   function addOp(op){
+     if(running || plan.indexOf(op) > -1) return;
+     plan.push(op); ran = null; stats = {mb:0, bc:0, stages:1, secs:0, count:null}; caption = "";
+     fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); setBtns(); draw();
+   }
+   btns.filter = ctlBtn(ctl, "filter(importe > 20)", function(){ addOp("filter"); });
+   btns.select = ctlBtn(ctl, "select(tienda, importe)", function(){ addOp("select"); });
+   btns.group = ctlBtn(ctl, "groupBy(\"tienda\").sum()", function(){ addOp("group"); });
+   btns.join = ctlBtn(ctl, "join(tiendas)", function(){ addOp("join"); });
+   ctlCheck(ctl, "broadcast(tiendas)", bcast, function(v){ if(running) return; bcast = v; if(ran){ ran = null; caption = ""; fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); } draw(); });
+   var actB = {};
+   actB.count = ctlBtn(ctl, "▶ count()", function(){ run("count"); }, true);
+   actB.write = ctlBtn(ctl, "▶ write.parquet()", function(){ run("write"); }, true);
+   ctlBtn(ctl, "↺ Reiniciar", function(){ if(stopL) stopL(); running = false; plan = []; ran = null; caption = ""; stats = {mb:0, bc:0, stages:1, secs:0, count:null}; fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); setBtns(); draw(); });
+   fresh(); rows.forEach(function(r){ r.a = .4; r.ta = .4; }); setBtns(); draw();
+   return function(){ if(stopL) stopL(); };
  }});
 
 })();
