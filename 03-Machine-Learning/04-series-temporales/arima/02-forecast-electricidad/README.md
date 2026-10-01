@@ -2,7 +2,7 @@
 
 ## Contexto de negocio
 
-Una empresa energética necesita predecir el consumo eléctrico hora a hora para optimizar la contratación de potencia y planificar los recursos energéticos.
+Una empresa energética quiere predecir el consumo hora a hora para contratar la potencia justa y organizar sus recursos.
 
 ## Dataset
 
@@ -16,7 +16,7 @@ Una empresa energética necesita predecir el consumo eléctrico hora a hora para
 ## Técnicas aplicadas
 
 - Análisis del patrón diario.
-- Test ADF — estacionariedad confirmada (`d=0`).
+- Test ADF: la serie ya es estacionaria (`d=0`).
 - ACF / PACF para identificar la estacionalidad diaria.
 - SARIMA(1,0,0)(1,0,1,24).
 - Diagnóstico de residuos y test de Ljung-Box.
@@ -26,5 +26,5 @@ Una empresa energética necesita predecir el consumo eléctrico hora a hora para
 
 ## Hallazgo clave
 
-El modelo consigue un **MAPE inferior al 3%**, capturando bien los patrones diarios de consumo, incluidos los picos y valles horarios. Precisión de sobra para apoyar la planificación energética.
+El modelo se equivoca de media menos de un 3% (MAPE) y recoge bien el patrón diario, picos y valles incluidos. Para planificar la energía es suficiente, aunque con solo un mes de datos no ha visto ni festivos ni cambios de estación.
 

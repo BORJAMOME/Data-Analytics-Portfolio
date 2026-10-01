@@ -1,7 +1,7 @@
 # Clustering Jerárquico - Caso completo (banca)
 
 ## Contexto de negocio
-Un banco necesita segmentar 300 clientes por 5 métricas financieras para diseñar productos personalizados (tarjetas, créditos, seguros).
+Un banco quiere segmentar a 300 clientes con 5 métricas financieras para diseñar productos a medida (tarjetas, créditos, seguros).
 
 ## Dataset
 Sintético: 300 clientes bancarios con 5 features generados vía `make_blobs`.
@@ -14,6 +14,6 @@ Sintético: 300 clientes bancarios con 5 features generados vía `make_blobs`.
 - Heatmap normalizado de perfiles
 
 ## Hallazgo clave
-El coeficiente cofenético cuantifica qué linkage preserva mejor las distancias originales — Ward o Complete suelen ganar con datos euclídeos.
+El coeficiente cofenético mide qué método de enlace respeta mejor las distancias originales, y así la elección deja de ser a ojo. En este dataset, Ward es el que da los clusters más compactos y equilibrados.
 
 

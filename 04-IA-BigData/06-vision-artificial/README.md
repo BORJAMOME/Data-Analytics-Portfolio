@@ -1,8 +1,8 @@
 # Visión Artificial
 
-Detección y seguimiento de objetos con modelos preentrenados — sin entrenar red alguna
-desde cero, evaluando qué puede y qué no puede resolver un modelo genérico de propósito
-general frente a un caso de negocio concreto.
+Detección y seguimiento de objetos con modelos preentrenados, sin entrenar ninguna red
+desde cero. La idea es ver qué resuelve y qué no un modelo genérico ante un caso de negocio
+concreto.
 
 ## Proyectos
 

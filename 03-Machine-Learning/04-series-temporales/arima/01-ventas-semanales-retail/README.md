@@ -1,10 +1,10 @@
 # SARIMA — Predicción de Ventas Semanales en Retail
 
-🔗 **[Ver la app interactiva](https://sarima-ventas-retail.streamlit.app/)** — case study construido a partir de este notebook, con Playground y storytelling completo ([código](https://github.com/BORJAMOME/sarima-ventas-retail-app)).
+**[Ver la app interactiva](https://sarima-ventas-retail.streamlit.app/)**: el caso contado paso a paso a partir de este notebook, con una zona para jugar con el modelo ([código](https://github.com/BORJAMOME/sarima-ventas-retail-app)).
 
 ## Contexto de negocio
 
-Una cadena de supermercados necesita anticipar las ventas semanales para optimizar inventario, personal y promociones.
+Una cadena de supermercados quiere saber qué va a vender cada semana para ajustar el stock, el personal y las promociones.
 
 ## Dataset
 
@@ -28,5 +28,5 @@ Una cadena de supermercados necesita anticipar las ventas semanales para optimiz
 
 ## Hallazgo clave
 
-El modelo captura la tendencia y estacionalidad anual de las ventas con un **MAPE del 2,21%** sobre el conjunto de test — precisión de sobra para apoyar la planificación de inventario y recursos.
+El modelo recoge la tendencia y la estacionalidad anual de las ventas y se equivoca de media un **2,21%** (MAPE) en el año de test. Para planificar stock y personal es más que suficiente.
 

@@ -1,20 +1,21 @@
-# PCA — Reducción dimensional de comportamiento de clientes
+# PCA: reducción dimensional del comportamiento de clientes
 
 ## Contexto de negocio
-Un e-commerce con 10 métricas por cliente quiere reducirlas a las dimensiones realmente importantes para simplificar dashboards y preparar datos para segmentación.
+Un e-commerce registra 10 métricas por cliente y muchas se solapan. El objetivo es quedarse con las dimensiones que aportan información de verdad, para simplificar los dashboards y preparar los datos para segmentar.
 
 ## Dataset
-`PCA.xlsx` — 150 clientes, 10 variables (Edad, Ingresos, Gasto_Anual, Numero_Compras, Ticket_Medio, Visitas_Web, Tiempo_Web, Emails_Abiertos, Uso_App, Antiguedad_Cliente).
+`PCA.xlsx`: 150 clientes y 10 variables (Edad, Ingresos, Gasto_Anual, Numero_Compras, Ticket_Medio, Visitas_Web, Tiempo_Web, Emails_Abiertos, Uso_App, Antiguedad_Cliente).
 
 ## Técnicas aplicadas
-- Matriz de correlación con detección de pares altamente correlacionados
+- Matriz de correlación, marcando los pares muy correlacionados
 - PCA completo con varianza explicada
-- Scree plot (individual + acumulada) con criterio del 80% de varianza
-- Loadings heatmap: contribución de cada variable a cada PC
-- Pipeline PCA + K-Means: selección de k por silhouette score, con ajuste de negocio para priorizar segmentos accionables
-- Visualización de clusters en espacio PCA 2D con centroides
-- Heatmap normalizado de perfiles de cliente por cluster
+- Scree plot (individual y acumulada) con el criterio del 80% de varianza
+- Heatmap de cargas para ver qué variable pesa en cada componente
+- PCA + K-Means: k elegido por silhouette y ajustado después con criterio de negocio para que los segmentos sean utilizables
+- Clusters representados en el plano PC1-PC2 con sus centroides
+- Heatmap normalizado del perfil medio de cada cluster
 
 ## Hallazgo clave
-Las 10 métricas se reducen a 3 componentes que capturan el 95% de la varianza: **PC1 (poder adquisitivo)**, dominado por ingresos y gasto anual; **PC2 (engagement digital)**, dominado por visitas web y uso de app; y **PC3 (perfil demográfico)**, dominado por edad y antigüedad del cliente. Sobre ese espacio reducido, K-Means identifica 3 segmentos de cliente con masa crítica suficiente para diseñar acciones diferenciadas por canal.
+Las 10 métricas caben en 3 componentes que explican el 95% de la varianza. PC1 es poder adquisitivo (ingresos y gasto anual), PC2 es engagement digital (visitas web y uso de la app) y PC3 es perfil demográfico (edad y antigüedad). Sobre ese espacio, K-Means encuentra 3 segmentos con tamaño suficiente para diseñar acciones distintas por canal.
 
+Lo que más me llamó la atención: la antigüedad del cliente no tiene relación ni con lo que gasta ni con lo que usa la app.

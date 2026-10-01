@@ -1,20 +1,20 @@
 # Regresión Logística — Abandono de clientes (Gimnasio)
 
-Un modelo que no se limita a predecir: explica. Odds ratios, p-valores e intervalos de confianza cuantifican cuánto pesa cada variable en la decisión de abandonar.
+Aquí el modelo, además de predecir, explica. Con odds ratios, p-valores e intervalos de confianza se puede decir cuánto pesa cada variable en la decisión de darse de baja.
 
 ---
 
 ## Contexto de negocio
 
-Una cadena de gimnasios urbanos observa un ~16% de abandono y necesita entender **qué factores lo causan y cuánto pesa cada uno**. A diferencia de los notebooks de árboles (que predicen satisfacción), aquí se ataca el problema complementario: **explicación estadística del abandono**.
+Una cadena de gimnasios urbanos tiene cerca de un 16% de bajas y quiere saber qué factores las explican y cuánto pesa cada uno. Los notebooks de árboles predecían la satisfacción; este va a por el otro lado del problema y busca una explicación estadística del abandono.
 
 ## Objetivo
 
-Construir un modelo de Regresión Logística con `statsmodels` para obtener inferencia estadística completa (p-valores, odds ratios, intervalos de confianza), diagnosticar multicolinealidad con VIF y refinar el modelo eliminando variables no significativas.
+Ajustar una regresión logística con `statsmodels` para tener p-valores, odds ratios e intervalos de confianza, revisar la multicolinealidad con VIF y quitar las variables que no son significativas.
 
 ## Dataset
 
-`gym_clientes.xlsx` — 300 clientes, 4 features operativas. Target: `Abandono` (binario, **desbalanceado 84/16**).
+`gym_clientes.xlsx`: 300 clientes y 4 variables operativas. Target: `Abandono` (binario y desbalanceado, 84/16).
 
 ## Técnicas aplicadas
 
@@ -26,9 +26,9 @@ Construir un modelo de Regresión Logística con `statsmodels` para obtener infe
 
 ## Hallazgo clave
 
-El modelo completo con 4 variables revelaba una **multicolinealidad severa** (VIF hasta 62.77), impidiendo separar los efectos individuales. El modelo refinado con `Horas_Pico_Mes` y `Gasto_Mensual_Extra` estabiliza los coeficientes y confirma que las horas de uso en franja pico son la señal más fiable de abandono.
+Con las 4 variables la multicolinealidad era severa (VIF de hasta 62,77) y no había forma de separar el efecto de cada una. Dejando solo `Horas_Pico_Mes` y `Gasto_Mensual_Extra` los coeficientes se estabilizan, y las horas en franja pico salen como la señal más fiable de abandono.
 
-La regresión logística traduce el mismo hallazgo que los árboles de decisión en un **lenguaje cuantitativo auditable**.
+Es lo mismo que decían los árboles de decisión, pero ahora con cifras que se pueden auditar.
 
 
 ## Librerías principales

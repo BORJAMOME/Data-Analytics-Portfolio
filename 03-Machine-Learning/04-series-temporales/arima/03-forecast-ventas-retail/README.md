@@ -1,18 +1,18 @@
 # SARIMA vs SARIMAX — Forecasting de Ventas en Retail con Variables Exógenas
 
-Caso de negocio: una cadena retail quiere estimar ventas semanales incorporando eventos externos (promociones, huelgas, guerras, problemas logísticos). La comparación entre un SARIMA baseline y un SARIMAX con variables exógenas demuestra que **los eventos externos reducen el error de predicción un 31 %**, bajando el MAPE del 7,78 % al 5,31 %.
+Una cadena retail quiere prever sus ventas semanales teniendo en cuenta lo que pasa fuera: promociones, huelgas, guerras o problemas logísticos. Comparo un SARIMA que solo mira el histórico con un SARIMAX que incorpora esos eventos, y el segundo se equivoca un **31 % menos**: el MAPE baja del 7,78 % al 5,31 %.
 
-Este notebook es el análisis completo. Si prefieres recorrer el caso como una historia interactiva —sin necesidad de tocar código— hay una aplicación en Streamlit que lo explica de principio a fin y deja simular escenarios en vivo: **[forecast-ventas-retail-app](https://github.com/BORJAMOME/forecast-ventas-retail-app)**.
+Este notebook es el análisis completo. Si prefieres recorrer el caso sin tocar código, hay una app en Streamlit que lo explica de principio a fin y te deja simular escenarios: **[forecast-ventas-retail-app](https://github.com/BORJAMOME/forecast-ventas-retail-app)**.
 
 ---
 
 ## Contexto de negocio
 
-La previsión de ventas es crítica para planificar inventario, asignar personal y diseñar promociones. Sin embargo, un modelo puramente histórico no puede anticipar el impacto de eventos externos como huelgas de transporte, conflictos geopolíticos o campañas promocionales agresivas. El negocio necesita cuantificar ese impacto para tomar decisiones informadas.
+Con la previsión de ventas se decide el stock, el personal y las promociones. El problema es que un modelo que solo mira el pasado no puede ver venir una huelga de transporte, un conflicto internacional o una promoción agresiva. El negocio quiere saber cuánto pesa cada uno de esos eventos.
 
 ## Objetivo
 
-Construir y comparar dos modelos de series temporales — SARIMA (solo datos históricos) y SARIMAX (con variables exógenas) — para determinar si la información de eventos externos mejora significativamente la predicción, y simular escenarios futuros que permitan planificar ante distintas contingencias.
+Comparar dos modelos de series temporales, SARIMA (solo histórico) y SARIMAX (con variables exógenas), para ver si saber qué eventos hay mejora de verdad la predicción. Y, con el SARIMAX, simular escenarios para prepararse ante distintos imprevistos.
 
 ## Dataset
 
@@ -21,20 +21,20 @@ Construir y comparar dos modelos de series temporales — SARIMA (solo datos his
 | Archivo | `SALES_FORECASTING_VARIABLES_EXOGENAS.xlsx` |
 | Granularidad | Semanal |
 | Variable objetivo | Ventas semanales en euros |
-| Variables exógenas | `is_promotion`, `is_strike`, `is_war`, `is_logistics_issue`, `promotion_intensity` |
+| Variables exógenas | `promotion` (intensidad del descuento), `strike`, `war`, `logistics`, `other_incident` |
 
 ## Metodología
 
-1. **EDA de la serie temporal** — tendencia, estacionalidad, impacto visual de eventos exógenos
-2. **Estacionariedad** — test ADF sobre serie original y transformada (log + diferenciación)
-3. **ACF / PACF** — identificación de órdenes AR y MA
-4. **Modelo SARIMA(1,1,1)(1,1,1,52) baseline** — solo información histórica
-5. **Modelo SARIMAX(1,1,1)(1,1,1,52)** — incorpora las 5 variables exógenas
-6. **Evaluación** — MAE, MAPE, RMSE sobre hold-out temporal
-7. **Diagnóstico de residuos** — ACF de residuos, test de Ljung-Box, test de Shapiro-Wilk
-8. **Backtesting temporal** — validación cruzada con ventanas deslizantes
-9. **Modelo final** — reentrenamiento con todos los datos
-10. **Simulación de escenarios** — individuales y combinados (promoción, guerra, huelga, logística)
+1. **EDA de la serie:** tendencia, estacionalidad y efecto de los eventos a simple vista
+2. **Estacionariedad:** test ADF sobre la serie original y la transformada (log y diferenciación)
+3. **ACF / PACF** para elegir los órdenes AR y MA
+4. **SARIMA(1,1,1)(1,1,1,52)** como referencia, solo con el histórico
+5. **SARIMAX(1,1,1)(1,1,1,52)** con las 5 variables exógenas
+6. **Evaluación** con MAE, MAPE y RMSE en las últimas semanas
+7. **Residuos:** ACF, Ljung-Box y Shapiro-Wilk
+8. **Backtesting** con ventanas que avanzan en el tiempo
+9. **Modelo final** reentrenado con todos los datos
+10. **Escenarios** sueltos y combinados (promoción, guerra, huelga, logística)
 
 ## Resultados
 
@@ -46,16 +46,16 @@ Construir y comparar dos modelos de series temporales — SARIMA (solo datos his
 
 ## Hallazgo clave
 
-> Las variables exógenas reducen el error en un ~31 % en las tres métricas. El modelo SARIMAX no solo predice mejor en condiciones normales, sino que permite **simular escenarios**: cuantificar cuánto costaría una huelga, cuánto generaría una promoción agresiva, o cuál sería el impacto combinado de una crisis geopolítica con problemas logísticos.
+> Con las variables exógenas el error baja cerca de un 31 % en las tres métricas. Además de predecir mejor, el SARIMAX sirve para **simular escenarios**: cuánto costaría una huelga, cuánto traería una promoción agresiva o qué pasaría si coinciden una crisis internacional y problemas logísticos.
 >
-> El backtesting temporal confirma que el modelo generaliza bien a lo largo de múltiples ventanas, no depende de un periodo de test favorable.
+> El backtesting muestra que la mejora se mantiene en varias ventanas de tiempo, así que no depende de que el periodo de test haya caído bien.
 
 ## Decisiones de negocio que habilita
 
-- **Inventario** — ajustar pedidos según predicción base o escenario más probable
-- **Gestión de riesgo** — cuantificar impacto financiero de escenarios adversos
-- **Optimización de promociones** — estimar retorno de inversión de diferentes niveles de descuento
-- **Contingencia** — planes de acción para escenarios combinados (crisis geopolítica + logística)
+- **Stock:** ajustar pedidos según la previsión base o el escenario más probable
+- **Riesgo:** poner cifra a lo que costarían los escenarios malos
+- **Promociones:** estimar qué devuelve cada nivel de descuento
+- **Contingencia:** tener un plan para escenarios combinados (crisis internacional más problemas logísticos)
 
 ## Librerías principales
 

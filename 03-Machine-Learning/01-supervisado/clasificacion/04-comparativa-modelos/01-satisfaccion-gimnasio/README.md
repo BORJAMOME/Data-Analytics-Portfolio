@@ -1,51 +1,51 @@
 # Comparativa de 3 modelos — Satisfacción de clientes (Gimnasio)
 
-Caso de negocio real: una cadena de gimnasios urbanos quiere anticipar qué clientes están insatisfechos para actuar antes de que se den de baja. La comparativa de 3 algoritmos revela que **el modelo más simple es el mejor** — y produce una regla de negocio que cabe en una servilleta.
+Una cadena de gimnasios urbanos quiere saber qué clientes están descontentos para actuar antes de que se den de baja. Comparo tres algoritmos y gana el más simple, que además deja una regla de negocio que cabe en una servilleta.
 
 ---
 
 ## Contexto de negocio
 
-La dirección observa un patrón de bajas pero no consigue articular qué diferencia a un cliente satisfecho de uno insatisfecho. Sin ese conocimiento, las acciones de retención son reactivas y genéricas. El objetivo es encontrar las variables que explican la satisfacción y traducirlas en reglas operativas automatizables.
+La dirección ve que hay bajas, pero no sabe qué distingue a un cliente contento de uno descontento. Sin eso, la retención llega tarde y es igual para todos. Se trata de encontrar qué variables explican la satisfacción y convertirlas en reglas que se puedan automatizar.
 
 ## Objetivo
 
-Comparar tres algoritmos de clasificación (Árbol de Decisión, Random Forest, XGBoost) sobre las variables operativas disponibles (Antigüedad, Asistencias, Horas pico, Gasto extra) y decidir, de forma justificada con métricas, cuál merece pasar a producción.
+Comparar tres algoritmos de clasificación (árbol de decisión, Random Forest y XGBoost) con las variables que ya tiene el gimnasio (antigüedad, asistencias, horas pico y gasto extra) y decidir, con métricas, cuál pondría en producción.
 
 ## Dataset
 
-`gym_clientes.xlsx` — 300 clientes con `Antiguedad_Meses`, `Asistencias_Mes`, `Horas_Pico_Mes`, `Gasto_Mensual_Extra` (features), `Satisfecho` (target binario, 48% positivos) y `Abandono` (informativa, excluida para evitar data leakage).
+`gym_clientes.xlsx`: 300 clientes con `Antiguedad_Meses`, `Asistencias_Mes`, `Horas_Pico_Mes`, `Gasto_Mensual_Extra` (features), `Satisfecho` (target binario, 48% positivos) y `Abandono` (informativa, excluida para evitar data leakage).
 
 ## Técnicas aplicadas
 
-- **Árbol de Decisión** (`max_depth=2`, elegido con validación cruzada) — modelo principal, analizado en profundidad
-- **Random Forest** (100 estimadores) — comparativa de robustez
-- **XGBoost** (200 estimadores, regularización) — comparativa con el estándar de boosting
+- **Árbol de decisión** (`max_depth=2`, elegido con validación cruzada). Es el modelo principal y el que más analizo.
+- **Random Forest** (100 estimadores), para ver si un ensemble es más robusto.
+- **XGBoost** (con regularización), como referencia de boosting.
 
 Evaluación con accuracy, recall, AUC-ROC, matriz de confusión, feature importance y validación cruzada.
 
 ## Hallazgo clave
 
-> La satisfacción se explica **en un 98,9% por una sola variable: `Asistencias_Mes`**. Un cliente que asiste más de 13 veces al mes durante al menos 3 meses tiene un **98% de probabilidad de estar satisfecho**.
+> Una sola variable, `Asistencias_Mes`, se lleva el 98,9% de la importancia. Un cliente que va más de 13 veces al mes y lleva al menos 3 meses apuntado está satisfecho en el 98% de los casos.
 >
-> El Árbol de Decisión (depth=2) iguala en accuracy al Random Forest (90,0%) con un AUC de 0,909 — y produce una regla operativa que el director de operaciones puede aplicar mañana.
+> El árbol de dos niveles empata en accuracy con el Random Forest (90,0%), con un AUC de 0,909, y deja una regla que el director de operaciones puede aplicar al día siguiente. XGBoost acierta un cliente más de 60, una diferencia que no me parece suficiente para cambiar de modelo.
 
-Este es el caso opuesto al [notebook de churn en telecomunicaciones](../02-churn-clientes/): allí la señal no existía (AUC 0,50-0,58); aquí es tan fuerte que el modelo más sencillo basta.
+Es justo lo contrario del [caso de churn en telecomunicaciones](../02-churn-clientes/). Allí no había señal (AUC entre 0,50 y 0,58); aquí la hay tan fuerte que basta con el modelo más sencillo.
 
 ## Notebooks individuales
 
-Para un análisis en profundidad de cada algoritmo, consultar los notebooks standalone:
+Cada algoritmo tiene su propio notebook con más detalle:
 
-- [Árbol de Decisión](../../01-arbol-decision/) — deep-dive: CV de profundidad, visualización del árbol, reglas de negocio
-- [Random Forest](../../02-random-forest/) — deep-dive: OOB score, importancia Gini vs Permutación, curva de nº árboles
-- [XGBoost](../../03-xgboost/) — deep-dive: grid search, impacto de hiperparámetros, cuándo usar vs no usar XGB
+- [Árbol de decisión](../../01-arbol-decision/): validación cruzada de la profundidad, el árbol dibujado y las reglas de negocio.
+- [Random Forest](../../02-random-forest/): OOB score, importancia Gini frente a permutación y curva según el número de árboles.
+- [XGBoost](../../03-xgboost/): grid search, efecto de cada hiperparámetro y cuándo compensa usarlo.
 
 ## Recomendaciones de negocio
 
-1. **Sistema de alerta temprana** — clientes con <10 asistencias/mes durante 2 meses entran automáticamente en pipeline de retención.
-2. **Onboarding intensivo los primeros 3 meses** — llevar al nuevo cliente por encima del umbral de 13 asistencias lo antes posible.
-3. **KPI operativo diario** — `% clientes con ≥14 asistencias/mes` como proxy de satisfacción en tiempo real, más barato y objetivo que encuestas.
-4. **No invertir en upselling como retención** — `Gasto_Mensual_Extra` tiene importancia nula en el modelo; el dinero está mejor empleado en facilitar que el cliente venga más.
+1. **Alerta temprana.** Quien vaya menos de 10 veces al mes durante 2 meses seguidos entra automáticamente en el circuito de retención.
+2. **Onboarding intensivo los tres primeros meses**, para que el cliente nuevo pase de 13 visitas al mes cuanto antes.
+3. **Un KPI diario:** el porcentaje de clientes con 14 visitas al mes o más. Mide la satisfacción al momento y sale más barato y más objetivo que una encuesta.
+4. **No usar la venta de extras para retener.** `Gasto_Mensual_Extra` no pesa nada en el árbol. Ese dinero rinde más si se dedica a que el cliente venga más.
 
 ## Librerías principales
 

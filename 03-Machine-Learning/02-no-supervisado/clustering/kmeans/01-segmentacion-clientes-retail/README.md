@@ -1,7 +1,7 @@
 # K-Means — Segmentación de clientes retail
 
 ## Contexto de negocio
-Un centro comercial quiere agrupar clientes por ingreso y hábito de gasto para diseñar campañas de marketing diferenciadas (VIP, activación, fidelización).
+Un centro comercial quiere agrupar a sus clientes por ingresos y por cómo gastan, para hacer campañas distintas (VIP, activación, fidelización).
 
 ## Dataset
 Sintético: 200 clientes con 5 segmentos naturales (ingreso anual vs spending score).
@@ -14,5 +14,5 @@ Sintético: 200 clientes con 5 segmentos naturales (ingreso anual vs spending sc
 - Perfil descriptivo de cada cluster
 
 ## Hallazgo clave
-K-Means identifica 5 perfiles claros: premium, aspiracional, prudente alto/bajo ingreso y medio equilibrado. Los centroides permiten asignar nuevos clientes automáticamente.
+K-Means encuentra 5 perfiles: premium, aspiracional, prudente con ingresos altos, prudente con ingresos bajos y medio. Con los centroides, cualquier cliente nuevo se puede asignar a su grupo automáticamente. Como los datos son sintéticos y traen 5 grupos de serie, el valor está en el método más que en el resultado.
 

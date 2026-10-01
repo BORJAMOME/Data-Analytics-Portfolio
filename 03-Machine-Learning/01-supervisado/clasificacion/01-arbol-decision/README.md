@@ -1,18 +1,18 @@
 # Árbol de Decisión — Predicción de la satisfacción de clientes en una cadena de gimnasios
 
-Árbol de Decisión de solo **2 niveles** predice la satisfacción de los clientes de una cadena de gimnasios con un **90% de accuracy**, utilizando reglas simples e interpretables que pueden aplicarse directamente en el negocio.
+Un árbol de decisión de solo 2 niveles predice la satisfacción de los clientes de una cadena de gimnasios con un 90% de accuracy. Lo mejor es que sus dos reglas se pueden aplicar en el negocio tal cual.
 
 ---
 
 ## Contexto de negocio
 
-La dirección quiere identificar de forma anticipada a los clientes con riesgo de insatisfacción para actuar antes de que decidan abandonar el gimnasio.
+La dirección quiere detectar a tiempo a los clientes que están descontentos, antes de que se den de baja.
 
-En lugar de depender únicamente de encuestas, el objetivo es aprovechar los datos operativos que ya genera el negocio (antigüedad, frecuencia de asistencia, uso del gimnasio y gasto en servicios adicionales) para obtener reglas de decisión fácilmente interpretables por el equipo de operaciones.
+Las encuestas llegan tarde, así que la idea es usar datos que el gimnasio ya tiene (antigüedad, asistencia, uso en horas punta y gasto en servicios extra) y sacar de ellos reglas que el equipo de operaciones entienda sin ayuda.
 
 ## Objetivo
 
-Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione mediante validación cruzada y transformar el modelo obtenido en reglas de negocio sencillas, explicables y fáciles de implementar.
+Entrenar un árbol de decisión, elegir su profundidad con validación cruzada y convertirlo en unas pocas reglas de negocio fáciles de aplicar.
 
 ## Dataset
 
@@ -31,7 +31,7 @@ Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione media
 
 - `Satisfecho` (clasificación binaria)
 
-**Importante** La variable `Abandono` se excluye del entrenamiento para evitar **data leakage**.
+**Importante:** `Abandono` se deja fuera del entrenamiento para evitar data leakage.
 
 ## Técnicas aplicadas
 
@@ -46,7 +46,7 @@ Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione media
 
 ## Hallazgo clave
 
-> La **frecuencia de asistencia** explica prácticamente toda la capacidad predictiva del modelo (**98,9% de importancia**). Los clientes que realizan **más de 13 asistencias al mes** son clasificados mayoritariamente como satisfechos y, si además llevan **más de 2,5 meses** en el gimnasio, el árbol acierta en **98 de 102 casos**.
+> Casi todo lo predice la frecuencia de asistencia (98,9% de la importancia). Quien va más de 13 veces al mes sale casi siempre como satisfecho, y si además lleva más de 2,5 meses apuntado, el árbol acierta en 98 de 102 casos.
 
 **Rendimiento del modelo**
 
@@ -54,14 +54,14 @@ Entrenar un **Árbol de Decisión** cuya profundidad óptima se seleccione media
 
 ## Lectura de negocio
 
-El modelo demuestra que la satisfacción depende principalmente de la **regularidad con la que el cliente utiliza el gimnasio**, mucho más que de su antigüedad o de su gasto adicional.
+La satisfacción depende sobre todo de lo a menudo que el cliente va al gimnasio, mucho más que de su antigüedad o de lo que gasta en extras.
 
-Esto permite definir reglas muy sencillas para el negocio:
+Con eso el negocio puede:
 
-- Detectar automáticamente a clientes con **13 asistencias mensuales o menos**.
-- Reforzar el acompañamiento durante los primeros meses.
-- Utilizar la frecuencia de asistencia como un KPI adelantado de satisfacción.
-- Implementar las reglas del modelo mediante simples condiciones (`IF-ELSE`), sin necesidad de desplegar una infraestructura de Machine Learning.
+- Marcar automáticamente a quien vaya 13 veces al mes o menos.
+- Acompañar más de cerca a los clientes durante los primeros meses.
+- Seguir la asistencia como un indicador que avisa antes que las encuestas.
+- Aplicar las reglas con un simple `IF-ELSE`. No hace falta desplegar ningún modelo.
 
 ## Librerías principales
 

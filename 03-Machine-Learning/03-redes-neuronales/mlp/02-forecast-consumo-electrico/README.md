@@ -2,9 +2,9 @@
 
 ## Contexto de negocio
 
-Una empresa de distribución eléctrica necesita predecir el consumo
-hora a hora para optimizar la compra de energía en el mercado mayorista.
-Las desviaciones generan penalizaciones económicas directas.
+Una distribuidora eléctrica tiene que predecir el consumo hora a hora
+para comprar la energía justa en el mercado mayorista. Cada desviación
+se paga con penalizaciones.
 
 ## Dataset
 
@@ -24,7 +24,11 @@ Las desviaciones generan penalizaciones económicas directas.
 
 ## Hallazgo clave
 
-Los lag features (consumo_lag1, consumo_lag24) capturan la mayor parte
-de la señal predictiva. La inercia térmica y el patrón diario explican
-la variabilidad más que la hora o el día de la semana por sí solos.
+Casi toda la señal está en los retardos: el consumo de la hora anterior
+(`consumo_lag1`) y el de la misma hora del día anterior (`consumo_lag24`).
+Lo que acaba de pasar y el patrón diario explican más que la hora o el día
+de la semana por sí solos.
+
+Y la red neuronal no compensa: el Random Forest (R² = 0,974) y hasta la
+regresión lineal (0,964) se equivocan menos que el MLP (0,957).
 

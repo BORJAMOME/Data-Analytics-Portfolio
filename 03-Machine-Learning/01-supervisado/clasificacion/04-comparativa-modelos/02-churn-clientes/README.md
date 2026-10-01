@@ -1,28 +1,28 @@
 # Comparativa de 3 modelos — Predicción de churn (Telecomunicaciones)
 
-Caso complementario al del gimnasio: aquí la comparativa de 3 algoritmos revela que **ningún modelo funciona** — porque las variables disponibles no contienen la señal necesaria. Un resultado negativo igual de valioso que uno positivo.
+Es el reverso del caso del gimnasio. Aquí ninguno de los tres algoritmos funciona, porque las variables disponibles no contienen la señal. Lo he dejado en el portfolio a propósito: saber cuándo no se puede construir un modelo también es parte del trabajo.
 
 ---
 
 ## Contexto de negocio
 
-Una empresa de telecomunicaciones quiere predecir qué clientes abandonarán. Con solo 4 variables demográficas y de facturación (Edad, Ingresos, Antigüedad, Gasto Mensual), se evalúa si algún modelo puede capturar patrones de churn.
+Una empresa de telecomunicaciones quiere predecir qué clientes se van a dar de baja. Solo tiene 4 variables demográficas y de facturación (edad, ingresos, antigüedad y gasto mensual), y la pregunta es si con eso algún modelo encuentra algo.
 
 ## Objetivo
 
-Comparar tres algoritmos de clasificación sobre las variables disponibles y determinar si es viable construir un modelo predictivo de churn con esta información.
+Comparar tres algoritmos de clasificación con esas variables y ver si se puede construir un modelo de churn que sirva.
 
 ## Dataset
 
-`customer churn.xlsx` — 1.234 clientes con `Edad`, `Ingresos`, `Antiguedad`, `GastoMensual` (features) y `Churn` (target binario, 9% positivos — fuertemente desbalanceado).
+`customer churn.xlsx`: 1.234 clientes con `Edad`, `Ingresos`, `Antiguedad`, `GastoMensual` (features) y `Churn` (target binario, con solo un 9% de positivos, muy desbalanceado).
 
 ## Hallazgo clave
 
-> **Ningún modelo supera el azar.** AUC-ROC entre 0,50 y 0,58 para los 3 algoritmos. Todas las correlaciones entre features y target son <0,07.
+> Ningún modelo supera al azar: los tres se quedan con un AUC-ROC entre 0,50 y 0,58, y ninguna variable tiene una correlación con el target por encima de 0,07.
 >
-> Esto NO es un fallo del modelo — es un fallo de los datos. Las variables disponibles simplemente no contienen información predictiva sobre el churn.
+> El problema no está en los modelos sino en los datos. Con estas cuatro variables no hay forma de predecir quién se va.
 
-Este es el caso opuesto al [notebook del gimnasio](../01-satisfaccion-gimnasio/): allí la señal era tan fuerte que bastaba un árbol simple; aquí no hay señal que capturar.
+Es lo contrario del [caso del gimnasio](../01-satisfaccion-gimnasio/): allí la señal era tan fuerte que bastaba un árbol simple, y aquí no hay nada que capturar.
 
 ## Librerías principales
 

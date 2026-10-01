@@ -1,10 +1,10 @@
 # K-Means — Segmentación de votantes por posiciones políticas
 
 ## Contexto de negocio
-Un partido político quiere entender cómo piensa realmente su electorado para poder lanzar mensajes de campaña que conecten con cada grupo.
+Un partido político quiere saber cómo piensa de verdad su electorado para ajustar el mensaje de campaña a cada grupo.
 
 ## Dataset
-`politicos.xlsx` — 3.689 votantes, 9 variables (edad, ingresos, estudios, estado_civil, seguridad, impuestos, servicios_públicos, inmigración, voto).
+`politicos.xlsx`: 3.689 votantes, 9 variables (edad, ingresos, estudios, estado_civil, seguridad, impuestos, servicios_públicos, inmigración, voto).
 
 ## Técnicas aplicadas
 - One-Hot Encoding para convertir estudios y estado_civil a numérico (`drop='first'`)
@@ -14,6 +14,6 @@ Un partido político quiere entender cómo piensa realmente su electorado para p
 - Heatmap de perfiles y cruce de clusters con el voto real
 
 ## Hallazgo clave
-Cuando metes todas las variables, K-Means agrupa a la gente por estado civil y estudios — no por ideología. Los 4 clusters votan exactamente igual (~67% PP). Pero si usas solo las opiniones políticas, ahí sí aparecen perfiles reales: el votante pro-servicios públicos (PSOE), el conservador fiscal (PP) y el de seguridad + inmigración (VOX). Moraleja: meter más variables no siempre mejora el modelo. Elegir bien las features importa tanto como el algoritmo.
+Con todas las variables, K-Means agrupa a la gente por estado civil y estudios, no por ideología, y los 4 clusters votan exactamente igual (~67% PP). Con solo las opiniones políticas sí salen perfiles: el votante de servicios públicos (PSOE), el conservador fiscal (PP) y el de seguridad e inmigración (VOX). Meter más variables no siempre ayuda; elegir bien cuáles importa tanto como el algoritmo.
 
 

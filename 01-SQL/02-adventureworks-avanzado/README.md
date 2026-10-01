@@ -1,9 +1,8 @@
 # AdventureWorks Avanzado — Window Functions
 
-**Caso de negocio:** una empresa de fabricación y distribución (AdventureWorks) necesita
-analizar el comportamiento de compra de sus clientes, crear rankings de productos por precio,
-calcular acumulados de ventas y medir el crecimiento interanual por cliente para identificar
-a los 10 con mayor progresión.
+**Caso de negocio:** AdventureWorks, una empresa de fabricación y distribución, quiere
+entender cómo compran sus clientes, ordenar sus productos por precio, llevar acumulados de
+ventas y encontrar a los 10 clientes que más han crecido de un año a otro.
 
 ## Qué se aprende
 
@@ -15,15 +14,14 @@ a los 10 con mayor progresión.
 - CTE + `LAG()` para calcular crecimiento interanual (YoY) de clientes.
 - Ejercicio tipo entrevista técnica: ranking de clientes por crecimiento promedio.
 
-## Hallazgo clave
+## Qué incluye
 
-El archivo combina dos bloques complementarios: una batería de 11 ejercicios progresivos
-sobre Window Functions (desde agregaciones básicas hasta sumas acumuladas) y un examen
-final tipo entrevista que encadena CTE + LAG + agregación + TOP para resolver un problema
-real de análisis de crecimiento.
+Dos partes. La primera son 11 ejercicios de Window Functions que van de agregaciones básicas
+a sumas acumuladas. La segunda es un examen tipo entrevista: encadenar CTE, LAG, agregación
+y TOP para sacar el ranking de clientes por crecimiento.
 
 ## Archivos
 
-- `adventureworks_avanzado.sql` — 11 ejercicios de Window Functions + ejercicios 
+- `adventureworks_avanzado.sql`: 11 ejercicios de Window Functions y el examen
   con CTE y LAG (crecimiento YoY)
 

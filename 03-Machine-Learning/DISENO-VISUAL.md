@@ -1,6 +1,6 @@
 # Sistema de color de los notebooks
 
-> Sistema de color propio, validado para accesibilidad (contraste WCAG, simulación de daltonismo), que se aplica a **todos los gráficos matplotlib/seaborn/Plotly** de este portfolio — no solo `03-Machine-Learning`, también `04-IA-BigData`. Cada color tiene un único significado (positivo/negativo, protagonista/contexto, identidad de categoría) y se reutiliza igual en cualquier notebook nuevo, en vez de improvisar una paleta distinta cada vez.
+> Es el sistema de color que uso en **todos los gráficos de matplotlib, seaborn y Plotly** del portfolio, tanto en `03-Machine-Learning` como en `04-IA-BigData`. Está comprobado para accesibilidad (contraste WCAG y simulación de daltonismo). Cada color significa una sola cosa (positivo o negativo, protagonista o contexto, identidad de una categoría) y se usa igual en todos los notebooks, para no improvisar una paleta nueva cada vez.
 
 ---
 

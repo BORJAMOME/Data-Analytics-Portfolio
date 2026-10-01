@@ -1,14 +1,14 @@
 # Regresión Lineal Múltiple — Predicción de ventas mediante inversión publicitaria
 
-¿Cómo influye la inversión en publicidad sobre las ventas? En este proyecto se analiza el conocido dataset **Advertising** para identificar qué canales publicitarios generan un impacto real en las ventas y construir un modelo de regresión lineal múltiple capaz de realizar predicciones e interpretar el efecto de cada canal.
+¿Cuánto venden de más los euros que se meten en publicidad? Uso el conocido dataset **Advertising** para ver qué canales mueven de verdad las ventas, con una regresión lineal múltiple que sirve tanto para predecir como para leer el efecto de cada canal.
 
 ---
 
 ## Contexto de negocio
 
-Una empresa desea optimizar su presupuesto de marketing y conocer qué canales publicitarios generan un mayor retorno sobre las ventas.
+Una empresa quiere repartir mejor su presupuesto de marketing y saber qué canal le devuelve más ventas.
 
-El objetivo es identificar qué inversiones aportan un efecto significativo y construir un modelo que permita estimar las ventas a partir del presupuesto destinado a cada canal.
+Se trata de ver qué inversiones tienen un efecto significativo y de tener un modelo que estime las ventas según lo que se ponga en cada canal.
 
 ---
 
@@ -16,7 +16,7 @@ El objetivo es identificar qué inversiones aportan un efecto significativo y co
 
 **Advertising.csv**
 
-Contiene información de **200 campañas publicitarias**, incluyendo la inversión realizada en:
+200 campañas publicitarias con la inversión en:
 
 - **TV**
 - **Radio**
@@ -42,25 +42,25 @@ Contiene información de **200 campañas publicitarias**, incluyendo la inversi�
 
 ## Hallazgo principal
 
-> La inversión en **Televisión** y **Radio** explica aproximadamente el **90 % de la variabilidad de las ventas**. La inversión en **Newspaper** no aporta información estadísticamente significativa una vez consideradas las otras dos variables, por lo que el modelo final utiliza únicamente **TV** y **Radio**, obteniendo un excelente equilibrio entre precisión e interpretabilidad.
+> TV y radio explican cerca del 90 % de la variación de las ventas. La prensa (Newspaper) no aporta nada significativo una vez tenidas en cuenta las otras dos, así que el modelo final se queda solo con TV y radio.
 
 ---
 
 ## Resultados
 
 - **Variables predictoras:** TV y Radio
-- **R² (Train):** 0.8966
-- **R² (Test):** 0.8945
-- **MAE (Test):** 1.39 unidades de ventas
-- **RMSE (Test):** 1.69 unidades de ventas
-- **MAPE (Test):** 14.39 %
+- **R² (train):** 0,8966
+- **R² (test):** 0,8945
+- **MAE (test):** 1,39 unidades de ventas
+- **RMSE (test):** 1,69 unidades de ventas
+- **MAPE (test):** 14,39 %
 
 ---
 
 ## Conclusiones
 
-- La inversión en **Televisión** es el factor con mayor influencia sobre las ventas.
-- **Radio** también aporta información significativa y mejora el poder predictivo del modelo.
-- **Newspaper** no contribuye significativamente a explicar las ventas una vez consideradas TV y Radio.
-- El modelo mantiene un rendimiento muy similar en entrenamiento y prueba, por lo que **no presenta evidencias de sobreajuste (overfitting)**.
-- El modelo final constituye una herramienta útil para estimar ventas y apoyar la toma de decisiones sobre inversión publicitaria.
+- La TV es lo que más influye en las ventas.
+- La radio también aporta y mejora la predicción.
+- La prensa no explica nada una vez se tienen en cuenta TV y radio.
+- El modelo rinde casi igual en train y en test, así que no hay señales de sobreajuste.
+- Sirve para estimar ventas y para discutir con datos dónde poner el presupuesto. Una cosa: por euro, la radio rinde unas cuatro veces más que la TV (0,19 frente a 0,045), así que yo miraría si tiene margen para crecer antes de meter más en TV.

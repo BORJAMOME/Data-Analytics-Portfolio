@@ -1,21 +1,16 @@
 # Machine Learning — 41 Casos Prácticos
 
-> Colección completa de proyectos de Machine Learning desarrollados durante el **Bootcamp intensivo de Data Analytics en [Neoland](https://www.neoland.es/)** (mayo – julio 2026). Desde regresión lineal simple hasta redes neuronales y series temporales, cada notebook sigue una estructura profesional: contexto de negocio, exploración, modelado, evaluación y conclusión accionable.
+> Los proyectos de Machine Learning que hice durante el Bootcamp intensivo de Data Analytics en [Neoland](https://www.neoland.es/) (mayo a julio de 2026). Van de la regresión lineal simple a las redes neuronales y las series temporales, y todos siguen el mismo orden: contexto de negocio, exploración, modelo, evaluación y conclusión.
 
 **Autor:** [Borja Mora Méndez](https://www.linkedin.com/in/borjamoramendez/) · Madrid, 2026
 
-> Todos los gráficos siguen un sistema de color único y validado (accesibilidad CVD incluida) — ver [`DISENO-VISUAL.md`](DISENO-VISUAL.md) antes de crear o tocar cualquier visualización.
+> Todos los gráficos usan el mismo sistema de color, comprobado también para daltonismo. Está en [`DISENO-VISUAL.md`](DISENO-VISUAL.md) y conviene leerlo antes de crear o tocar cualquier gráfico.
 
 ---
 
-Cada notebook está construido como un **caso de consultoría**: empieza con una pregunta de negocio, elige el modelo adecuado (no el más complejo), evalúa con métricas relevantes y termina con una recomendación clara.
+Cada notebook arranca con una pregunta de negocio y busca el modelo que la responde, que muchas veces no es el más complejo. Se evalúa con las métricas que importan para ese problema y se cierra con una recomendación.
 
-**Lo que encontrarás aquí:**
-
-- **41 notebooks** organizados por tipo de aprendizaje y familia de modelo
-- **16 datasets** reales de sectores como fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte
-- **Comparativas rigurosas** entre modelos (DT vs RF vs XGBoost) con recomendación de despliegue
-- **Progresión de conocimientos** de lo simple a lo complejo: cada técnica nueva se justifica frente a la anterior
+Son 41 notebooks ordenados por tipo de aprendizaje y familia de modelo, con 16 datasets de fitness, inmobiliaria, e-commerce, fintech, energía, retail y deporte. Hay comparativas entre modelos (DT, RF, XGBoost) que acaban diciendo cuál desplegaría, y el orden va de lo simple a lo complejo: cada técnica nueva tiene que justificar qué aporta frente a la anterior. Algunos casos acaban en un resultado negativo, y los he dejado así.
 
 ---
 
@@ -48,7 +43,7 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 │   │   └── jerarquico/                      4 casos · Dendrogramas, linkage, distancias
 │   │
 │   └── reduccion-dimensionalidad/
-│       └── pca/                             2 casos · Varianza explicada, biplot
+│       └── pca/                             2 casos · Varianza explicada, cargas, PCA + K-Means
 │
 ├── 03-redes-neuronales/                     6 notebooks
 │   ├── mlp/                                 4 casos · Fundamentos, fintech, forecast eléctrico, sentimiento IMDB
@@ -65,7 +60,7 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 
 ## 01 · Aprendizaje Supervisado
 
-Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predecir un número (regresión) o predecir una categoría (clasificación).
+Modelos que aprenden de datos etiquetados. O predicen un número (regresión) o predicen una categoría (clasificación).
 
 ### Regresión — predecir un valor numérico continuo
 
@@ -121,7 +116,7 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Benchmark riguroso, recomendación de despliegue | `gym_clientes.xlsx` |
+| 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Comparar modelos en igualdad de condiciones y decidir cuál desplegar | `gym_clientes.xlsx` |
 | 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
 | 03 | [Riesgo de impago](01-supervisado/clasificacion/04-comparativa-modelos/03-prediccion-impagos/) | Clasificación binaria, umbral de decisión justificado, separación estricta entre train y test | `competicion_clasificacion_train.xlsx` |
 | 04 | [Segmentación de aerolínea](01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting con el mismo split y validación cruzada, explicabilidad | `dataset_linea_aerea_multiclase_v2.xlsx` |
@@ -150,7 +145,7 @@ Modelos que aprenden a partir de datos etiquetados. Dos grandes familias: predec
 
 ## 02 · Aprendizaje No Supervisado
 
-Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes, reducción de dimensionalidad y análisis exploratorio.
+Modelos que buscan patrones sin etiquetas: segmentación de clientes, reducción de dimensionalidad y análisis exploratorio.
 
 ### Clustering
 
@@ -179,14 +174,14 @@ Modelos que descubren patrones sin etiquetas previas. Segmentación de clientes,
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Análisis de comportamiento de clientes](02-no-supervisado/reduccion-dimensionalidad/pca/01-comportamiento-clientes-email/) | Varianza explicada, scree plot, biplot, loadings | `PCA.xlsx` |
+| 01 | [Análisis de comportamiento de clientes](02-no-supervisado/reduccion-dimensionalidad/pca/01-comportamiento-clientes-email/) | Varianza explicada, scree plot, cargas, PCA + K-Means | `PCA.xlsx` |
 | 02 | [Segmentación de empleados](02-no-supervisado/reduccion-dimensionalidad/pca/02-segmentacion-empleados/) | PCA + K-Means: reducir para segmentar | `employees.xlsx` |
 
 ---
 
 ## 03 · Redes Neuronales
 
-Desde el Perceptrón Multicapa para clasificación y forecast hasta Self-Organizing Maps para clustering visual.
+Perceptrón multicapa para clasificar y predecir, y Self-Organizing Maps para agrupar de forma visual.
 
 **MLP — Multilayer Perceptron** · [`mlp/`](03-redes-neuronales/mlp/)
 
@@ -222,7 +217,7 @@ Modelos clásicos de forecasting aplicados a demanda y consumo.
 
 ## 05 · Aprendizaje por Refuerzo
 
-Un agente aprende una política de decisión por ensayo y error, optimizando la recompensa acumulada a largo plazo en lugar de predecir una etiqueta.
+Aquí no se predice una etiqueta. Un agente aprende qué hacer probando y equivocándose, buscando la mayor recompensa acumulada a largo plazo.
 
 **SARSA** · [`sarsa/`](05-aprendizaje-por-refuerzo/sarsa/)
 

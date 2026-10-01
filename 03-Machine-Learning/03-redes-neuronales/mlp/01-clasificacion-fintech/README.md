@@ -2,9 +2,9 @@
 
 ## Contexto de negocio
 
-Una fintech de microcréditos necesita automatizar la decisión de
-aprobación/rechazo de solicitudes, reduciendo la latencia de 48h
-a minutos y eliminando la inconsistencia entre analistas.
+Una fintech de microcréditos quiere automatizar la decisión de
+aprobar o rechazar solicitudes: pasar de 48 horas a minutos y que
+el resultado no dependa del analista al que le toque.
 
 ## Dataset
 
@@ -19,14 +19,14 @@ a minutos y eliminando la inconsistencia entre analistas.
 
 - MLP (8, 4) con StandardScaler
 - Comparativa con Regresión Logística sobre el mismo split
-- Análisis de sensibilidad a outliers: MLP (6, 8) + RobustScaler tras eliminar los 2 registros más extremos
+- Sensibilidad a outliers: MLP (6, 8) con RobustScaler tras quitar los 2 registros más extremos
 - Curvas ROC comparativas, matriz de correlación, matriz de confusión
 
 ## Hallazgo clave
 
-El MLP gana en accuracy (87,5% vs 83,3%) pero la Regresión Logística obtiene mejor AUC-ROC
-(0,943 vs 0,871). Con solo 120 registros y 3 variables, no hay evidencia suficiente de que la
-complejidad del MLP aporte una ventaja real — en *credit scoring*, la Regresión Logística sigue
-siendo el estándar regulatorio por su interpretabilidad, y aquí ni siquiera pierde en rendimiento.
+El MLP gana en accuracy (87,5% frente a 83,3%), pero la regresión logística tiene mejor AUC-ROC
+(0,943 frente a 0,871). Con 120 registros y 3 variables no hay pruebas de que la complejidad del
+MLP compense. En *credit scoring* la regresión logística sigue siendo lo estándar ante el
+regulador porque se puede explicar, y aquí ni siquiera rinde peor. Yo me quedaría con ella.
 
 

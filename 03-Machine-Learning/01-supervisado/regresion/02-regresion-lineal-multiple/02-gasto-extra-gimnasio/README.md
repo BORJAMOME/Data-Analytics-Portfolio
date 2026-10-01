@@ -1,12 +1,12 @@
 # Regresión Lineal Múltiple — Gasto extra en gimnasio
 
-El dataset transversal del portfolio: en clasificación predice abandono y satisfacción, aquí predice cuánto gasta cada cliente en extras.
+El dataset del gimnasio aparece en varios proyectos del portfolio. En clasificación sirve para predecir abandono y satisfacción; aquí, para predecir cuánto gasta cada cliente en extras.
 
 ---
 
 ## Contexto de negocio
 
-La cadena de gimnasios quiere aumentar el revenue por socio sin subir cuotas. Este modelo identifica los drivers del gasto extra (suplementos, clases premium, merchandising).
+La cadena de gimnasios quiere ingresar más por socio sin subir las cuotas. El modelo busca qué hace que un cliente gaste en extras (suplementos, clases premium, merchandising).
 
 ## Dataset
 
@@ -21,5 +21,9 @@ Dataset del gimnasio (300 clientes). Target: `Gasto_Mensual_Extra`. Variables ca
 
 ## Hallazgo clave
 
-El gasto extra está impulsado por la **antigüedad** y la **asistencia mensual**, las dos variables del modelo final (ambas con p < 0.001 en el modelo OLS; coeficientes 1.33 y 3.53 respectivamente; R² = 0.888 en train, R² = 0.840 en test). `Horas_Pico_Mes` se excluyó del modelo: en un ajuste previo con las tres variables no resultó significativa (p = 0.940) y presentaba multicolinealidad severa con `Asistencias_Mes` (VIF ≈ 40 y 30; r ≈ 0.94 entre ambas). Tras eliminarla, el VIF de las dos variables restantes cae a ≈ 1.00 y el poder predictivo se mantiene intacto (MAE = 9.58 €, RMSE = 11.75 €), confirmando que no aportaba información independiente. Los clientes con alta asistencia y antigüedad son los mejores candidatos para upselling.
+El gasto en extras depende de la antigüedad y de la asistencia mensual. Son las dos variables del modelo final, ambas con p < 0,001, coeficientes de 1,33 y 3,53 y un R² de 0,888 en train y 0,840 en test.
+
+`Horas_Pico_Mes` se quedó fuera. Con las tres variables no era significativa (p = 0,940) y tenía una multicolinealidad fuerte con `Asistencias_Mes` (VIF ≈ 40 y 30, r ≈ 0,94). Al quitarla, el VIF de las otras dos baja a ≈ 1,00 y el modelo predice igual (MAE = 9,58 €, RMSE = 11,75 €), así que no aportaba nada propio.
+
+Los clientes que van mucho y llevan tiempo son los mejores candidatos para ofrecerles servicios extra.
 

@@ -1,12 +1,12 @@
 # SVM — Reemplazo de baterías
 
-Clasificación de baterías mediante **Support Vector Machines (SVM)** para identificar cuáles necesitan reemplazo a partir de su edad e intensidad de uso.
+Uso SVM para saber qué baterías hay que reemplazar a partir de su edad y de lo intensamente que se han usado.
 
 ---
 
 ## Contexto de negocio
 
-Un fabricante necesita detectar qué baterías están próximas a necesitar reemplazo. El objetivo es minimizar los fallos en campo mediante un modelo de **mantenimiento predictivo**.
+Un fabricante quiere detectar las baterías que están a punto de necesitar recambio, para que fallen menos en manos del cliente. Es un caso de mantenimiento predictivo.
 
 ## Dataset
 
@@ -14,7 +14,7 @@ Sintético: **119 baterías**, con las variables:
 
 - `Edad_Anos`
 - `Intensidad_Uso`
-- `Requiere_Reemplazo` — variable objetivo binaria.
+- `Requiere_Reemplazo`: variable objetivo binaria.
 
 ## Técnicas aplicadas
 
@@ -23,11 +23,11 @@ Sintético: **119 baterías**, con las variables:
 - Estandarización de las variables con `StandardScaler`.
 - Evaluación mediante **Accuracy, Recall y F1-score**.
 - Visualización de las fronteras de decisión.
-- Selección del modelo según su capacidad para detectar baterías que requieren reemplazo.
+- Elección del modelo según cuántas baterías a reemplazar es capaz de detectar.
 
 ## Hallazgo clave
 
-El **SVM con kernel polinómico de grado 2** obtiene el mejor equilibrio entre rendimiento y complejidad, alcanzando aproximadamente un **91,7% de accuracy** y un **96,2% de recall** para las baterías que necesitan reemplazo.
+El SVM con kernel polinómico de grado 2 es el que mejor equilibra rendimiento y sencillez: un 91,7% de accuracy y un 96,2% de recall en las baterías que hay que cambiar. Detecta unas 96 de cada 100.
 
-Esto significa que el modelo consigue detectar aproximadamente **96 de cada 100 baterías que realmente necesitan ser sustituidas**, por lo que puede ser una herramienta útil como apoyo al mantenimiento preventivo.
+Con solo 36 baterías en el test, lo veo como una primera prueba que merece la pena validar con más datos, no como algo listo para producción.
 

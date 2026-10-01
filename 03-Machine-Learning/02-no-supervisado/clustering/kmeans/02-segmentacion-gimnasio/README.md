@@ -1,10 +1,10 @@
 # K-Means — Segmentación avanzada de miembros de gimnasio
 
 ## Contexto de negocio
-Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campañas de retención proactivas antes de perder miembros.
+Un gimnasio quiere encontrar los perfiles con más riesgo de baja para lanzar campañas de retención antes de perder a esos socios.
 
 ## Dataset
-`gym_clientes.xlsx` — 300 registros, 7 variables.
+`gym_clientes.xlsx`: 300 registros y 7 variables.
 
 ## Técnicas aplicadas
 - 4 features de comportamiento (Antigüedad, Asistencias, Horas_Pico, Gasto_Extra)
@@ -15,6 +15,6 @@ Un gimnasio quiere identificar perfiles de riesgo de abandono para lanzar campa�
 - Boxplots multivariable
 
 ## Hallazgo clave
-Los clusters son estables a través de múltiples inicializaciones (baja varianza en silhouette), confirmando que los segmentos son reales y no artefactos de la semilla.
+Los clusters salen iguales con 10 semillas distintas (el silhouette apenas varía). Los segmentos están en los datos y no dependen de la inicialización.
 
 
