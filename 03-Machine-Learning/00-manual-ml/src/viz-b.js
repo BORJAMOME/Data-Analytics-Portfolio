@@ -1240,4 +1240,112 @@ VIZ.push({id:"v-cox", model:"cox", g:"model", ic:"⏳", dim:"2D",
    sim(); draw();
  }});
 
+/* ── 9. UPLIFT · a quién mandar el cupón ──────────────────────── */
+VIZ.push({id:"v-uplift", model:"uplift", g:"model", ic:"🎯", dim:"2D",
+ t:"A quién mandar el cupón",
+ q:"¿Por qué ordenar por «probabilidad de compra» malgasta cupones y ordenar por uplift no?",
+ intro:"Cada punto es un cliente (simulado): en horizontal, su probabilidad de comprar <b>sin cupón</b>; en vertical, <b>con cupón</b>. Sobre la diagonal, el cupón no cambia nada. A la derecha, las compras <b>extra</b> que consigues al enviar el cupón al top-k% según tres criterios: <b>propensión</b> (los que más compran con cupón), <b>uplift</b> (los que más cambian gracias al cupón) o al azar. Cada punto representa a 250 clientes de una base de 100.000.",
+ notice:["Los <b>seguros</b> (arriba a la derecha) tienen la propensión más alta, pero compran igual sin cupón: mandarles cupón es regalar descuento.",
+   "Los <b>perros dormidos</b> (bajo la diagonal) compran <b>menos</b> si les escribes. Ordenar por uplift los deja para el final; por eso su curva acaba bajando.",
+   "La curva de uplift sube muy deprisa al principio: con un 20–30% de la base capturas casi todo el efecto. Mira el beneficio en euros de cada estrategia."],
+ models:["uplift","propensity","logistica","bandit"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 440, K = makeCanvas(stage, W, H, "Población por probabilidad de compra sin y con cupón, curvas de ganancia incremental y beneficio"), ctx = K.ctx;
+   var k = .3, cost = 8, margin = 40, SC = 250;
+   var r = mulberry(4), P = [];
+   for(var i = 0; i < 400; i++){
+     var u = r(), p0, p1;
+     if(u < .25){ p0 = .03 + .32 * r(); p1 = p0 + .22 + .3 * r(); }
+     else if(u < .5){ p0 = .55 + .38 * r(); p1 = p0 + .05 * gauss(r); }
+     else if(u < .85){ p0 = .02 + .3 * r(); p1 = p0 + .04 * gauss(r); }
+     else { p0 = .35 + .45 * r(); p1 = p0 - .14 - .22 * r(); }
+     p0 = clamp(p0, .01, .99); p1 = clamp(p1, .01, .99);
+     var up = p1 - p0, ty = up > .15 ? 0 : up < -.1 ? 3 : p0 >= .5 ? 1 : 2;
+     P.push({p0:p0, p1:p1, up:up, ty:ty, prop:p1 + .05 * gauss(r), upl:up + .06 * gauss(r)});
+   }
+   var TYPES = ["Persuadibles", "Seguros", "Perdidos", "Perros dormidos"];
+   var ordP = P.slice().sort(function(a, b){ return b.prop - a.prop; }), ordU = P.slice().sort(function(a, b){ return b.upl - a.upl; });
+   var cum = function(ord){ var c = [0], s = 0; ord.forEach(function(p){ s += p.up; c.push(s); }); return c; };
+   var cP = cum(ordP), cU = cum(ordU), tot = cP[cP.length - 1];
+   function profit(ord, n){ var inc = 0, red = 0; for(var i = 0; i < n; i++){ inc += ord[i].up; red += ord[i].p1; } return {inc:inc * SC, eur:(margin * inc - cost * red) * SC, red:red * SC}; }
+   function profitRand(n){ var f = n / P.length, inc = 0, red = 0; P.forEach(function(p){ inc += p.up; red += p.p1; }); return {inc:inc * f * SC, eur:(margin * inc - cost * red) * f * SC, red:red * f * SC}; }
+   function draw(){
+     K.clear();
+     var b = [58, 36, 340, 340], sx = function(v){ return b[0] + v * b[2]; }, sy = function(v){ return b[1] + (1 - v) * b[3]; };
+     head(ctx, "400 clientes · ¿cambia algo el cupón?", b[0], 22, C);
+     /* zonas */
+     ctx.save(); ctx.beginPath(); ctx.rect(b[0], b[1], b[2], b[3]); ctx.clip();
+     var zone = function(pts, col){ ctx.beginPath(); pts.forEach(function(p, i){ i ? ctx.lineTo(sx(p[0]), sy(p[1])) : ctx.moveTo(sx(p[0]), sy(p[1])); }); ctx.closePath(); ctx.fillStyle = hexA(col, .09); ctx.fill(); };
+     zone([[0, .15], [.85, 1], [0, 1]], C.c[1]);
+     zone([[.5, .4], [1, .9], [1, 1], [.85, 1], [.5, .65]], C.c[2]);
+     zone([[0, 0], [.1, 0], [.5, .4], [.5, .65], [0, .15]], C.c[3]);
+     zone([[.1, 0], [1, 0], [1, .9]], C.c[4]);
+     dashLine(ctx, sx(0), sy(0), sx(1), sy(1), C.ink, 1.3, [5, 4]);
+     ctx.restore();
+     frame(ctx, b, C);
+     /* top-k por uplift: aro */
+     var n = Math.round(k * P.length), selU = new Set(ordU.slice(0, n));
+     P.forEach(function(p){
+       var X = sx(p.p0), Y = sy(p.p1);
+       mark(ctx, X, Y, 3.3, p.ty, hexA(C.c[p.ty + 1], .9), null);
+       if(selU.has(p)){ ctx.strokeStyle = C.ink; ctx.lineWidth = .9; ctx.beginPath(); ctx.arc(X, Y, 5.6, 0, TAU); ctx.stroke(); }
+     });
+     var lab = [[.04, .95, 0, "left"], [.96, .97, 1, "right"], [.04, .06, 2, "left"], [.96, .06, 3, "right"]];
+     lab.forEach(function(L){
+       var s = TYPES[L[2]], tw = TW(ctx, s, 11, "700") + 30, x0 = L[3] === "left" ? sx(L[0]) : sx(L[0]) - tw, y = sy(L[1]);
+       rr(ctx, x0, y - 10, tw, 20, 10); ctx.fillStyle = hexA(C.card, .92); ctx.fill(); ctx.strokeStyle = C.c[L[2] + 1]; ctx.lineWidth = 1; ctx.stroke();
+       mark(ctx, x0 + 11, y, 3.6, L[2], C.c[L[2] + 1], null);
+       T(ctx, s, x0 + 21, y + 4, {s:11, w:"700", c:C.ink});
+     });
+     T(ctx, "sin efecto", sx(.62), sy(.62) - 8, {s:11, c:C.ink, a:"right"});
+     [0, .5, 1].forEach(function(v){ T(ctx, pct(v, 0), sx(v), b[1] + b[3] + 14, {s:11, c:C.muted, a:"center"}); T(ctx, pct(v, 0), b[0] - 6, sy(v) + 4, {s:11, c:C.muted, a:"right"}); });
+     T(ctx, "P(compra) sin cupón →", b[0] + b[2] / 2, b[1] + b[3] + 30, {s:11, c:C.muted, a:"center"});
+     ctx.save(); ctx.translate(b[0] - 40, b[1] + b[3] / 2); ctx.rotate(-Math.PI / 2); T(ctx, "P(compra) con cupón →", 0, 0, {s:11, c:C.muted, a:"center"}); ctx.restore();
+     T(ctx, "◯ = recibe cupón (top " + pct(k, 0) + " por uplift)", b[0] + b[2], b[1] + b[3] + 30, {s:11, c:C.muted, a:"right"});
+     /* curvas de ganancia incremental */
+     var q = [470, 40, 270, 180], ymax = Math.max.apply(null, cU) * 1.08, ymin = Math.min(0, Math.min.apply(null, cP));
+     var qx = function(f){ return q[0] + f * q[2]; }, qy = function(v){ return q[1] + q[3] - (v - ymin) / (ymax - ymin) * q[3]; };
+     head(ctx, "Compras extra según a quién envías", q[0], 22, C);
+     ctx.strokeStyle = C.line; ctx.beginPath(); ctx.moveTo(q[0], qy(0) + .5); ctx.lineTo(q[0] + q[2], qy(0) + .5); ctx.stroke();
+     ctx.beginPath(); ctx.moveTo(q[0] + .5, q[1]); ctx.lineTo(q[0] + .5, q[1] + q[3]); ctx.stroke();
+     path(ctx, [[qx(0), qy(0)], [qx(1), qy(tot)]], C.muted, 1.6, [4, 4]);
+     path(ctx, cP.map(function(v, i){ return [qx(i / P.length), qy(v)]; }), C.c[1], 2.2);
+     path(ctx, cU.map(function(v, i){ return [qx(i / P.length), qy(v)]; }), C.c[0], 2.6);
+     dashLine(ctx, qx(k), q[1], qx(k), q[1] + q[3], C.ink, 1.2, [2, 3]);
+     [[cU, C.c[0]], [cP, C.c[1]]].forEach(function(o){ dot(ctx, qx(k), qy(o[0][n]), 4.2, o[1], C.card); });
+     T(ctx, "uplift", qx(.97), qy(cU[Math.round(.97 * P.length)]) - 8, {s:11, w:"700", c:C.c[0], a:"right"});
+     T(ctx, "propensión", qx(.6), qy(cP[Math.round(.6 * P.length)]) + 16, {s:11, w:"700", c:C.c[1], a:"center"});
+     T(ctx, "al azar", qx(.97), qy(tot * .97) + 15, {s:11, w:"600", c:C.muted, a:"right"});
+     ["0%", "50%", "100%"].forEach(function(s, i){ T(ctx, s, qx(i / 2), q[1] + q[3] + 14, {s:11, c:C.muted, a:"center"}); });
+     T(ctx, "% de la base que recibe cupón", q[0] + q[2] / 2, q[1] + q[3] + 28, {s:11, c:C.muted, a:"center"});
+     T(ctx, miles(ymax * SC / 1.08), q[0] - 4, q[1] + 10, {s:11, c:C.muted, a:"right"});
+     T(ctx, "0", q[0] - 4, qy(0) + 4, {s:11, c:C.muted, a:"right"});
+     /* beneficio */
+     var res = [["Uplift", profit(ordU, n), C.c[0]], ["Propensión", profit(ordP, n), C.c[1]], ["Al azar", profitRand(n), C.muted]];
+     var pb = [560, 300, 180, 96], emax = Math.max.apply(null, res.map(function(x){ return Math.abs(x[1].eur); })) || 1;
+     head(ctx, "Beneficio incremental (100.000 clientes)", q[0], 288, C);
+     var zx = pb[0] + pb[2] * (res.some(function(x){ return x[1].eur < 0; }) ? .35 : 0), span = pb[2] - (zx - pb[0]);
+     ctx.strokeStyle = C.ink; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(zx + .5, pb[1]); ctx.lineTo(zx + .5, pb[1] + pb[3]); ctx.stroke();
+     res.forEach(function(x, j){
+       var y = pb[1] + 6 + j * 32, v = x[1].eur, w = Math.abs(v) / emax * (v >= 0 ? span - 6 : (zx - pb[0]) - 4);
+       T(ctx, x[0], q[0], y + 14, {s:11, w:"600", c:C.ink});
+       ctx.fillStyle = v >= 0 ? hexA(x[2], .85) : hexA(C.neg, .75);
+       rr(ctx, v >= 0 ? zx : zx - w, y + 2, Math.max(2, w), 16, 4); ctx.fill();
+       var lt = (v >= 0 ? "▲ " : "▼ ") + eur(v), inside = w > TW(ctx, lt, 11, "700") + 12;
+       if(v >= 0) T(ctx, lt, inside ? zx + w - 6 : zx + w + 5, y + 14, {s:11, w:"700", c:inside ? "#fff" : C.ink, a:inside ? "right" : "left"});
+       else T(ctx, lt, zx + 5, y + 14, {s:11, w:"700", c:C.ink});
+     });
+     var u = res[0][1], p = res[1][1], rd = res[2][1];
+     read.innerHTML = '<span>Cupones enviados <b>' + miles(n * SC) + '</b></span>' +
+       '<span>Compras extra · uplift <b>' + miles(u.inc) + '</b> · propensión <b>' + miles(p.inc) + '</b> · azar <b>' + miles(rd.inc) + '</b></span>' +
+       '<span>Beneficio · uplift <b>' + eur(u.eur) + '</b> · propensión <b>' + eur(p.eur) + '</b> · azar <b>' + eur(rd.eur) + '</b></span>' +
+       '<span class="ldiag">Beneficio = ' + margin + ' € de margen × compras extra − ' + cost + ' € de descuento × <b>todos</b> los que usan el cupón (también los que habrían comprado igual). ' +
+       'Ordenando por uplift ganas <b class="' + (u.eur - p.eur >= 0 ? 'lgood' : 'lbad') + '">' + (u.eur - p.eur >= 0 ? "▲ " : "▼ ") + eur(Math.abs(u.eur - p.eur)) + '</b> más que por propensión: la propensión manda cupones a <b>seguros</b> que compran igual y regala ' + miles(p.red - p.inc) + ' descuentos innecesarios.</span>';
+   }
+   ctlSlider(ctl, "% de la base que recibe cupón", 0, 1, .01, k, function(v){ return pct(v, 0) + " · " + miles(v * 100000) + " clientes"; }, function(v){ k = v; draw(); });
+   ctlSlider(ctl, "Coste del cupón (descuento)", 2, 30, 1, cost, function(v){ return v + " €"; }, function(v){ cost = v; draw(); });
+   ctlSlider(ctl, "Margen de una compra", 10, 120, 5, margin, function(v){ return v + " €"; }, function(v){ margin = v; draw(); });
+   draw();
+ }});
+
 })();

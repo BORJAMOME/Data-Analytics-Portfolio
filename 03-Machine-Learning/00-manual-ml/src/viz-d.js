@@ -12,7 +12,7 @@
 /* ── utilidades de dibujo ── */
 function tx(ctx, s, x, y, o){
   o = o || {};
-  ctx.font = (o.w ? o.w + " " : "") + (o.s || 12) + "px " + LABFONT;
+  ctx.font = (o.it ? "italic " : "") + (o.w ? o.w + " " : "") + (o.s || 12) + "px " + LABFONT;
   ctx.fillStyle = o.c || "#888"; ctx.textAlign = o.a || "left"; ctx.textBaseline = o.b || "alphabetic";
   ctx.fillText(s, x, y);
   return ctx.measureText(s).width;
@@ -1049,7 +1049,7 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
    var TK = ["PLF", "NSC", "PL", "CÑ", "NSC", "FG", "PLG", "NS", "CÑN", "PFG", "LFG", "NSCÑ", "PLFG", "C", "PL", "NSC", "ÑCL", "FG", "PLF", "NC", "SNP", "LG", "CÑ", "PF"];
    var code = "PLNSCÑFG";
    var T = TK.map(function(s){ return PR.map(function(_, j){ return s.indexOf(code[j]) > -1 ? 1 : 0; }); });
-   var NT = T.length, A = 2, B = 3, view = "rules", minsup = 4;
+   var NT = T.length, A = 2, B = 3, view = "rules", minsup = 6;
    var cnt = function(items){ return T.filter(function(t){ return items.every(function(j){ return t[j]; }); }).length; };
    /* vista 1: lienzo */
    var wrap1 = document.createElement("div"); wrap1.style.width = "100%"; stage.appendChild(wrap1);
@@ -1150,7 +1150,7 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
      wrap2.innerHTML = '<div style="background:' + C.card + ';border:.5px solid ' + C.line + ';border-radius:16px;padding:16px 18px;box-shadow:var(--shadow-1)">' + leg + key2 +
        ["1 producto", "2 productos", "3 productos"].map(function(t, k){
          var f = status[k].filter(function(o){ return o.st === "freq"; }).length;
-         return '<div style="margin-top:10px"><div class="lcl" style="margin-bottom:4px">' + t + ' · ' + LV[k].length + ' combinaciones · <span style="color:' + C.ink + '">' + f + ' frecuentes</span></div><div>' + status[k].map(chipH).join("") + '</div></div>';
+         return '<div style="margin-top:10px"><div class="lcl" style="margin-bottom:4px">' + t + ' · ' + LV[k].length + ' combinaciones · <span style="color:' + C.ink + '">' + f + ' frecuente' + (f === 1 ? '' : 's') + '</span></div><div>' + status[k].map(chipH).join("") + '</div></div>';
        }).join("") + '</div>';
      var total = LV[0].length + LV[1].length + LV[2].length;
      read.innerHTML = '<span>Soporte mínimo <b>' + minsup + ' tickets (' + pct(minsup / NT, 0) + ')</b></span><span>Combinaciones posibles <b>' + total + '</b></span><span>Contadas <b>' + counted + '</b></span><span>Podadas sin contar <b>' + pruned + '</b></span>' +
@@ -1167,6 +1167,127 @@ VIZ.push({id:"v-apriori", model:"apriori", g:"model", ic:"🛒", dim:"2D",
    var supCtl = ctlSlider(ctl, "Soporte mínimo (nº de tickets)", 1, 10, 1, minsup, function(v){ return v + " de 24 · " + pct(v / NT, 0); }, function(v){ minsup = v; draw(); }).input.parentNode;
    supCtl.style.display = "none";
    draw();
+ }});
+
+/* ── 8. FILTRADO COLABORATIVO: FACTORIZACIÓN MATRICIAL ───────── */
+VIZ.push({id:"v-reco", model:"reco", g:"model", ic:"🍿", dim:"2D",
+ t:"Rellenar los huecos: factorización de matrices",
+ q:"¿Cómo adivina un recomendador la nota que darías a una serie que no has visto?",
+ intro:"Notas (1-5) de 8 usuarios a 8 series; los <b>?</b> son series que no han visto. Pulsa <b>▶ Factorizar</b>: se ejecuta de verdad una factorización matricial con 2 factores latentes (descenso de gradiente con regularización). El modelo aprende <b>2 números por usuario</b> (sus gustos) y <b>2 por serie</b> (su «perfil»), y su producto rellena los huecos. A la derecha, ese espacio de gustos. <b>Haz clic en un usuario</b> para ver sus 3 recomendaciones.",
+ notice:["Las celdas con borde discontinuo y número en cursiva son <b>predicciones</b>; las sólidas, notas reales. El modelo nunca ha visto los huecos: los deduce de usuarios con gustos parecidos.",
+   "En el espacio latente, las series de acción y las de drama acaban en <b>zonas distintas</b>, y cada usuario se coloca cerca de lo que le gusta. Nadie le ha dicho al modelo qué es «acción»: lo descubre de las notas.",
+   "El <b>RMSE</b> en las celdas conocidas baja con las iteraciones, pero la regularización impide que llegue a 0: así el modelo no memoriza y predice mejor los huecos."],
+ models:["reco","contentbased","pca","apriori"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 420, K = makeCanvas(stage, W, H, "Matriz de valoraciones con huecos y espacio latente de usuarios y series"), ctx = K.ctx;
+   var US = ["Ana", "Luis", "Marta", "Pablo", "Sara", "Jorge", "Elena", "Raúl"];
+   var SE = ["Galaxia 9", "Código Rojo", "Fuga", "Titanes", "Cartas", "La Huerta", "Abril", "Velas"];
+   var gen = [[1, 0], [0.9, 0.1], [1, 0.1], [0.85, 0], [0, 1], [0.1, 0.9], [0.05, 1], [0.15, 0.85]]; /* acción, drama */
+   var pref = [[1, 0.1], [0.9, 0.2], [0.1, 1], [0.2, 0.9], [0.8, 0.7], [1, 0], [0, 0.95], [0.55, 0.5]];
+   var r = mulberry(8), R = [], M = [];
+   for(var u = 0; u < 8; u++){ R.push([]); for(var i = 0; i < 8; i++){ var v = 1 + 4 * (pref[u][0] * gen[i][0] + pref[u][1] * gen[i][1]) / 1.1 + 0.35 * gauss(r); R[u].push(Math.max(1, Math.min(5, Math.round(v)))); } }
+   var HOLES = [[1, 4, 6], [2, 5, 7], [0, 3, 6], [1, 2, 5, 7], [0, 6, 7], [3, 4, 6], [1, 3, 4], [0, 2, 5]];
+   for(u = 0; u < 8; u++){ M.push([]); for(i = 0; i < 8; i++) M[u].push(HOLES[u].indexOf(i) < 0); }
+   var mu = 0, nk = 0; for(u = 0; u < 8; u++) for(i = 0; i < 8; i++) if(M[u][i]){ mu += R[u][i]; nk++; } mu /= nk;
+   var Pu, Qi, it, hist, sel = 0, anim, MAXI = 400, lam = 0.06, lr = 0.06;
+   function reset(){ var g = mulberry(3); Pu = []; Qi = []; for(var q = 0; q < 8; q++){ Pu.push([0.1 * gauss(g), 0.1 * gauss(g)]); Qi.push([0.1 * gauss(g), 0.1 * gauss(g)]); } it = 0; hist = []; }
+   var pred = function(u, i){ return mu + Pu[u][0] * Qi[i][0] + Pu[u][1] * Qi[i][1]; };
+   function rmse(){ var s = 0; for(var u = 0; u < 8; u++) for(var i = 0; i < 8; i++) if(M[u][i]){ var e = R[u][i] - pred(u, i); s += e * e; } return Math.sqrt(s / nk); }
+   function step(){ /* descenso de gradiente por lotes con regularización L2 */
+     var gP = Pu.map(function(){ return [0, 0]; }), gQ = Qi.map(function(){ return [0, 0]; });
+     for(var u = 0; u < 8; u++) for(var i = 0; i < 8; i++) if(M[u][i]){
+       var e = R[u][i] - pred(u, i);
+       for(var f = 0; f < 2; f++){ gP[u][f] += -e * Qi[i][f]; gQ[i][f] += -e * Pu[u][f]; }
+     }
+     for(u = 0; u < 8; u++) for(var f2 = 0; f2 < 2; f2++){ Pu[u][f2] -= lr * (gP[u][f2] + lam * Pu[u][f2]); Qi[u][f2] -= lr * (gQ[u][f2] + lam * Qi[u][f2]); }
+     it++; hist.push(rmse());
+   }
+   var hx = 112, hy = 96, cw = 40, ch = 34;
+   function recs(u){ return HOLES[u].map(function(i){ return [i, pred(u, i)]; }).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 3); }
+   function draw(){
+     K.clear();
+     var shown = it > 0;
+     cap(ctx, "Notas de 1 a 5", 16, 20, C);
+     /* cabeceras de columna giradas */
+     SE.forEach(function(s, i){ ctx.save(); ctx.translate(hx + i * cw + cw / 2 + 4, hy - 8); ctx.rotate(-Math.PI / 4); tx(ctx, s, 0, 0, {s:12, w:i < 4 ? 600 : 400, c:C.text}); ctx.restore(); });
+     var rc = shown ? recs(sel).map(function(x){ return x[0]; }) : [];
+     US.forEach(function(name, u){
+       var y = hy + u * ch;
+       if(u === sel){ ctx.fillStyle = hexA(C.c[0], 0.08); rrect(ctx, 8, y + 1, hx + 8 * cw - 2, ch - 2, 6); ctx.fill(); }
+       tx(ctx, name, hx - 10, y + ch / 2 + 4, {s:12.5, w:u === sel ? 700 : 500, c:C.ink, a:"right"});
+       for(var i = 0; i < 8; i++){
+         var x = hx + i * cw, known = M[u][i], val = known ? R[u][i] : pred(u, i);
+         var cx = x + 3, cy = y + 3, w = cw - 6, h = ch - 6;
+         if(known){
+           ctx.fillStyle = hexA(C.c[0], 0.1 + 0.8 * (val - 1) / 4); rrect(ctx, cx, cy, w, h, 6); ctx.fill();
+           tx(ctx, String(val), x + cw / 2, y + ch / 2 + 5, {s:13, w:700, c:val >= 4 ? C.card : C.ink, a:"center"});
+         } else if(!shown){
+           rrect(ctx, cx, cy, w, h, 6); stroke(ctx, hexA(C.muted, 0.6), 1, [3, 3]);
+           tx(ctx, "?", x + cw / 2, y + ch / 2 + 5, {s:13, w:600, c:C.muted, a:"center"});
+         } else {
+           var vv = Math.max(1, Math.min(5, val));
+           ctx.fillStyle = hexA(C.c[0], 0.05 + 0.4 * (vv - 1) / 4); rrect(ctx, cx, cy, w, h, 6); ctx.fill();
+           rrect(ctx, cx, cy, w, h, 6); stroke(ctx, hexA(C.c[0], 0.85), 1.3, [3, 3]);
+           tx(ctx, fmt(val, 1), x + cw / 2, y + ch / 2 + 5, {s:12, w:600, it:true, c:C.ink, a:"center"});
+           if(u === sel && rc.indexOf(i) > -1){ rrect(ctx, cx - 2, cy - 2, w + 4, h + 4, 8); stroke(ctx, C.c[1], 2.2); }
+         }
+       }
+     });
+     tx(ctx, "▒ nota real", hx, hy + 8 * ch + 20, {s:11, c:C.muted});
+     tx(ctx, "┅ predicción", hx + 90, hy + 8 * ch + 20, {s:11, c:C.muted});
+     if(shown) tx(ctx, "▢ recomendada a " + US[sel], hx + 196, hy + 8 * ch + 20, {s:11, c:C.c[1], w:600});
+     /* espacio latente */
+     var lb = [478, 34, 264, 270];
+     cap(ctx, "Espacio latente (2 factores)", lb[0], 20, C);
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(lb[0] + .5, lb[1] + .5, lb[2], lb[3]);
+     var all = Pu.concat(Qi), m = 0.3; all.forEach(function(p){ m = Math.max(m, Math.abs(p[0]), Math.abs(p[1])); });
+     var lx = function(v){ return lb[0] + lb[2] / 2 + v / (m * 1.25) * lb[2] / 2; }, ly = function(v){ return lb[1] + lb[3] / 2 - v / (m * 1.25) * lb[3] / 2; };
+     seg(ctx, lb[0], ly(0), lb[0] + lb[2], ly(0), hexA(C.line, 1), 1); seg(ctx, lx(0), lb[1], lx(0), lb[1] + lb[3], hexA(C.line, 1), 1);
+     ctx.save(); ctx.beginPath(); ctx.rect(lb[0], lb[1], lb[2], lb[3]); ctx.clip();
+     Qi.forEach(function(q, i){ mark(ctx, 1, lx(q[0]), ly(q[1]), 5, C.c[1], C.card, 1); tx(ctx, SE[i], lx(q[0]) + 8, ly(q[1]) + 4, {s:11, c:C.text}); });
+     Pu.forEach(function(p, u){ dot(ctx, lx(p[0]), ly(p[1]), u === sel ? 7 : 5, C.c[0], u === sel ? C.ink : C.card); tx(ctx, US[u], lx(p[0]) + 9, ly(p[1]) - 6, {s:11, w:u === sel ? 700 : 500, c:C.ink}); });
+     ctx.restore();
+     dot(ctx, lb[0] + 8, lb[1] + lb[3] + 16, 4.5, C.c[0]); tx(ctx, "usuario", lb[0] + 16, lb[1] + lb[3] + 20, {s:11, c:C.muted});
+     mark(ctx, 1, lb[0] + 80, lb[1] + lb[3] + 16, 4.5, C.c[1]); tx(ctx, "serie", lb[0] + 88, lb[1] + lb[3] + 20, {s:11, c:C.muted});
+     /* RMSE */
+     var gb = [lb[0] + 30, 346, lb[2] - 30, 54];
+     cap(ctx, "RMSE en celdas conocidas", lb[0], 336, C);
+     ctx.strokeStyle = C.line; ctx.strokeRect(gb[0] + .5, gb[1] + .5, gb[2], gb[3]);
+     if(hist.length > 1){
+       var hm = Math.max.apply(null, hist);
+       pathXY(ctx, hist.map(function(_, q){ return gb[0] + q / (MAXI - 1) * gb[2]; }), hist.map(function(v){ return gb[1] + gb[3] - v / hm * gb[3]; })); stroke(ctx, C.c[0], 2);
+       tx(ctx, fmt(hm, 1), gb[0] - 4, gb[1] + 10, {s:11, c:C.muted, a:"right"}); tx(ctx, "0", gb[0] - 4, gb[1] + gb[3], {s:11, c:C.muted, a:"right"});
+     }
+     /* lectura */
+     var rr = shown ? recs(sel) : [];
+     read.innerHTML = '<span>Iteración <b>' + it + ' / ' + MAXI + '</b></span><span>RMSE (celdas conocidas) <b>' + (hist.length ? fmt(hist[hist.length - 1], 3) : "—") + '</b></span><span>Usuario <b>' + US[sel] + '</b></span>' +
+       '<span class="ldiag">' + (shown ? "Recomendaciones para <b>" + US[sel] + "</b>: " + rr.map(function(x, q){ return (q + 1) + ". <b>" + SE[x[0]] + "</b> (" + fmt(Math.max(1, Math.min(5, x[1])), 1) + ")"; }).join(" · ") +
+         ". El RMSE dice que, en las notas que sí conocemos, el modelo se equivoca de media unas " + fmt(hist[hist.length - 1], 2) + " estrellas." : "Pulsa <b>▶ Factorizar</b>: verás cómo los <b>?</b> se convierten en predicciones mientras el error baja.") + '</span>';
+   }
+   anim = animator(function(){
+     for(var s = 0; s < 2 && it < MAXI; s++) step();
+     draw();
+     if(it >= MAXI){ pb.innerHTML = "↺ Repetir"; return false; }
+   });
+   var pb = ctlBtn(ctl, "▶ Factorizar", function(){
+     if(anim.on){ anim.stop(); pb.innerHTML = "▶ Seguir"; return; }
+     if(it >= MAXI){ reset(); }
+     pb.innerHTML = "⏸ Pausa"; anim.start();
+   }, true);
+   ctlBtn(ctl, "↺ Empezar de nuevo", function(){ anim.stop(); reset(); pb.innerHTML = "▶ Factorizar"; draw(); });
+   ctlSlider(ctl, "Regularización λ", 0, 0.5, 0.01, lam, function(v){ return fmt(v); }, function(v){ lam = v; if(it >= MAXI || !anim.on){ reset(); for(var q = 0; q < MAXI; q++) step(); pb.innerHTML = "↺ Repetir"; draw(); } });
+   K.cv.addEventListener("click", function(e){
+     var p = K.pos(e), b = -1;
+     if(p[0] < hx + 8 * cw && p[1] > hy && p[1] < hy + 8 * ch) b = Math.floor((p[1] - hy) / ch);
+     else {
+       var all = Pu.concat(Qi), m = 0.3; all.forEach(function(q){ m = Math.max(m, Math.abs(q[0]), Math.abs(q[1])); });
+       var bd = 16; Pu.forEach(function(q, u){ var d = Math.hypot(478 + 132 + q[0] / (m * 1.25) * 132 - p[0], 34 + 135 - q[1] / (m * 1.25) * 135 - p[1]); if(d < bd){ bd = d; b = u; } });
+     }
+     if(b >= 0){ sel = b; draw(); }
+   });
+   K.cv.style.cursor = "pointer";
+   reset(); draw();
+   return function(){ anim.stop(); };
  }});
 
 })();

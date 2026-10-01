@@ -869,14 +869,14 @@ VIZ.push({id:"v-bayesnet", model:"bayesnet", g:"model", ic:"🕸️", dim:"2D",
      ".vbn-n:hover{border-color:var(--accent)}.vbn-n:focus-visible{outline:2px solid var(--accent);outline-offset:2px}" +
      ".vbn-n.ev1{border-color:var(--accent);background:var(--accent-soft)}.vbn-n.ev0{border-style:dashed;border-color:var(--ink)}" +
      ".vbn-h{font-weight:700;color:var(--ink);font-size:14.5px;line-height:1.25}" +
-     ".vbn-tag{align-self:flex-start;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--card);border:.5px solid var(--line-2);color:var(--muted)}" +
+     ".vbn-tag{align-self:flex-start;white-space:nowrap;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--card);border:.5px solid var(--line-2);color:var(--muted)}" +
      ".vbn-n.ev1 .vbn-tag{background:var(--accent);border-color:var(--accent);color:#fff}.vbn-n.ev0 .vbn-tag{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}" +
      ".vbn-p{font-size:22px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}.vbn-p small{font-size:12px;font-weight:500;color:var(--muted);margin-left:4px}" +
      ".vbn-bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.vbn-bar i{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .45s ease}" +
      ".vbn-d{font-size:12px;font-weight:600;min-height:16px;color:var(--muted)}.vbn-d.up{color:var(--ink)}.vbn-d.dn{color:var(--ink)}" +
      ".vbn-cpt{display:none;font-size:11.5px;line-height:1.5;color:var(--muted);border-top:.5px solid var(--line);padding-top:6px}.vbn.cpt .vbn-cpt{display:block}" +
      ".vbn-hint{align-self:center;font-size:12.5px;line-height:1.5;color:var(--muted)}" +
-     "@media(max-width:640px){.vbn{gap:40px 8px;padding:12px}.vbn-n{padding:9px 9px;gap:5px}.vbn-h{font-size:12.5px}.vbn-p{font-size:17px}.vbn-p small{display:none}.vbn-hint{font-size:11.5px}}";
+     "@media(max-width:640px){.vbn{gap:40px 8px;padding:12px}.vbn-n{padding:9px 9px;gap:5px}.vbn-h{font-size:12.5px}.vbn-p{font-size:17px}.vbn-tag{font-size:10px;padding:1px 6px}.vbn-p small{display:none}.vbn-hint{font-size:11.5px}}";
    stage.appendChild(st);
    var box = document.createElement("div"); box.className = "vbn"; stage.appendChild(box);
    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); box.appendChild(svg);
@@ -1138,6 +1138,273 @@ VIZ.push({id:"v-qlearning", model:"qlearning", g:"model", ic:"🤖", dim:"2D",
    ctlSlider(ctl, "<span style=\"text-transform:none\">ε</span> (probabilidad de explorar)", 0, 0.5, 0.01, eps, function(v){ return fmt(v, 2); }, function(v){ eps = v; draw(); });
    init(); draw();
    return function(){ stopIt(); };
+ }});
+
+/* ══ 11. SARSA frente a Q-LEARNING — EL ACANTILADO ═════════════ */
+VIZ.push({id:"v-sarsa", model:"sarsa", g:"model", ic:"🧗", dim:"2D",
+ t:"SARSA frente a Q-Learning en el acantilado",
+ q:"¿Por qué SARSA aprende un camino más prudente que Q-Learning?",
+ intro:"El clásico de Sutton y Barto: ir de S a G en una rejilla 4×12; cada paso cuesta −1 y caer al <b>acantilado</b> cuesta −100 (y vuelves a S). Los dos agentes exploran igual (ε-voraz: con probabilidad ε hacen algo al azar), pero aprenden distinto: <b>Q-Learning</b> actualiza pensando en la mejor acción siguiente (aunque luego explore) y <b>SARSA</b> en la acción que de verdad va a tomar. Se entrenan <b>de verdad</b> 8 veces cada uno (α = 0,5) y se promedian las curvas.",
+ notice:["<b>Q-Learning</b> aprende la ruta más corta, pegada al borde (13 pasos). Pero mientras explora, a veces da un paso en falso y cae: su recompensa media durante el aprendizaje es <b>peor</b>.",
+   "<b>SARSA</b> «sabe» que va a seguir explorando, así que el borde le parece peligroso y aprende un camino por arriba, más largo pero seguro: <b>cobra más</b> mientras aprende.",
+   "Baja ε a 0: sin exploración no hay pasos en falso y los dos acaban en la misma ruta óptima. La diferencia entre ambos es cómo tratan su propia exploración."],
+ models:["sarsa","qlearning","dqn"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 416, K = makeCanvas(stage, W, H, "Rejilla del acantilado con las rutas aprendidas por SARSA y Q-Learning y sus curvas de recompensa"), ctx = K.ctx;
+   var NR = 4, NC = 12, eps = 0.1, alpha = 0.5, RUNS = 8, MAXE = 500, agents, ep, stopL = null;
+   var DR = [-1, 0, 1, 0], DC = [0, 1, 0, -1];
+   function init(){
+     agents = {q:[], s:[]}; ep = 0;
+     ["q", "s"].forEach(function(k){ for(var i = 0; i < RUNS; i++){ var Q = []; for(var j = 0; j < NR * NC; j++) Q.push([0, 0, 0, 0]); agents[k].push({Q:Q, rw:[], rng:mulberry(100 + i * 7 + (k === "s" ? 3 : 0))}); } });
+   }
+   function envStep(r, c, a){ var nr = Math.max(0, Math.min(NR - 1, r + DR[a])), nc = Math.max(0, Math.min(NC - 1, c + DC[a]));
+     if(nr === 3 && nc > 0 && nc < 11) return {r:3, c:0, rew:-100, done:false};
+     return {r:nr, c:nc, rew:-1, done:nr === 3 && nc === 11}; }
+   function pick(ag, s){ if(ag.rng() < eps) return Math.floor(ag.rng() * 4); var q = ag.Q[s], m = Math.max.apply(null, q), b = []; q.forEach(function(v, a){ if(v === m) b.push(a); }); return b[Math.floor(ag.rng() * b.length)]; }
+   function episode(ag, sarsa){
+     var r = 3, c = 0, s = 36, a = pick(ag, s), ret = 0;
+     for(var n = 0; n < 2000; n++){
+       var o = envStep(r, c, a), s2 = o.r * NC + o.c; ret += o.rew;
+       var a2 = pick(ag, s2), next = o.done ? 0 : sarsa ? ag.Q[s2][a2] : Math.max.apply(null, ag.Q[s2]);
+       ag.Q[s][a] += alpha * (o.rew + next - ag.Q[s][a]);
+       r = o.r; c = o.c; s = s2; a = a2; if(o.done) break;
+     }
+     ag.rw.push(ret);
+   }
+   function route(ag){ var r = 3, c = 0, p = [[3, 0]], seen = {};
+     for(var k = 0; k < 40; k++){ var s = r * NC + c; if(seen[s]) break; seen[s] = 1; var q = ag.Q[s], a = q.indexOf(Math.max.apply(null, q)), o = envStep(r, c, a);
+       if(o.rew === -100){ p.push([3, Math.max(1, c)]); return {p:p, ok:false, fall:true}; }
+       r = o.r; c = o.c; p.push([r, c]); if(o.done) return {p:p, ok:true}; }
+     return {p:p, ok:false}; }
+   function curve(k){ var out = []; for(var e = 0; e < ep; e++){ var s = 0; agents[k].forEach(function(ag){ s += Math.max(-100, ag.rw[e]); }); out.push(s / RUNS); } return movAvg(out, 20); }
+   var GX = 68, GY = 40, CS = 52;
+   function draw(){
+     K.clear();
+     tx(ctx, "El acantilado (4×12) · rutas que sigue cada agente sin explorar", GX, 26, {s:13, w:700, c:C.ink});
+     for(var r = 0; r < NR; r++) for(var c = 0; c < NC; c++){ var x = GX + c * CS, y = GY + r * CS;
+       rr(ctx, x + 1.5, y + 1.5, CS - 3, CS - 3, 7);
+       if(r === 3 && c > 0 && c < 11){ ctx.fillStyle = hexA(C.neg, 0.1); ctx.fill(); hatch(ctx, x + 3, y + 3, CS - 6, CS - 6, hexA(C.neg, 0.4), 7); }
+       else { ctx.fillStyle = C.card; ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.stroke(); } }
+     ctx.font = "700 12px " + LABFONT; var lab = "acantilado: −100 y vuelta a S", lw = ctx.measureText(lab).width + 14;
+     rr(ctx, GX + 6 * CS - lw / 2, GY + 3 * CS + CS / 2 - 11, lw, 22, 6); ctx.fillStyle = C.card; ctx.fill();
+     tx(ctx, lab, GX + 6 * CS, GY + 3 * CS + CS / 2 + 4, {s:12, w:700, c:C.neg, a:"center"});
+     tx(ctx, "S", GX + CS / 2, GY + 3 * CS + CS / 2 + 6, {s:16, w:700, c:C.ink, a:"center"});
+     tx(ctx, "G", GX + 11 * CS + CS / 2, GY + 3 * CS + CS / 2 + 6, {s:16, w:700, c:C.ink, a:"center"});
+     var R = {};
+     [["q", C.c[0], -5], ["s", C.c[1], 5]].forEach(function(d){
+       if(!ep) return; var rt = route(agents[d[0]][0]); R[d[0]] = rt;
+       ctx.strokeStyle = d[1]; ctx.lineWidth = 4; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.beginPath();
+       rt.p.forEach(function(p, k){ var X = GX + p[1] * CS + CS / 2 + d[2], Y = GY + p[0] * CS + CS / 2 + d[2]; k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke(); ctx.lineCap = "butt";
+       var e = rt.p[rt.p.length - 1]; dot(ctx, GX + e[1] * CS + CS / 2 + d[2], GY + e[0] * CS + CS / 2 + d[2], 5, d[1], C.card);
+     });
+     /* curvas */
+     var B = [GX, 292, NC * CS, 88];
+     tx(ctx, "Recompensa por episodio (media de 8 ejecuciones, suavizada)", GX, 280, {s:12, w:700, c:C.ink});
+     var A = axes(ctx, B, [0, MAXE], [-100, 0], C, {xl:"episodio", yl:"recompensa", xt:[0, 100, 200, 300, 400, 500], yt:[-100, -50, 0]});
+     var cq = curve("q"), cs = curve("s");
+     [[cq, C.c[0], "Q-Learning"], [cs, C.c[1], "SARSA"]].forEach(function(s, k){
+       if(!s[0].length) return; ctx.strokeStyle = s[1]; ctx.lineWidth = 2.4; ctx.beginPath();
+       s[0].forEach(function(v, i){ var X = A.sx(i + 1), Y = A.sy(v); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke(); });
+     var lx = GX + NC * CS - 210;
+     ctx.fillStyle = C.c[0]; ctx.fillRect(lx, 18, 18, 4); tx(ctx, "Q-Learning", lx + 24, 24, {s:11, w:700, c:C.c[0]});
+     ctx.fillStyle = C.c[1]; ctx.fillRect(lx + 110, 18, 18, 4); tx(ctx, "SARSA", lx + 134, 24, {s:11, w:700, c:C.c[1]});
+     /* lectura */
+     function last(k){ var s = 0, n = 0; agents[k].forEach(function(ag){ ag.rw.slice(-50).forEach(function(v){ s += v; n++; }); }); return n ? s / n : NaN; }
+     var mq = last("q"), ms = last("s"), lq = R.q && R.q.ok ? R.q.p.length - 1 : null, ls = R.s && R.s.ok ? R.s.p.length - 1 : null;
+     read.innerHTML = '<span>Episodios <b>' + ep + ' / ' + MAXE + '</b></span><span>Recompensa media (últimos 50) · Q-Learning <b>' + (isNaN(mq) ? "—" : fmt(mq, 1)) + '</b></span><span>· SARSA <b>' + (isNaN(ms) ? "—" : fmt(ms, 1)) + '</b></span>' +
+       '<span>Ruta Q-Learning <b>' + (lq ? lq + " pasos" : "—") + '</b></span><span>Ruta SARSA <b>' + (ls ? ls + " pasos" : "—") + '</b></span>' +
+       '<span class="ldiag">' + (ep < 40 ? "Aprendiendo: al principio los dos caen mucho por el acantilado." :
+         eps === 0 ? "Sin exploración (ε = 0) ninguno da pasos al azar: los dos convergen a rutas igual de buenas y cobran lo mismo." :
+         "Q-Learning ha aprendido la ruta " + (lq && ls && lq < ls ? "más corta (" + lq + " pasos, por el borde)" : "por el borde") + ", pero con ε = " + fmt(eps, 2) + " cobra de media " + fmt(mq, 1) + " porque sus pasos al azar lo tiran al vacío. SARSA va por arriba" + (ls ? " (" + ls + " pasos)" : "") + " y cobra " + fmt(ms, 1) + ": aprende la política que mejor funciona <b>explorando</b>.") + '</span>';
+   }
+   function start(){ stop(); if(ep >= MAXE) init(); stopL = loop(function(){ for(var k = 0; k < 4 && ep < MAXE; k++){ agents.q.forEach(function(ag){ episode(ag, false); }); agents.s.forEach(function(ag){ episode(ag, true); }); ep++; } draw(); if(ep >= MAXE){ stop(); pt.set(false); } }); }
+   function stop(){ if(stopL){ stopL(); stopL = null; } }
+   var pt = playToggle(ctl, "Entrenar", function(on){ if(on) start(); else stop(); });
+   ctlBtn(ctl, "↺ Reiniciar", function(){ init(); draw(); pt.set(true); start(); });
+   ctlSlider(ctl, '<span style="text-transform:none">ε</span> (probabilidad de explorar) · reinicia', 0, 0.3, 0.01, eps, function(v){ return fmt(v, 2); }, function(v){ eps = v; init(); draw(); pt.set(true); start(); });
+   init(); draw(); pt.set(true); start();
+   return function(){ stop(); };
+ }});
+
+/* ══ 12. DQN — TABLA FRENTE A RED, REPLAY BUFFER Y RED OBJETIVO ═ */
+VIZ.push({id:"v-dqn", model:"dqn", g:"model", ic:"🕹️", dim:"2D",
+ t:"DQN: de la tabla a la función que generaliza",
+ q:"¿Por qué una red neuronal sustituye a la tabla Q cuando los estados son continuos?",
+ intro:"Un carrito en un valle (el clásico <i>Mountain Car</i>, con su física real) tiene un estado <b>continuo</b>: posición y velocidad. A la izquierda, una tabla que trocea ese estado en 12×12 casillas: solo sabe algo de las casillas visitadas. A la derecha, un aproximador (una regresión con 49 funciones de base radial, el papel que hace la red en DQN) que <b>rellena todo el mapa</b>. Ambos aprenden de verdad del mismo <b>replay buffer</b> con minibatches al azar y una <b>red objetivo</b> congelada. Simplificación didáctica: aprendemos el valor V(s) de la conducta exploradora en vez de Q(s, a) para cada acción.",
+ notice:["La tabla tiene <b>huecos</b> (casillas rayadas): estados que el carrito nunca ha pisado y de los que no sabe nada. El aproximador da un valor en todas partes porque estados parecidos tienen valores parecidos: <b>generaliza</b>.",
+   "El <b>replay buffer</b> guarda miles de transiciones y el minibatch (▼) se sortea por toda la cinta: así el modelo no aprende solo de los últimos pasos, que están muy correlacionados entre sí.",
+   "La <b>red objetivo</b> calcula los objetivos r + γ·V(s′) con una copia congelada que solo se sincroniza cada 250 actualizaciones: sin ella el modelo perseguiría su propia cola y el aprendizaje sería inestable."],
+ models:["dqn","qlearning","mlp"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 404, K = makeCanvas(stage, W, H, "Tabla Q discretizada con huecos frente a mapa continuo aproximado, replay buffer y red objetivo"), ctx = K.ctx;
+   var XR = [-1.2, 0.6], VR = [-0.07, 0.07], G = 0.97, CAP = 3000, BATCH = 32, SYNC = 250, NB = 7;
+   var rng, car, buf, wpos, w, wT, tab, tabN, upd, syncs, lastBatch, recent, stopL = null, epN;
+   function feat(x, v){ var u = (x - XR[0]) / (XR[1] - XR[0]), q = (v - VR[0]) / (VR[1] - VR[0]), f = [1];
+     for(var i = 0; i < NB; i++) for(var j = 0; j < NB; j++){ var du = u - i / (NB - 1), dq = q - j / (NB - 1); f.push(Math.exp(-(du * du + dq * dq) / (2 * 0.1 * 0.1))); } return f; }
+   function V(wv, x, v){ var f = feat(x, v), s = 0; for(var i = 0; i < f.length; i++) s += wv[i] * f[i]; return s; }
+   function cellOf(x, v){ return Math.min(11, Math.floor((x - XR[0]) / (XR[1] - XR[0]) * 12)) * 12 + Math.min(11, Math.floor((v - VR[0]) / (VR[1] - VR[0]) * 12)); }
+   function init(){ rng = mulberry(42); buf = []; wpos = 0; w = new Array(NB * NB + 1).fill(0); wT = w.slice(); tab = new Array(144).fill(0); tabN = new Array(144).fill(0); upd = 0; syncs = 0; lastBatch = []; recent = []; epN = 0; reset(); }
+   function reset(){ car = {x:-0.6 + rng() * 0.2, v:0, n:0}; epN++; }
+   function envStep(){
+     var a = rng() < 0.35 ? Math.floor(rng() * 3) : (car.v >= 0 ? 2 : 0);
+     var v = Math.max(VR[0], Math.min(VR[1], car.v + 0.001 * (a - 1) - 0.0025 * Math.cos(3 * car.x))), x = car.x + v;
+     if(x < XR[0]){ x = XR[0]; v = 0; } var done = x >= 0.5; if(done) x = 0.5;
+     var tr = [car.x, car.v, -1, x, v, done]; if(buf.length < CAP) buf.push(tr); else buf[wpos] = tr; wpos = (wpos + 1) % CAP;
+     recent.push([car.x, car.v]); if(recent.length > 80) recent.shift();
+     car.x = x; car.v = v; car.n++; if(done || car.n > 400) reset();
+   }
+   function train(){
+     if(buf.length < 200) return; lastBatch = [];
+     for(var b = 0; b < BATCH; b++){ var i = Math.floor(rng() * buf.length), t = buf[i]; lastBatch.push(i);
+       var target = t[2] + (t[5] ? 0 : G * V(wT, t[3], t[4])), f = feat(t[0], t[1]), pred = 0;
+       for(var k = 0; k < f.length; k++) pred += w[k] * f[k];
+       var err = target - pred; for(k = 0; k < f.length; k++) w[k] += 0.08 * err * f[k];
+       var c = cellOf(t[0], t[1]), tt = t[2] + (t[5] ? 0 : G * tab[cellOf(t[3], t[4])]); tab[c] += 0.2 * (tt - tab[c]); tabN[c]++; }
+     upd++; if(upd % SYNC === 0){ wT = w.slice(); syncs++; }
+   }
+   var LB = [62, 46, 300, 190], RB = [432, 46, 300, 190], VMIN = -34;
+   var off = document.createElement("canvas"); off.width = 60; off.height = 38; var octx = off.getContext("2d");
+   var cBg = rgbOf(C.card), cP = rgbOf(C.c[0]);
+   function colV(v){ var t = Math.max(0, Math.min(1, (v - VMIN) / -VMIN)); return mixc(C.card, C.c[0], 0.06 + 0.88 * t); }
+   function frame(B, title, sub){
+     tx(ctx, title, B[0], 22, {s:13, w:700, c:C.ink}); tx(ctx, sub, B[0], 38, {s:11, c:C.muted});
+     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(B[0] + .5, B[1] + .5, B[2], B[3]);
+     tx(ctx, "posición →", B[0] + B[2], B[1] + B[3] + 15, {s:11, c:C.muted, a:"right"}); tx(ctx, "−1,2", B[0], B[1] + B[3] + 15, {s:11, c:C.muted});
+     ctx.save(); ctx.translate(B[0] - 10, B[1] + B[3] / 2); ctx.rotate(-Math.PI / 2); tx(ctx, "velocidad →", 0, 0, {s:11, c:C.muted, a:"center"}); ctx.restore();
+   }
+   function draw(){
+     K.clear();
+     frame(LB, "Tabla discretizada (12×12)", "solo sabe de las casillas visitadas");
+     var cw = LB[2] / 12, ch = LB[3] / 12, empty = 0;
+     for(var i = 0; i < 12; i++) for(var j = 0; j < 12; j++){ var c = i * 12 + j, X = LB[0] + i * cw, Y = LB[1] + LB[3] - (j + 1) * ch;
+       if(!tabN[c]){ empty++; hatch(ctx, X + 1, Y + 1, cw - 2, ch - 2, hexA(C.muted, 0.35), 5); }
+       else { ctx.fillStyle = colV(tab[c]); ctx.fillRect(X + 0.5, Y + 0.5, cw - 1, ch - 1); } }
+     ctx.fillStyle = hexA(C.ink, 0.6); recent.forEach(function(p){ ctx.fillRect(LB[0] + (p[0] - XR[0]) / (XR[1] - XR[0]) * LB[2] - 1, LB[1] + LB[3] - (p[1] - VR[0]) / (VR[1] - VR[0]) * LB[3] - 1, 2, 2); });
+     frame(RB, "Aproximador (el papel de la red)", "da un valor en todo el espacio de estados");
+     var img = octx.createImageData(60, 38);
+     for(var gy = 0; gy < 38; gy++) for(var gx = 0; gx < 60; gx++){ var x = XR[0] + (gx + 0.5) / 60 * (XR[1] - XR[0]), v = VR[1] - (gy + 0.5) / 38 * (VR[1] - VR[0]);
+       var t = 0.06 + 0.88 * Math.max(0, Math.min(1, (V(w, x, v) - VMIN) / -VMIN)), k = (gy * 60 + gx) * 4;
+       img.data[k] = cBg[0] + (cP[0] - cBg[0]) * t; img.data[k + 1] = cBg[1] + (cP[1] - cBg[1]) * t; img.data[k + 2] = cBg[2] + (cP[2] - cBg[2]) * t; img.data[k + 3] = 255; }
+     octx.putImageData(img, 0, 0); ctx.imageSmoothingEnabled = true; ctx.drawImage(off, RB[0] + 1, RB[1] + 1, RB[2] - 1, RB[3] - 1);
+     /* coche actual */
+     [LB, RB].forEach(function(B){ dot(ctx, B[0] + (car.x - XR[0]) / (XR[1] - XR[0]) * B[2], B[1] + B[3] - (car.v - VR[0]) / (VR[1] - VR[0]) * B[3], 5, C.c[1], C.card); });
+     /* leyenda de color */
+     var gx0 = RB[0] + RB[2] - 150, gy0 = 252;
+     for(var s = 0; s < 60; s++){ ctx.fillStyle = colV(VMIN - VMIN * s / 59); ctx.fillRect(gx0 + s * 2, gy0, 2, 8); }
+     tx(ctx, "lejos de la meta", gx0 - 6, gy0 + 8, {s:11, c:C.muted, a:"right"}); tx(ctx, "cerca", gx0 + 126, gy0 + 8, {s:11, c:C.muted});
+     dot(ctx, LB[0] + 5, gy0 + 4, 4.5, C.c[1], C.card); tx(ctx, "estado actual del carrito · puntos = últimos 80 estados", LB[0] + 14, gy0 + 8, {s:11, c:C.text});
+     /* cinta del replay buffer */
+     var TB = [62, 296, 670, 22], bins = 134, bw = TB[2] / bins;
+     tx(ctx, "Replay buffer: " + fmtN(buf.length) + " / " + fmtN(CAP) + " transiciones (s, a, r, s′)", TB[0], 284, {s:12, w:700, c:C.ink});
+     for(var b2 = 0; b2 < bins; b2++){ var full = b2 * CAP / bins < buf.length; ctx.fillStyle = full ? hexA(C.c[0], 0.38) : hexA(C.line, 0.7); ctx.fillRect(TB[0] + b2 * bw, TB[1], bw - 0.6, TB[3]); }
+     var wp = TB[0] + (buf.length < CAP ? buf.length : wpos) / CAP * TB[2]; ctx.fillStyle = C.ink; ctx.fillRect(wp - 1, TB[1] - 4, 2, TB[3] + 8);
+     tx(ctx, "escribe aquí", Math.min(wp + 4, TB[0] + TB[2] - 60), TB[1] + TB[3] + 14, {s:11, c:C.muted});
+     lastBatch.forEach(function(i){ var X = TB[0] + i / CAP * TB[2]; ctx.fillStyle = C.c[1]; ctx.beginPath(); ctx.moveTo(X - 4, TB[1] - 9); ctx.lineTo(X + 4, TB[1] - 9); ctx.lineTo(X, TB[1] - 2); ctx.closePath(); ctx.fill(); });
+     tx(ctx, "▼ minibatch de " + BATCH + " sorteadas", TB[0] + TB[2], 284, {s:11, w:600, c:C.c[1], a:"right"});
+     /* red objetivo */
+     var since = upd % SYNC, PB = [62, 362, 260, 8];
+     tx(ctx, "Red objetivo: sincronizada " + syncs + (syncs === 1 ? " vez" : " veces") + " · próxima en " + (SYNC - since) + " actualizaciones", PB[0], 354, {s:12, w:700, c:C.ink});
+     rr(ctx, PB[0], PB[1], PB[2], PB[3], 4); ctx.fillStyle = hexA(C.line, 0.9); ctx.fill();
+     rr(ctx, PB[0], PB[1], Math.max(4, PB[2] * since / SYNC), PB[3], 4); ctx.fillStyle = C.c[0]; ctx.fill();
+     tx(ctx, "objetivo = r + γ·V_objetivo(s′), con γ = 0,97", PB[0] + PB[2] + 16, PB[1] + 8, {s:11, c:C.muted});
+     read.innerHTML = '<span>Transiciones vistas <b>' + fmtN(Math.min(buf.length, CAP) + (buf.length >= CAP ? 0 : 0)) + '</b></span><span>Episodios <b>' + (epN - 1) + '</b></span><span>Actualizaciones <b>' + fmtN(upd) + '</b></span>' +
+       '<span>Casillas de la tabla vacías <b>' + empty + ' de 144 (' + pct(empty / 144, 0) + ')</b></span><span>Sincronizaciones <b>' + syncs + '</b></span>' +
+       '<span class="ldiag">' + (buf.length < 200 ? "Llenando el buffer: el aprendizaje empieza cuando hay al menos 200 transiciones guardadas." :
+         "La tabla sigue sin saber nada del " + pct(empty / 144, 0) + " de las casillas (rayadas); el aproximador da un valor en todo el mapa con solo " + (NB * NB + 1) + " parámetros. Con un estado de cientos de variables (por ejemplo, los píxeles de una pantalla) la tabla sería imposible: por eso DQN usa una red.") + '</span>';
+   }
+   function start(){ stop(); stopL = loop(function(){ for(var k = 0; k < 12; k++){ envStep(); if(k % 3 === 0) train(); } draw(); if(upd >= 6000){ stop(); pt.set(false); } }); }
+   function stop(){ if(stopL){ stopL(); stopL = null; } }
+   var pt = playToggle(ctl, "Simular", function(on){ if(on) start(); else stop(); });
+   ctlBtn(ctl, "⏩ +2.000 pasos", function(){ for(var k = 0; k < 2000; k++){ envStep(); if(k % 3 === 0) train(); } draw(); });
+   ctlBtn(ctl, "↺ Reiniciar", function(){ init(); draw(); });
+   init(); draw(); pt.set(true); start();
+   return function(){ stop(); };
+ }});
+
+/* ══ 13. PPO — EL OBJETIVO RECORTADO ═══════════════════════════ */
+VIZ.push({id:"v-ppo", model:"ppo", g:"model", ic:"✂️", dim:"2D",
+ t:"PPO: aprender sin dar saltos",
+ q:"¿Para qué sirve el «recorte» del objetivo de PPO?",
+ intro:"PPO mejora una política (probabilidades de cada acción) mirando el <b>ratio</b> r = π<sub>nuevo</sub>/π<sub>viejo</sub>: cuánto más (o menos) probable es ahora una acción que antes. Su objetivo L<sup>CLIP</sup> = mín(r·A, recorte(r, 1−ε, 1+ε)·A) deja de premiar los cambios en cuanto r sale de la franja [1−ε, 1+ε]. A la derecha, una política de 3 acciones para un cliente; la acción «Descuento» tuvo una <b>ventaja</b> A grande. Cada iteración hace 10 pasos de gradiente reales sobre el mismo lote, <b>con</b> y <b>sin</b> recorte en paralelo.",
+ notice:["Con A &gt; 0 la curva con recorte se vuelve <b>plana</b> a partir de r = 1+ε: ahí el gradiente es 0 y no hay incentivo para cambiar más. Sin recorte la recompensa crece sin límite con r.",
+   "Pulsa «Aplicar 5 actualizaciones»: <b>sin recorte</b> la política salta de golpe y casi colapsa en «Descuento» desde la primera iteración; <b>con recorte</b> avanza a pasos acotados (como mucho ≈ ×(1+ε) por iteración).",
+   "Sube ε: los pasos con recorte son más grandes (aprende más rápido pero con más riesgo). ε ≈ 0,1-0,2 es el valor habitual."],
+ models:["ppo","dqn","qlearning"],
+ build:function(stage, ctl, read, C){
+   var W = 760, H = 404, K = makeCanvas(stage, W, H, "Objetivo recortado de PPO en función del ratio y política de tres acciones con y sin recorte"), ctx = K.ctx;
+   var eps = 0.2, sgn = 1, AMAG = 2, LR = 0.1, KSTEP = 10, ACT = ["Descuento", "Envío gratis", "Nada"];
+   var th0 = [0, 0.2, 0.4], P, hist, iter, queue = 0, stopL = null;
+   function soft(t){ var m = Math.max.apply(null, t), e = t.map(function(v){ return Math.exp(v - m); }), s = e.reduce(function(a, b){ return a + b; }, 0); return e.map(function(v){ return v / s; }); }
+   function init(){ P = {c:{th:th0.slice(), old:soft(th0), r:1}, u:{th:th0.slice(), old:soft(th0), r:1}}; hist = {c:[soft(th0)[0]], u:[soft(th0)[0]]}; iter = 0; }
+   function iterate(k, clip){
+     var p = P[k], A = sgn * AMAG; p.old = soft(p.th); var po = p.old[0];
+     for(var s = 0; s < KSTEP; s++){ var pi = soft(p.th), r = pi[0] / po;
+       var active = !clip || !((A > 0 && r > 1 + eps) || (A < 0 && r < 1 - eps));
+       if(active) for(var j = 0; j < 3; j++) p.th[j] += LR * A * r * ((j === 0 ? 1 : 0) - pi[j]); }
+     p.r = soft(p.th)[0] / po; hist[k].push(soft(p.th)[0]);
+   }
+   var LB = [64, 46, 290, 250];
+   function draw(){
+     K.clear(); var A = sgn;
+     tx(ctx, "Objetivo L(r) para una ventaja A " + (sgn > 0 ? "> 0" : "< 0"), LB[0] - 30, 24, {s:13, w:700, c:C.ink});
+     var yr = sgn > 0 ? [-0.1, 2.1] : [-2.1, 0.1];
+     var Ax = axes(ctx, LB, [0, 2], yr, C, {xl:"r = π nuevo / π viejo", yl:"L (en unidades de |A|)", xt:[0, 0.5, 1, 1.5, 2], yt:sgn > 0 ? [0, 1, 2] : [-2, -1, 0]});
+     ctx.fillStyle = hexA(C.c[0], 0.1); ctx.fillRect(Ax.sx(1 - eps), LB[1] + 1, Ax.sx(1 + eps) - Ax.sx(1 - eps), LB[3] - 1);
+     var fx0 = sgn > 0 ? Ax.sx(1 + eps) : LB[0] + 1, fx1 = sgn > 0 ? LB[0] + LB[2] - 1 : Ax.sx(1 - eps);
+     hatch(ctx, fx0, LB[1] + 1, fx1 - fx0, LB[3] - 1, hexA(C.muted, 0.18), 8);
+     ctx.strokeStyle = C.ink; ctx.setLineDash([3, 3]); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(Ax.sx(1), LB[1]); ctx.lineTo(Ax.sx(1), LB[1] + LB[3]); ctx.stroke(); ctx.setLineDash([]);
+     var lab = "zona plana: gradiente 0", lx = (fx0 + fx1) / 2;
+     ctx.font = "600 11px " + LABFONT; var lw = ctx.measureText(lab).width + 10, ly = sgn > 0 ? LB[1] + LB[3] - 30 : LB[1] + 26;
+     rr(ctx, lx - lw / 2, ly - 12, lw, 17, 5); ctx.fillStyle = C.card; ctx.fill(); tx(ctx, lab, lx, ly, {s:11, w:600, c:C.muted, a:"center"});
+     tx(ctx, "1−ε", Ax.sx(1 - eps), LB[1] - 4, {s:11, c:C.muted, a:"center"}); tx(ctx, "1+ε", Ax.sx(1 + eps), LB[1] - 4, {s:11, c:C.muted, a:"center"});
+     ctx.save(); ctx.beginPath(); ctx.rect(LB[0], LB[1], LB[2], LB[3]); ctx.clip();
+     ctx.strokeStyle = C.c[1]; ctx.lineWidth = 2; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(Ax.sx(0), Ax.sy(0)); ctx.lineTo(Ax.sx(2), Ax.sy(2 * A)); ctx.stroke(); ctx.setLineDash([]);
+     ctx.strokeStyle = C.c[0]; ctx.lineWidth = 3.2; ctx.beginPath();
+     for(var i = 0; i <= 200; i++){ var r = i / 100, L = Math.min(r * A, Math.max(1 - eps, Math.min(1 + eps, r)) * A); i ? ctx.lineTo(Ax.sx(r), Ax.sy(L)) : ctx.moveTo(Ax.sx(r), Ax.sy(L)); }
+     ctx.stroke();
+     [["u", C.c[1]], ["c", C.c[0]]].forEach(function(d){ if(!iter) return; var r = P[d[0]].r, L = d[0] === "c" ? Math.min(r * A, Math.max(1 - eps, Math.min(1 + eps, r)) * A) : r * A;
+       var X = Ax.sx(Math.min(2, r)), Y = Ax.sy(Math.max(yr[0], Math.min(yr[1], L))); dot(ctx, X, Y, 6, d[1], C.card); if(r > 2) tx(ctx, "r = " + fmt(r, 1) + " →", X - 8, Y + (sgn > 0 ? 18 : -10), {s:11, w:700, c:d[1], a:"right"}); });
+     ctx.restore();
+     var gy = LB[1] + LB[3] + 46;
+     ctx.strokeStyle = C.c[0]; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(LB[0] - 30, gy - 4); ctx.lineTo(LB[0] - 8, gy - 4); ctx.stroke(); tx(ctx, "con recorte (L^CLIP)", LB[0] - 2, gy, {s:11, c:C.text});
+     ctx.strokeStyle = C.c[1]; ctx.lineWidth = 2; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.moveTo(LB[0] + 130, gy - 4); ctx.lineTo(LB[0] + 152, gy - 4); ctx.stroke(); ctx.setLineDash([]); tx(ctx, "sin recorte (r·A)", LB[0] + 158, gy, {s:11, c:C.text});
+     tx(ctx, "● = r tras la última iteración · banda = [1−ε, 1+ε]", LB[0] - 30, gy + 18, {s:11, c:C.muted});
+     /* política */
+     var RX = 430;
+     tx(ctx, "Política: P(acción) para un cliente", RX, 24, {s:13, w:700, c:C.ink});
+     [["c", "Con recorte", C.c[0], 50], ["u", "Sin recorte", C.c[1], 158]].forEach(function(g){
+       var p = soft(P[g[0]].th), old = P[g[0]].old;
+       tx(ctx, g[1], RX, g[3] + 4, {s:12, w:700, c:g[2]});
+       if(iter) tx(ctx, "r(Descuento) = " + fmt(P[g[0]].r, 2), RX + 300, g[3] + 4, {s:11, w:600, c:C.text, a:"right"});
+       p.forEach(function(v, j){ var y = g[3] + 14 + j * 28, bx = RX + 92, bw = 170;
+         tx(ctx, ACT[j], RX, y + 13, {s:11, c:C.text});
+         rr(ctx, bx, y + 2, bw, 16, 4); ctx.fillStyle = hexA(C.line, 0.8); ctx.fill();
+         rr(ctx, bx, y + 2, Math.max(3, bw * v), 16, 4); ctx.fillStyle = hexA(g[2], j === 0 ? 1 : 0.55); ctx.fill();
+         ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.setLineDash([3, 2]); ctx.beginPath(); ctx.moveTo(bx + bw * old[j], y - 1); ctx.lineTo(bx + bw * old[j], y + 21); ctx.stroke(); ctx.setLineDash([]);
+         tx(ctx, pct(v, 0), bx + bw + 8, y + 15, {s:12, w:700, c:C.ink}); });
+     });
+     tx(ctx, "- - = probabilidad antes de la última iteración (π viejo)", RX, 262, {s:11, c:C.muted});
+     var HB = [RX + 34, 290, 276, 62], n = Math.max(5, hist.c.length - 1);
+     tx(ctx, "P(Descuento) por iteración", RX, 282, {s:11, w:700, c:C.ink});
+     var Ah = axes(ctx, HB, [0, n], [0, 1], C, {xl:"iteración", yt:[0, 1], xt:[0, n]});
+     [["u", C.c[1], [5, 3]], ["c", C.c[0], []]].forEach(function(d){ ctx.strokeStyle = d[1]; ctx.lineWidth = 2.2; ctx.setLineDash(d[2]); ctx.beginPath();
+       hist[d[0]].forEach(function(v, k){ var X = Ah.sx(k), Y = Ah.sy(v); k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke(); ctx.setLineDash([]);
+       hist[d[0]].forEach(function(v, k){ dot(ctx, Ah.sx(k), Ah.sy(v), 2.8, d[1]); }); });
+     /* lectura */
+     var pc = soft(P.c.th)[0], pu = soft(P.u.th)[0];
+     read.innerHTML = '<span>Iteraciones <b>' + iter + '</b></span><span>Ventaja de «Descuento» <b>A = ' + (sgn > 0 ? "+" : "−") + AMAG + '</b></span><span>P(Descuento) con recorte <b>' + pct(pc, 0) + '</b> (r último ' + fmt(P.c.r, 2) + ')</span><span>sin recorte <b>' + pct(pu, 0) + '</b> (r último ' + fmt(P.u.r, 2) + ')</span>' +
+       '<span class="ldiag">' + (iter === 0 ? "Política inicial: " + pct(hist.c[0], 0) + " de probabilidad para «Descuento». Pulsa «Aplicar 5 actualizaciones»." :
+         sgn > 0 ? "Sin recorte, la primera iteración ya multiplicó la probabilidad por " + fmt(hist.u[1] / hist.u[0], 1) + ": un solo lote con una ventaja grande (quizá por suerte) basta para que la política colapse en una acción. Con recorte, cada iteración la multiplica como mucho por ≈ " + fmt(1 + eps, 2) + " (r último " + fmt(P.c.r, 2) + "): avanza en la buena dirección, pero sin jugárselo todo a un lote." :
+         "Con ventaja negativa, sin recorte «Descuento» se hunde al " + pct(pu, 0) + "; con recorte baja como mucho un " + Math.round(eps * 100) + "% por iteración (r ≥ " + fmt(1 - eps, 2) + "): el cambio es prudente y reversible.") + '</span>';
+   }
+   function stop(){ if(stopL){ stopL(); stopL = null; } }
+   function run(){ stop(); queue = 5; var last = 0; stopL = loop(function(t){ if(t - last < 380) return; last = t; if(queue <= 0){ stop(); return; } iterate("c", true); iterate("u", false); iter++; queue--; draw(); }); }
+   ctlBtn(ctl, "▶ Aplicar 5 actualizaciones", run, true);
+   ctlBtn(ctl, "↺ Reiniciar política", function(){ stop(); init(); draw(); });
+   ctlSeg(ctl, "Ventaja de «Descuento»", [["1", "A > 0 (salió mejor)"], ["-1", "A < 0 (salió peor)"]], "1", function(v){ sgn = +v; stop(); init(); draw(); });
+   ctlSlider(ctl, '<span style="text-transform:none">ε</span> del recorte', 0.05, 0.5, 0.05, eps, function(v){ return fmt(v, 2) + " (franja " + fmt(1 - v, 2) + " – " + fmt(1 + v, 2) + ")"; }, function(v){ eps = v; stop(); init(); draw(); });
+   init(); draw();
+   return function(){ stop(); };
  }});
 
 /* @@END@@ */
