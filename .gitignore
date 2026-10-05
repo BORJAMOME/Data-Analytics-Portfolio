@@ -79,3 +79,7 @@ spark-warehouse/
 metastore_db/
 derby.log
 _parquet_demo/
+
+# --- Manual de ML personal (privado, solo en local) ---
+03-Machine-Learning/00-manual-ml/
+docs/
