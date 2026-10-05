@@ -15,7 +15,10 @@ Data-Analytics-Portfolio/
 ├── 03-Machine-Learning/        41 casos: supervisado, no supervisado, RRNN, series, refuerzo
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
+Apps y portfolio
 
+Apps de Streamlit: las desarrollas en VS Code y las lanzas desde el terminal.
+Mantener tu portfolio en GitHub con READMEs cuidados.
 Cada carpeta tiene su propio README con la lista de proyectos y las técnicas que usa cada uno.
 
 ---
