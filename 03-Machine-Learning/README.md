@@ -14,8 +14,6 @@ Son 41 notebooks ordenados por tipo de aprendizaje y familia de modelo, con 16 d
 
 ---
 
-> **Nuevo · [Manual ML para dummies](00-manual-ml/):** los 63 modelos explicados en sencillo, con un visual interactivo 2D/3D por modelo, casos reales de negocio, laboratorios y un asistente para elegir modelo. Un único HTML que se abre en el navegador.
-
 
 ## Estructura del repositorio
 
