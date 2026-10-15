@@ -1,35 +1,34 @@
-# Chatbot de reservas basado en reglas: Nivel 0
+# Chatbot de reservas basado en reglas
+
+Un sistema de reservas para restaurantes desarrollado en Python que permite gestionar la disponibilidad, registrar nuevas reservas, consultar las existentes y cancelarlas desde la consola.
 
 ## Contexto
-Un restaurante quiere un sistema sencillo para gestionar reservas por consola: ver si
-hay sitio, apuntar, consultar y cancelar.
+
+Un restaurante necesita una herramienta sencilla para gestionar las reservas y controlar el aforo disponible en cada fecha y hora. El objetivo es resolver estas operaciones mediante una lógica de negocio clara, sin depender de servicios externos ni de modelos de IA.
 
 ## Cómo funciona
-Menú de opciones numérico (1-5) sobre un motor de reglas de negocio explícitas:
-- **Hacer reserva:** valida que la suma de personas ya reservadas para esa fecha/hora
-  más la nueva reserva no supere el aforo máximo.
-- **Consultar disponibilidad:** calcula plazas libres para una fecha/hora dadas.
-- **Cancelar / Mostrar reservas:** operaciones directas sobre el registro en memoria.
 
-No hay NLP, ni similitud semántica, ni modelo de lenguaje. El usuario dice lo que quiere
-eligiendo una opción del menú; el sistema no interpreta texto libre.
+El sistema presenta un menú interactivo con cinco opciones que permiten gestionar las operaciones principales:
 
-## Por qué está aquí
-Es a propósito el **nivel 0** de `01-agentes-ia`: la referencia sin nada de inteligencia.
-Los siguientes niveles, que todavía tengo pendientes, resolverán el mismo problema
-(entender qué quiere el usuario) primero con similitud semántica, sin LLM, y después con
-un LLM local. La idea es medir qué aporta cada paso en vez de dar por hecho que más IA
-siempre es mejor.
+- **Hacer una reserva:** registra una nueva reserva si el aforo disponible permite acomodar al grupo solicitado.
+- **Consultar disponibilidad:** calcula cuántas plazas quedan libres para una fecha y hora determinadas.
+- **Mostrar reservas:** consulta las reservas registradas en el sistema.
+- **Cancelar una reserva:** elimina una reserva existente.
+- **Salir:** finaliza la interacción con el programa.
+
+La lógica de negocio comprueba que el número de personas ya reservadas, sumado al de la nueva solicitud, no supere el aforo máximo establecido para esa fecha y hora.
+
+Las operaciones se realizan sobre un registro almacenado en memoria mediante un `pandas.DataFrame`.
 
 ## Técnicas aplicadas
-- Reglas de negocio explícitas (control de aforo por fecha/hora).
-- Estado en memoria con `pandas.DataFrame` (altas, bajas y consultas).
-- Interfaz conversacional por consola basada en menú, no en lenguaje natural.
 
-## Stack
-`pandas`
+- **Reglas de negocio:** validación del aforo y control de las reservas por fecha y hora.
+- **Gestión del estado:** almacenamiento temporal de las reservas en un `pandas.DataFrame`.
+- **Operaciones sobre datos:** altas, consultas y cancelaciones de registros.
+- **Interacción por consola:** menú numérico mediante `input()` y `print()`.
+- **Separación entre interfaz y lógica:** organización de las operaciones dentro de la función `chatbot()`.
 
-## Notas
-Es un script interactivo (`input()`/`print()`). La función `chatbot()` está definida pero no
-se ejecuta sola, porque una celda con `input()` bloquearía la ejecución del notebook. Para
-probarlo en local, descomenta la última línea.
+## Tecnologías
+
+- pandas
+
