@@ -5,4 +5,3 @@ histogramas, tarta, boxplot, subplots, personalización (colores, leyendas, anot
 guardado a fichero. Cada sección trae un ejercicio con la solución comentada. Al final hay un
 cheat sheet y un ejercicio tipo "dashboard".
 
-**Archivo:** `manual.ipynb` · **Stack:** Matplotlib
