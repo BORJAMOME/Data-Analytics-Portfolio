@@ -15,5 +15,5 @@ Mediante **SQL Server**, analizo la facturación, los modelos más vendidos y el
 
 - SQL Server (T-SQL)
 - CTEs y subconsultas
-- Funciones de ventana: `LAG()`, `RANK()` y `PERCENT_RANK()`
+- Windows Functions: `LAG()`, `RANK()` y `PERCENT_RANK()`
 - Agregaciones, rankings y percentiles
