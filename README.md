@@ -26,9 +26,9 @@ Data-Analytics-Portfolio/
 
 | Proyecto | Qué se aprende |
 |----------|---------------|
-| [Análisis de ventas — Red de concesionarios](01-SQL/01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK |
-| [AdventureWorks Avanzado — Window Functions](01-SQL/02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista |
-| [Análisis de clientes — Tienda](01-SQL/03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY |
+| [Análisis de ventas: Red de concesionarios](01-SQL/01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK |
+| [AdventureWorks Avanzado: Window Functions](01-SQL/02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista |
+| [Análisis de clientes: Tienda](01-SQL/03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY |
 
 **[Ver la sección completa →](01-SQL/)**
 
@@ -51,9 +51,9 @@ Cinco de ellos los he llevado hasta el final y tienen una app interactiva public
 | Proyecto | Qué se aprende | App en vivo |
 |----------|---------------|--------------|
 | [Segmentación de clientes retail (K-Means + t-SNE)](03-Machine-Learning/02-no-supervisado/clustering/kmeans/04-segmentacion-retail-tsne/) | t-SNE para visualizar en 2D, elección honesta de *k*, validación contra el perfil que el negocio ya intuía | [Abrir app](https://segmentacion-retail.streamlit.app) |
-| [Comparativa de modelos — Segmentación de aerolínea](03-Machine-Learning/01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting, mismo split y validación cruzada, explicabilidad | [Abrir app](https://comparativa-modelos-aerolinea.streamlit.app) |
+| [Comparativa de modelos: Segmentación de aerolínea](03-Machine-Learning/01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting, mismo split y validación cruzada, explicabilidad | [Abrir app](https://comparativa-modelos-aerolinea.streamlit.app) |
 | [Previsión de ventas retail (SARIMA vs SARIMAX)](03-Machine-Learning/04-series-temporales/arima/03-forecast-ventas-retail/) | Series temporales con variables exógenas (huelgas, promociones), backtesting, cuánto aporta el contexto frente al histórico puro | [Abrir app](https://forecast-ventas-retail-app-w5msdvcsbuxas94qjcdore.streamlit.app) |
-| [Preferencias de vuelos — análisis conjoint](03-Machine-Learning/01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | [Abrir app](https://preferencias-vuelos.streamlit.app/) |
+| [Preferencias de vuelos: análisis conjoint](03-Machine-Learning/01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | [Abrir app](https://preferencias-vuelos.streamlit.app/) |
 | [Ventas semanales retail (SARIMA)](03-Machine-Learning/04-series-temporales/arima/01-ventas-semanales-retail/) | Previsión solo con el histórico: estacionariedad, ACF/PACF y comparación con referencias más exigentes que «repetir el año anterior» | [Abrir app](https://sarima-ventas-retail.streamlit.app/) |
 
 **[Ver los 41 proyectos →](03-Machine-Learning/)**
@@ -65,10 +65,10 @@ Agentes de IA, sistemas de recomendación, APIs externas con mapas interactivos,
 
 | Proyecto | Qué se aprende |
 |----------|---------------|
-| [Chatbot de reservas — Nivel 0](04-IA-BigData/01-agentes-ia/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base de la progresión hacia agentes con IA |
+| [Chatbot de reservas: Nivel 0](04-IA-BigData/01-agentes-ia/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base de la progresión hacia agentes con IA |
 | [Recomendador de películas por contenido](04-IA-BigData/02-sistemas-recomendacion/01-recomendador-peliculas-contenido/) | Filtrado basado en contenido (TF-IDF + similitud coseno), visualización PCA del espacio de películas, cuándo usarlo frente al filtrado colaborativo |
-| [Simulador de rutas reales — OSRM](04-IA-BigData/03-apis-visualizacion/01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
-| [Cesta de la compra — Apriori](04-IA-BigData/04-mineria-datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
+| [Simulador de rutas reales: OSRM](04-IA-BigData/03-apis-visualizacion/01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
+| [Cesta de la compra: Apriori](04-IA-BigData/04-mineria-datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
 | [Detección de objetos en imágenes](04-IA-BigData/06-vision-artificial/01-deteccion-objetos-imagenes/) | YOLOv8 preentrenado, límites de un modelo genérico frente a clases no vistas |
 | [Conteo de vehículos en vídeo](04-IA-BigData/06-vision-artificial/02-conteo-vehiculos-video/) | YOLOv8 + ByteTrack, tracking de identidad entre frames, conteo por cruce de línea |
 | [Pipeline de ventas distribuido con PySpark](04-IA-BigData/07-big-data-distribuido/01-pipeline-ventas-pyspark/) | Spark SQL, funciones de ventana, broadcast joins, planes de ejecución, particiones y caché, UDF vs nativo, Parquet, MLlib |

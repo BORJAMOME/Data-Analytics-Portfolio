@@ -1,4 +1,4 @@
-# K-Means + t-SNE — Segmentación de clientes retail
+# K-Means + t-SNE: Segmentación de clientes retail
 
 Este notebook es el análisis completo. Si prefieres recorrer el caso sin tocar código, hay una app en Streamlit que lo explica de principio a fin y te deja inventar un cliente para ver en qué segmento cae: **[segmentacion-retail-app](https://github.com/BORJAMOME/segmentacion-retail-app)**.
 

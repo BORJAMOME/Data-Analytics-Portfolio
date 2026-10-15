@@ -1,4 +1,4 @@
-# Regresión Lineal Múltiple — Predicción de ventas mediante inversión publicitaria
+# Regresión Lineal Múltiple: Predicción de ventas mediante inversión publicitaria
 
 ¿Cuánto venden de más los euros que se meten en publicidad? Uso el conocido dataset **Advertising** para ver qué canales mueven de verdad las ventas, con una regresión lineal múltiple que sirve tanto para predecir como para leer el efecto de cada canal.
 

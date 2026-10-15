@@ -1,4 +1,4 @@
-# Reglas de asociación — Market Basket Analysis (Apriori)
+# Reglas de asociación: Market Basket Analysis (Apriori)
 
 ## Contexto de negocio
 Un supermercado quiere saber qué productos se compran juntos para decidir qué colocar

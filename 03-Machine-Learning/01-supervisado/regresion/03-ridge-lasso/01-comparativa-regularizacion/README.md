@@ -1,4 +1,4 @@
-# Ridge y Lasso — Estimación del precio de viviendas
+# Ridge y Lasso: Estimación del precio de viviendas
 
 Comparo Ridge y Lasso para estimar el precio de viviendas y ver qué hace la regularización con los coeficientes.
 

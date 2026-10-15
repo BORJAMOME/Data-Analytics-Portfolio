@@ -1,4 +1,4 @@
-# Regresión Logística — Abandono de clientes (Gimnasio)
+# Regresión Logística: Abandono de clientes (Gimnasio)
 
 Aquí el modelo, además de predecir, explica. Con odds ratios, p-valores e intervalos de confianza se puede decir cuánto pesa cada variable en la decisión de darse de baja.
 

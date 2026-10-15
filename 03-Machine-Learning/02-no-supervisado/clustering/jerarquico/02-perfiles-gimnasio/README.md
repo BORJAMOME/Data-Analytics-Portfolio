@@ -1,4 +1,4 @@
-# Clustering Jerárquico — Caso avanzado (gimnasio, 2 variables)
+# Clustering Jerárquico: Caso avanzado (gimnasio, 2 variables)
 
 ## Contexto de negocio
 Un gimnasio quiere encontrar perfiles de socio a partir de dos variables, la antigüedad y el gasto en extras, para diseñar ofertas de retención.

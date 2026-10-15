@@ -1,4 +1,4 @@
-# Naive Bayes — Detección de SMS spam
+# Naive Bayes: Detección de SMS spam
 
 ## Contexto de negocio
 

@@ -1,4 +1,4 @@
-# Comparativa de 3 modelos — Segmentación de clientes de aerolínea
+# Comparativa de 3 modelos: Segmentación de clientes de aerolínea
 
 Este notebook es el análisis completo. Si prefieres recorrer el caso sin tocar código, hay una app en Streamlit que compara los 3 modelos y te deja inventar un cliente para ver si los modelos se ponen de acuerdo sobre su segmento: **[comparativa-modelos-aerolinea-app](https://github.com/BORJAMOME/comparativa-modelos-aerolinea-app)**.
 

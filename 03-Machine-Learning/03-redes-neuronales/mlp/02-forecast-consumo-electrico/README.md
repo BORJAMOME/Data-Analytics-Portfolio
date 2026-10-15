@@ -1,4 +1,4 @@
-# MLP Regressor — Forecast de Consumo Eléctrico
+# MLP Regressor: Forecast de Consumo Eléctrico
 
 ## Contexto de negocio
 

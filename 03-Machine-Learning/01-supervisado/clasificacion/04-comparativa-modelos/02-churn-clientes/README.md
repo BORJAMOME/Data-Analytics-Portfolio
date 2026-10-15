@@ -1,4 +1,4 @@
-# Comparativa de 3 modelos — Predicción de churn (Telecomunicaciones)
+# Comparativa de 3 modelos: Predicción de churn (Telecomunicaciones)
 
 Es el reverso del caso del gimnasio. Aquí ninguno de los tres algoritmos funciona, porque las variables disponibles no contienen la señal. Lo he dejado en el portfolio a propósito: saber cuándo no se puede construir un modelo también es parte del trabajo.
 

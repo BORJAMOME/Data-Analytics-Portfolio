@@ -1,5 +1,5 @@
 -- ============================================================================
--- ADVENTUREWORKS AVANZADO — WINDOW FUNCTIONS 
+-- ADVENTUREWORKS AVANZADO: WINDOW FUNCTIONS 
 -- ============================================================================
 -- Caso de negocio: análisis del comportamiento de compra de clientes,
 -- rankings de productos, acumulados de ventas y crecimiento interanual
@@ -17,7 +17,7 @@ GO
 
 
 -- ============================================================================
--- PARTE 1: WINDOW FUNCTIONS — 11 EJERCICIOS PROGRESIVOS
+-- PARTE 1: WINDOW FUNCTIONS: 11 EJERCICIOS PROGRESIVOS
 -- ============================================================================
 
 
@@ -112,7 +112,7 @@ ORDER BY ListPrice DESC;
 
 -- ----------------------------------------------------------------------------
 -- Ejercicio 7: Total de productos registrados junto a cada fila
--- Técnica: COUNT(*) OVER () — ventana sin partición
+-- Técnica: COUNT(*) OVER (): ventana sin partición
 -- ----------------------------------------------------------------------------
 SELECT
     ProductID,
@@ -170,7 +170,7 @@ ORDER BY OrderDate;
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 11: LAG y LEAD — precio del producto anterior y siguiente
+-- Ejercicio 11: LAG y LEAD: precio del producto anterior y siguiente
 -- Comparar cada producto con el inmediatamente más caro y más barato.
 -- Técnica: LAG() y LEAD() sin partición
 -- ----------------------------------------------------------------------------
@@ -263,13 +263,13 @@ ORDER BY Crecimiento_Promedio DESC;
 --    los clientes de mayor valor sin dispersar presupuesto.
 --
 -- 2. Running total (ej. 10): la suma acumulada de ventas revela si el
---    crecimiento es lineal o exponencial — y en qué trimestres se
+--    crecimiento es lineal o exponencial, y en qué trimestres se
 --    producen los saltos. Es la base para construir forecasts fiables.
 --
 -- 3. Crecimiento YoY (Parte 2): los 10 clientes con mayor crecimiento
 --    interanual no son necesariamente los de mayor facturación absoluta.
 --    Identificarlos permite detectar cuentas emergentes antes de que
---    la competencia las capte — oportunidad de upselling temprano.
+--    la competencia las capte: oportunidad de upselling temprano.
 --
 -- 4. LAG/LEAD en precios (ej. 11): comparar cada producto con el
 --    inmediatamente superior e inferior en precio revela gaps de

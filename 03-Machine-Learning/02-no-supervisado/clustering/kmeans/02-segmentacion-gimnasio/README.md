@@ -1,4 +1,4 @@
-# K-Means — Segmentación avanzada de miembros de gimnasio
+# K-Means: Segmentación avanzada de miembros de gimnasio
 
 ## Contexto de negocio
 Un gimnasio quiere encontrar los perfiles con más riesgo de baja para lanzar campañas de retención antes de perder a esos socios.

@@ -1,4 +1,4 @@
-# Regresión Logística — Admisión universitaria
+# Regresión Logística: Admisión universitaria
 
 Con solo dos variables, el modelo clasifica bien al 99% de los candidatos. Es un buen ejemplo de regresión logística que predice y a la vez se puede explicar, aunque con un resultado tan limpio hay que sospechar de los datos (lo comento abajo).
 

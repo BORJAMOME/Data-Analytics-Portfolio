@@ -53,7 +53,7 @@ CREATE TABLE ventas (
 
 
 -- ----------------------------------------------------------------------------
--- 1.2 Datos — 50 concesionarios
+-- 1.2 Datos: 50 concesionarios
 -- ----------------------------------------------------------------------------
 INSERT INTO concesionarios VALUES
 (1,'AutoMadrid Norte','Madrid','Centro'),
@@ -108,7 +108,7 @@ INSERT INTO concesionarios VALUES
 
 
 -- ----------------------------------------------------------------------------
--- 1.3 Datos — 50 vehículos (Grupo VW: Seat, Audi, Cupra, VW, Skoda)
+-- 1.3 Datos, 50 vehículos (Grupo VW: Seat, Audi, Cupra, VW, Skoda)
 -- ----------------------------------------------------------------------------
 
 INSERT INTO vehiculos VALUES(1,'Seat Ibiza','Utilitario',18000),
@@ -163,7 +163,7 @@ INSERT INTO vehiculos VALUES(1,'Seat Ibiza','Utilitario',18000),
 
 
 -- ----------------------------------------------------------------------------
--- 1.4 Datos — 500 transacciones de venta (enero–junio 2025)
+-- 1.4 Datos: 500 transacciones de venta (enero–junio 2025)
 -- ----------------------------------------------------------------------------
 
 INSERT INTO ventas (id_venta, fecha, id_concesionario, id_vehiculo, cantidad) VALUES(1,'2025-06-13',8,2,9),(2,'2025-03-04',15,9,4),(3,'2025-06-23',48,35,3),
@@ -656,7 +656,7 @@ ORDER BY Ranking;
 --    y campañas promocionales con antelación.
 --
 -- 3. Percentil 75 de ventas (ej. 9): el umbral del cuartil superior sirve
---    como benchmark para fijar objetivos de venta realistas — cualquier
+--    como benchmark para fijar objetivos de venta realistas: cualquier
 --    concesionario por debajo debe recibir un plan de acción diferenciado.
 --
 -- 4. Evolución mensual con LAG (ej. 8): detectar meses consecutivos de

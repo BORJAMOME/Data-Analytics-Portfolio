@@ -1,4 +1,4 @@
-# MLP — Evaluación de Crédito Fintech
+# MLP: Evaluación de Crédito Fintech
 
 ## Contexto de negocio
 
