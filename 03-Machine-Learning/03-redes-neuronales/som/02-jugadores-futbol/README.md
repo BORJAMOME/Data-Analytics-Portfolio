@@ -1,4 +1,4 @@
-# SOM — Mapa de Perfiles de Futbolistas
+# SOM: Mapa de Perfiles de Futbolistas
 
 ## Contexto de negocio
 
@@ -13,7 +13,7 @@ si la posición que tienen asignada encaja con su perfil.
 | Archivo | jugadores_futbol.xlsx |
 | Registros | 800 jugadores |
 | Features | Velocidad, Tiro, Regate, Pase, Defensa, Físico |
-| Label | Posición_Real (Defensa/Centrocampista/Delantero) — solo validación |
+| Label | Posición_Real (Defensa/Centrocampista/Delantero): solo validación |
 
 ## Técnicas aplicadas
 

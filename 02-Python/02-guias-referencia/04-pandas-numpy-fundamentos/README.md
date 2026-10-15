@@ -1,4 +1,4 @@
-# Pandas + NumPy — Fundamentos y caso guiado
+# Pandas + NumPy: Fundamentos y caso guiado
 
 Manual en dos partes. La parte A es teoría: carga de CSV, EDA inicial, limpieza de nulos,
 columnas derivadas y filtros, estadística básica, `groupby` y acceso con `iloc`/`loc`. La

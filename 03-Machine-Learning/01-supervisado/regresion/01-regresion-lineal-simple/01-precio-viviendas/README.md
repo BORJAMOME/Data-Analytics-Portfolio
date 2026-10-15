@@ -1,4 +1,4 @@
-# Regresión Lineal Simple — Precio de viviendas
+# Regresión Lineal Simple: Precio de viviendas
 
 El modelo más sencillo del ML: una recta que predice el precio de una vivienda, revisando uno a uno los supuestos estadísticos.
 

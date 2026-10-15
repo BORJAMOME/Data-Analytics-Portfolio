@@ -1,4 +1,4 @@
-# Python — Análisis Exploratorio y Fundamentos
+# Python: Análisis Exploratorio y Fundamentos
 
 > Casos de negocio y manuales de referencia que hice durante el Bootcamp de Data Analytics
 > en [Neoland](https://www.neoland.es/) (mayo a julio de 2026). Cada caso arranca con una

@@ -1,4 +1,4 @@
-# Clustering Jerárquico — Caso introductorio
+# Clustering Jerárquico: Caso introductorio
 
 ## Contexto de negocio
 Un e-commerce quiere agrupar a 30 usuarios según sus clics y sus compras para hacer una campaña distinta para cada grupo.

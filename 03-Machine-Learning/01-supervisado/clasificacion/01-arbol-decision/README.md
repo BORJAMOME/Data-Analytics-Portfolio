@@ -1,4 +1,4 @@
-# Árbol de Decisión — Predicción de la satisfacción de clientes en una cadena de gimnasios
+# Árbol de Decisión: Predicción de la satisfacción de clientes en una cadena de gimnasios
 
 Un árbol de decisión de solo 2 niveles predice la satisfacción de los clientes de una cadena de gimnasios con un 90% de accuracy. Lo mejor es que sus dos reglas se pueden aplicar en el negocio tal cual.
 

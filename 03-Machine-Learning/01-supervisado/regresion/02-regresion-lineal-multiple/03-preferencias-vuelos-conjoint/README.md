@@ -1,4 +1,4 @@
-# Análisis Conjoint — Preferencias de Vuelos
+# Análisis Conjoint: Preferencias de Vuelos
 
 En este notebook está el caso completo. Si prefieres recorrerlo sin tocar código, he hecho una app en Streamlit que lo explica de principio a fin y te deja diseñar un vuelo para ver cómo lo valoraría cada segmento de cliente: **[conjoint-vuelos-app](https://github.com/BORJAMOME/conjoint-vuelos-app)**.
 

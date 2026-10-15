@@ -63,7 +63,7 @@ Este caso sale de un ejercicio de PySpark del bootcamp que traía un bug que mer
 .option("inferShema", True)   # inferSchema, no inferShema
 ```
 
-**Spark ignora en silencio cualquier opción cuyo nombre no reconoce.** No hay excepción ni warning: las 7 columnas se leían como texto y `describe()` devolvía estadísticos comparados alfabéticamente — precio máximo **999,99 €** en lugar de **2.000,00 €**, cantidad máxima **9** en lugar de **10**, `IdVenta` máximo **99.999** en lugar de **203.533**. Lo peligroso es que el filtro `col("Precio") > 1000` **sí funcionaba**, porque Spark hace un *cast* implícito al comparar texto con número: parte del código acertaba y parte mentía. En la sección 2 del notebook reproduzco el error a propósito antes de corregirlo.
+**Spark ignora en silencio cualquier opción cuyo nombre no reconoce.** No hay excepción ni warning: las 7 columnas se leían como texto y `describe()` devolvía estadísticos comparados alfabéticamente: precio máximo **999,99 €** en lugar de **2.000,00 €**, cantidad máxima **9** en lugar de **10**, `IdVenta` máximo **99.999** en lugar de **203.533**. Lo peligroso es que el filtro `col("Precio") > 1000` **sí funcionaba**, porque Spark hace un *cast* implícito al comparar texto con número: parte del código acertaba y parte mentía. En la sección 2 del notebook reproduzco el error a propósito antes de corregirlo.
 
 También corregí cuatro malas prácticas: `from pyspark.sql.functions import sum, avg` (sobrescribe las funciones nativas de Python), dos `toPandas()` sobre el DataFrame completo (203.533 filas al driver, y el fichero leído dos veces), un `scatter` de 203.533 puntos ilegible, y `spark.sql.shuffle.partitions` en su valor por defecto de 200 para un dataset local.
 

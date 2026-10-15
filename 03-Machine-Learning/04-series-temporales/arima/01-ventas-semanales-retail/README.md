@@ -1,4 +1,4 @@
-# SARIMA — Predicción de Ventas Semanales en Retail
+# SARIMA: Predicción de Ventas Semanales en Retail
 
 **[Ver la app interactiva](https://sarima-ventas-retail.streamlit.app/)**: el caso contado paso a paso a partir de este notebook, con una zona para jugar con el modelo ([código](https://github.com/BORJAMOME/sarima-ventas-retail-app)).
 

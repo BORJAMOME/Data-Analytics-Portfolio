@@ -1,4 +1,4 @@
-# Análisis de clientes — Tienda de alimentación
+# Análisis de clientes: Tienda de alimentación
 
 **Caso de negocio:** una tienda de alimentación tiene sus clientes, productos, categorías y
 proveedores en una base de datos y quiere sacarle partido: segmentar clientes, clasificar

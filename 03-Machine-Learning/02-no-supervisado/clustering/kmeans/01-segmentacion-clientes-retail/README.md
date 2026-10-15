@@ -1,4 +1,4 @@
-# K-Means — Segmentación de clientes retail
+# K-Means: Segmentación de clientes retail
 
 ## Contexto de negocio
 Un centro comercial quiere agrupar a sus clientes por ingresos y por cómo gastan, para hacer campañas distintas (VIP, activación, fidelización).

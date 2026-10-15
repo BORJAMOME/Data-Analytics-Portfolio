@@ -7,7 +7,7 @@ resultado con widgets interactivos de Jupyter en vez de con un gráfico estátic
 
 | # | Caso | Qué se aprende |
 |---|------|-----------------|
-| 1 | [Simulador de rutas reales — OSRM](01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
+| 1 | [Simulador de rutas reales: OSRM](01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
 
 ## Stack
 `requests` · `numpy` · `ipyleaflet` · `ipywidgets`

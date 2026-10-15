@@ -1,4 +1,4 @@
-# NumPy — Guía completa
+# NumPy: Guía completa
 
 Manual de referencia: para qué sirve NumPy si ya existen las listas, creación y atributos de
 arrays, indexado/slicing 1D-2D, operaciones vectorizadas, broadcasting, funciones de

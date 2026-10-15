@@ -1,4 +1,4 @@
-# SVM — Reemplazo de baterías
+# SVM: Reemplazo de baterías
 
 Uso SVM para saber qué baterías hay que reemplazar a partir de su edad y de lo intensamente que se han usado.
 

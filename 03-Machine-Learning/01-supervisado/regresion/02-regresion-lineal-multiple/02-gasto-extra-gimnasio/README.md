@@ -1,4 +1,4 @@
-# Regresión Lineal Múltiple — Gasto extra en gimnasio
+# Regresión Lineal Múltiple: Gasto extra en gimnasio
 
 El dataset del gimnasio aparece en varios proyectos del portfolio. En clasificación sirve para predecir abandono y satisfacción; aquí, para predecir cuánto gasta cada cliente en extras.
 

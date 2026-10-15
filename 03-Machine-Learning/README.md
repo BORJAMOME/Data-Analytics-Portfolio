@@ -1,4 +1,4 @@
-# Machine Learning — 41 Casos Prácticos
+# Machine Learning: 41 Casos Prácticos
 
 > Los proyectos de Machine Learning que hice durante el Bootcamp intensivo de Data Analytics en [Neoland](https://www.neoland.es/) (mayo a julio de 2026). Van de la regresión lineal simple a las redes neuronales y las series temporales, y todos siguen el mismo orden: contexto de negocio, exploración, modelo, evaluación y conclusión.
 
@@ -63,7 +63,7 @@ Los proyectos están organizados en tres niveles: **Categoría** → **Familia d
 
 Modelos que aprenden de datos etiquetados. O predicen un número (regresión) o predicen una categoría (clasificación).
 
-### Regresión — predecir un valor numérico continuo
+### Regresión: predecir un valor numérico continuo
 
 **Regresión Lineal Simple** · [`regresion/01-regresion-lineal-simple/`](01-supervisado/regresion/01-regresion-lineal-simple/)
 
@@ -78,9 +78,9 @@ Modelos que aprenden de datos etiquetados. O predicen un número (regresión) o 
 |---|---|---|---|
 | 01 | [ROI publicitario](01-supervisado/regresion/02-regresion-lineal-multiple/01-ventas-publicidad/) | Selección de variables, p-valores, R² ajustado | `Advertising.csv` |
 | 02 | [Gasto extra gimnasio](01-supervisado/regresion/02-regresion-lineal-multiple/02-gasto-extra-gimnasio/) | Colinealidad, VIF, diagnóstico de modelo | `gym_clientes.xlsx` |
-| 03 | [Preferencias de vuelos — análisis conjoint](01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | `Conjoint_Flight.xlsx` |
+| 03 | [Preferencias de vuelos: análisis conjoint](01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint/) | Valor de cada atributo del vuelo (utilidades parciales, importancia) y cómo cambia por segmento de cliente | `Conjoint_Flight.xlsx` |
 
-**Regularización — Ridge y Lasso** · [`regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
+**Regularización: Ridge y Lasso** · [`regresion/03-ridge-lasso/`](01-supervisado/regresion/03-ridge-lasso/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
@@ -93,7 +93,7 @@ Modelos que aprenden de datos etiquetados. O predicen un número (regresión) o 
 | 01 | [Tasación de viviendas](01-supervisado/regresion/04-gradient-boosting/01-tasacion-viviendas/) | Ensemble secuencial, feature importance, comparativa con regresión lineal | Tasación viviendas |
 | 02 | [Tiempo de carrera de 5K](01-supervisado/regresion/04-gradient-boosting/02-tiempo-carrera-5k/) | Detección de filas casi duplicadas, evaluación honesta sin fuga de datos | Corredores (sintético) |
 
-### Clasificación — predecir una categoría
+### Clasificación: predecir una categoría
 
 **Árbol de Decisión** · [`clasificacion/01-arbol-decision/`](01-supervisado/clasificacion/01-arbol-decision/)
 
@@ -117,8 +117,8 @@ Modelos que aprenden de datos etiquetados. O predicen un número (regresión) o 
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
-| 01 | [Gimnasio — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Comparar modelos en igualdad de condiciones y decidir cuál desplegar | `gym_clientes.xlsx` |
-| 02 | [Churn — DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
+| 01 | [Gimnasio: DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/01-satisfaccion-gimnasio/) | Comparar modelos en igualdad de condiciones y decidir cuál desplegar | `gym_clientes.xlsx` |
+| 02 | [Churn: DT vs RF vs XGBoost](01-supervisado/clasificacion/04-comparativa-modelos/02-churn-clientes/) | Churn prediction, resultado negativo documentado | `customer churn.xlsx` |
 | 03 | [Riesgo de impago](01-supervisado/clasificacion/04-comparativa-modelos/03-prediccion-impagos/) | Clasificación binaria, umbral de decisión justificado, separación estricta entre train y test | `competicion_clasificacion_train.xlsx` |
 | 04 | [Segmentación de aerolínea](01-supervisado/clasificacion/04-comparativa-modelos/04-segmentacion-aerolinea/) | Regresión Logística vs Random Forest vs Gradient Boosting con el mismo split y validación cruzada, explicabilidad | `dataset_linea_aerea_multiclase_v2.xlsx` |
 
@@ -171,7 +171,7 @@ Modelos que buscan patrones sin etiquetas: segmentación de clientes, reducción
 
 ### Reducción de dimensionalidad
 
-**PCA — Principal Component Analysis** · [`reduccion-dimensionalidad/pca/`](02-no-supervisado/reduccion-dimensionalidad/pca/)
+**PCA: Principal Component Analysis** · [`reduccion-dimensionalidad/pca/`](02-no-supervisado/reduccion-dimensionalidad/pca/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
@@ -184,7 +184,7 @@ Modelos que buscan patrones sin etiquetas: segmentación de clientes, reducción
 
 Perceptrón multicapa para clasificar y predecir, y Self-Organizing Maps para agrupar de forma visual.
 
-**MLP — Multilayer Perceptron** · [`mlp/`](03-redes-neuronales/mlp/)
+**MLP: Multilayer Perceptron** · [`mlp/`](03-redes-neuronales/mlp/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|
@@ -193,7 +193,7 @@ Perceptrón multicapa para clasificar y predecir, y Self-Organizing Maps para ag
 | 02 | [Forecast consumo eléctrico](03-redes-neuronales/mlp/02-forecast-consumo-electrico/) | Feature engineering temporal, lag features, comparativa con RF | `electricidad.xlsx` |
 | 03 | [Sentimiento en reseñas IMDB](03-redes-neuronales/mlp/03-clasificacion-sentimiento-imdb/) | Embedding + pooling en NLP, TF-IDF+LogReg supera al MLP | IMDB (25.000 reseñas) |
 
-**SOM — Self-Organizing Maps** · [`som/`](03-redes-neuronales/som/)
+**SOM: Self-Organizing Maps** · [`som/`](03-redes-neuronales/som/)
 
 | # | Caso | Qué se aprende | Dataset |
 |---|---|---|---|

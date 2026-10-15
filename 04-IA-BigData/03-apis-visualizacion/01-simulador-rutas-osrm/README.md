@@ -1,4 +1,4 @@
-# Simulador de rutas reales — API OSRM + mapa interactivo
+# Simulador de rutas reales: API OSRM + mapa interactivo
 
 ## Contexto
 Calcular la ruta real en coche entre dos puntos, no la línea recta, y enseñar el recorrido

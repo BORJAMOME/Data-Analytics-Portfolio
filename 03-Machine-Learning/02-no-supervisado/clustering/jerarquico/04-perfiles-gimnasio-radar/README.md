@@ -1,4 +1,4 @@
-# Clustering Jerárquico — Gimnasio con 4 variables y radar charts
+# Clustering Jerárquico: Gimnasio con 4 variables y radar charts
 
 ## Contexto de negocio
 Un gimnasio quiere perfiles de socio que se puedan usar en marketing, a partir de 4 métricas de comportamiento, y enseñarlos con radar charts para que los entienda alguien sin formación técnica.

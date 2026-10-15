@@ -1,4 +1,4 @@
-# AdventureWorks Avanzado — Window Functions
+# AdventureWorks Avanzado: Window Functions
 
 **Caso de negocio:** AdventureWorks, una empresa de fabricación y distribución, quiere
 entender cómo compran sus clientes, ordenar sus productos por precio, llevar acumulados de

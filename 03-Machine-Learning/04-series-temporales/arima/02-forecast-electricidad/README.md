@@ -1,4 +1,4 @@
-# SARIMA — Forecast de Consumo Eléctrico Horario
+# SARIMA: Forecast de Consumo Eléctrico Horario
 
 ## Contexto de negocio
 
