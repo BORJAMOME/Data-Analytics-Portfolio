@@ -1,7 +1,6 @@
 # Python: Análisis Exploratorio y Fundamentos
 
-> Casos de negocio y manuales de referencia que hice durante mi formación en Data Analytics
-> (2026). Cada caso arranca con una pregunta concreta y acaba con recomendaciones.
+Casos de negocio y manuales de referencia que hice durante mi formación en Data Analytics. Cada caso arranca con una pregunta concreta y acaba con recomendaciones.
 
 
 ## Stack técnico
