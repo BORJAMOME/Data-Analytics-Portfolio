@@ -2,8 +2,6 @@
 
 Proyectos de datos que he hecho durante el bootcamp de Data Analytics: SQL, Python, Machine Learning e Inteligencia Artificial, siempre sobre un caso de negocio concreto.
 
-**Autor:** Borja Mora Méndez · **Email:** borja.mora.mendez@gmail.com · **LinkedIn:** [linkedin.com/in/borjamoramendez](https://www.linkedin.com/in/borjamoramendez/)
-
 ---
 
 ## Estructura del portfolio
@@ -15,7 +13,6 @@ Data-Analytics-Portfolio/
 ├── 03-Machine-Learning/        41 casos: supervisado, no supervisado, RRNN, series, refuerzo
 └── 04-IA-BigData/              Agentes IA, LLMs, APIs, minería de datos, Big Data
 ```
-Cada carpeta tiene su propio README con la lista de proyectos y las técnicas que usa cada uno.
 
 ---
 

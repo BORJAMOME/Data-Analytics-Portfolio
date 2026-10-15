@@ -1,5 +1,5 @@
 -- ============================================================================
--- ANÁLISIS DE VENTAS: RED DE CONCESIONARIOS
+-- ANÁLISIS DE VENTAS - RED DE CONCESIONARIOS
 -- ============================================================================
 -- Caso de negocio: análisis del rendimiento comercial de una red de 50
 -- concesionarios de automoción en España. 50 modelos de vehículos,
@@ -645,7 +645,7 @@ ORDER BY Ranking;
 -- ============================================================================
 -- 1. Concentración de ingresos: con 50 concesionarios en la red, los 3 con
 --    mayor volumen de ventas generan cerca de un 10 % de la facturación
---    total: una red razonablemente diversificada, sin dependencia crítica
+--    total - una red razonablemente diversificada, sin dependencia crítica
 --    de un puñado de puntos de venta. El benchmark útil aquí no es la
 --    concentración (no la hay) sino el percentil 75 (ej. 9): identificar
 --    qué concesionarios están por debajo del cuartil superior para
