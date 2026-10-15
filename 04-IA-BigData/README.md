@@ -11,7 +11,7 @@ Cada proyecto aborda un problema desde una perspectiva diferente, combinando fun
 
 | Categoría | Caso | Qué se aprende |
 |-----------|------|-----------------|
-| [01 · Agentes IA](01-agentes-ia/) | [Chatbot de reservas: Nivel 0](01-agentes-ia/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base para medir el aporte real de la IA |
+| [01 · Agentes IA](01-agentes-ia/) | [Chatbot de reservas](01-agentes-ia/01-chatbot-reglas-restaurante/) | Motor de reglas de negocio, menú conversacional, línea base para medir el aporte real de la IA |
 | [02 · Sistemas de Recomendación](02-sistemas-recomendacion/) | [Recomendador de películas por contenido](02-sistemas-recomendacion/01-recomendador-peliculas-contenido/) | Filtrado basado en contenido (TF-IDF + similitud coseno), visualización PCA del espacio de películas, cuándo preferirlo frente al filtrado colaborativo |
 | [03 · APIs & Visualización](03-apis-visualizacion/) | [Simulador de rutas reales: OSRM](03-apis-visualizacion/01-simulador-rutas-osrm/) | Consumo de API REST, fórmula de Haversine, interpolación de rutas, mapas interactivos con ipyleaflet |
 | [04 · Minería de Datos](04-mineria-datos/) | [Cesta de la compra: Apriori](04-mineria-datos/01-cesta-compra-apriori/) | Support/confidence/lift manual, algoritmo Apriori (mlxtend), reglas de asociación de 3+ productos |
