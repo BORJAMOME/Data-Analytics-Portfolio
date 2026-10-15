@@ -1,14 +1,20 @@
 # SQL - Análisis de datos
 
-Repositorio con una selección de proyectos en los que utilizo SQL para consultar, transformar y analizar datos. A través de distintos ejercicios y casos prácticos, trabajo con consultas, agregaciones, uniones y otras técnicas para extraer información relevante y responder a preguntas de negocio.
+Repositorio de proyectos y ejercicios prácticos en los que utilizo **SQL para explorar datos, analizar información y responder a preguntas de negocio**.
 
----
+Trabajo con distintos conjuntos de datos y casos prácticos para estudiar ventas, comprender el comportamiento de los clientes, comparar resultados e identificar patrones relevantes. Para ello, aplico técnicas de consulta, transformación y análisis que me permiten pasar de los datos a información útil para la toma de decisiones.
 
-## Proyectos
+### Proyectos
 
-| # | Caso | Qué se aprende | Base de datos |
-|---|------|----------------|---------------|
-| 1 | [Análisis de ventas — Red de concesionarios](01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK, RANK | AutomocionDB (autocontenida) |
-| 2 | [AdventureWorks Avanzado — Window Functions](02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista | AdventureWorks2025 |
-| 3 | [Análisis de clientes — Tienda](03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY, casos reales | Tienda (requiere BD previa) |
+- **Análisis de ventas:** rendimiento comercial de una red de concesionarios.
+- **Window Functions:** análisis avanzado de datos con AdventureWorks.
+- **Análisis de clientes:** segmentación, patrones de compra y rankings en una tienda de alimentación.
 
+### Tecnologías y técnicas
+
+- **Consulta y combinación de datos:** `SELECT`, `WHERE`, `JOIN` y `GROUP BY`.
+- **Agregaciones y métricas:** `SUM()`, `AVG()`, `COUNT()`, `HAVING` y cálculos de negocio.
+- **Subconsultas y CTEs:** consultas anidadas y organización de cálculos intermedios.
+- **Windows Functions:** `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`, `LAG()` y `LEAD()`.
+- **Análisis comparativo:** rankings, segmentación por grupos, percentiles y cálculos acumulados.
+- **Lógica de negocio:** `CASE` para crear clasificaciones y categorías a partir de los datos.
