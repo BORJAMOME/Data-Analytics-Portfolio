@@ -1,5 +1,5 @@
 -- ============================================================================
--- ANÁLISIS DE VENTAS — RED DE CONCESIONARIOS
+-- ANÁLISIS DE VENTAS - RED DE CONCESIONARIOS
 -- ============================================================================
 -- Caso de negocio: análisis del rendimiento comercial de una red de 50
 -- concesionarios de automoción en España. 50 modelos de vehículos,
