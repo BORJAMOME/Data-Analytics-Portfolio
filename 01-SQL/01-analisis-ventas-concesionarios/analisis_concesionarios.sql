@@ -645,7 +645,7 @@ ORDER BY Ranking;
 -- ============================================================================
 -- 1. Concentración de ingresos: con 50 concesionarios en la red, los 3 con
 --    mayor volumen de ventas generan cerca de un 10 % de la facturación
---    total — una red razonablemente diversificada, sin dependencia crítica
+--    total - una red razonablemente diversificada, sin dependencia crítica
 --    de un puñado de puntos de venta. El benchmark útil aquí no es la
 --    concentración (no la hay) sino el percentil 75 (ej. 9): identificar
 --    qué concesionarios están por debajo del cuartil superior para
