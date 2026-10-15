@@ -16,15 +16,6 @@ cerca en el lineal, qué combos promocionar y qué recomendar en caja o en la ap
 - Gráfico interactivo de las reglas filtradas con Plotly (support frente a confidence, con
   el tamaño según el lift).
 
-## Dos errores del notebook de partida
-El notebook del que partí tenía dos fallos que invalidaban los resultados:
-- **El conteo de pares se quedaba corto sin avisar.** El bucle que genera las combinaciones
-  estaba fuera del bucle que recorre las transacciones por un problema de sangría, así que
-  solo se ejecutaba con la última transacción. Salían 28 pares en vez de los 300 que hay
-  (todas las combinaciones de 25 productos).
-- **El DataFrame de reglas no se construía.** `pd.DataFrame(rules.append)` pasaba el método
-  `.append` en vez de la lista de reglas, y saltaba
-  `ValueError: DataFrame constructor not properly called!`.
 
 ## Hallazgo clave
 De los 300 pares posibles, 8 pasan los umbrales de negocio (support ≥ 0,08, confidence ≥ 0,35,

@@ -1,27 +1,21 @@
-# Simulador de rutas reales: API OSRM + mapa interactivo
+# Simulador de rutas reales · OSRM y mapa interactivo
 
-## Contexto
-Calcular la ruta real en coche entre dos puntos, no la línea recta, y enseñar el recorrido
-en un mapa interactivo, como haría cualquier app de navegación o de reparto.
+Simulador que calcula rutas reales en coche entre dos puntos y representa el recorrido en un mapa interactivo, combinando una API de enrutamiento con cálculos geográficos y animación.
 
 ## Cómo funciona
-1. El usuario hace clic en el mapa para fijar **origen** y **destino**.
-2. La app llama a la API pública de **OSRM** (Open Source Routing Machine) para obtener la
-   geometría real de la ruta en coche, la distancia y el tiempo estimado.
-3. Los puntos de la ruta se **interpolan por distancia recorrida** (fórmula de Haversine),
-   no por número de vértices, para que la animación tenga velocidad constante.
-4. Un marcador anima el recorrido punto a punto sobre el mapa, con velocidad configurable.
+
+1. El usuario selecciona el origen y el destino haciendo clic en el mapa.
+2. La API de **OSRM** devuelve la ruta por carretera, la distancia y el tiempo estimado.
+3. Las coordenadas se interpolan según la distancia recorrida para conseguir un desplazamiento visual más uniforme.
+4. Un marcador anima el recorrido sobre el mapa con velocidad configurable.
 
 ## Técnicas aplicadas
-- Llamadas a una API REST externa (`requests`) y gestión de errores de geocodificación y de ruta.
-- Cálculo de distancias geográficas con la fórmula de Haversine (NumPy vectorizado).
-- Interpolación lineal (`np.interp`) para que la animación sea fluida sea cual sea el detalle de la ruta.
-- Mapas y widgets interactivos en Jupyter con **ipyleaflet** e **ipywidgets** (clics, capas
-  que cambian, controles).
 
-## Stack
-`requests` · `numpy` · `ipyleaflet` · `ipywidgets`
+- **APIs REST:** peticiones con `requests` y gestión de errores.
+- **Cálculo geográfico:** fórmula de Haversine y operaciones vectorizadas con NumPy.
+- **Interpolación numérica:** `np.interp` para calcular posiciones intermedias a lo largo de la ruta.
+- **Visualización interactiva:** mapas con `ipyleaflet` y controles con `ipywidgets` en Jupyter Notebook.
 
-## Notas
-La interfaz es un widget de Jupyter (mapa, botones y slider). Para verla funcionando hay que
-ejecutar el notebook en local, porque GitHub no muestra el estado interactivo de ipywidgets.
+## Tecnologías
+
+Python · OSRM · Requests · NumPy · ipyleaflet · ipywidgets

@@ -17,5 +17,4 @@ El modelo reconoce bien sofás, sillas, plantas y relojes, con confianzas de ent
 ## Stack
 ultralytics (YOLOv8), OpenCV, Matplotlib
 
-## Notas
-La detección en vídeo en directo (`cv2.imshow`) no se puede reproducir en un notebook sin interfaz gráfica, así que aquí solo trabajo con imágenes. El seguimiento de objetos en vídeo está en otro caso: [02-conteo-vehiculos-video](../02-conteo-vehiculos-video/).
+
