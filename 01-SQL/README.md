@@ -1,4 +1,4 @@
-# SQL — Análisis de datos con T-SQL
+# SQL: Análisis de datos con T-SQL
 
 > Proyectos de análisis resueltos con T-SQL y SQL Server durante el bootcamp de Data
 > Analytics en [Neoland](https://www.neoland.es/). He intentado que el código se lea
@@ -24,9 +24,9 @@ T-SQL · SQL Server · SQL Server Management Studio (SSMS) · AdventureWorks2025
 
 | # | Caso | Qué se aprende | Base de datos |
 |---|------|----------------|---------------|
-| 1 | [Análisis de ventas — Red de concesionarios](01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK, RANK | AutomocionDB (autocontenida) |
-| 2 | [AdventureWorks Avanzado — Window Functions](02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista | AdventureWorks2025 |
-| 3 | [Análisis de clientes — Tienda](03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY, casos reales | Tienda (requiere BD previa) |
+| 1 | [Análisis de ventas: Red de concesionarios](01-analisis-ventas-concesionarios/) | CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT, PERCENT_RANK, RANK | AutomocionDB (autocontenida) |
+| 2 | [AdventureWorks Avanzado: Window Functions](02-adventureworks-avanzado/) | ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, sumas acumuladas, examen tipo entrevista | AdventureWorks2025 |
+| 3 | [Análisis de clientes: Tienda](03-analisis-clientes-tienda/) | LEFT JOIN, subqueries IN/NOT IN, CASE, CTEs, Window Functions, PARTITION BY, casos reales | Tienda (requiere BD previa) |
 ## Estructura
 
 ```

@@ -1,4 +1,4 @@
-# Matplotlib — Manual completo de gráficos
+# Matplotlib: Manual completo de gráficos
 
 Manual de referencia en 10 secciones: anatomía Figure/Axes, líneas, scatter, barras,
 histogramas, tarta, boxplot, subplots, personalización (colores, leyendas, anotaciones) y

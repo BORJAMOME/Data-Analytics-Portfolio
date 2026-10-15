@@ -1,4 +1,4 @@
-# SOM — Segmentación de Clientes con Self-Organizing Maps
+# SOM: Segmentación de Clientes con Self-Organizing Maps
 
 ## Contexto de negocio
 

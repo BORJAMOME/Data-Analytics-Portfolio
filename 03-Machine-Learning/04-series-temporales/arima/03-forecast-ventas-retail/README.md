@@ -1,4 +1,4 @@
-# SARIMA vs SARIMAX — Forecasting de Ventas en Retail con Variables Exógenas
+# SARIMA vs SARIMAX: Forecasting de Ventas en Retail con Variables Exógenas
 
 Una cadena retail quiere prever sus ventas semanales teniendo en cuenta lo que pasa fuera: promociones, huelgas, guerras o problemas logísticos. Comparo un SARIMA que solo mira el histórico con un SARIMAX que incorpora esos eventos, y el segundo se equivoca un **31 % menos**: el MAPE baja del 7,78 % al 5,31 %.
 

@@ -1,4 +1,4 @@
-# SARSA — Política de Marketing Personalizado para E-Commerce
+# SARSA: Política de Marketing Personalizado para E-Commerce
 
 ## Contexto de negocio
 

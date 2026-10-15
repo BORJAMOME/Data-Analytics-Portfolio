@@ -1,4 +1,4 @@
-# MLP — Clasificación de sentimiento en reseñas de películas (IMDB)
+# MLP: Clasificación de sentimiento en reseñas de películas (IMDB)
 
 ## Contexto de negocio
 

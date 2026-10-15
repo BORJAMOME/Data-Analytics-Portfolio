@@ -1,4 +1,4 @@
-# Chatbot de reservas basado en reglas — Nivel 0
+# Chatbot de reservas basado en reglas: Nivel 0
 
 ## Contexto
 Un restaurante quiere un sistema sencillo para gestionar reservas por consola: ver si

@@ -1,4 +1,4 @@
-# Pandas — Limpieza de datos (manual completo)
+# Pandas: Limpieza de datos (manual completo)
 
 Todo el manual trabaja sobre un único dataset "sucio": un export de CRM con duplicados,
 nulos, texto inconsistente, números con símbolo de moneda, fechas en varios formatos, edades

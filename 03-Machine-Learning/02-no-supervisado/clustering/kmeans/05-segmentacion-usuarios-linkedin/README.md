@@ -1,4 +1,4 @@
-# K-Means — Segmentación de perfiles de usuarios en LinkedIn
+# K-Means: Segmentación de perfiles de usuarios en LinkedIn
 
 ## Contexto de negocio
 El equipo de producto de una red profesional tipo LinkedIn trata a todos sus usuarios igual. No sabe distinguir al que crea contenido del que busca trabajo, y por eso no puede adaptar la experiencia, las notificaciones ni las recomendaciones a cada uno.

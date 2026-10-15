@@ -1,4 +1,4 @@
-# Comparativa de 3 modelos — Satisfacción de clientes (Gimnasio)
+# Comparativa de 3 modelos: Satisfacción de clientes (Gimnasio)
 
 Una cadena de gimnasios urbanos quiere saber qué clientes están descontentos para actuar antes de que se den de baja. Comparo tres algoritmos y gana el más simple, que además deja una regla de negocio que cabe en una servilleta.
 

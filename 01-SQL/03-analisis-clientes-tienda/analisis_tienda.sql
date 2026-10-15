@@ -1,5 +1,5 @@
 -- ============================================================================
--- ANÁLISIS DE CLIENTES — TIENDA DE ALIMENTACIÓN
+-- ANÁLISIS DE CLIENTES: TIENDA DE ALIMENTACIÓN
 -- ============================================================================
 -- Caso de negocio: explotación de datos transaccionales de una tienda de
 -- alimentación para segmentar clientes, clasificar productos, detectar
@@ -20,7 +20,7 @@ GO
 
 
 -- ============================================================================
--- BLOQUE 1 — LEFT JOIN
+-- BLOQUE 1: LEFT JOIN
 -- ============================================================================
 
 
@@ -80,7 +80,7 @@ WHERE p.id_proveedor IS NULL;
 
 
 -- ============================================================================
--- BLOQUE 2 — SUBQUERIES BÁSICAS
+-- BLOQUE 2: SUBQUERIES BÁSICAS
 -- ============================================================================
 
 
@@ -141,7 +141,7 @@ WHERE edad = (SELECT MIN(edad) FROM clientes);
 
 
 -- ============================================================================
--- BLOQUE 3 — SUBQUERIES AVANZADAS (IN / NOT IN)
+-- BLOQUE 3: SUBQUERIES AVANZADAS (IN / NOT IN)
 -- ============================================================================
 
 
@@ -203,7 +203,7 @@ WHERE p.total > 50;
 
 
 -- ============================================================================
--- BLOQUE 4 — CASE (clasificaciones de negocio)
+-- BLOQUE 4: CASE (clasificaciones de negocio)
 -- ============================================================================
 
 
@@ -285,7 +285,7 @@ ORDER BY Clasificacion DESC;
 
 
 -- ============================================================================
--- BLOQUE 5 — COMBINACIÓN (Subquery + HAVING + CASE)
+-- BLOQUE 5: COMBINACIÓN (Subquery + HAVING + CASE)
 -- ============================================================================
 
 
@@ -372,7 +372,7 @@ ORDER BY Ingresos DESC;
 
 
 -- ============================================================================
--- BLOQUE 6 — SUBQUERIES CORRELACIONADAS
+-- BLOQUE 6: SUBQUERIES CORRELACIONADAS
 -- ============================================================================
 
 
@@ -462,7 +462,7 @@ ORDER BY p.total DESC;
 
 
 -- ============================================================================
--- BLOQUE 7 — WINDOW FUNCTIONS + CTEs
+-- BLOQUE 7: WINDOW FUNCTIONS + CTEs
 -- ============================================================================
 
 
@@ -537,7 +537,7 @@ FROM (
 WHERE r <= 2;
 
 -- ============================================================================
--- BLOQUE 8 — CASOS REALES
+-- BLOQUE 8: CASOS REALES
 -- ============================================================================
 
 
@@ -615,7 +615,7 @@ GROUP BY id_proveedor;
 
 
 -- ----------------------------------------------------------------------------
--- 40. Dashboard básico SQL — métricas por cliente
+-- 40. Dashboard básico SQL: métricas por cliente
 -- Técnica: COUNT + SUM + AVG en un solo SELECT
 -- ----------------------------------------------------------------------------
 SELECT
@@ -631,7 +631,7 @@ GROUP BY id_cliente;
 -- ============================================================================
 -- 1. Clientes fantasma (ej. 2, 12): detectar clientes registrados sin
 --    pedidos permite lanzar campañas de activación dirigidas antes de
---    darlos por perdidos — cada cliente inactivo es coste de captación
+--    darlos por perdidos: cada cliente inactivo es coste de captación
 --    sin retorno.
 --
 -- 2. Segmentación VIP (ej. 20, 36): clasificar clientes por gasto con
@@ -641,7 +641,7 @@ GROUP BY id_cliente;
 --
 -- 3. Top 3 por ciudad (ej. 37): el ranking geográfico con PARTITION BY
 --    muestra que la distribución de clientes valiosos no es homogénea.
---    Algunas ciudades concentran el gasto — dato clave para decidir
+--    Algunas ciudades concentran el gasto: dato clave para decidir
 --    dónde abrir nuevos puntos de venta o intensificar distribución.
 --
 -- 4. Evolución de gasto con LAG (ej. 34): el incremento entre pedidos
@@ -651,6 +651,6 @@ GROUP BY id_cliente;
 --
 -- 5. Dashboard SQL (ej. 40): las métricas por cliente (pedidos, total,
 --    ticket medio) en un solo SELECT son la base para alimentar un
---    dashboard en Power BI — este query se convierte directamente en
+--    dashboard en Power BI: este query se convierte directamente en
 --    la fuente de datos de un informe de gestión comercial.
 -- ============================================================================

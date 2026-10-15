@@ -1,4 +1,4 @@
-# Regresión Lineal Simple — Predicción del colesterol
+# Regresión Lineal Simple: Predicción del colesterol
 
 ¿Se puede estimar el colesterol de un paciente solo con su índice de masa corporal (BMI)? Lo pruebo con una regresión lineal simple sobre 50 pacientes.
 

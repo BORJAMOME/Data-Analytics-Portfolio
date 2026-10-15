@@ -1,4 +1,4 @@
-# SVM — Propensión de compra de iPhone
+# SVM: Propensión de compra de iPhone
 
 Support Vector Classifier con kernel lineal, polinómico y RBF, para un caso en el que la frontera entre comprar y no comprar no es una recta.
 

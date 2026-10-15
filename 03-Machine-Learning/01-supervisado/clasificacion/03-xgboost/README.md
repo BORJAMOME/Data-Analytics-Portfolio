@@ -1,4 +1,4 @@
-# XGBoost — Predicción de la satisfacción de clientes en un gimnasio
+# XGBoost: Predicción de la satisfacción de clientes en un gimnasio
 
 XGBoost, uno de los algoritmos de clasificación más usados en la industria, llega a lo mismo que el árbol de decisión y el Random Forest: lo que más explica la satisfacción de los clientes es la frecuencia de asistencia.
 

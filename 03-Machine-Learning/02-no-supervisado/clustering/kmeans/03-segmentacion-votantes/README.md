@@ -1,4 +1,4 @@
-# K-Means — Segmentación de votantes por posiciones políticas
+# K-Means: Segmentación de votantes por posiciones políticas
 
 ## Contexto de negocio
 Un partido político quiere saber cómo piensa de verdad su electorado para ajustar el mensaje de campaña a cada grupo.

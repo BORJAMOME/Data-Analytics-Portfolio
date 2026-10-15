@@ -1,4 +1,4 @@
-# Gradient Boosting Regressor — Tasación de viviendas
+# Gradient Boosting Regressor: Tasación de viviendas
 
 Gradient Boosting para estimar el precio de viviendas en Madrid, con hiperparámetros elegidos por GridSearchCV, importancia de variables y curva de aprendizaje.
 

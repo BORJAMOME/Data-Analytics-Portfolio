@@ -1,4 +1,4 @@
-# Análisis de ventas — Red de concesionarios
+# Análisis de ventas: Red de concesionarios
 
 **Caso de negocio:** una red de 50 concesionarios del Grupo Volkswagen quiere saber quiénes
 son sus mejores vendedores, cómo rinde cada marca, cómo evolucionan las ventas mes a mes y

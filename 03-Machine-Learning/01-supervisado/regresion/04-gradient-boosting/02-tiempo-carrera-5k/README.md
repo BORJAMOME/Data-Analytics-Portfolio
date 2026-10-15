@@ -1,4 +1,4 @@
-# Gradient Boosting — Tiempo de carrera de 5K
+# Gradient Boosting: Tiempo de carrera de 5K
 
 Predigo el tiempo en una carrera popular de 5K a partir de los kilómetros de entrenamiento, las pulsaciones en reposo y el tipo de entrenamiento.
 
