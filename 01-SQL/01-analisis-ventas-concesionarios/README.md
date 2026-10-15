@@ -1,25 +1,19 @@
-# Análisis de ventas: Red de concesionarios
+# Análisis de ventas de una red de concesionarios con SQL
 
-**Caso de negocio:** una red de 50 concesionarios del Grupo Volkswagen quiere saber quiénes
-son sus mejores vendedores, cómo rinde cada marca, cómo evolucionan las ventas mes a mes y
-cómo se reparten los concesionarios por facturación.
+Proyecto de análisis de ventas de una red ficticia de 50 concesionarios en España, con 500 transacciones registradas entre enero y junio de 2025.
 
-## Qué se aprende
+Mediante **SQL Server**, analizo la facturación, los modelos más vendidos y el rendimiento de los concesionarios. Para ello, utilizo consultas SQL, CTEs, subconsultas y funciones de ventana como `LAG()`, `RANK()` y `PERCENT_RANK()`.
 
-- CTEs simples y encadenadas para separar los cálculos intermedios.
-- Subqueries escalares y correlacionadas para comparar cada fila con la media de su grupo.
-- `LAG()` para calcular la variación mensual de ventas.
-- `PERCENTILE_CONT` y `PERCENT_RANK` para análisis de distribución.
-- `RANK()` para rankings de concesionarios por facturación.
-- Resolver el mismo problema de dos formas cuando hay más de un camino razonable.
+### Principales hallazgos
 
-## Qué incluye
+- **Rendimiento comercial:** identificación de los concesionarios con mejores resultados y comparación de sus ventas con la media de la red.
+- **Modelos más vendidos:** análisis de las unidades vendidas y de los modelos que más facturación generan.
+- **Evolución mensual:** comparación de las ventas entre meses para detectar aumentos y descensos.
+- **Diferencias entre concesionarios:** identificación de los puntos de venta con ingresos por encima del percentil 75.
 
-Todo está en un solo archivo: el CREATE DATABASE, tres tablas con datos realistas
-(50 concesionarios, 50 vehículos y 500 ventas) y 10 ejercicios resueltos de dos maneras.
-Se ejecuta tal cual en cualquier SQL Server, sin nada más que instalar.
+### Tecnologías y técnicas
 
-## Archivos
-
-- `analisis_concesionarios.sql`: base de datos y 10 ejercicios resueltos
-  con varios enfoques (CTEs, subqueries, LAG, PERCENTILE_CONT)
+- SQL Server (T-SQL)
+- CTEs y subconsultas
+- Windows Functions: `LAG()`, `RANK()` y `PERCENT_RANK()`
+- Agregaciones, rankings y percentiles

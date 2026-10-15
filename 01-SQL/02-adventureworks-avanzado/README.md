@@ -1,27 +1,20 @@
-# AdventureWorks Avanzado: Window Functions
+# Análisis avanzado con Window Functions en SQL
 
-**Caso de negocio:** AdventureWorks, una empresa de fabricación y distribución, quiere
-entender cómo compran sus clientes, ordenar sus productos por precio, llevar acumulados de
-ventas y encontrar a los 10 clientes que más han crecido de un año a otro.
+Proyecto basado en la base de datos AdventureWorks para practicar consultas SQL aplicadas al análisis de datos. El objetivo es analizar el comportamiento de los clientes, comparar productos y calcular la evolución de las ventas.
 
-## Qué se aprende
+### Qué incluye
 
-- Window Functions completas: `ROW_NUMBER`, `RANK`, `DENSE_RANK`, `NTILE`.
-- Agregaciones con ventana: `SUM() OVER`, `AVG() OVER`, `COUNT() OVER`.
-- `PARTITION BY` para segmentar cálculos por cliente, cargo o subcategoría.
-- Sumas acumuladas con `ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`.
-- `LAG()` y `LEAD()` para comparar filas consecutivas.
-- CTE + `LAG()` para calcular crecimiento interanual (YoY) de clientes.
-- Ejercicio tipo entrevista técnica: ranking de clientes por crecimiento promedio.
+- **Ranking de datos:** clasificación de productos y clientes con `ROW_NUMBER()`, `RANK()` y `DENSE_RANK()`.
+- **Agregaciones:** cálculo de sumas, medias y recuentos con funciones de ventana.
+- **Ventas acumuladas:** seguimiento de los totales a lo largo del tiempo.
+- **Comparación de resultados:** uso de `LAG()` y `LEAD()` para comparar registros.
+- **Crecimiento interanual:** análisis de la evolución de las ventas por cliente mediante CTEs y `LAG()`.
 
-## Qué incluye
+### Tecnologías y técnicas
 
-Dos partes. La primera son 11 ejercicios de Window Functions que van de agregaciones básicas
-a sumas acumuladas. La segunda es un examen tipo entrevista: encadenar CTE, LAG, agregación
-y TOP para sacar el ranking de clientes por crecimiento.
-
-## Archivos
-
-- `adventureworks_avanzado.sql`: 11 ejercicios de Window Functions y el examen
-  con CTE y LAG (crecimiento YoY)
+- SQL Server (T-SQL)
+- Windows Functions
+- CTEs y subconsultas
+- Agregaciones y sumas acumuladas
+- Comparativas interanuales (YoY)
 

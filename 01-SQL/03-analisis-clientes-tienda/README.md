@@ -1,31 +1,22 @@
-# Análisis de clientes: Tienda de alimentación
+# Análisis de clientes y ventas para supermercado con SQL
 
-**Caso de negocio:** una tienda de alimentación tiene sus clientes, productos, categorías y
-proveedores en una base de datos y quiere sacarle partido: segmentar clientes, clasificar
-productos, ver patrones de compra y hacer rankings por ciudad, categoría y proveedor.
+Proyecto de análisis de datos de una tienda de alimentación para estudiar el comportamiento de los clientes, las ventas de productos y el rendimiento por categoría, ciudad y proveedor.
 
-## Qué se aprende
+Mediante **SQL Server**, desarrollo 40 ejercicios que combinan consultas SQL y técnicas de análisis para segmentar clientes, comparar resultados y detectar patrones de compra.
 
-- `LEFT JOIN` para detectar clientes sin pedidos, productos sin ventas y proveedores sin catálogo.
-- Subqueries escalares, `IN` / `NOT IN` y subqueries correlacionadas para comparar cada fila
-  contra la media de su grupo.
-- `CASE` para crear clasificaciones de negocio (barato/medio/caro, VIP/normal, frecuente/ocasional).
-- CTEs para aislar cálculos intermedios (gasto total, ventas por ciudad, media por cliente).
-- Window Functions: `RANK`, `DENSE_RANK`, `ROW_NUMBER`, `NTILE`, `LAG`, `LEAD`.
-- `PARTITION BY` para rankings dentro de ciudad, categoría y cliente.
-- Sumas acumuladas con `OVER (ORDER BY)`.
-- Combinaciones avanzadas: CTE + ranking, subquery + HAVING, CASE + agregación.
-- Casos reales: top 3 clientes por ciudad, producto más vendido por categoría, dashboard SQL.
+### Qué incluye
 
-## Qué incluye
+- **Análisis de clientes:** identificación de clientes sin pedidos, clasificación por gasto y comparación de sus compras.
+- **Análisis de productos:** clasificación por precio, detección de productos sin ventas e identificación de los más vendidos por categoría.
+- **Rendimiento comercial:** comparación de ventas e ingresos por ciudad, categoría y proveedor.
+- **Rankings y comparativas:** clasificación de clientes y productos, tanto a nivel global como dentro de cada grupo.
+- **Evolución de las compras:** cálculo de ventas acumuladas y comparación del gasto entre pedidos consecutivos.
+- **Métricas de negocio:** cálculo del número de pedidos, gasto total y ticket medio por cliente, como base para un dashboard.
 
-Los ejercicios empiezan por LEFT JOIN sencillos y acaban en casos analíticos de verdad:
-top N por partición, evolución temporal y un pequeño dashboard en SQL. Viene bien para
-repasar antes de una entrevista técnica.
+### Tecnologías y técnicas
 
-## Archivos
-
-- `analisis_tienda.sql`: 40 ejercicios en 8 bloques de dificultad creciente
-  (LEFT JOIN → Subqueries → CASE → CTEs → Window Functions → Casos reales)
-
-**Stack:** T-SQL · SQL Server Management Studio (SSMS)
+- SQL Server (T-SQL)
+- `JOIN`, subconsultas y CTEs
+- `CASE` para clasificaciones de negocio
+- Windows Functions: `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`, `NTILE()` y `LAG()`
+- `PARTITION BY`, agregaciones y sumas acumuladas
