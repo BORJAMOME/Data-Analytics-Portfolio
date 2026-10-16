@@ -1,7 +1,6 @@
 # Data Analytics Portfolio
 
-Proyectos de datos que he hecho durante el bootcamp de Data Analytics: SQL, Python, Machine Learning e Inteligencia Artificial, siempre sobre un caso de negocio concreto.
-
+Proyectos que he desarrollado durante mi formación como analista de datos, aplicando SQL, Python, Machine Learning e Inteligencia Artificial a casos prácticos de negocio.
 ---
 
 ## Estructura del portfolio
