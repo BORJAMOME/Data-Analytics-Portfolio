@@ -5,8 +5,16 @@
 -- concesionarios de automoción en España. 50 modelos de vehículos,
 -- 500 transacciones de venta.
 --
--- Técnicas: CTEs, subqueries correlacionadas, LAG, PERCENTILE_CONT,
---           PERCENT_RANK, RANK, porcentaje de contribución.
+-- Técnicas: CTEs, subqueries correlacionadas, NOT EXISTS, LAG,
+--           PERCENTILE_CONT, PERCENT_RANK, RANK, ROW_NUMBER, porcentaje de
+--           contribución.
+--
+-- Datos: sintéticos (ficticios), generados para el ejercicio. La
+-- facturación se calcula como precio de catálogo × unidades: no hay
+-- descuentos ni precio real de venta.
+--
+-- Ejecución: SQL Server 2019 o superior. Ejecutar el script completo
+-- (sqlcmd o SSMS); los bloques están separados por GO.
 --
 -- Autor: Borja Mora Méndez
 -- Stack: T-SQL · SQL Server
@@ -17,7 +25,8 @@
 -- 1. CREACIÓN DE LA BASE DE DATOS
 -- ============================================================================
 
-CREATE DATABASE AutomocionDB;
+IF DB_ID('AutomocionDB') IS NULL
+    CREATE DATABASE AutomocionDB;
 GO
 
 USE AutomocionDB;
@@ -27,26 +36,31 @@ GO
 -- ----------------------------------------------------------------------------
 -- 1.1 Estructura de tablas
 -- ----------------------------------------------------------------------------
+-- Se eliminan las tablas si ya existen para poder reejecutar el script.
+DROP TABLE IF EXISTS ventas;
+DROP TABLE IF EXISTS vehiculos;
+DROP TABLE IF EXISTS concesionarios;
+
 CREATE TABLE concesionarios (
-    id_concesionario INT PRIMARY KEY,
-    nombre           VARCHAR(100),
-    ciudad           VARCHAR(50),
-    region           VARCHAR(50)
+    id_concesionario INT          NOT NULL PRIMARY KEY,
+    nombre           VARCHAR(100) NOT NULL,
+    ciudad           VARCHAR(50)  NOT NULL,
+    region           VARCHAR(50)  NOT NULL
 );
 
 CREATE TABLE vehiculos (
-    id_vehiculo INT PRIMARY KEY,
-    modelo      VARCHAR(100),
-    categoria   VARCHAR(30),
-    precio      DECIMAL(12,2)
+    id_vehiculo INT           NOT NULL PRIMARY KEY,
+    modelo      VARCHAR(100)  NOT NULL,
+    categoria   VARCHAR(30)   NOT NULL,
+    precio      DECIMAL(12,2) NOT NULL
 );
 
 CREATE TABLE ventas (
-    id_venta         INT PRIMARY KEY,
-    fecha            DATE,
-    id_concesionario INT,
-    id_vehiculo      INT,
-    cantidad         INT,
+    id_venta         INT  NOT NULL PRIMARY KEY,
+    fecha            DATE NOT NULL,
+    id_concesionario INT  NOT NULL,
+    id_vehiculo      INT  NOT NULL,
+    cantidad         INT  NOT NULL,
     FOREIGN KEY (id_concesionario) REFERENCES concesionarios(id_concesionario),
     FOREIGN KEY (id_vehiculo)      REFERENCES vehiculos(id_vehiculo)
 );
@@ -333,333 +347,398 @@ INSERT INTO ventas (id_venta, fecha, id_concesionario, id_vehiculo, cantidad) VA
 -- ============================================================================
 -- 2. EJERCICIOS RESUELTOS
 -- ============================================================================
+-- Métricas: "unidades" = SUM(cantidad); "facturación" = SUM(precio × cantidad).
+-- Todas las agregaciones agrupan por la clave (id) y muestran el nombre, para
+-- no fusionar dos entidades que se llamen igual.
+-- Bajo cada consulta se indica el resultado obtenido con los datos del script.
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 1: Concesionarios que venden más que la media
--- Obtén los concesionarios cuyo volumen total de vehículos vendidos es
--- superior al promedio de ventas de todos los concesionarios.
+-- Ejercicio 1: Concesionarios que venden más unidades que la media
+-- ¿Qué concesionarios están por encima de la media de la red en unidades?
 -- Técnica: CTE + subquery escalar
 -- ----------------------------------------------------------------------------
 
-WITH volumen_total AS (
+WITH unidades_concesionario AS (
     SELECT
+        c.id_concesionario,
         c.nombre                AS Concesionario,
-        SUM(ve.cantidad)        AS Ventas
+        SUM(ve.cantidad)        AS Unidades
     FROM concesionarios c
     JOIN ventas ve ON c.id_concesionario = ve.id_concesionario
-    GROUP BY c.nombre
+    GROUP BY c.id_concesionario, c.nombre
 )
 SELECT
     Concesionario,
-    Ventas
-FROM volumen_total
-WHERE Ventas > (SELECT AVG(Ventas) FROM volumen_total)
-ORDER BY Ventas DESC;
+    Unidades
+FROM unidades_concesionario
+WHERE Unidades > (SELECT AVG(Unidades * 1.0) FROM unidades_concesionario)
+ORDER BY Unidades DESC;
+-- Resultado: 22 de 50 concesionarios superan la media de 103,1 unidades.
+--            Lidera AutoMalaga con 189.
 
 
 -- ----------------------------------------------------------------------------
 -- Ejercicio 2: Modelo más vendido de toda la compañía
--- Identifica el vehículo con mayor número de unidades vendidas.
--- Técnica: CTE + TOP 1
+-- ¿Qué modelo vende más unidades? WITH TIES conserva los empates.
+-- Técnica: CTE + TOP 1 WITH TIES
 -- ----------------------------------------------------------------------------
-WITH modelo_mas_vendido AS (
+WITH unidades_modelo AS (
     SELECT
+        vh.id_vehiculo,
         vh.modelo           AS Modelo,
-        SUM(ve.cantidad)    AS Total_Unidades_Vendidas
+        SUM(ve.cantidad)    AS Unidades
     FROM vehiculos vh
     JOIN ventas ve ON ve.id_vehiculo = vh.id_vehiculo
-    GROUP BY vh.modelo
+    GROUP BY vh.id_vehiculo, vh.modelo
 )
-SELECT TOP 1
+SELECT TOP 1 WITH TIES
     Modelo,
-    Total_Unidades_Vendidas
-FROM modelo_mas_vendido
-ORDER BY Total_Unidades_Vendidas DESC;
+    Unidades
+FROM unidades_modelo
+ORDER BY Unidades DESC;
+-- Resultado: Audi A7, 202 unidades. El segundo, Cupra Raval, vende 200: están
+--            prácticamente empatados.
 
 
 -- ----------------------------------------------------------------------------
 -- Ejercicio 3: Concesionarios sin ventas de eléctricos
--- Encuentra los concesionarios que nunca han vendido vehículos de categoría
--- "Eléctrico".
--- Técnica: CTE + NOT IN (y versión alternativa con subquery directa)
+-- ¿Qué concesionarios no han vendido ningún vehículo "Eléctrico"?
+-- Técnica: NOT EXISTS. Se evita NOT IN porque, si la subconsulta devolviera
+-- un solo NULL, NOT IN no devolvería ninguna fila y no daría error.
 -- ----------------------------------------------------------------------------
 
--- Enfoque A: con CTE
-WITH ventas_electricos AS (
-    SELECT DISTINCT ve.id_concesionario
-    FROM ventas ve
-    JOIN vehiculos vh ON ve.id_vehiculo = vh.id_vehiculo
-    WHERE vh.categoria = 'Eléctrico'
-)SELECT
-    c.nombre AS Concesionario
-FROM concesionarios c
-WHERE c.id_concesionario NOT IN (SELECT id_concesionario FROM ventas_electricos)
-ORDER BY c.nombre;
-
--- Enfoque B: subquery directa (más compacto)
 SELECT
     c.nombre AS Concesionario
 FROM concesionarios c
-WHERE c.id_concesionario NOT IN (
-    SELECT ve.id_concesionario
+WHERE NOT EXISTS (
+    SELECT 1
     FROM ventas ve
     JOIN vehiculos vh ON ve.id_vehiculo = vh.id_vehiculo
-    WHERE vh.categoria = 'Eléctrico'
+    WHERE ve.id_concesionario = c.id_concesionario
+      AND vh.categoria = 'Eléctrico'
 )
 ORDER BY c.nombre;
+-- Resultado: 6 concesionarios: AutoValencia, AutoZaragoza, DriveCenter Vigo,
+--            DriveCenter Zaragoza, MotorValencia y PremiumCars Valencia.
 
 
 -- ----------------------------------------------------------------------------
 -- Ejercicio 4: Top 5 vehículos por facturación
--- Calcula la facturación total por modelo y devuelve los 5 primeros.
--- Técnica: CTE + TOP 5
+-- Técnica: CTE + TOP 5 WITH TIES
 -- ----------------------------------------------------------------------------
 
 WITH facturacion AS (
     SELECT
+        vh.id_vehiculo,
         vh.modelo                       AS Modelo,
-        SUM(vh.precio * ve.cantidad)    AS Total_Ventas    FROM vehiculos vh
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
+    FROM vehiculos vh
     JOIN ventas ve ON vh.id_vehiculo = ve.id_vehiculo
-    GROUP BY vh.modelo
+    GROUP BY vh.id_vehiculo, vh.modelo
 )
-SELECT TOP 5
+SELECT TOP 5 WITH TIES
     Modelo,
-    Total_Ventas
+    Facturacion
 FROM facturacion
-ORDER BY Total_Ventas DESC;
+ORDER BY Facturacion DESC;
+-- Resultado: los 5 primeros son Audi (A7, Q8, RS5, A6 y e-tron GT). El A7
+--            factura 15,76 M€, un 6,8 % del total de la red (232,9 M€).
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 5: Vehículos con ventas superiores a la media de su categoría
--- Técnica: CTEs encadenadas + JOIN (y versión alternativa con subquery
---          correlacionada)
+-- Ejercicio 5: Modelos con facturación superior a la media de su categoría
+-- Las dos versiones miden lo mismo (facturación) y devuelven las mismas filas.
+-- Técnica: CTEs encadenadas + JOIN frente a subquery correlacionada
 -- ----------------------------------------------------------------------------
 
 -- Enfoque A: dos CTEs encadenadas
-WITH ventas_por_modelo AS (
+WITH facturacion_modelo AS (
     SELECT
-        vh.modelo       AS Modelo,
-        vh.categoria    AS Categoria,
-        SUM(vh.precio * ve.cantidad) AS Ventas
+        vh.id_vehiculo,
+        vh.modelo                       AS Modelo,
+        vh.categoria                    AS Categoria,
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
     FROM ventas ve
     JOIN vehiculos vh ON ve.id_vehiculo = vh.id_vehiculo
-    GROUP BY vh.modelo, vh.categoria
-),
-media_por_categoria AS (
-    SELECT        Categoria,
-        AVG(Ventas) AS Media
-    FROM ventas_por_modelo
-    GROUP BY Categoria
-)
-SELECT
-    vpm.Modelo,
-    vpm.Categoria,
-    vpm.Ventas
-FROM ventas_por_modelo vpm
-JOIN media_por_categoria mpc ON vpm.Categoria = mpc.Categoria
-WHERE vpm.Ventas > mpc.Media
-ORDER BY vpm.Categoria, vpm.Ventas DESC;
-
--- Enfoque B: CTE + subquery correlacionada
-WITH ventas_modelo AS (
-    SELECT
-        vh.modelo       AS modelo,
-        vh.categoria    AS categoria,
-        SUM(v.cantidad) AS total_vendido
-    FROM vehiculos vh
-    JOIN ventas v ON vh.id_vehiculo = v.id_vehiculo
-    GROUP BY vh.modelo, vh.categoria
+    GROUP BY vh.id_vehiculo, vh.modelo, vh.categoria
 ),
 media_categoria AS (
     SELECT
-        categoria,
-        AVG(total_vendido) AS media_categoria
-    FROM ventas_modelo    GROUP BY categoria
+        Categoria,
+        AVG(Facturacion) AS Media
+    FROM facturacion_modelo
+    GROUP BY Categoria
 )
-SELECT vm.*
-FROM ventas_modelo vm
-JOIN media_categoria mc ON vm.categoria = mc.categoria
-WHERE vm.total_vendido > mc.media_categoria;
+SELECT
+    fm.Modelo,
+    fm.Categoria,
+    fm.Facturacion
+FROM facturacion_modelo fm
+JOIN media_categoria mc ON fm.Categoria = mc.Categoria
+WHERE fm.Facturacion > mc.Media
+ORDER BY fm.Categoria, fm.Facturacion DESC;
+
+-- Enfoque B: subquery correlacionada (la media se calcula para la
+-- categoría de cada fila exterior)
+WITH facturacion_modelo AS (
+    SELECT
+        vh.id_vehiculo,
+        vh.modelo                       AS Modelo,
+        vh.categoria                    AS Categoria,
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
+    FROM ventas ve
+    JOIN vehiculos vh ON ve.id_vehiculo = vh.id_vehiculo
+    GROUP BY vh.id_vehiculo, vh.modelo, vh.categoria
+)
+SELECT
+    fm.Modelo,
+    fm.Categoria,
+    fm.Facturacion
+FROM facturacion_modelo fm
+WHERE fm.Facturacion > (
+    SELECT AVG(fm2.Facturacion)
+    FROM facturacion_modelo fm2
+    WHERE fm2.Categoria = fm.Categoria
+)
+ORDER BY fm.Categoria, fm.Facturacion DESC;
+-- Resultado: ambos enfoques devuelven los mismos 19 modelos.
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 6: Concesionarios que venden todas las categorías
--- Encuentra los concesionarios que han vendido al menos un vehículo de cada
--- categoría existente.
+-- Ejercicio 6: Cobertura de categorías por concesionario
+-- ¿Algún concesionario vende todas las categorías? ¿Cuántas cubre cada uno?
 -- Técnica: HAVING COUNT(DISTINCT) = subquery escalar
 -- ----------------------------------------------------------------------------
 
+-- 6.a Concesionarios que han vendido todas las categorías
 SELECT
     c.nombre AS Concesionario
 FROM concesionarios c
-JOIN ventas v    ON c.id_concesionario = v.id_concesionario
+JOIN ventas v     ON c.id_concesionario = v.id_concesionario
 JOIN vehiculos vh ON v.id_vehiculo = vh.id_vehiculo
-GROUP BY c.nombre
+GROUP BY c.id_concesionario, c.nombre
 HAVING COUNT(DISTINCT vh.categoria) = (SELECT COUNT(DISTINCT categoria) FROM vehiculos);
+-- Resultado: 0 filas. Hay 12 categorías y ninguno las vende todas.
+
+-- 6.b Categorías cubiertas por cada concesionario
+SELECT
+    c.nombre                                                    AS Concesionario,
+    COUNT(DISTINCT vh.categoria)                                AS Categorias_Vendidas,
+    (SELECT COUNT(DISTINCT categoria) FROM vehiculos)
+        - COUNT(DISTINCT vh.categoria)                          AS Categorias_Sin_Venta
+FROM concesionarios c
+JOIN ventas v     ON c.id_concesionario = v.id_concesionario
+JOIN vehiculos vh ON v.id_vehiculo = vh.id_vehiculo
+GROUP BY c.id_concesionario, c.nombre
+ORDER BY Categorias_Vendidas DESC, Concesionario;
+-- Resultado: el máximo es PremiumCars Gijon con 10 de 12; la media es 6,4
+--            categorías por concesionario y los que menos cubren llegan a 3.
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 7: Porcentaje de contribución de cada concesionario
--- Calcula qué porcentaje del total de unidades vendidas aporta cada
--- concesionario.
--- Técnica: CTE + subquery escalar para el denominador-- ----------------------------------------------------------------------------
+-- Ejercicio 7: Peso de cada concesionario en las unidades de la red
+-- Técnica: CTE + SUM() OVER () como denominador
+-- ----------------------------------------------------------------------------
 
--- Enfoque A: con CTE
-WITH contribucion AS (
+WITH unidades_concesionario AS (
     SELECT
+        c.id_concesionario,
         c.nombre            AS Concesionario,
-        SUM(ve.cantidad)    AS Ventas
+        SUM(ve.cantidad)    AS Unidades
     FROM concesionarios c
     JOIN ventas ve ON c.id_concesionario = ve.id_concesionario
-    GROUP BY c.nombre
+    GROUP BY c.id_concesionario, c.nombre
 )
 SELECT
     Concesionario,
-    Ventas,
-    ROUND(Ventas * 100.0 / (SELECT SUM(Ventas) FROM contribucion), 2) AS Porcentaje
-FROM contribucion
-ORDER BY Porcentaje DESC;
-
--- Enfoque B: sin CTE (subquery directa)
-SELECT
-    c.nombre                AS nombre,
-    SUM(v.cantidad)         AS total_vendido,
-    ROUND(
-        SUM(v.cantidad) * 100.0 / (SELECT SUM(cantidad) FROM ventas),
-        2
-    )                       AS porcentaje
-FROM concesionarios c
-JOIN ventas v ON c.id_concesionario = v.id_concesionario
-GROUP BY c.nombre
-ORDER BY porcentaje DESC;
+    Unidades,
+    CAST(Unidades * 100.0 / SUM(Unidades) OVER () AS DECIMAL(5,2)) AS Pct_Unidades
+FROM unidades_concesionario
+ORDER BY Pct_Unidades DESC;
+-- Resultado: el que más pesa (AutoMalaga) aporta el 3,66 % de las unidades y el
+--            que menos (AutoPlus Murcia), el 0,83 %.
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 8: Crecimiento mensual de ventas
--- Mostrar las ventas mensuales y la diferencia respecto al mes anterior.
--- Técnica: LAG() OVER (ORDER BY)
+-- Ejercicio 8: Evolución mensual de unidades vendidas
+-- Variación absoluta y porcentual respecto al mes anterior. La clave del mes
+-- es una fecha (año + mes), así que no mezcla meses de años distintos.
+-- Técnica: CTE + LAG() OVER (ORDER BY)
 -- ----------------------------------------------------------------------------
 
--- Enfoque A: agrupación por número de mes
-SELECT
-    MONTH(fecha)                                                AS Mes,
-    SUM(ve.cantidad)                                            AS Ventas_Mes,
-    LAG(SUM(ve.cantidad)) OVER (ORDER BY MONTH(fecha))          AS Mes_Anterior,
-    SUM(ve.cantidad) - LAG(SUM(ve.cantidad)) OVER (ORDER BY MONTH(fecha)) AS Diferencia
-FROM ventas ve
-GROUP BY MONTH(fecha)
-ORDER BY Mes;
-
--- Enfoque B: con CTE y FORMAT para clave yyyy-MM
-WITH ventas_mes AS (
+WITH unidades_mes AS (
     SELECT
-        FORMAT(fecha, 'yyyy-MM')    AS mes,
-        SUM(cantidad)               AS total
+        DATEFROMPARTS(YEAR(fecha), MONTH(fecha), 1)    AS Mes,
+        SUM(cantidad)                                   AS Unidades
     FROM ventas
-    GROUP BY FORMAT(fecha, 'yyyy-MM')
+    GROUP BY DATEFROMPARTS(YEAR(fecha), MONTH(fecha), 1)
+),
+comparativa AS (
+    SELECT
+        Mes,
+        Unidades,
+        LAG(Unidades) OVER (ORDER BY Mes) AS Unidades_Mes_Anterior
+    FROM unidades_mes
 )
 SELECT
-    mes,    total,
-    total - LAG(total) OVER (ORDER BY mes) AS diferencia_mes_anterior
-FROM ventas_mes;
+    Mes,
+    Unidades,
+    Unidades_Mes_Anterior,
+    Unidades - Unidades_Mes_Anterior                    AS Variacion,
+    CAST((Unidades - Unidades_Mes_Anterior) * 100.0
+         / NULLIF(Unidades_Mes_Anterior, 0) AS DECIMAL(6,2)) AS Variacion_Pct
+FROM comparativa
+ORDER BY Mes;
+-- Resultado: crecimiento de enero a abril (de 775 a 969 unidades), caída en
+--            mayo (-22,8 %) y recuperación en junio (+26,2 %).
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 9: Concesionarios con ingresos superiores al percentil 75
--- Obtén los concesionarios cuyo ingreso total está por encima del 75% de la
--- distribución.
--- Técnica: PERCENTILE_CONT + PERCENT_RANK
+-- Ejercicio 9: Concesionarios con facturación superior al percentil 75
+-- Técnica: PERCENTILE_CONT frente a PERCENT_RANK
+-- Las dos funciones no son equivalentes: PERCENTILE_CONT devuelve un VALOR
+-- interpolado (el umbral en euros) y PERCENT_RANK devuelve la POSICIÓN
+-- relativa de cada fila, entre 0 y 1. Con otros datos o con empates en el
+-- umbral pueden devolver filas distintas.
 -- ----------------------------------------------------------------------------
 
--- Enfoque A: PERCENTILE_CONT
-WITH ingresos AS (
+-- Enfoque A: umbral en euros con PERCENTILE_CONT
+WITH facturacion AS (
     SELECT
+        c.id_concesionario,
         c.nombre                        AS Concesionario,
-        SUM(vh.precio * ve.cantidad)    AS Ingresos
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
     FROM concesionarios c
-    JOIN ventas ve  ON c.id_concesionario = ve.id_concesionario
+    JOIN ventas ve    ON c.id_concesionario = ve.id_concesionario
     JOIN vehiculos vh ON ve.id_vehiculo  = vh.id_vehiculo
-    GROUP BY c.nombre
+    GROUP BY c.id_concesionario, c.nombre
 ),
-percentil AS (
+umbral AS (
     SELECT
         Concesionario,
-        Ingresos,
-        PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY Ingresos) OVER () AS Percentil_75
-    FROM ingresos
-)SELECT
-    Concesionario,
-    Ingresos
-FROM percentil
-WHERE Ingresos > Percentil_75
-ORDER BY Ingresos DESC;
-
--- Enfoque B: PERCENT_RANK
-WITH ingresos AS (
-    SELECT
-        c.nombre                        AS nombre,
-        SUM(v.cantidad * vh.precio)     AS ingresos
-    FROM concesionarios c
-    JOIN ventas v   ON c.id_concesionario = v.id_concesionario
-    JOIN vehiculos vh ON v.id_vehiculo = vh.id_vehiculo
-    GROUP BY c.nombre
-),
-ranking AS (
-    SELECT
-        nombre,
-        ingresos,
-        PERCENT_RANK() OVER (ORDER BY ingresos) AS pct
-    FROM ingresos
+        Facturacion,
+        PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY Facturacion) OVER () AS P75
+    FROM facturacion
 )
 SELECT
-    nombre,
-    ingresos,
-    CAST(pct * 100 AS DECIMAL(5,2)) AS pct
-FROM ranking
-WHERE pct >= 0.75;
+    Concesionario,
+    Facturacion,
+    P75
+FROM umbral
+WHERE Facturacion > P75
+ORDER BY Facturacion DESC;
+
+-- Enfoque B: posición relativa con PERCENT_RANK
+WITH facturacion AS (
+    SELECT
+        c.id_concesionario,
+        c.nombre                        AS Concesionario,
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
+    FROM concesionarios c
+    JOIN ventas ve    ON c.id_concesionario = ve.id_concesionario
+    JOIN vehiculos vh ON ve.id_vehiculo  = vh.id_vehiculo
+    GROUP BY c.id_concesionario, c.nombre
+),
+posicion AS (
+    SELECT
+        Concesionario,
+        Facturacion,
+        PERCENT_RANK() OVER (ORDER BY Facturacion) AS Pct_Rank
+    FROM facturacion
+)
+SELECT
+    Concesionario,
+    Facturacion,
+    CAST(Pct_Rank * 100 AS DECIMAL(5,2)) AS Posicion_Percentil
+FROM posicion
+WHERE Pct_Rank > 0.75
+ORDER BY Facturacion DESC;
+-- Resultado: P75 = 5,35 M€. Ambos enfoques devuelven los mismos 13
+--            concesionarios.
 
 
 -- ----------------------------------------------------------------------------
--- Ejercicio 10: Ranking de concesionarios por ingresos
+-- Ejercicio 10: Ranking de concesionarios por facturación
 -- Técnica: CTE + RANK() OVER (ORDER BY)
 -- ----------------------------------------------------------------------------
 
-WITH ranking_concesionarios AS (
+WITH facturacion AS (
     SELECT
+        c.id_concesionario,
         c.nombre                        AS Concesionario,
-        SUM(vh.precio * ve.cantidad)    AS Ventas
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
     FROM concesionarios c
-    JOIN ventas ve  ON c.id_concesionario = ve.id_concesionario
+    JOIN ventas ve    ON c.id_concesionario = ve.id_concesionario
     JOIN vehiculos vh ON ve.id_vehiculo  = vh.id_vehiculo
-    GROUP BY c.nombre
+    GROUP BY c.id_concesionario, c.nombre
 )
 SELECT
     Concesionario,
-    Ventas,
-    RANK() OVER (ORDER BY Ventas DESC) AS Ranking
-FROM ranking_concesionarios
+    Facturacion,
+    RANK() OVER (ORDER BY Facturacion DESC) AS Ranking
+FROM facturacion
 ORDER BY Ranking;
+-- Resultado: PremiumCars Gijon lidera con 8,07 M€; AutoPlus Murcia cierra con
+--            1,75 M€ (4,6 veces menos).
+
+
+-- ----------------------------------------------------------------------------
+-- Ejercicio 11: Concentración de la facturación en los 3 primeros
+-- ¿Depende la red de unos pocos concesionarios? Se compara el peso del top 3
+-- con el reparto homogéneo (3 de 50 = 6 %).
+-- Técnica: CTE + ROW_NUMBER + SUM() OVER ()
+-- ----------------------------------------------------------------------------
+
+WITH facturacion AS (
+    SELECT
+        c.id_concesionario,
+        SUM(vh.precio * ve.cantidad)    AS Facturacion
+    FROM concesionarios c
+    JOIN ventas ve    ON c.id_concesionario = ve.id_concesionario
+    JOIN vehiculos vh ON ve.id_vehiculo  = vh.id_vehiculo
+    GROUP BY c.id_concesionario
+),
+orden AS (
+    SELECT
+        Facturacion,
+        ROW_NUMBER() OVER (ORDER BY Facturacion DESC, id_concesionario) AS Posicion,
+        SUM(Facturacion) OVER ()                                         AS Total_Red,
+        COUNT(*) OVER ()                                                 AS N_Concesionarios
+    FROM facturacion
+)
+SELECT
+    CAST(SUM(Facturacion) * 100.0 / MAX(Total_Red) AS DECIMAL(5,2))   AS Pct_Top3,
+    CAST(3 * 100.0 / MAX(N_Concesionarios) AS DECIMAL(5,2))           AS Pct_Reparto_Homogeneo
+FROM orden
+WHERE Posicion <= 3;
+-- Resultado: el top 3 concentra el 9,95 % de la facturación, frente al 6 % de
+--            un reparto homogéneo.
 
 -- ============================================================================
 -- INSIGHTS DE NEGOCIO
 -- ============================================================================
--- 1. Concentración de ingresos: con 50 concesionarios en la red, los 3 con
---    mayor volumen de ventas generan cerca de un 10 % de la facturación
---    total - una red razonablemente diversificada, sin dependencia crítica
---    de un puñado de puntos de venta. El benchmark útil aquí no es la
---    concentración (no la hay) sino el percentil 75 (ej. 9): identificar
---    qué concesionarios están por debajo del cuartil superior para
---    asignarles un plan de acción diferenciado.
+-- Datos sintéticos: las cifras sirven para ilustrar el método, no describen
+-- una red real.
 --
--- 2. Estacionalidad por marca: al cruzar marca y trimestre (ej. 7-8) se
---    observan picos de venta concentrados, lo que permite planificar stock
---    y campañas promocionales con antelación.
+-- 1. Red diversificada (ej. 10-11): el top 3 concentra el 9,95 % de la
+--    facturación, frente al 6 % de un reparto homogéneo. No hay dependencia
+--    crítica de unos pocos puntos de venta, pero sí mucha dispersión: el
+--    primero (PremiumCars Gijon, 8,07 M€) factura 4,6 veces más que el
+--    último (AutoPlus Murcia, 1,75 M€).
 --
--- 3. Percentil 75 de ventas (ej. 9): el umbral del cuartil superior sirve
---    como benchmark para fijar objetivos de venta realistas: cualquier
---    concesionario por debajo debe recibir un plan de acción diferenciado.
+-- 2. Objetivo de referencia (ej. 9): el percentil 75 de facturación es de
+--    5,35 M€ y lo superan 13 de 50 concesionarios. Es un umbral útil para
+--    fijar objetivos al resto. Unidades y facturación no ordenan igual:
+--    AutoMalaga es 1.º en unidades (ej. 1) y 4.º en facturación (ej. 10),
+--    así que el objetivo debe fijarse sobre la métrica que se quiera mover.
 --
--- 4. Evolución mensual con LAG (ej. 8): detectar meses consecutivos de
---    caída permite activar alertas tempranas antes de que la tendencia
---    se consolide.
+-- 3. Caída puntual en mayo (ej. 8): las unidades bajan un 22,8 % respecto a
+--    abril y se recuperan un 26,2 % en junio. Con solo 6 meses de datos no
+--    se puede hablar de estacionalidad; habría que ver si se repite en
+--    otros años antes de planificar stock en función de ello.
+--
+-- 4. Cobertura de catálogo (ej. 3 y 6): ningún concesionario vende las 12
+--    categorías (media de 6,4) y 6 no han vendido ningún eléctrico. Antes
+--    de leerlo como oportunidad comercial habría que comprobar si esos
+--    puntos de venta tienen esos modelos en exposición.
 -- ============================================================================

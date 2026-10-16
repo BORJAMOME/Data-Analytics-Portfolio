@@ -15,6 +15,6 @@ Trabajo con distintos conjuntos de datos y casos prácticos para estudiar ventas
 - **Consulta y combinación de datos:** `SELECT`, `WHERE`, `JOIN` y `GROUP BY`.
 - **Agregaciones y métricas:** `SUM()`, `AVG()`, `COUNT()`, `HAVING` y cálculos de negocio.
 - **Subconsultas y CTEs:** consultas anidadas y organización de cálculos intermedios.
-- **Windows Functions:** `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`, `LAG()` y `LEAD()`.
+- **Window Functions:** `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`, `NTILE()`, `LAG()` y `LEAD()`.
 - **Análisis comparativo:** rankings, segmentación por grupos, percentiles y cálculos acumulados.
 - **Lógica de negocio:** `CASE` para crear clasificaciones y categorías a partir de los datos.
